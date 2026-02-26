@@ -1,0 +1,55 @@
+{
+  "extractedAt": "2026-02-09T14:25:05.641Z",
+  "lastUpdated": "2026-02-15",
+  "organizations": 5,
+  "totalConcepts": 4949,
+  "totalForms": 280,
+  "totalRuleTemplates": 132,
+  "conceptsByType": {
+    "NA": 2558,
+    "Coded": 1287,
+    "Text": 496,
+    "Numeric": 442,
+    "Location": 4,
+    "Id": 5,
+    "Date": 76,
+    "QuestionGroup": 31,
+    "Notes": 8,
+    "Subject": 19,
+    "ImageV2": 2,
+    "Image": 6,
+    "DateTime": 1,
+    "Duration": 1,
+    "Video": 1,
+    "File": 8,
+    "Audio": 1,
+    "GroupAffiliation": 2,
+    "PhoneNumber": 1
+  },
+  "formsByType": {
+    "ProgramEncounterCancellation": 59,
+    "ProgramEncounter": 58,
+    "IndividualProfile": 32,
+    "Encounter": 43,
+    "IndividualEncounterCancellation": 42,
+    "ChecklistItem": 2,
+    "ProgramEnrolment": 21,
+    "ProgramExit": 21,
+    "Location": 2
+  },
+  "commonAnswers": 143,
+  "learningDocuments": {
+    "bundleGenerationGuide": "bundle_generation_guide.json",
+    "caseStudies": [
+      "case_studies/astitva_implementation.json"
+    ]
+  },
+  "generatedBundles": [
+    {
+      "name": "Astitva",
+      "generatedAt": "2026-02-15",
+      "status": "verified",
+      "outputPath": "output/Astitva"
+    }
+  ]
+}

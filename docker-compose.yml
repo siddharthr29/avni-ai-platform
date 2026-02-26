@@ -1,0 +1,42 @@
+version: "3.9"
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: avni-ai-backend
+    ports:
+      - "8080:8080"
+    environment:
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - AVNI_BASE_URL=${AVNI_BASE_URL:-https://staging.avniproject.org}
+      - AVNI_AUTH_TOKEN=${AVNI_AUTH_TOKEN}
+      - CLAUDE_MODEL=${CLAUDE_MODEL:-claude-sonnet-4-20250514}
+      - BUNDLE_OUTPUT_DIR=/tmp/avni_bundles
+      - MAX_TOKENS=${MAX_TOKENS:-4096}
+    volumes:
+      - ./backend:/app
+      - bundle_output:/tmp/avni_bundles
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: avni-ai-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  bundle_output:

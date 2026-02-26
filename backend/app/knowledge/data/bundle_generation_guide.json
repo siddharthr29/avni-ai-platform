@@ -1,0 +1,332 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2026-02-15",
+  "learnedFrom": "Astitva Implementation",
+
+  "overview": {
+    "description": "Comprehensive guide for generating AVNI implementation bundles from SRS documents, Modelling Excel, Forms Excel, and Location PDF",
+    "bundleComponents": [
+      "subjectTypes.json",
+      "programs.json",
+      "encounterTypes.json",
+      "concepts.json",
+      "forms/*.json",
+      "formMappings.json",
+      "addressLevelTypes.json",
+      "locations.json",
+      "operationalSubjectTypes.json",
+      "operationalPrograms.json",
+      "operationalEncounterTypes.json",
+      "groups.json",
+      "groupPrivilege.json",
+      "organisationConfig.json"
+    ]
+  },
+
+  "sourceDocuments": {
+    "modellingExcel": {
+      "description": "Contains Subject Types, Programs, Encounters, Program Encounters sheets",
+      "criticalSheets": [
+        {
+          "name": "Subject Types",
+          "columns": ["Subject Type Name", "Type (Person/Individual)", "Registration Form Name"],
+          "notes": "Person type is for actual people (beneficiaries), Individual type is for entities (Anganwadi, School)"
+        },
+        {
+          "name": "Programs",
+          "columns": ["Program Name", "Subject Type", "Enrollment Form", "Exit Form"],
+          "notes": "Programs are linked to specific subject types"
+        },
+        {
+          "name": "Encounters",
+          "columns": ["Encounter Name", "Subject Type", "Form Name"],
+          "notes": "General encounters NOT linked to any program"
+        },
+        {
+          "name": "Program Encounters",
+          "columns": ["Program Name", "Encounter Name", "Form Name", "Scheduling Rule"],
+          "notes": "Encounters that occur within a program context"
+        }
+      ],
+      "criticalChecks": [
+        "Verify Subject Type column for each encounter - don't assume based on encounter name",
+        "Cross-reference encounter types with the correct subject type",
+        "Check if 'User' subject type exists for staff-only forms like Leave form"
+      ]
+    },
+
+    "formsExcel": {
+      "description": "Contains detailed form field specifications in multiple sheets",
+      "sheetStructure": {
+        "oneSheetPerForm": true,
+        "columns": ["Field Name", "Data Type", "Mandatory", "Skip Logic", "Answers/Options"]
+      },
+      "criticalChecks": [
+        "Count all fields in each sheet and verify against generated form",
+        "Check for skip logic conditions in dedicated column",
+        "Verify data types match AVNI supported types",
+        "Look for form element groups (sections) within form sheets"
+      ]
+    },
+
+    "locationPDF": {
+      "description": "Contains location hierarchy and all locations",
+      "structure": {
+        "hierarchyLevels": ["District", "Block", "Hamlet"],
+        "format": "Usually tabular with parent-child relationships"
+      },
+      "criticalChecks": [
+        "Count locations at each level",
+        "Verify parent-child relationships",
+        "Check for duplicate names with different parents (e.g., Krishnapudhur in multiple blocks)"
+      ]
+    }
+  },
+
+  "formTypes": {
+    "IndividualProfile": {
+      "description": "Registration form for a subject type",
+      "usage": "One per subject type",
+      "entityInRules": "individual"
+    },
+    "ProgramEnrolment": {
+      "description": "Form filled when enrolling into a program",
+      "usage": "One per program",
+      "entityInRules": "programEnrolment"
+    },
+    "ProgramExit": {
+      "description": "Form filled when exiting a program",
+      "usage": "One per program",
+      "entityInRules": "programEnrolment"
+    },
+    "ProgramEncounter": {
+      "description": "Encounter form within a program",
+      "usage": "Multiple per program",
+      "entityInRules": "programEncounter"
+    },
+    "ProgramEncounterCancellation": {
+      "description": "Cancellation form for program encounters",
+      "usage": "One per schedulable program encounter",
+      "entityInRules": "programEncounter"
+    },
+    "Encounter": {
+      "description": "General encounter not linked to any program",
+      "usage": "Linked directly to subject type",
+      "entityInRules": "encounter"
+    }
+  },
+
+  "dataTypes": {
+    "Coded": {
+      "description": "Single or multi-select from predefined answers",
+      "formElementTypes": ["SingleSelect", "MultiSelect"],
+      "requiresAnswers": true
+    },
+    "Numeric": {
+      "description": "Numeric values",
+      "formElementTypes": ["SingleSelect"],
+      "keyValues": ["lowAbsolute", "highAbsolute", "lowNormal", "highNormal", "unit"]
+    },
+    "Text": {
+      "description": "Free text input",
+      "formElementTypes": ["SingleSelect"]
+    },
+    "Date": {
+      "description": "Date picker",
+      "formElementTypes": ["SingleSelect"],
+      "keyValues": ["durationOptions"]
+    },
+    "DateTime": {
+      "description": "Date and time picker",
+      "formElementTypes": ["SingleSelect"]
+    },
+    "PhoneNumber": {
+      "description": "Phone number with validation",
+      "formElementTypes": ["SingleSelect"]
+    },
+    "Image": {
+      "description": "Image capture/upload",
+      "formElementTypes": ["SingleSelect"]
+    },
+    "Subject": {
+      "description": "Reference to another subject",
+      "formElementTypes": ["Subject"],
+      "keyValues": ["subjectTypeUUID"]
+    },
+    "Location": {
+      "description": "Location picker from hierarchy",
+      "formElementTypes": ["SingleSelect"],
+      "keyValues": ["lowestAddressLevelTypeUUIDs"]
+    }
+  },
+
+  "skipLogicPatterns": {
+    "singleValueCheck": {
+      "description": "Show field when another field has specific value",
+      "template": "'use strict';\n({params, imports}) => {\n  const entity = params.entity;\n  const value = entity.getObservationValue('Field Name');\n  return value === 'Expected Value';\n}",
+      "entityMapping": {
+        "IndividualProfile": "individual",
+        "ProgramEnrolment": "programEnrolment",
+        "ProgramExit": "programEnrolment",
+        "ProgramEncounter": "programEncounter or encounter",
+        "Encounter": "encounter"
+      }
+    },
+    "multipleValueCheck": {
+      "description": "Show field when another field has one of multiple values",
+      "template": "'use strict';\n({params, imports}) => {\n  const entity = params.entity;\n  const value = entity.getObservationValue('Field Name');\n  return value === 'Value1' || value === 'Value2';\n}"
+    },
+    "containsCheck": {
+      "description": "For multi-select fields, check if contains a value",
+      "template": "'use strict';\n({params, imports}) => {\n  const entity = params.entity;\n  const values = entity.getObservationValue('Field Name') || [];\n  return values.includes('Expected Value');\n}"
+    },
+    "numericComparison": {
+      "description": "Show based on numeric comparison",
+      "template": "'use strict';\n({params, imports}) => {\n  const entity = params.entity;\n  const value = entity.getObservationValue('Field Name');\n  return value > 10;\n}"
+    }
+  },
+
+  "commonMistakes": {
+    "subjectTypeMapping": {
+      "description": "Mapping encounter to wrong subject type",
+      "example": "Awareness Register mapped to Anganwadi instead of Beneficiary",
+      "prevention": "Always verify Subject Type column in Modelling Excel Encounters sheet"
+    },
+    "missingFields": {
+      "description": "Not including all fields from Forms Excel",
+      "example": "Indent Register missing Total Distributed and Total Pending fields",
+      "prevention": "Count fields in Forms Excel sheet and verify against generated form"
+    },
+    "missingSkipRules": {
+      "description": "Not implementing skip logic from Forms Excel",
+      "example": "Guardian fields showing for all beneficiary types instead of only School Students and Child",
+      "prevention": "Check Skip Logic column in Forms Excel for each field"
+    },
+    "wrongFormElementType": {
+      "description": "Using SingleSelect for non-coded types",
+      "example": "Date field with type SingleSelect instead of appropriate type",
+      "prevention": "Match form element type to data type (Subject type needs Subject element type)"
+    },
+    "missingKeyValues": {
+      "description": "Not including required keyValues for certain data types",
+      "example": "Location field missing lowestAddressLevelTypeUUIDs, Subject field missing subjectTypeUUID",
+      "prevention": "Check data type requirements and add appropriate keyValues"
+    },
+    "wrongUUIDReferences": {
+      "description": "Referencing non-existent UUIDs",
+      "example": "Address field referencing wrong addressLevelType UUID",
+      "prevention": "Cross-reference all UUIDs against addressLevelTypes.json, subjectTypes.json etc."
+    }
+  },
+
+  "formMappingRules": {
+    "IndividualProfile": {
+      "requiredFields": ["formUUID", "formName", "formType", "subjectTypeUUID"],
+      "notes": "No program or encounter type needed"
+    },
+    "ProgramEnrolment": {
+      "requiredFields": ["formUUID", "formName", "formType", "subjectTypeUUID", "programUUID"],
+      "notes": "No encounter type needed"
+    },
+    "ProgramExit": {
+      "requiredFields": ["formUUID", "formName", "formType", "subjectTypeUUID", "programUUID"],
+      "notes": "No encounter type needed"
+    },
+    "ProgramEncounter": {
+      "requiredFields": ["formUUID", "formName", "formType", "subjectTypeUUID", "programUUID", "encounterTypeUUID"],
+      "notes": "All three references needed"
+    },
+    "ProgramEncounterCancellation": {
+      "requiredFields": ["formUUID", "formName", "formType", "subjectTypeUUID", "programUUID", "encounterTypeUUID"],
+      "notes": "Same encounter type as the encounter being cancelled"
+    },
+    "Encounter": {
+      "requiredFields": ["formUUID", "formName", "formType", "subjectTypeUUID", "encounterTypeUUID"],
+      "notes": "No program needed - linked directly to subject type"
+    }
+  },
+
+  "uuidPatterns": {
+    "description": "Consistent UUID generation pattern for readability",
+    "patterns": {
+      "subjectTypes": "a1b2c3d4-XXXX-4444-8888-orgprefix00001",
+      "programs": "b2c3d4e5-XXXX-5555-9999-orgprefix00010",
+      "encounterTypes": "c3d4e5f6-XXXX-6666-aaaa-orgprefix00020",
+      "concepts": "d4e5f6a7-XXXX-7777-bbbb-orgprefix00100",
+      "formElementGroups": "g1a2b3c4-XXXX-2222-bbbb-orgprefix00001",
+      "formElements": "e1a2b3c4-XXXX-3333-cccc-orgprefix00001",
+      "forms": "f1a2b3c4-XXXX-1111-aaaa-orgprefix00001",
+      "formMappings": "m1a2b3c4-XXXX-9999-dddd-orgprefix00001",
+      "addressLevelTypes": "e5f6a7b8-XXXX-9999-dddd-orgprefix00300",
+      "locations": "f6a7b8c9-XXXX-aaaa-eeee-orgprefix00400"
+    }
+  },
+
+  "verificationChecklist": {
+    "subjectTypes": [
+      "All subject types from Modelling Excel present",
+      "Correct type (Person vs Individual)",
+      "Proper settings configured"
+    ],
+    "programs": [
+      "All programs from Modelling Excel present",
+      "Linked to correct subject type"
+    ],
+    "encounterTypes": [
+      "All encounters and program encounters present",
+      "Named correctly"
+    ],
+    "forms": [
+      "All fields from Forms Excel present",
+      "Correct data types",
+      "Skip logic implemented where specified",
+      "Form element groups match form sections",
+      "keyValues present for Subject, Location types"
+    ],
+    "formMappings": [
+      "Each form mapped to correct subject type",
+      "Program forms mapped to correct program",
+      "Encounter forms mapped to correct encounter type",
+      "No duplicate mappings"
+    ],
+    "locations": [
+      "All locations from Location PDF present",
+      "Correct hierarchy (parent-child relationships)",
+      "Correct level assignments"
+    ],
+    "concepts": [
+      "All concepts for form fields created",
+      "Coded concepts have answers",
+      "Answer UUIDs are unique and consistent"
+    ]
+  },
+
+  "formGroupRules": {
+    "description": "Rules for form element groups showing/hiding",
+    "placement": "Rule goes on formElementGroup, not individual elements",
+    "example": {
+      "groupName": "School Details",
+      "rule": "'use strict';\n({params, imports}) => {\n  const individual = params.entity;\n  const beneficiaryType = individual.getObservationValue('Beneficiary Type');\n  return beneficiaryType === 'School Students';\n}"
+    }
+  },
+
+  "cancellationForms": {
+    "description": "Every schedulable encounter needs a cancellation form",
+    "structure": {
+      "fields": ["Cancel Reason (Coded)", "Other Reason (Text, conditional)"],
+      "formType": "ProgramEncounterCancellation"
+    },
+    "namingConvention": "Cancel {Encounter Name}"
+  },
+
+  "bestPractices": [
+    "Generate UUIDs consistently using org-specific prefix",
+    "Cross-reference all source documents before generating",
+    "Verify field counts match between source and generated",
+    "Test skip logic rules syntax before including",
+    "Include all keyValues for special data types",
+    "Create cancellation forms for schedulable encounters",
+    "Verify location hierarchy matches PDF exactly",
+    "Check for duplicate concept names and merge appropriately"
+  ]
+}
