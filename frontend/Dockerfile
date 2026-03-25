@@ -10,12 +10,15 @@ RUN npx vite build
 
 FROM nginx:alpine
 
-COPY nginx.conf /etc/nginx/templates/default.conf.template
+# Copy built assets
 COPY --from=builder /app/dist /usr/share/nginx/html
 
+# Copy nginx config as template
+COPY nginx.conf /etc/nginx/nginx.conf.template
+
+# Default env vars
 ENV PORT=80
 ENV BACKEND_URL=http://backend:8080
 
-EXPOSE ${PORT}
-
-CMD ["nginx", "-g", "daemon off;"]
+# Startup: substitute only PORT and BACKEND_URL, then start nginx
+CMD sh -c "envsubst '\$PORT \$BACKEND_URL' < /etc/nginx/nginx.conf.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
