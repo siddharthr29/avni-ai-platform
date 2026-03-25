@@ -39,7 +39,8 @@ k8s/secrets.yaml
 # GitHub workflows (PAT lacks workflow scope)
 .github/workflows/
 
-# All markdown except README
+# All markdown except README and frontend docs
 *.md
 !README.md
+!frontend/public/docs/platform.md
 docs/
