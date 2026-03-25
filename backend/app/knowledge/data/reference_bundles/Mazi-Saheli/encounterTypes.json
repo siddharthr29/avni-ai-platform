@@ -1,0 +1,27 @@
+[ {
+  "name" : "Assessment & Distribution",
+  "uuid" : "a9052fa2-ead4-39d3-1d20-0a3dcd81368b",
+  "entityEligibilityCheckRule" : "",
+  "active" : true,
+  "immutable" : false
+}, {
+  "name" : "Activity Summary",
+  "uuid" : "d9816960-324f-3ae9-3a9a-9995a91afb2d",
+  "entityEligibilityCheckRule" : "",
+  "active" : true,
+  "immutable" : false
+}, {
+  "name" : "Help and Status Tracker (voided~6351)",
+  "uuid" : "feb10ace-e6a7-2c1a-72f0-fca66f55141b",
+  "entityEligibilityCheckRule" : "",
+  "active" : true,
+  "immutable" : false,
+  "voided" : true
+}, {
+  "name" : "Attendance (voided~6363)",
+  "uuid" : "2500534b-f1e5-43da-a206-9d23bfe987ba",
+  "entityEligibilityCheckRule" : "",
+  "active" : true,
+  "immutable" : false,
+  "voided" : true
+} ]

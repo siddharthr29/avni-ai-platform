@@ -1,0 +1,61 @@
+[ {
+  "name" : "Activity",
+  "uuid" : "69c82e65-11a7-2d62-1851-21efb50441ec",
+  "active" : true,
+  "type" : "Individual",
+  "allowEmptyLocation" : false,
+  "allowMiddleName" : false,
+  "lastNameOptional" : false,
+  "allowProfilePicture" : false,
+  "uniqueName" : false,
+  "shouldSyncByLocation" : true,
+  "settings" : {
+    "displayRegistrationDetails" : true,
+    "displayPlannedEncounters" : true
+  },
+  "household" : false,
+  "group" : false,
+  "directlyAssignable" : false,
+  "voided" : false
+}, {
+  "name" : "Participant",
+  "uuid" : "5e0eab29-1cd0-3a39-1d2a-d87a164ce527",
+  "active" : true,
+  "type" : "Person",
+  "allowEmptyLocation" : false,
+  "allowMiddleName" : true,
+  "lastNameOptional" : false,
+  "allowProfilePicture" : false,
+  "uniqueName" : false,
+  "shouldSyncByLocation" : true,
+  "settings" : {
+    "displayRegistrationDetails" : true,
+    "displayPlannedEncounters" : true
+  },
+  "household" : false,
+  "group" : false,
+  "directlyAssignable" : false,
+  "voided" : false
+}, {
+  "name" : "Classroom (voided~2685)",
+  "uuid" : "0ffc778c-94ba-4ba2-b57e-ed23e1e75e6a",
+  "active" : true,
+  "type" : "Group",
+  "subjectSummaryRule" : "",
+  "programEligibilityCheckRule" : "",
+  "memberAdditionEligibilityCheckRule" : "",
+  "allowEmptyLocation" : false,
+  "allowMiddleName" : false,
+  "lastNameOptional" : false,
+  "allowProfilePicture" : false,
+  "uniqueName" : false,
+  "shouldSyncByLocation" : true,
+  "settings" : {
+    "displayRegistrationDetails" : true,
+    "displayPlannedEncounters" : true
+  },
+  "household" : false,
+  "group" : true,
+  "directlyAssignable" : false,
+  "voided" : true
+} ]

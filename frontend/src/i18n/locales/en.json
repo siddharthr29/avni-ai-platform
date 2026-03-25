@@ -1,0 +1,83 @@
+{
+  "common": {
+    "signIn": "Sign In",
+    "signOut": "Sign Out",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "retry": "Try again",
+    "search": "Search...",
+    "noResults": "No results found"
+  },
+  "landing": {
+    "tagline": "AI-Powered Implementation",
+    "hero": "Set up your Avni app",
+    "heroHighlight": "in hours, not weeks",
+    "description": "Upload your scoping sheet, chat about requirements, generate implementation bundles, and deploy — all from one conversation.",
+    "getStarted": "Get Started",
+    "learnMore": "Learn More"
+  },
+  "chat": {
+    "placeholder": "Type your message...",
+    "send": "Send",
+    "thinking": "Thinking...",
+    "connectionLost": "Connection lost. Messages will be sent when reconnected.",
+    "connected": "Connected",
+    "newChat": "New Chat",
+    "searchConversations": "Search conversations...",
+    "noConversations": "No conversations yet",
+    "startNewChat": "Start a new chat to begin"
+  },
+  "srs": {
+    "title": "SRS Builder",
+    "uploadSpec": "Upload Specification Document",
+    "programs": "Programs",
+    "forms": "Forms",
+    "visits": "Visits",
+    "permissions": "Permissions",
+    "summary": "Summary",
+    "generateBundle": "Generate Bundle",
+    "dataTypes": {
+      "Coded": "Multiple Choice",
+      "Numeric": "Number",
+      "Text": "Free Text",
+      "Date": "Date",
+      "DateTime": "Date & Time",
+      "Image": "Photo",
+      "Video": "Video",
+      "Audio": "Audio Recording",
+      "NA": "Section Header"
+    }
+  },
+  "admin": {
+    "users": "Users",
+    "stats": "Statistics",
+    "inviteUser": "Invite User",
+    "createUser": "Create User",
+    "noUsers": "No users found",
+    "roles": {
+      "ngo_user": "NGO User",
+      "implementor": "Implementor",
+      "org_admin": "Org Admin",
+      "platform_admin": "Platform Admin"
+    }
+  },
+  "accessibility": {
+    "skipToContent": "Skip to main content",
+    "menuOpen": "Open menu",
+    "menuClose": "Close menu",
+    "darkMode": "Toggle dark mode",
+    "languageSelect": "Select language"
+  },
+  "emptyState": {
+    "welcome": "Welcome to Avni AI",
+    "hello": "Hello, {name}!",
+    "promptLoggedIn": "How can I help you today? Pick a suggestion below or type your own question.",
+    "promptGuest": "Your AI-powered assistant for implementing Avni field data collection. I can help you generate bundles, write rules, capture data via voice, extract data from images, and more.",
+    "build": "Build",
+    "learn": "Learn",
+    "support": "Support"
+  }
+}

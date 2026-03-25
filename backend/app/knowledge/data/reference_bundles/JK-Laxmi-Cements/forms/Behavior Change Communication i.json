@@ -1,0 +1,34 @@
+{
+  "name": "Behavior Change Communication i",
+  "uuid": "0fbb8f19-2c1c-43ec-acd4-80de9bd65521",
+  "formType": "ProgramEncounter",
+  "formElementGroups": [
+    {
+      "uuid": "09cc07c1-bf3c-4b74-9a30-b75d7363916c",
+      "name": "Family Planning",
+      "displayOrder": 1,
+      "formElements": [
+        {
+          "name": "Family Planning session happening where",
+          "uuid": "486acd52-819f-4337-a1ba-3640931b589f",
+          "keyValues": [],
+          "concept": {
+            "name": "Family Planning session happening where",
+            "uuid": "65dc54dc-3576-4508-b095-469bd786ad54",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}

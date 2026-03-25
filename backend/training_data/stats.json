@@ -1,0 +1,10 @@
+{
+  "total_pairs": 16565,
+  "train_pairs": 14908,
+  "val_pairs": 1657,
+  "sources": {
+    "bundles": "/Users/samanvay/Downloads/All/avni-ai/orgs-bundle/",
+    "knowledge": "app/knowledge/data/",
+    "db_export": "/tmp/avni_db_knowledge/"
+  }
+}

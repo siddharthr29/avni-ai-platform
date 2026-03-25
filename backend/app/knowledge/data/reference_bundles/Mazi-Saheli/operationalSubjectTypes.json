@@ -1,0 +1,27 @@
+{
+  "operationalSubjectTypes" : [ {
+    "uuid" : "7d89b17b-3652-1828-eb83-d29f219ebb1e",
+    "subjectType" : {
+      "uuid" : "69c82e65-11a7-2d62-1851-21efb50441ec",
+      "voided" : false
+    },
+    "name" : "Activity",
+    "voided" : false
+  }, {
+    "uuid" : "6e83796e-09e3-46b2-da4a-615acdd96d39",
+    "subjectType" : {
+      "uuid" : "5e0eab29-1cd0-3a39-1d2a-d87a164ce527",
+      "voided" : false
+    },
+    "name" : "Participant",
+    "voided" : false
+  }, {
+    "uuid" : "17619d28-15dc-4fd5-8d92-2aae951d6de8",
+    "subjectType" : {
+      "uuid" : "0ffc778c-94ba-4ba2-b57e-ed23e1e75e6a",
+      "voided" : false
+    },
+    "name" : "Classroom (voided~2695)",
+    "voided" : true
+  } ]
+}

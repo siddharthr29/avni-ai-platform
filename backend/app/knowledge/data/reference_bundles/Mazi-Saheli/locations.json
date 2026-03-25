@@ -1,0 +1,259 @@
+[ {
+  "uuid" : "dbb34559-f91e-4e5d-abb7-02e0e594f010",
+  "name" : "Maharashtra",
+  "level" : 5.0,
+  "type" : "State",
+  "addressLevelTypeUUID" : "6f16df55-de55-ce5a-00d3-e222757c0827"
+}, {
+  "uuid" : "d91ce7fd-4a9a-4898-82f8-a7e1f570e853",
+  "name" : "Palghar",
+  "level" : 4.0,
+  "parent" : {
+    "uuid" : "dbb34559-f91e-4e5d-abb7-02e0e594f010"
+  },
+  "type" : "District",
+  "addressLevelTypeUUID" : "0e698a2e-20f1-3474-2aa3-8ea3a3fdcbb0"
+}, {
+  "uuid" : "43139fa8-afb9-4f73-a9c7-0b74f7327aac",
+  "name" : "Jawhar",
+  "level" : 3.0,
+  "parent" : {
+    "uuid" : "d91ce7fd-4a9a-4898-82f8-a7e1f570e853"
+  },
+  "type" : "Block",
+  "addressLevelTypeUUID" : "5fc65a32-2e25-1661-5270-84ecc9a776a1"
+}, {
+  "uuid" : "ce2075c0-771f-49ad-b820-9f7f044e13b2",
+  "name" : "Nyale Budruk",
+  "level" : 2.0,
+  "parent" : {
+    "uuid" : "43139fa8-afb9-4f73-a9c7-0b74f7327aac"
+  },
+  "type" : "Village",
+  "addressLevelTypeUUID" : "aa320261-e838-37ca-936f-b1ea4b8b3fec"
+}, {
+  "uuid" : "e90c3c37-bf0f-423e-a4a9-3f504dbf5a31",
+  "name" : "Chamilpada",
+  "level" : 1.0,
+  "parent" : {
+    "uuid" : "ce2075c0-771f-49ad-b820-9f7f044e13b2"
+  },
+  "type" : "Pada",
+  "addressLevelTypeUUID" : "e3724f99-8359-5719-40a5-a36426bbacad"
+}, {
+  "uuid" : "2ff0c301-03ab-49df-9276-b6c1f97389df",
+  "name" : "Gaonthanpada",
+  "level" : 1.0,
+  "parent" : {
+    "uuid" : "ce2075c0-771f-49ad-b820-9f7f044e13b2"
+  },
+  "type" : "Pada",
+  "addressLevelTypeUUID" : "e3724f99-8359-5719-40a5-a36426bbacad"
+}, {
+  "uuid" : "d3516019-64b4-4f62-9efb-2ae9ae532368",
+  "name" : "Gavanpada",
+  "level" : 1.0,
+  "parent" : {
+    "uuid" : "ce2075c0-771f-49ad-b820-9f7f044e13b2"
+  },
+  "type" : "Pada",
+  "addressLevelTypeUUID" : "e3724f99-8359-5719-40a5-a36426bbacad"
+}, {
+  "uuid" : "c0b82543-c099-43b0-89a2-dacb8cd59929",
+  "name" : "Pimpalgaon",
+  "level" : 1.0,
+  "parent" : {
+    "uuid" : "ce2075c0-771f-49ad-b820-9f7f044e13b2"
+  },
+  "type" : "Pada",
+  "addressLevelTypeUUID" : "e3724f99-8359-5719-40a5-a36426bbacad"
+}, {
+  "uuid" : "3b3812bd-bc85-410b-bf28-6b8ad96d971a",
+  "name" : "Radhanagari",
+  "level" : 1.0,
+  "parent" : {
+    "uuid" : "ce2075c0-771f-49ad-b820-9f7f044e13b2"
+  },
+  "type" : "Pada",
+  "addressLevelTypeUUID" : "e3724f99-8359-5719-40a5-a36426bbacad"
+}, {
+  "uuid" : "bffd130f-d31f-4d37-af75-8c926fb7350f",
+  "name" : "Shiva kodayachimet",
+  "level" : 1.0,
+  "parent" : {
+    "uuid" : "ce2075c0-771f-49ad-b820-9f7f044e13b2"
+  },
+  "type" : "Pada",
+  "addressLevelTypeUUID" : "e3724f99-8359-5719-40a5-a36426bbacad"
+}, {
+  "uuid" : "60d1b901-a03a-4465-b484-4c8dc893aaf5",
+  "name" : "Karulpada",
+  "level" : 1.0,
+  "parent" : {
+    "uuid" : "ce2075c0-771f-49ad-b820-9f7f044e13b2"
+  },
+  "type" : "Pada",
+  "addressLevelTypeUUID" : "e3724f99-8359-5719-40a5-a36426bbacad"
+}, {
+  "uuid" : "efe73a72-d3a9-4faf-b9ce-7b8a73458881",
+  "name" : "Vanganpada",
+  "level" : 1.0,
+  "parent" : {
+    "uuid" : "ce2075c0-771f-49ad-b820-9f7f044e13b2"
+  },
+  "type" : "Pada",
+  "addressLevelTypeUUID" : "e3724f99-8359-5719-40a5-a36426bbacad"
+}, {
+  "uuid" : "a7278e1e-844b-40c3-a401-2e00a37dbf73",
+  "name" : "Kastechapada",
+  "level" : 1.0,
+  "parent" : {
+    "uuid" : "ce2075c0-771f-49ad-b820-9f7f044e13b2"
+  },
+  "type" : "Pada",
+  "addressLevelTypeUUID" : "e3724f99-8359-5719-40a5-a36426bbacad"
+}, {
+  "uuid" : "dea9d461-73ce-4c18-b344-bcad2da3479f",
+  "name" : "Mograwadi",
+  "level" : 1.0,
+  "parent" : {
+    "uuid" : "ce2075c0-771f-49ad-b820-9f7f044e13b2"
+  },
+  "type" : "Pada",
+  "addressLevelTypeUUID" : "e3724f99-8359-5719-40a5-a36426bbacad"
+}, {
+  "uuid" : "0639f4b1-7d89-4607-ab83-e8adaafe6b35",
+  "name" : "Tomgarpada",
+  "level" : 1.0,
+  "parent" : {
+    "uuid" : "ce2075c0-771f-49ad-b820-9f7f044e13b2"
+  },
+  "type" : "Pada",
+  "addressLevelTypeUUID" : "e3724f99-8359-5719-40a5-a36426bbacad"
+}, {
+  "uuid" : "583fb826-701c-476e-862f-24646de1c81b",
+  "name" : "Nangarmoda",
+  "level" : 1.0,
+  "parent" : {
+    "uuid" : "ce2075c0-771f-49ad-b820-9f7f044e13b2"
+  },
+  "type" : "Pada",
+  "addressLevelTypeUUID" : "e3724f99-8359-5719-40a5-a36426bbacad"
+}, {
+  "uuid" : "5205fbb5-74c4-4372-967a-62707b3de9c9",
+  "name" : "Dubhichapada",
+  "level" : 1.0,
+  "parent" : {
+    "uuid" : "ce2075c0-771f-49ad-b820-9f7f044e13b2"
+  },
+  "type" : "Pada",
+  "addressLevelTypeUUID" : "e3724f99-8359-5719-40a5-a36426bbacad"
+}, {
+  "uuid" : "b3d50074-c106-487c-9e6c-5e070f32b6a0",
+  "name" : "Bivaldhar",
+  "level" : 1.0,
+  "parent" : {
+    "uuid" : "ce2075c0-771f-49ad-b820-9f7f044e13b2"
+  },
+  "type" : "Pada",
+  "addressLevelTypeUUID" : "e3724f99-8359-5719-40a5-a36426bbacad"
+}, {
+  "uuid" : "c8495292-11f4-4b13-a55c-21370f6f88a3",
+  "name" : "Savatpada",
+  "level" : 1.0,
+  "parent" : {
+    "uuid" : "ce2075c0-771f-49ad-b820-9f7f044e13b2"
+  },
+  "type" : "Pada",
+  "addressLevelTypeUUID" : "e3724f99-8359-5719-40a5-a36426bbacad"
+}, {
+  "uuid" : "8fff19a4-4740-4cd2-817f-c3bb32350edd",
+  "name" : "Sambarpada",
+  "level" : 1.0,
+  "parent" : {
+    "uuid" : "ce2075c0-771f-49ad-b820-9f7f044e13b2"
+  },
+  "type" : "Pada",
+  "addressLevelTypeUUID" : "e3724f99-8359-5719-40a5-a36426bbacad"
+}, {
+  "uuid" : "54d92037-be28-4f6a-b66e-58d7b963a639",
+  "name" : "Vasai",
+  "level" : 3.0,
+  "parent" : {
+    "uuid" : "d91ce7fd-4a9a-4898-82f8-a7e1f570e853"
+  },
+  "type" : "Block",
+  "addressLevelTypeUUID" : "5fc65a32-2e25-1661-5270-84ecc9a776a1"
+}, {
+  "uuid" : "8188ea4a-64b2-4b7c-8de7-1d08c04ce3d3",
+  "name" : "Nallasopara",
+  "level" : 2.0,
+  "parent" : {
+    "uuid" : "54d92037-be28-4f6a-b66e-58d7b963a639"
+  },
+  "type" : "Village",
+  "addressLevelTypeUUID" : "aa320261-e838-37ca-936f-b1ea4b8b3fec"
+}, {
+  "uuid" : "2886845b-585f-4e0b-b540-ff1bdbab48d6",
+  "name" : "Nallasopara",
+  "level" : 1.0,
+  "parent" : {
+    "uuid" : "8188ea4a-64b2-4b7c-8de7-1d08c04ce3d3"
+  },
+  "type" : "Pada",
+  "addressLevelTypeUUID" : "e3724f99-8359-5719-40a5-a36426bbacad"
+}, {
+  "uuid" : "497d2431-75b4-4aa5-b490-2fd0f6d51313",
+  "name" : "Virar",
+  "level" : 2.0,
+  "parent" : {
+    "uuid" : "54d92037-be28-4f6a-b66e-58d7b963a639"
+  },
+  "type" : "Village",
+  "addressLevelTypeUUID" : "aa320261-e838-37ca-936f-b1ea4b8b3fec"
+}, {
+  "uuid" : "0972a570-334c-4397-8bb2-c2ded0c9a650",
+  "name" : "Virar",
+  "level" : 1.0,
+  "parent" : {
+    "uuid" : "497d2431-75b4-4aa5-b490-2fd0f6d51313"
+  },
+  "type" : "Pada",
+  "addressLevelTypeUUID" : "e3724f99-8359-5719-40a5-a36426bbacad"
+}, {
+  "uuid" : "5882bdd3-591a-4b21-b0af-823414d5e21f",
+  "name" : "Thane",
+  "level" : 4.0,
+  "parent" : {
+    "uuid" : "dbb34559-f91e-4e5d-abb7-02e0e594f010"
+  },
+  "type" : "District",
+  "addressLevelTypeUUID" : "0e698a2e-20f1-3474-2aa3-8ea3a3fdcbb0"
+}, {
+  "uuid" : "721c7340-ccf5-4bc7-af9a-0f25ee9f6193",
+  "name" : "Thane",
+  "level" : 3.0,
+  "parent" : {
+    "uuid" : "5882bdd3-591a-4b21-b0af-823414d5e21f"
+  },
+  "type" : "Block",
+  "addressLevelTypeUUID" : "5fc65a32-2e25-1661-5270-84ecc9a776a1"
+}, {
+  "uuid" : "99e69387-486c-4069-8dd6-a7f05263e8ce",
+  "name" : "Bhayander East",
+  "level" : 2.0,
+  "parent" : {
+    "uuid" : "721c7340-ccf5-4bc7-af9a-0f25ee9f6193"
+  },
+  "type" : "Village",
+  "addressLevelTypeUUID" : "aa320261-e838-37ca-936f-b1ea4b8b3fec"
+}, {
+  "uuid" : "ebd12423-d950-49f2-8716-f9649b5fd793",
+  "name" : "Bhayander East",
+  "level" : 1.0,
+  "parent" : {
+    "uuid" : "99e69387-486c-4069-8dd6-a7f05263e8ce"
+  },
+  "type" : "Pada",
+  "addressLevelTypeUUID" : "e3724f99-8359-5719-40a5-a36426bbacad"
+} ]

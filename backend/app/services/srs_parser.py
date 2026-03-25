@@ -159,7 +159,20 @@ def _parse_options(raw: Any) -> list[str]:
 
     options: list[str] = []
 
-    # First try newline-separated (most common in real SRS files)
+    # Try inline letter-prefixed options: "a). Yes b). No" or "a) X b) Y"
+    # This pattern appears when all options are on a single line
+    if re.search(r"[a-z]\)\.", text, re.IGNORECASE):
+        parts = re.split(r"\s*[a-z]\)\.\s*", text, flags=re.IGNORECASE)
+        cleaned_parts = [p.strip().rstrip(",;") for p in parts if p.strip()]
+        if len(cleaned_parts) >= 2:
+            return cleaned_parts
+    elif re.search(r"[a-z]\)", text, re.IGNORECASE) and "\n" not in text:
+        parts = re.split(r"\s*[a-z]\)\s*", text, flags=re.IGNORECASE)
+        cleaned_parts = [p.strip().rstrip(",;") for p in parts if p.strip()]
+        if len(cleaned_parts) >= 2:
+            return cleaned_parts
+
+    # Try newline-separated (most common in real SRS files)
     lines = text.split("\n")
     if len(lines) > 1:
         for line in lines:
@@ -171,7 +184,7 @@ def _parse_options(raw: Any) -> list[str]:
             cleaned = re.sub(r"^[a-z0-9]+\)\s*", "", cleaned, flags=re.IGNORECASE)
             cleaned = re.sub(r"^[-\u2022*]\s*", "", cleaned)
             cleaned = re.sub(r"^\d+\.\s*", "", cleaned)
-            cleaned = cleaned.strip()
+            cleaned = cleaned.strip().rstrip(",").strip()
             if cleaned:
                 options.append(cleaned)
         if options:
@@ -180,7 +193,7 @@ def _parse_options(raw: Any) -> list[str]:
     # Try semicolon-separated
     if ";" in text:
         for part in text.split(";"):
-            part = part.strip()
+            part = part.strip().rstrip(",").strip()
             if part:
                 options.append(part)
         if options:
@@ -194,7 +207,7 @@ def _parse_options(raw: Any) -> list[str]:
 
     # Try comma-separated (last resort, risky for text with commas)
     if "," in text:
-        parts = [p.strip() for p in text.split(",") if p.strip()]
+        parts = [p.strip().rstrip(",").strip() for p in text.split(",") if p.strip()]
         if len(parts) >= 2:
             return parts
 
@@ -302,12 +315,12 @@ def _detect_column_indices(header_row: tuple) -> dict[str, int]:
             mapping.setdefault("unit", i)
         elif "selection type" in lower or "pre added options selection" in lower:
             mapping.setdefault("selection_type", i)
-        elif "option" in lower and ("needed" in lower or "single" in lower or "multi" in lower):
+        elif "unique option" in lower:
+            mapping.setdefault("unique_option", i)
+        elif "option" in lower and ("needed" in lower or lower.startswith("options")):
             mapping.setdefault("options", i)
         elif lower.startswith("option") and "condition" not in lower and "unique" not in lower:
             mapping.setdefault("options", i)
-        elif "unique option" in lower:
-            mapping.setdefault("unique_option", i)
         elif "when to show" in lower or (lower.startswith("when") and "not" not in lower):
             mapping.setdefault("show_when", i)
         elif "when not" in lower or "not to show" in lower:
@@ -329,6 +342,8 @@ def _classify_sheet(name: str) -> str:
 
     if "help" in lower or "status tracker" in lower:
         return "skip"
+    if "form summary" in lower or "form overview" in lower:
+        return "form_summary"
     if "summary" in lower or "overview" in lower:
         return "summary"
     if "user" in lower and ("type" in lower or "persona" in lower):
@@ -359,6 +374,10 @@ def _classify_sheet(name: str) -> str:
         return "skip"
     if "other important" in lower:
         return "skip"
+    if "visit" in lower and "schedul" in lower:
+        return "visit_scheduling"
+    if "app dashboard" in lower:
+        return "dashboard"
 
     return "unknown"
 
@@ -387,7 +406,7 @@ def _parse_summary_sheet(ws: Worksheet) -> dict[str, Any]:
         elif "program name" in label or "name of the program" in label:
             result["org_name"] = result.get("org_name") or value
             result["program_name"] = value
-        elif "location hierarchy" in label or "location" in label and "hierarchy" in label:
+        elif "location" in label and ("hierarchy" in label or "heirarchy" in label):
             result["location_hierarchy"] = value
         elif "geographical" in label:
             result["geography"] = value
@@ -581,24 +600,297 @@ def _parse_programs_meta_sheet(ws: Worksheet) -> list[dict[str, Any]]:
 def _parse_program_encounters_sheet(ws: Worksheet) -> list[dict[str, Any]]:
     """Parse a Program Encounters metadata sheet.
 
-    Returns list of dicts with: encounter_name, program_name, form_name, cancellation_form.
+    Auto-detects column layout from header row. Common layouts:
+    - [Encounter Name, Subject Type, Program, Encounter Type, Frequency, ...]
+    - [Encounter Name, Program, Encounter Type, ...]
+
+    Returns list of dicts with: encounter_name, subject_type, program_name,
+    encounter_type_label, cancellation_form.
     """
     mappings: list[dict[str, Any]] = []
 
-    for row in ws.iter_rows(min_row=2, max_row=ws.max_row, values_only=True):
-        enc_name = _normalize(row[0]) if row and len(row) > 0 else None
+    # Detect columns from header row
+    col_map: dict[str, int] = {}
+    header_row = None
+    for row in ws.iter_rows(min_row=1, max_row=3, values_only=True):
+        if not row:
+            continue
+        for i, cell in enumerate(row):
+            val = _normalize(cell) if cell else ""
+            lower = val.lower()
+            if "encounter" in lower and "name" in lower:
+                col_map["encounter_name"] = i
+            elif lower == "encounter name" or (i == 0 and "encounter" in lower):
+                col_map["encounter_name"] = i
+            elif "subject" in lower and "type" in lower:
+                col_map["subject_type"] = i
+            elif lower in ("program", "program name"):
+                col_map["program_name"] = i
+            elif "encounter type" in lower and "name" not in lower:
+                col_map["encounter_type_label"] = i
+            elif "frequency" in lower:
+                col_map["frequency"] = i
+            elif "cancel" in lower:
+                col_map["cancellation_form"] = i
+        if col_map:
+            header_row = row
+            break
+
+    # Fallback: assume standard layout if no header detected
+    if "encounter_name" not in col_map:
+        col_map = {"encounter_name": 0, "subject_type": 1, "program_name": 2,
+                    "encounter_type_label": 3, "frequency": 4, "cancellation_form": 9}
+
+    start_row = 3 if header_row else 2
+    for row in ws.iter_rows(min_row=start_row, max_row=ws.max_row, values_only=True):
+        enc_idx = col_map.get("encounter_name", 0)
+        enc_name = _normalize(row[enc_idx]) if row and len(row) > enc_idx and row[enc_idx] else None
         if not enc_name:
             continue
         mapping: dict[str, Any] = {"encounter_name": enc_name}
-        if len(row) > 1 and _normalize(row[1]):
-            mapping["program_name"] = _normalize(row[1])
-        if len(row) > 3 and _normalize(row[3]):
-            mapping["form_name"] = _normalize(row[3])
-        if len(row) > 4 and _normalize(row[4]):
-            mapping["cancellation_form"] = _normalize(row[4])
+        if "subject_type" in col_map and col_map["subject_type"] < len(row):
+            val = _normalize(row[col_map["subject_type"]])
+            if val:
+                mapping["subject_type"] = val
+        if "program_name" in col_map and col_map["program_name"] < len(row):
+            val = _normalize(row[col_map["program_name"]])
+            if val:
+                mapping["program_name"] = val
+        if "cancellation_form" in col_map and col_map["cancellation_form"] < len(row):
+            val = _normalize(row[col_map["cancellation_form"]])
+            if val:
+                mapping["cancellation_form"] = val
         mappings.append(mapping)
 
     return mappings
+
+
+def _parse_form_summary_sheet(ws: Worksheet) -> list[dict[str, Any]]:
+    """Parse a Form Summary sheet — the single source of truth for form→program→encounter mapping.
+
+    Expected columns: Sr. No., Form, Subject Type, Program, Encounter Type, ...
+    Stops at "Out of Scope" marker row (everything after is unimplemented).
+
+    Returns list of dicts with: form_name, subject_type, program, encounter_type, in_scope.
+    """
+    entries: list[dict[str, Any]] = []
+
+    # Detect header row and column mapping
+    col_map: dict[str, int] = {}
+    header_row: int | None = None
+    _col_patterns = {
+        "sr_no": re.compile(r"sr\.?\s*no|serial|#", re.I),
+        "form_name": re.compile(r"^form$|form\s*name", re.I),
+        "subject_type": re.compile(r"subject\s*type", re.I),
+        "program": re.compile(r"^program$|program\s*name", re.I),
+        "encounter_type": re.compile(r"encounter\s*type", re.I),
+    }
+
+    for row_idx, row in enumerate(
+        ws.iter_rows(min_row=1, max_row=min(10, ws.max_row), values_only=True), 1
+    ):
+        if not row:
+            continue
+        matched = 0
+        temp_map: dict[str, int] = {}
+        for col_idx, cell in enumerate(row):
+            if cell is None:
+                continue
+            cell_str = str(cell).strip()
+            for key, pat in _col_patterns.items():
+                if pat.search(cell_str) and key not in temp_map:
+                    temp_map[key] = col_idx
+                    matched += 1
+        if matched >= 3:  # Need at least form_name + program + encounter_type
+            header_row = row_idx
+            col_map = temp_map
+            break
+
+    if header_row is None or "form_name" not in col_map:
+        logger.warning("Form Summary sheet: could not detect header row")
+        return entries
+
+    logger.info(
+        "Form Summary sheet: header at row %d, columns: %s",
+        header_row, {k: v for k, v in col_map.items()},
+    )
+
+    in_scope = True
+    for row in ws.iter_rows(min_row=header_row + 1, max_row=ws.max_row, values_only=True):
+        if not row:
+            continue
+
+        # Check for "Out of Scope" marker
+        first_val = _normalize(row[0]) if len(row) > 0 else None
+        if first_val and "out of scope" in first_val.lower():
+            in_scope = False
+            continue
+
+        form_name = _normalize(row[col_map["form_name"]]) if col_map.get("form_name") is not None and len(row) > col_map["form_name"] else None
+        if not form_name:
+            continue
+
+        entry: dict[str, Any] = {
+            "form_name": form_name,
+            "in_scope": in_scope,
+        }
+
+        if "subject_type" in col_map and len(row) > col_map["subject_type"]:
+            entry["subject_type"] = _normalize(row[col_map["subject_type"]]) or "Individual"
+
+        if "program" in col_map and len(row) > col_map["program"]:
+            entry["program"] = _normalize(row[col_map["program"]]) or ""
+
+        if "encounter_type" in col_map and len(row) > col_map["encounter_type"]:
+            et = _normalize(row[col_map["encounter_type"]]) or ""
+            entry["encounter_type"] = et if et.upper() != "NA" else ""
+
+        entries.append(entry)
+
+    logger.info(
+        "Form Summary: %d entries (%d in scope, %d out of scope)",
+        len(entries),
+        sum(1 for e in entries if e["in_scope"]),
+        sum(1 for e in entries if not e["in_scope"]),
+    )
+    return entries
+
+
+def _parse_visit_scheduling_sheet(ws: Worksheet) -> list[dict[str, Any]]:
+    """Parse a Visit Scheduling sheet into structured scheduling data.
+
+    Expected columns (flexible matching):
+    - On Completion Of / Trigger Form: which form/encounter triggers the schedule
+    - Schedule Form / Visit Type: what encounter gets scheduled
+    - Frequency / Repeats: how often (once, monthly, weekly, etc.)
+    - Due Date / Schedule Days / Days After: days until due
+    - Overdue Date / Overdue Days: days until overdue
+    - Cancellation / On Cancel: what happens on cancel (reschedule, close, etc.)
+    - Conditions / When / Criteria: conditions for scheduling
+
+    Returns list of dicts with: trigger, schedule_encounter, due_days, overdue_days,
+    frequency, cancel_behavior, conditions.
+    """
+    schedules: list[dict[str, Any]] = []
+
+    # Find header row and map columns
+    header_row: int | None = None
+    col_map: dict[str, int] = {}
+
+    _col_patterns = {
+        "trigger": re.compile(r"on\s+completion|trigger|after|source\s+form", re.I),
+        "schedule_encounter": re.compile(r"schedule\s+form|visit\s+type|schedule\s+encounter|next\s+visit|target", re.I),
+        "frequency": re.compile(r"frequen|repeat|recur", re.I),
+        "due_days": re.compile(r"due\s+date|schedule\s+day|days?\s+after|due\s+day|days?\s+to\s+due", re.I),
+        "overdue_days": re.compile(r"overdue|max\s+day|days?\s+to\s+overdue", re.I),
+        "cancel_behavior": re.compile(r"cancel|on\s+cancel|cancellation", re.I),
+        "conditions": re.compile(r"condition|when|criteria|rule|logic", re.I),
+    }
+
+    for row_idx, row in enumerate(ws.iter_rows(min_row=1, max_row=min(10, ws.max_row), values_only=True), 1):
+        if not row:
+            continue
+        matched = 0
+        temp_map: dict[str, int] = {}
+        for col_idx, cell in enumerate(row):
+            if cell is None:
+                continue
+            cell_str = str(cell).strip()
+            for key, pat in _col_patterns.items():
+                if pat.search(cell_str) and key not in temp_map:
+                    temp_map[key] = col_idx
+                    matched += 1
+        if matched >= 2:
+            header_row = row_idx
+            col_map = temp_map
+            break
+
+    if header_row is None:
+        logger.warning("Visit Scheduling sheet: could not detect header row")
+        return schedules
+
+    logger.info(
+        "Visit Scheduling sheet: header at row %d, columns: %s",
+        header_row, {k: v for k, v in col_map.items()},
+    )
+
+    # Parse data rows
+    for row in ws.iter_rows(min_row=header_row + 1, max_row=ws.max_row, values_only=True):
+        if not row or all(c is None for c in row):
+            continue
+
+        def _get(key: str) -> str | None:
+            idx = col_map.get(key)
+            if idx is None or idx >= len(row):
+                return None
+            return _normalize(row[idx])
+
+        trigger = _get("trigger")
+        schedule_enc = _get("schedule_encounter")
+        if not trigger and not schedule_enc:
+            continue
+
+        entry: dict[str, Any] = {}
+        if trigger:
+            entry["trigger"] = trigger
+        if schedule_enc:
+            entry["schedule_encounter"] = schedule_enc
+
+        # Parse due days (could be "28 days", "4 weeks", or just "28")
+        due_raw = _get("due_days")
+        if due_raw:
+            days = _parse_days_value(due_raw)
+            if days is not None:
+                entry["due_days"] = days
+            else:
+                entry["due_days_raw"] = due_raw
+
+        overdue_raw = _get("overdue_days")
+        if overdue_raw:
+            days = _parse_days_value(overdue_raw)
+            if days is not None:
+                entry["overdue_days"] = days
+            else:
+                entry["overdue_days_raw"] = overdue_raw
+
+        frequency = _get("frequency")
+        if frequency:
+            entry["frequency"] = frequency
+
+        cancel = _get("cancel_behavior")
+        if cancel:
+            entry["cancel_behavior"] = cancel
+
+        conditions = _get("conditions")
+        if conditions:
+            entry["conditions"] = conditions
+
+        schedules.append(entry)
+
+    logger.info("Visit Scheduling: parsed %d schedule entries", len(schedules))
+    return schedules
+
+
+def _parse_days_value(raw: str) -> int | None:
+    """Parse a days value from various formats: '28', '28 days', '4 weeks', '1 month'."""
+    raw = raw.strip().lower()
+
+    # Direct number
+    m = re.match(r"^(\d+)\s*(?:days?)?$", raw)
+    if m:
+        return int(m.group(1))
+
+    # Weeks
+    m = re.match(r"^(\d+)\s*weeks?$", raw)
+    if m:
+        return int(m.group(1)) * 7
+
+    # Months (approximate)
+    m = re.match(r"^(\d+)\s*months?$", raw)
+    if m:
+        return int(m.group(1)) * 30
+
+    return None
 
 
 def _parse_modelling_sheet(ws: Worksheet) -> dict[str, Any]:
@@ -858,6 +1150,9 @@ class SRSParser:
         self.wb = openpyxl.load_workbook(str(file_path), data_only=True)
         self.sheet_names = self.wb.sheetnames
 
+        # Sector hint (set externally before parse() if known)
+        self._sector: str | None = None
+
         # Intermediate state
         self._summary: dict[str, Any] = {}
         self._user_groups: list[str] = []
@@ -870,6 +1165,8 @@ class SRSParser:
         self._programs_meta: list[dict[str, Any]] = []
         self._program_encounters_meta: list[dict[str, Any]] = []
         self._encounters_meta: list[dict[str, Any]] = []
+        self._visit_schedules: list[dict[str, Any]] = []
+        self._form_summary: list[dict[str, Any]] = []  # From "Form Summary" sheet
 
     def parse(self) -> SRSData:
         """Parse the complete SRS workbook into SRSData."""
@@ -883,6 +1180,8 @@ class SRSParser:
 
             if classification == "skip":
                 continue
+            elif classification == "form_summary":
+                self._form_summary = _parse_form_summary_sheet(ws)
             elif classification == "summary":
                 self._summary = _parse_summary_sheet(ws)
             elif classification == "user":
@@ -895,6 +1194,8 @@ class SRSParser:
                 self._location_hierarchy = _parse_location_hierarchy_sheet(ws)
             elif classification == "programs_meta":
                 self._programs_meta = _parse_programs_meta_sheet(ws)
+            elif classification == "visit_scheduling":
+                self._visit_schedules = _parse_visit_scheduling_sheet(ws)
             elif classification == "program_encounters":
                 self._program_encounters_meta = _parse_program_encounters_sheet(ws)
             elif classification == "encounters_meta":
@@ -902,7 +1203,23 @@ class SRSParser:
                 for row in ws.iter_rows(min_row=2, max_row=ws.max_row, values_only=True):
                     enc_name = _normalize(row[0]) if row and len(row) > 0 else None
                     if enc_name:
-                        self._encounters_meta.append({"name": enc_name})
+                        entry: dict[str, Any] = {"name": enc_name}
+                        # Column 1 is often Subject Type
+                        if len(row) > 1 and _normalize(row[1]):
+                            entry["subject_type"] = _normalize(row[1])
+                        self._encounters_meta.append(entry)
+            elif classification == "subject_types":
+                # Separate Subject Types sheet (from modelling docs)
+                for row in ws.iter_rows(min_row=2, max_row=ws.max_row, values_only=True):
+                    st_name = _normalize(row[0]) if row and len(row) > 0 else None
+                    if st_name:
+                        st_type = _normalize(row[1]) if len(row) > 1 and row[1] else None
+                        entry: dict[str, Any] = {"name": st_name}
+                        if st_type:
+                            entry["type"] = st_type
+                        if not self._modelling.get("subject_types"):
+                            self._modelling["subject_types"] = []
+                        self._modelling["subject_types"].append(entry)
             elif classification == "modelling":
                 self._modelling = _parse_modelling_sheet(ws)
             elif classification == "report" or classification == "dashboard":
@@ -941,6 +1258,8 @@ class SRSParser:
                     "type": st.get("type", "Person"),
                 })
         if not subject_types:
+            subject_types = self._infer_subject_types_from_forms()
+        if not subject_types:
             subject_types = [{"name": "Individual", "type": "Person"}]
 
         # Programs -- from modelling, programs_meta, or infer from W3H/form names
@@ -951,6 +1270,21 @@ class SRSParser:
 
         # Classify forms (set correct formType, programName, encounterTypeName)
         self._classify_forms(programs, encounter_types)
+
+        # Sector-aware classification (uses production patterns to fix remaining issues)
+        try:
+            from app.services.sector_classifier import classify_forms_by_sector
+            sector = self._summary.get("sector") or self._sector
+            classify_forms_by_sector(
+                forms=self._forms,
+                subject_types=subject_types,
+                programs=programs,
+                program_encounters_meta=self._program_encounters_meta,
+                encounters_meta=self._encounters_meta,
+                sector=sector,
+            )
+        except Exception as e:
+            logger.warning("Sector classification failed (non-fatal): %s", e)
 
         # All unique encounter type names
         all_encounter_names: list[str] = []
@@ -982,6 +1316,7 @@ class SRSParser:
             addressLevelTypes=address_level_types if address_level_types else None,
             programEncounterMappings=pe_mappings if pe_mappings else None,
             generalEncounterTypes=general_encounter_types if general_encounter_types else None,
+            visitSchedules=self._visit_schedules if self._visit_schedules else None,
         )
 
     def _resolve_programs(self) -> list[dict[str, Any]]:
@@ -989,14 +1324,24 @@ class SRSParser:
         programs: list[dict[str, Any]] = []
         seen: set[str] = set()
 
+        # From Form Summary sheet (highest priority — has canonical names)
+        if self._form_summary:
+            for entry in self._form_summary:
+                if not entry.get("in_scope", True):
+                    continue
+                prog = (entry.get("program") or "").strip()
+                if prog and prog not in seen:
+                    programs.append({"name": prog})
+                    seen.add(prog)
+
         # From modelling sheet
         for p in self._modelling.get("programs", []):
             name = p["name"].strip()
             if name not in seen:
-                prog: dict[str, Any] = {"name": name}
+                prog_entry: dict[str, Any] = {"name": name}
                 if p.get("colour"):
-                    prog["colour"] = p["colour"]
-                programs.append(prog)
+                    prog_entry["colour"] = p["colour"]
+                programs.append(prog_entry)
                 seen.add(name)
 
         # From programs meta sheet
@@ -1037,18 +1382,87 @@ class SRSParser:
 
         return programs
 
+    def _infer_subject_types_from_forms(self) -> list[dict[str, Any]]:
+        """Infer subject types from registration form sheet names.
+
+        Heuristic: sheets named "X Reg" or "X Registration" where X is NOT
+        "Individual" or "Family" suggest a non-person subject type (e.g. "Kiln").
+        We also always include "Individual" if there is any person-like registration.
+        """
+        subject_types: list[dict[str, Any]] = []
+        seen: set[str] = set()
+
+        # Person-like registration keywords
+        person_keywords = {
+            "individual", "worker", "person", "member", "beneficiary",
+            "patient", "child", "mother", "woman", "women", "student",
+            "family", "household",
+        }
+
+        reg_pattern = re.compile(
+            r"^(.+?)\s*(registration|reg)\s*$", re.IGNORECASE
+        )
+
+        has_person_reg = False
+
+        for form_def in self._forms:
+            m = reg_pattern.match(form_def.name.strip())
+            if not m:
+                continue
+
+            base = m.group(1).strip()
+            base_lower = base.lower()
+
+            # Check if this is a person-like registration
+            if any(kw in base_lower for kw in person_keywords):
+                has_person_reg = True
+                continue
+
+            # Non-person subject type (e.g. "Kiln Reg" -> subject type "Kiln")
+            if base_lower not in seen:
+                subject_types.append({"name": base, "type": "Individual"})
+                seen.add(base_lower)
+                # Update the form to reference this subject type
+                form_def.subjectTypeName = base
+
+        # Always include Individual if there's a person-like registration
+        # or if there are enrollment forms (which typically act on Individual subjects)
+        if has_person_reg or any(
+            f.formType == "ProgramEnrolment" for f in self._forms
+        ):
+            if "individual" not in seen:
+                subject_types.insert(0, {"name": "Individual", "type": "Person"})
+                seen.add("individual")
+
+        return subject_types
+
     def _resolve_encounter_types(self) -> dict[str, str]:
         """Build encounter_name -> form_type mapping.
 
         Returns dict: encounter_type_name -> Avni form type.
+        Uses Form Summary as primary source (has canonical encounter type names).
         """
         encounters: dict[str, str] = {}
+
+        # From Form Summary sheet (highest priority)
+        if self._form_summary:
+            for entry in self._form_summary:
+                if not entry.get("in_scope", True):
+                    continue
+                et = (entry.get("encounter_type") or "").strip()
+                prog = (entry.get("program") or "").strip()
+                if et:
+                    if prog:
+                        encounters[et] = "ProgramEncounter"
+                    else:
+                        encounters[et] = "Encounter"
 
         # From modelling sheet
         for enc in self._modelling.get("encounters", []):
             name = enc["name"]
-            etype = enc.get("encounter_type", "ProgramEncounter")
-            encounters[name] = etype
+            if name not in encounters:
+                etype = enc.get("encounter_type", "ProgramEncounter")
+                encounters[name] = etype
 
         # From program encounters meta
         for pe in self._program_encounters_meta:
@@ -1064,14 +1478,169 @@ class SRSParser:
 
         return encounters
 
+    def _match_form_to_summary(
+        self,
+        form_name: str,
+    ) -> dict[str, Any] | None:
+        """Match a parsed form (possibly with truncated sheet name) to a Form Summary entry.
+
+        Excel sheet names are limited to 31 chars, so we match by:
+        1. Exact match (case-insensitive)
+        2. Form Summary name starts with the sheet name (truncation)
+        3. Sheet name starts with the Form Summary name
+        4. Key words overlap (handles "Child PNC" vs "Child PNC (Neonatal)",
+           "Children Monthly Gradation" vs "Child Monthly Gradation")
+        """
+        if not self._form_summary:
+            return None
+
+        name_lower = form_name.strip().lower()
+        # Only consider in-scope entries for matching
+        in_scope = [e for e in self._form_summary if e.get("in_scope", True)]
+
+        # Pass 1: Exact match
+        for entry in in_scope:
+            fs_name = entry["form_name"].strip().lower()
+            if name_lower == fs_name:
+                return entry
+
+        # Pass 2: Truncation — sheet name is prefix of full name
+        for entry in in_scope:
+            fs_name = entry["form_name"].strip().lower()
+            if len(name_lower) >= 20 and fs_name.startswith(name_lower):
+                return entry
+            if len(fs_name) >= 20 and name_lower.startswith(fs_name):
+                return entry
+
+        # Pass 3: One is prefix of the other (short names like "ANC", "Delivery")
+        for entry in in_scope:
+            fs_name = entry["form_name"].strip().lower()
+            if name_lower.startswith(fs_name) or fs_name.startswith(name_lower):
+                return entry
+
+        # Pass 4: Core word overlap — handles variant naming
+        # e.g., "Child PNC" matches "Child PNC (Neonatal)",
+        #        "Child Monthly Gradation Form Fo" matches "Children Monthly Gradation Form"
+        # Strip minimal filler words and compare meaningful tokens
+        _filler = {"", "the", "for", "of", "a"}
+        name_words = set(re.split(r"[\s\-_()]+", name_lower)) - _filler
+        best_match = None
+        best_score = 0
+        for entry in in_scope:
+            fs_name = entry["form_name"].strip().lower()
+            fs_words = set(re.split(r"[\s\-_()]+", fs_name)) - _filler
+            if not fs_words or not name_words:
+                continue
+            overlap_words = name_words & fs_words
+            overlap = len(overlap_words)
+            union = len(name_words | fs_words)
+            # Jaccard similarity with bonus for first-word match
+            base_score = overlap / union if union > 0 else 0
+            # Bonus: if the first meaningful word of the sheet name matches,
+            # add 0.1 to prefer "Malnutrition Exit Form" over "Pregnancy Program Exit"
+            # when matching "Malnutrition Program Exit"
+            first_word = name_lower.split()[0] if name_lower.split() else ""
+            first_word_bonus = 0.1 if first_word in fs_words else 0
+            score = base_score + first_word_bonus
+            # Require at least 40% Jaccard overlap and at least 2 shared words
+            if score > best_score and base_score >= 0.4 and overlap >= 2:
+                best_score = score
+                best_match = entry
+
+        return best_match
+
     def _classify_forms(
         self,
         programs: list[dict[str, Any]],
         encounter_types: dict[str, str],
     ) -> None:
-        """Assign formType, programName, encounterTypeName to each parsed form."""
+        """Assign formType, programName, encounterTypeName to each parsed form.
+
+        Uses Form Summary sheet as the primary source of truth (if available).
+        Falls back to heuristic classification for forms not in Form Summary.
+        """
         program_names = {p["name"].strip().lower(): p["name"].strip() for p in programs}
 
+        # ── PRIMARY: Use Form Summary sheet if available ──
+        if self._form_summary:
+            logger.info("Using Form Summary sheet for form classification (%d entries)", len(self._form_summary))
+
+            # Filter: only keep forms that match an in-scope Form Summary entry
+            # Forms that don't match any in-scope entry are considered out-of-scope
+            matched_forms: list[SRSFormDefinition] = []
+            unmatched_forms: list[str] = []
+            for f in self._forms:
+                match = self._match_form_to_summary(f.name)
+                if match:
+                    matched_forms.append(f)
+                else:
+                    unmatched_forms.append(f.name)
+
+            if unmatched_forms:
+                logger.info(
+                    "Removed %d forms not found in Form Summary (likely out of scope): %s",
+                    len(unmatched_forms), unmatched_forms,
+                )
+            self._forms = matched_forms
+
+            # Classify each form using Form Summary
+            for form_def in self._forms:
+                match = self._match_form_to_summary(form_def.name)
+                if not match:
+                    # No Form Summary match — will fall through to heuristic below
+                    continue
+
+                program = (match.get("program") or "").strip()
+                encounter_type = (match.get("encounter_type") or "").strip()
+                form_name_full = match["form_name"].strip()
+
+                # Use full name from Form Summary (fixes truncation)
+                if len(form_name_full) > len(form_def.name.strip()):
+                    logger.info(
+                        "Expanding truncated form name: '%s' -> '%s'",
+                        form_def.name, form_name_full,
+                    )
+                    form_def.name = form_name_full
+
+                # Determine formType based on program + encounter_type
+                name_lower = form_def.name.strip().lower()
+
+                if "registration" in name_lower or "reg" == name_lower.split()[-1]:
+                    form_def.formType = "IndividualProfile"
+                elif "enrolment" in name_lower or "enrollment" in name_lower:
+                    form_def.formType = "ProgramEnrolment"
+                    form_def.programName = program
+                elif "exit" in name_lower:
+                    form_def.formType = "ProgramExit"
+                    form_def.programName = program
+                elif program and encounter_type:
+                    # Has both program and encounter type → ProgramEncounter
+                    form_def.formType = "ProgramEncounter"
+                    form_def.programName = program
+                    form_def.encounterTypeName = encounter_type
+                elif encounter_type and not program:
+                    # Encounter type but no program → general Encounter
+                    form_def.formType = "Encounter"
+                    form_def.encounterTypeName = encounter_type
+                elif program and not encounter_type:
+                    # Program but no encounter type → likely enrolment
+                    form_def.formType = "ProgramEnrolment"
+                    form_def.programName = program
+                else:
+                    # No program, no encounter type — use heuristic below
+                    pass
+
+                if form_def.formType:
+                    logger.debug(
+                        "Form Summary classified '%s': formType=%s, program=%s, encounter=%s",
+                        form_def.name, form_def.formType,
+                        form_def.programName, form_def.encounterTypeName,
+                    )
+
+            # For forms that got classified via Form Summary, skip heuristic
+            # For unclassified ones, fall through to heuristic below
+
+        # ── FALLBACK: Heuristic classification for forms not yet classified ──
         # Build program encounter mapping from meta
         pe_map: dict[str, str] = {}  # encounter_name -> program_name
         for pe in self._program_encounters_meta:
@@ -1084,6 +1653,13 @@ class SRSParser:
             if prog:
                 pe_map[enc["name"].strip().lower()] = prog
 
+        # Also add pe_map entries from Form Summary (for heuristic cancellation matching)
+        for entry in self._form_summary:
+            prog = (entry.get("program") or "").strip()
+            et = (entry.get("encounter_type") or "").strip()
+            if prog and et:
+                pe_map[et.lower()] = prog
+
         # Build program enrolment/exit form names from meta
         prog_enrol_forms: dict[str, str] = {}  # form_name_lower -> program_name
         prog_exit_forms: dict[str, str] = {}
@@ -1095,10 +1671,20 @@ class SRSParser:
                 prog_exit_forms[pm["exit_form"].strip().lower()] = pname
 
         for form_def in self._forms:
+            # Skip forms already classified by Form Summary
+            if form_def.formType and form_def.formType != "ProgramEncounter":
+                continue
+            if form_def.formType == "ProgramEncounter" and form_def.programName:
+                continue
             name_lower = form_def.name.strip().lower()
 
-            # 1. Registration forms
-            if "registration" in name_lower or "individual registration" in name_lower:
+            # 1. Registration forms (match "registration", "reg", ending with " reg")
+            is_reg = (
+                "registration" in name_lower
+                or re.search(r"\breg\b", name_lower)
+                or name_lower.endswith(" reg")
+            )
+            if is_reg and "enrol" not in name_lower and "enrollment" not in name_lower:
                 form_def.formType = "IndividualProfile"
                 continue
 
@@ -1252,8 +1838,8 @@ class SRSParser:
         return []
 
     def _parse_hierarchy_text(self, text: str) -> list[dict[str, Any]]:
-        """Parse a location hierarchy from text like 'Block -> Village -> Para'
-        or 'State: Karnataka\\nDistrict: Bengaluru'.
+        """Parse a location hierarchy from text like 'Block -> Village -> Para',
+        'State: Karnataka\\nDistrict: Bengaluru', or 'State,\\nDistrict,\\nBlock'.
         """
         levels: list[dict[str, Any]] = []
 
@@ -1273,13 +1859,24 @@ class SRSParser:
 
         # Try colon-separated lines: "State: Karnataka\nDistrict: Bengaluru"
         lines = text.split("\n")
-        for line in lines:
-            line = line.strip().lstrip("\u2022\t -")
-            if ":" in line:
-                name = line.split(":")[0].strip()
-                name = re.sub(r"\s*/.*$", "", name).strip()  # Remove "/ Region" etc.
-                if name:
-                    levels.append({"name": name})
+        has_colons = any(":" in line for line in lines if line.strip())
+        if has_colons:
+            for line in lines:
+                line = line.strip().lstrip("\u2022\t -")
+                if ":" in line:
+                    name = line.split(":")[0].strip()
+                    name = re.sub(r"\s*/.*$", "", name).strip()  # Remove "/ Region" etc.
+                    if name:
+                        levels.append({"name": name})
+        else:
+            # Try comma and/or newline separated: "State,\nDistrict,\nBlock"
+            # First rejoin and split by comma (handles "State,\nDistrict" format)
+            joined = text.replace("\n", ",")
+            parts = [p.strip().rstrip(",") for p in joined.split(",")]
+            for part in parts:
+                part = part.strip().lstrip("\u2022\t -")
+                if part:
+                    levels.append({"name": part})
 
         total = len(levels)
         for i, level_entry in enumerate(levels):
@@ -1329,10 +1926,98 @@ class SRSParser:
 # ---------------------------------------------------------------------------
 
 
-def parse_srs_excel(file_path: str | Path) -> SRSData:
+def parse_srs_excel(file_path: str | Path, sector: str | None = None) -> SRSData:
     """Parse an SRS Excel file and return structured SRSData.
 
     This is the primary entry point for use by other modules.
+    Auto-detects canonical template format and uses deterministic parser if matched.
+
+    Args:
+        file_path: Path to the SRS Excel file.
+        sector: Optional sector hint (MCH, Education, etc.) for better classification.
     """
+    # Auto-detect canonical template — deterministic, zero LLM
+    from app.services.canonical_srs_parser import is_canonical_template, parse_canonical_srs
+    if is_canonical_template(str(file_path)):
+        logger.info("Detected canonical SRS template: %s", file_path)
+        srs_data, errors = parse_canonical_srs(str(file_path))
+        if errors:
+            logger.warning(
+                "Canonical SRS parsed with %d validation error(s): %s",
+                len(errors), "; ".join(errors[:5]),
+            )
+        return srs_data
+
+    # Fallback: heuristic parser for free-form SRS Excel
     parser = SRSParser(file_path)
+    parser._sector = sector
     return parser.parse()
+
+
+def parse_multiple_srs_excels(file_paths: list[str | Path], sector: str | None = None) -> SRSData:
+    """Parse multiple SRS Excel files and merge them into one SRSData.
+
+    Useful when scoping doc and modelling doc are separate files.
+    The first file is treated as primary; subsequent files enrich it.
+    """
+    if not file_paths:
+        raise ValueError("At least one file path is required")
+
+    if len(file_paths) == 1:
+        return parse_srs_excel(file_paths[0], sector=sector)
+
+    # Parse primary file
+    primary = SRSParser(file_paths[0])
+    primary._sector = sector
+    primary.parse()  # fills internal state
+
+    # Parse additional files and merge their data into primary
+    for fp in file_paths[1:]:
+        secondary = SRSParser(fp)
+        secondary._sector = sector
+        secondary.parse()
+
+        # Merge subject types (avoid duplicates by name)
+        existing_st = {st["name"].lower() for st in (primary._modelling.get("subject_types") or [])}
+        for st in (secondary._modelling.get("subject_types") or []):
+            if st["name"].lower() not in existing_st:
+                if not primary._modelling.get("subject_types"):
+                    primary._modelling["subject_types"] = []
+                primary._modelling["subject_types"].append(st)
+                existing_st.add(st["name"].lower())
+
+        # Merge programs meta
+        existing_progs = {pm["name"].lower() for pm in primary._programs_meta}
+        for pm in secondary._programs_meta:
+            if pm["name"].lower() not in existing_progs:
+                primary._programs_meta.append(pm)
+                existing_progs.add(pm["name"].lower())
+
+        # Merge encounters meta
+        existing_enc = {em["name"].lower() for em in primary._encounters_meta}
+        for em in secondary._encounters_meta:
+            if em["name"].lower() not in existing_enc:
+                primary._encounters_meta.append(em)
+                existing_enc.add(em["name"].lower())
+
+        # Merge program encounters meta
+        for pem in secondary._program_encounters_meta:
+            primary._program_encounters_meta.append(pem)
+
+        # Merge location hierarchy if primary doesn't have one
+        if not primary._location_hierarchy and secondary._location_hierarchy:
+            primary._location_hierarchy = secondary._location_hierarchy
+
+        # Merge visit schedules
+        if secondary._visit_schedules:
+            primary._visit_schedules.extend(secondary._visit_schedules)
+
+        # Merge forms (from additional scoping sheets)
+        existing_forms = {f.name.lower() for f in primary._forms}
+        for f in secondary._forms:
+            if f.name.lower() not in existing_forms:
+                primary._forms.append(f)
+                existing_forms.add(f.name.lower())
+
+    # Rebuild with merged data
+    return primary._build_srs_data()

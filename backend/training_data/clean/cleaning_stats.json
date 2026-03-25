@@ -1,0 +1,15 @@
+{
+  "loaded": 16565,
+  "srs_enriched": 2749,
+  "filtered_invalid": 0,
+  "deduplicated": 1710,
+  "final_train": 5794,
+  "final_val": 644,
+  "categories": {
+    "concept": 16946,
+    "rule": 655,
+    "form": 149,
+    "mapping": 627,
+    "other": 7
+  }
+}

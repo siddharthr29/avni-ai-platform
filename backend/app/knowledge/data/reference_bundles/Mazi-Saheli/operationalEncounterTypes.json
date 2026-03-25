@@ -1,0 +1,35 @@
+{
+  "operationalEncounterTypes" : [ {
+    "uuid" : "94084996-b7be-66de-1227-9f8bf9f4cfcf",
+    "encounterType" : {
+      "uuid" : "a9052fa2-ead4-39d3-1d20-0a3dcd81368b",
+      "voided" : false
+    },
+    "name" : "Assessment & Distribution",
+    "voided" : false
+  }, {
+    "uuid" : "d308298c-704b-97d7-432a-e2d85fc5ab4b",
+    "encounterType" : {
+      "uuid" : "d9816960-324f-3ae9-3a9a-9995a91afb2d",
+      "voided" : false
+    },
+    "name" : "Activity Summary",
+    "voided" : false
+  }, {
+    "uuid" : "a916c5dd-fd52-f062-8024-b5dfe58ca9ce",
+    "encounterType" : {
+      "uuid" : "feb10ace-e6a7-2c1a-72f0-fca66f55141b",
+      "voided" : false
+    },
+    "name" : "Help and Status Tracker (voided~6283)",
+    "voided" : true
+  }, {
+    "uuid" : "09eedba6-e88e-4c4f-a675-e45e8027e8d5",
+    "encounterType" : {
+      "uuid" : "2500534b-f1e5-43da-a206-9d23bfe987ba",
+      "voided" : false
+    },
+    "name" : "Attendance (voided~6295)",
+    "voided" : true
+  } ]
+}

@@ -1,0 +1,26 @@
+[
+  {
+    "uuid": "6f16df55-de55-ce5a-00d3-e222757c0827",
+    "name": "State",
+    "level": 1,
+    "isRegistrationLocation": false
+  },
+  {
+    "uuid": "0e698a2e-20f1-3474-2aa3-8ea3a3fdcbb0",
+    "name": "District",
+    "level": 2,
+    "isRegistrationLocation": false
+  },
+  {
+    "uuid": "5fc65a32-2e25-1661-5270-84ecc9a776a1",
+    "name": "Block",
+    "level": 3,
+    "isRegistrationLocation": false
+  },
+  {
+    "uuid": "b0081769-4a8e-4e19-fe0e-9d5368299b2c",
+    "name": "Village",
+    "level": 4,
+    "isRegistrationLocation": true
+  }
+]

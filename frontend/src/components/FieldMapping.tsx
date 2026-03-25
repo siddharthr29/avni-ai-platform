@@ -1,10 +1,12 @@
 import { useState } from 'react';
-import { Check, AlertTriangle, X, Pencil, Save } from 'lucide-react';
+import { Check, AlertTriangle, X, Pencil, Save, Loader2 } from 'lucide-react';
 import clsx from 'clsx';
+import { saveObservations } from '../services/api';
 
 interface FieldMappingProps {
   fields: Record<string, unknown>;
   confidence: Record<string, number>;
+  onToast: (type: 'success' | 'error' | 'info', message: string) => void;
 }
 
 function ConfidenceBadge({ value }: { value: number }) {
@@ -33,9 +35,10 @@ function StatusIcon({ confidence }: { confidence: number }) {
   return <X className="w-4 h-4 text-red-600" />;
 }
 
-export function FieldMapping({ fields, confidence }: FieldMappingProps) {
+export function FieldMapping({ fields, confidence, onToast }: FieldMappingProps) {
   const [editingField, setEditingField] = useState<string | null>(null);
   const [editedValues, setEditedValues] = useState<Record<string, string>>({});
+  const [isSaving, setIsSaving] = useState(false);
 
   const fieldNames = Object.keys(fields);
 
@@ -49,9 +52,8 @@ export function FieldMapping({ fields, confidence }: FieldMappingProps) {
     }
   };
 
-  const handleSave = (fieldName: string) => {
+  const handleSaveField = (fieldName: string) => {
     setEditingField(null);
-    // In a real app, this would update the backend
     void fieldName;
   };
 
@@ -67,6 +69,31 @@ export function FieldMapping({ fields, confidence }: FieldMappingProps) {
       return editedValues[fieldName];
     }
     return String(fields[fieldName] ?? '');
+  };
+
+  const getFieldsToSave = (): Record<string, unknown> => {
+    const result: Record<string, unknown> = {};
+    for (const name of fieldNames) {
+      result[name] = name in editedValues ? editedValues[name] : fields[name];
+    }
+    return result;
+  };
+
+  const handleSaveToAvni = async () => {
+    setIsSaving(true);
+    try {
+      const fieldsToSave = getFieldsToSave();
+      const result = await saveObservations(fieldsToSave);
+      if (result.success) {
+        onToast('success', 'Data saved to Avni successfully');
+      } else {
+        onToast('error', result.message || 'Failed to save data');
+      }
+    } catch (err) {
+      onToast('error', `Save failed: ${err instanceof Error ? err.message : 'Unknown error'}`);
+    } finally {
+      setIsSaving(false);
+    }
   };
 
   if (fieldNames.length === 0) {
@@ -112,12 +139,18 @@ export function FieldMapping({ fields, confidence }: FieldMappingProps) {
                       className="w-full px-2 py-1 border border-primary-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
                       autoFocus
                       onKeyDown={e => {
-                        if (e.key === 'Enter') handleSave(fieldName);
+                        if (e.key === 'Enter') handleSaveField(fieldName);
                         if (e.key === 'Escape') setEditingField(null);
                       }}
                     />
                   ) : (
-                    <span className="text-gray-700">{getValue(fieldName)}</span>
+                    <span
+                      className="text-gray-700 cursor-pointer hover:bg-gray-100 rounded px-1 py-0.5 -mx-1 transition-colors"
+                      onClick={() => handleEdit(fieldName)}
+                      title="Click to edit"
+                    >
+                      {getValue(fieldName)}
+                    </span>
                   )}
                 </td>
                 <td className="px-3 py-2 text-center">
@@ -129,7 +162,7 @@ export function FieldMapping({ fields, confidence }: FieldMappingProps) {
                 <td className="px-2 py-2">
                   {isEditing ? (
                     <button
-                      onClick={() => handleSave(fieldName)}
+                      onClick={() => handleSaveField(fieldName)}
                       className="p-1 rounded hover:bg-gray-200 transition-colors"
                       aria-label="Save"
                     >
@@ -152,8 +185,19 @@ export function FieldMapping({ fields, confidence }: FieldMappingProps) {
       </table>
 
       <div className="border-t border-gray-200 px-3 py-2 bg-gray-50 flex justify-end">
-        <button className="px-4 py-1.5 bg-primary-600 hover:bg-primary-700 text-white text-sm rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 font-medium">
-          Save to Avni
+        <button
+          onClick={handleSaveToAvni}
+          disabled={isSaving}
+          className="flex items-center gap-2 px-4 py-1.5 bg-primary-600 hover:bg-primary-700 text-white text-sm rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          {isSaving ? (
+            <>
+              <Loader2 className="w-4 h-4 animate-spin" />
+              Saving...
+            </>
+          ) : (
+            'Save to Avni'
+          )}
         </button>
       </div>
     </div>

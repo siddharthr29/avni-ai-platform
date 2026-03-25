@@ -1,0 +1,104 @@
+{
+  "name": "Family Planning Services",
+  "uuid": "58a1e21b-fb3c-45b7-92cb-1eb4623c8ad5",
+  "formType": "ProgramEncounter",
+  "formElementGroups": [
+    {
+      "uuid": "4de12ddf-9987-44f1-8b3b-17a2ea935d0e",
+      "name": "Family Planning",
+      "displayOrder": 1,
+      "formElements": [
+        {
+          "name": "Family Planning session happening where",
+          "uuid": "601d8bea-19b5-4a91-be8e-5b905ca76682",
+          "keyValues": [],
+          "concept": {
+            "name": "Family Planning session happening where",
+            "uuid": "65dc54dc-3576-4508-b095-469bd786ad54",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Method Adopted",
+          "uuid": "08662101-c422-4e3b-b4fc-ace843c884af",
+          "keyValues": [],
+          "concept": {
+            "name": "Method Adopted",
+            "uuid": "14e8389e-8423-4620-b2a3-1f2312b2a9d1",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 2,
+          "type": "MultiSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Adoption Date",
+          "uuid": "3171d468-add0-418e-bce9-54b3e4f22f14",
+          "keyValues": [],
+          "concept": {
+            "name": "Adoption Date",
+            "uuid": "6fcd211c-59f4-4ffe-b8b0-b1ba2fb44c0c",
+            "dataType": "Date",
+            "active": true
+          },
+          "displayOrder": 3,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Side Effects",
+          "uuid": "485485aa-149d-4050-bde6-93e5c97f1e62",
+          "keyValues": [],
+          "concept": {
+            "name": "Side Effects",
+            "uuid": "784b40f5-6912-4475-96ce-ff807924a052",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 4,
+          "type": "MultiSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Switch/Discontinue",
+          "uuid": "551b61cc-3dd9-4d78-a10b-6b2e6ec5aa11",
+          "keyValues": [],
+          "concept": {
+            "name": "Switch/Discontinue",
+            "uuid": "7b610f2c-6cd9-44fe-9140-51cb6bd2f07d",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 5,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Method Adopted after swicth",
+          "uuid": "1f6d29ab-95c1-45d8-b0a2-4134d08ff092",
+          "keyValues": [],
+          "concept": {
+            "name": "Method Adopted after swicth",
+            "uuid": "26f59bcc-3c25-4699-86ba-05b896a4c1c5",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 6,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}

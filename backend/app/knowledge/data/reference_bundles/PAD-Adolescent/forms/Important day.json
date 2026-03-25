@@ -1,0 +1,76 @@
+{
+  "name": "Important day",
+  "uuid": "6d349a48-288f-4cc9-90a5-3d106c3e55a6",
+  "formType": "ProgramEncounter",
+  "formElementGroups": [
+    {
+      "uuid": "73e68407-e244-4f5a-b1b8-7bf1a4f4bec1",
+      "name": "Important day",
+      "displayOrder": 1,
+      "formElements": [
+        {
+          "name": "Day celebrated",
+          "uuid": "035eceae-6bc2-4de4-8ab4-b3bcd82ec39f",
+          "keyValues": [],
+          "concept": {
+            "name": "Day celebrated",
+            "uuid": "14d3e80d-d7dd-445a-94ea-d945256e968a",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Celebration date",
+          "uuid": "14cdacb6-cf1c-4422-9d5b-bff6083e0f68",
+          "keyValues": [],
+          "concept": {
+            "name": "Celebration date",
+            "uuid": "2a39aa16-be3d-4d15-9497-17d14a9e9917",
+            "dataType": "Date",
+            "active": true
+          },
+          "displayOrder": 2,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "no. of. participants",
+          "uuid": "2335e471-9509-4100-9cfd-5ff9c49d6644",
+          "keyValues": [],
+          "concept": {
+            "name": "no. of. participants",
+            "uuid": "3e5fa2ee-4a75-472c-8a82-61fc6f832462",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 3,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Materials distributed",
+          "uuid": "6f67590f-d72c-48b3-badb-bf09c5e45886",
+          "keyValues": [],
+          "concept": {
+            "name": "Materials distributed",
+            "uuid": "45368b03-3c10-439a-a0c1-51c343473e1d",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 4,
+          "type": "MultiSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}

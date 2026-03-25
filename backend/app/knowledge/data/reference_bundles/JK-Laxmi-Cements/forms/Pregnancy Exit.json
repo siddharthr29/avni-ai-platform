@@ -1,0 +1,176 @@
+{
+  "name": "Pregnancy Exit",
+  "uuid": "4a01d3e7-a82b-43fd-b42d-0a63e07c5932",
+  "formType": "ProgramExit",
+  "formElementGroups": [
+    {
+      "uuid": "1cef02d2-95cf-4f12-8cd2-e149d9b32716",
+      "name": "Exit Details",
+      "displayOrder": 1,
+      "formElements": [
+        {
+          "name": "Reason for exit",
+          "uuid": "5f5b9c2f-1607-4ba2-9373-a382102ff9d1",
+          "keyValues": [],
+          "concept": {
+            "name": "Reason for exit",
+            "uuid": "50ee0cc1-5d1d-4037-8675-ff2aa6422659",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Other reason, please specify",
+          "uuid": "0d4d9ed4-f544-4c25-97f0-449a22b8a88f",
+          "keyValues": [],
+          "concept": {
+            "name": "Other reason, please specify",
+            "uuid": "462d6ae5-bdd3-45b6-885d-2e5d57a86212",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 2,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "054f99e8-cff3-4507-921a-57c75f014028",
+      "name": "Abortion Details",
+      "displayOrder": 2,
+      "formElements": [
+        {
+          "name": "Abortion Type",
+          "uuid": "51384012-022b-40be-b337-0980f7a6a355",
+          "keyValues": [],
+          "concept": {
+            "name": "Abortion Type",
+            "uuid": "696a15f0-fa42-4226-a2e6-9a5330d00cd2",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Abortion Date",
+          "uuid": "349a5387-c5a2-46e2-bc0d-2ae7dcde4eaa",
+          "keyValues": [],
+          "concept": {
+            "name": "Abortion Date",
+            "uuid": "69627664-8fef-4cc4-b8b3-7ff379279fe6",
+            "dataType": "Date",
+            "active": true
+          },
+          "displayOrder": 2,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Gestational Age at Abortion (weeks)",
+          "uuid": "136367a9-047b-4d0c-8777-38f20c9284ba",
+          "keyValues": [],
+          "concept": {
+            "name": "Gestational Age at Abortion (weeks)",
+            "uuid": "35645385-6a0c-4843-b4c4-158f8bee5b40",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 3,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Place",
+          "uuid": "78a3e73a-55e6-43d8-ab14-18e2e69b6f7c",
+          "keyValues": [],
+          "concept": {
+            "name": "Place",
+            "uuid": "56c70955-e51c-4f8f-93b3-bad412522a90",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 4,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Complications",
+          "uuid": "2ed27fa9-8e14-4bf9-852f-ae11fee8cb88",
+          "keyValues": [],
+          "concept": {
+            "name": "Complications",
+            "uuid": "69a51e43-7f60-4305-8094-f1ed1165e0b6",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 5,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "7b7295d8-9576-44ff-89ae-f96c2aab221c",
+      "name": "Death Details",
+      "displayOrder": 3,
+      "formElements": [
+        {
+          "name": "Date of Death",
+          "uuid": "4f333cb2-2d9f-4ddd-910a-0ecc2769d5b6",
+          "keyValues": [],
+          "concept": {
+            "name": "Date of Death",
+            "uuid": "17a17d4b-cd5d-4678-8145-6618b93875b1",
+            "dataType": "Date",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Reason for Death",
+          "uuid": "6cd23749-f009-4722-ac8e-77edad2defef",
+          "keyValues": [],
+          "concept": {
+            "name": "Reason for Death",
+            "uuid": "3152ac53-2f2d-483a-84ac-28579c6d9ba9",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 2,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Other reason, please specify",
+          "uuid": "6399c443-3787-4886-a749-49fd6fe92d64",
+          "keyValues": [],
+          "concept": {
+            "name": "Other reason, please specify",
+            "uuid": "462d6ae5-bdd3-45b6-885d-2e5d57a86212",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 3,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}

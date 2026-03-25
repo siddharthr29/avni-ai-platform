@@ -115,35 +115,43 @@ async def extract_from_image(
         f"Extract the values from this image and map them to the form fields above."
     )
 
-    response_text = await claude_client.complete_with_vision(
-        messages=[{"role": "user", "content": user_message}],
-        system_prompt=IMAGE_EXTRACT_SYSTEM_PROMPT,
-        image_data=image_bytes,
-        image_media_type=image_type,
-    )
-
-    # Parse the JSON response
     try:
-        cleaned = response_text.strip()
-        if cleaned.startswith("```"):
-            cleaned = cleaned.split("\n", 1)[1] if "\n" in cleaned else cleaned[3:]
-            if cleaned.endswith("```"):
-                cleaned = cleaned[:-3]
-            cleaned = cleaned.strip()
-
-        result = json.loads(cleaned)
-        return {
-            "fields": result.get("fields", {}),
-            "confidence": result.get("confidence", {}),
-            "notes": result.get("notes", ""),
-        }
-    except json.JSONDecodeError:
-        logger.error(
-            "Failed to parse Claude response for image extraction: %s",
-            response_text[:500],
+        response_text = await claude_client.complete_with_vision(
+            messages=[{"role": "user", "content": user_message}],
+            system_prompt=IMAGE_EXTRACT_SYSTEM_PROMPT,
+            image_data=image_bytes,
+            image_media_type=image_type,
         )
+
+        # Parse the JSON response
+        try:
+            cleaned = response_text.strip()
+            if cleaned.startswith("```"):
+                cleaned = cleaned.split("\n", 1)[1] if "\n" in cleaned else cleaned[3:]
+                if cleaned.endswith("```"):
+                    cleaned = cleaned[:-3]
+                cleaned = cleaned.strip()
+
+            result = json.loads(cleaned)
+            return {
+                "fields": result.get("fields", {}),
+                "confidence": result.get("confidence", {}),
+                "notes": result.get("notes", ""),
+            }
+        except json.JSONDecodeError:
+            logger.error(
+                "Failed to parse Claude response for image extraction: %s",
+                response_text[:500],
+            )
+            return {
+                "fields": {},
+                "confidence": {},
+                "notes": "Failed to parse extraction results from the image.",
+            }
+    except Exception as e:
+        logger.error("LLM call failed during image extraction: %s", str(e))
         return {
             "fields": {},
             "confidence": {},
-            "notes": "Failed to parse extraction results from the image.",
+            "notes": "Failed to process the image due to an internal error.",
         }

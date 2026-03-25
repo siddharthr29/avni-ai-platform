@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Adolescent",
+    "uuid": "55e1062a-6ed8-43a6-a6d8-cefe7ae377b8",
+    "type": "Person",
+    "active": true
+  },
+  {
+    "name": "Adolescent Group",
+    "uuid": "08fca717-e1ac-4bea-96f2-321e141eceb9",
+    "type": "Group",
+    "active": true
+  },
+  {
+    "name": "Community Support Group",
+    "uuid": "19bd4e5d-3e71-409d-ae4c-e55203ec889f",
+    "type": "Group",
+    "active": true
+  },
+  {
+    "name": "Meeting",
+    "uuid": "34c0f6d9-fa8f-48dd-ab42-279cd3d3d0b1",
+    "type": "Group",
+    "active": true
+  }
+]

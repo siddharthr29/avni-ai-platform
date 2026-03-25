@@ -1,0 +1,380 @@
+{
+  "name": "ANC Form",
+  "uuid": "97c40cfd-e06a-04eb-eb37-2077c1dbc568",
+  "formType": "ProgramEncounter",
+  "formElementGroups": [
+    {
+      "uuid": "21ee6258-2d91-6653-3d15-7f70304dbf01",
+      "name": "ANC Visit",
+      "displayOrder": 1,
+      "formElements": [
+        {
+          "name": "ANC happening where",
+          "uuid": "dd4cd6be-1b8f-d690-dd41-4c577ca58430",
+          "keyValues": [],
+          "concept": {
+            "name": "ANC happening where",
+            "uuid": "950df412-56d2-d79e-5a0c-4ebcb08f315d",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Visit Number",
+          "uuid": "be4cb157-821d-1d7f-4949-3d73f9461ed2",
+          "keyValues": [],
+          "concept": {
+            "name": "Visit Number",
+            "uuid": "7edceeb7-bde1-608e-69a1-c484446939f3",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 2,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Weight",
+          "uuid": "dac1ec34-b97b-6196-d1f5-7c81361c5cbc",
+          "keyValues": [],
+          "concept": {
+            "name": "Weight",
+            "uuid": "036ff915-6117-1c48-1797-4a8472998e15",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 3,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Gestational Age",
+          "uuid": "42a0514f-4240-28e8-8d11-7ef942d0361d",
+          "keyValues": [],
+          "concept": {
+            "name": "Gestational Age",
+            "uuid": "0140d533-6086-ed58-4bff-3d0680ff5528",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 4,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "BP (Systolic)",
+          "uuid": "d6c3c553-b5af-62b3-4bc5-a8953809f337",
+          "keyValues": [],
+          "concept": {
+            "name": "BP (Systolic)",
+            "uuid": "ca9ed0b1-cf30-efc3-f3c7-82c6284f7470",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 5,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "BP (Diastolic)",
+          "uuid": "93a919e4-c891-6cf0-f03a-754df388ab8d",
+          "keyValues": [],
+          "concept": {
+            "name": "BP (Diastolic)",
+            "uuid": "bc9c09d4-d7f5-61cf-85dc-5913374e4840",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 6,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Hemoglobin",
+          "uuid": "2150ca6b-936c-9e3f-36b2-2d45528517ea",
+          "keyValues": [],
+          "concept": {
+            "name": "Hemoglobin",
+            "uuid": "d6eb3168-ee01-ff9e-a2f8-01a9a243f47c",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 7,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Improved from last ANC",
+          "uuid": "1d40da32-8400-2336-2b6e-5031ec18699e",
+          "keyValues": [],
+          "concept": {
+            "name": "Improved from last ANC",
+            "uuid": "41fd1b62-a6df-063e-ce8e-aecf234e088c",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 8,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Fetal Heart Rate",
+          "uuid": "c19ba023-a25c-737b-f2e2-cbf26634264d",
+          "keyValues": [],
+          "concept": {
+            "name": "Fetal Heart Rate",
+            "uuid": "6e2300fd-37a5-e1af-3bcb-1b448a72abab",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 9,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Edema",
+          "uuid": "87caad4b-36f9-7f29-097a-817cdf80056b",
+          "keyValues": [],
+          "concept": {
+            "name": "Edema",
+            "uuid": "fec5204f-4550-430b-9dee-59eee78dc421",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 10,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Danger Signs",
+          "uuid": "a1ff12df-66eb-ec08-f468-6ac07f8fa0fe",
+          "keyValues": [],
+          "concept": {
+            "name": "Danger Signs",
+            "uuid": "6fa952f3-c205-d704-e541-7b74416f2e7e",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 11,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "IFA Tablets Issued (count)",
+          "uuid": "d768e629-10a9-ad5e-091b-6a68191fe236",
+          "keyValues": [],
+          "concept": {
+            "name": "IFA Tablets Issued (count)",
+            "uuid": "83fc5ca6-769b-a481-cd1f-bcd31a8c3a01",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 12,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "TT/TD Dose Given",
+          "uuid": "90e87f93-5d27-15c7-24a6-75ea6788be6b",
+          "keyValues": [],
+          "concept": {
+            "name": "TT/TD Dose Given",
+            "uuid": "9d1899df-7e9d-4a2d-5285-4882d640b859",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 13,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false,
+      "display": "ANC Visit"
+    },
+    {
+      "uuid": "a1483adb-03e4-96a7-9d5b-351c886e7ad9",
+      "name": "General",
+      "displayOrder": 2,
+      "formElements": [
+        {
+          "name": "Number of Doses Given",
+          "uuid": "e0178ab7-1100-0c21-3ef1-a7f94654c6ff",
+          "keyValues": [],
+          "concept": {
+            "name": "Number of Doses Given",
+            "uuid": "ae842931-b75c-08c2-1244-a8edabb657c5",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Date of Last Dose",
+          "uuid": "270d694f-b4a2-d2af-0ffa-bbef267aeddc",
+          "keyValues": [],
+          "concept": {
+            "name": "Date of Last Dose",
+            "uuid": "7eb123cb-9402-ebb5-69f3-6a6948d41ce8",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 2,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Referral Facility",
+          "uuid": "69e5d117-b0c0-5192-ea1d-2920b0f046db",
+          "keyValues": [],
+          "concept": {
+            "name": "Referral Facility",
+            "uuid": "cffb48db-81f5-2f12-5e37-de6479633bb3",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 3,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Outcome/Remarks",
+          "uuid": "45e876bf-9605-0758-2575-0f1d5fbeb450",
+          "keyValues": [],
+          "concept": {
+            "name": "Outcome/Remarks",
+            "uuid": "cfd3bb10-ac11-a5bf-6025-3d04010116fa",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 4,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false,
+      "display": "General"
+    },
+    {
+      "uuid": "90de0360-752d-3297-fe8c-672b63ae6b26",
+      "name": "Counselling",
+      "displayOrder": 3,
+      "formElements": [
+        {
+          "name": "Counselling Provided",
+          "uuid": "2a991d89-247f-12b1-d433-d2f9d2261905",
+          "keyValues": [],
+          "concept": {
+            "name": "Counselling Provided",
+            "uuid": "80367f8b-69b1-101b-696c-e232cc589206",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false,
+      "display": "Counselling"
+    },
+    {
+      "uuid": "190286a9-5f87-35a0-44dc-3522e807957f",
+      "name": "General",
+      "displayOrder": 4,
+      "formElements": [
+        {
+          "name": "Counselling Points",
+          "uuid": "552de622-2615-ce18-6819-6353615ae887",
+          "keyValues": [],
+          "concept": {
+            "name": "Counselling Points",
+            "uuid": "14f4dc5b-dc93-2dcf-57b8-db9bc4852aa0",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false,
+      "display": "General"
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": [],
+  "visitScheduleDeclarativeRule": [
+    {
+      "actions": [
+        {
+          "details": {
+            "dateField": "encounterDateTime",
+            "daysToSchedule": "30",
+            "daysToOverdue": "45",
+            "encounterName": "ANC",
+            "encounterType": "ANC"
+          },
+          "actionType": "scheduleVisit"
+        }
+      ],
+      "conditions": [
+        {
+          "compoundRule": {
+            "rules": [
+              {
+                "lhs": {},
+                "rhs": {}
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

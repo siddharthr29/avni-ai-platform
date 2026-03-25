@@ -1,0 +1,504 @@
+{
+  "org": "JSS",
+  "rules": [
+    {
+      "type": "visitSchedule",
+      "form": "Albendazole Tracking",
+      "rule": "\"use strict\";\n({params, imports}) => {\n    const programEncounter = params.entity;\n    const moment = imports.moment;\n    const FEB = 1;\n    const AUG = 7;\n    const findSlot = (anyDate) => {\n        anyDate = moment(anyDate).startOf('day').toDate();\n        if (moment(anyDate).month() < FEB) {\n            return moment(anyDate).startOf('month').month(FEB).toDate();\n        }\n        if (moment(anyDate).month() === FEB) {\n            return anyDate;\n        }\n        if (moment(anyDate).month() < AUG) {\n            return moment(anyDate).startOf('month').month(AUG).toDate();\n        }\n        if (moment(anyDate).month() === AUG) {\n            return anyDate;\n        }\n        return moment(anyDate).add(1, 'year').month(FEB).startOf('month').toDate();\n    };\n\n    const getVisitSchedule = (_earliestDate) => {\n        let earliestDate = moment(_earliestDate).startOf('day').toDate();\n        let maxDate = moment(earliestDate).endOf('month').toDate();\n        if (moment(_earliestDate).month() === FEB) {\n            return {\n                name: 'Albendazole FEB',\n                encounterType: 'Albendazole',\n                earliestDate,\n                maxDate,\n            }\n        }\n        return {\n            name: 'Albendazole AUG',\n            encounterType: 'Albendazole',\n            earliestDate,\n            maxDate,\n        }\n    };\n\n    const findNextSlot = (currentVisitScheduledDate) => {\n        let guessedDate = moment(currentVisitScheduledDate).startOf('month').add(1, 'months').startOf('day').toDate();\n        return findSlot(guessedDate);\n    };\n\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({\n        programEncounter,\n        programEnrolment: programEncounter.programEnrolment\n    });\n    const visitSchedule = getVisitSchedule(findNextSlot(programEncounter.earliestVisitDateTime));\n    if (moment().isSameOrBefore(visitSchedule.maxDate, 'day')) {\n        scheduleBuilder.add(visitSchedule);\n    }\n    return scheduleBuilder.getAllUnique(\"encounterType\");\n};"
+    },
+    {
+      "type": "visitSchedule",
+      "form": "Anthropometry Assessment",
+      "rule": "\"use strict\";\n({ params, imports }) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const _ = imports.lodash;\n  const myGroups = programEncounter.programEnrolment.individual.groups;\n\n  // ✅ If earliestVisitDateTime is missing (like after cancel), \n  // use the last valid scheduled or encounter date.\n  let scheduledDateTime = programEncounter.earliestVisitDateTime;\n\n  if (_.isNil(scheduledDateTime)) {\n    // fallback: use encounterDateTime or enrolmentDateTime as base\n    scheduledDateTime =\n      programEncounter.encounterDateTime ||\n      programEncounter.programEnrolment.enrolmentDateTime;\n\n    if (_.isNil(scheduledDateTime)) {\n      // still nothing? then safely exit\n      return [];\n    }\n  }\n\n  const groupSubject = _.get(\n    _.find(myGroups, (g) => !g.voided && g.groupSubject.subjectType.name === \"Phulwari\"),\n    \"groupSubject\"\n  );\n\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({ programEncounter });\n\n  if (!_.isNil(groupSubject)) {\n    const dayOfMonth = groupSubject.getObservationReadableValue(\n      \"Day of month for growth monitoring visit\"\n    );\n\n    // Calculate next month for visit (wrap December → January)\n    const monthForNextVisit =\n      moment(scheduledDateTime).month() !== 11\n        ? moment(scheduledDateTime).month() + 1\n        : 0;\n\n    let earliestDate = moment(scheduledDateTime)\n      .month(monthForNextVisit)\n      .date(dayOfMonth)\n      .toDate();\n\n    // ✅ Handle month-end cases (e.g. day doesn’t exist)\n    if (moment(earliestDate).month() !== monthForNextVisit) {\n      earliestDate = moment(scheduledDateTime).add(1, \"M\").endOf(\"month\").toDate();\n    } else {\n      earliestDate = moment(scheduledDateTime).add(1, \"M\").date(dayOfMonth).toDate();\n    }\n\n    const maxDate = moment(earliestDate).add(3, \"days\").toDate();\n\n    scheduleBuilder.add({\n      name: \"Growth Monitoring Visit\",\n      encounterType: \"Anthropometry Assessment\",\n      earliestDate,\n      maxDate,\n    });\n  }\n\n  return scheduleBuilder.getAll();\n};\n"
+    },
+    {
+      "type": "formElement",
+      "form": "Anthropometry Assessment",
+      "group": "Anthropometry",
+      "element": "Reason for skipping height capture.",
+      "concept": "Reason for skipping height capture.",
+      "dataType": "Text",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  \n  statusBuilder.show().when.valueInEncounter('Skip capturing height').is.yes;\n  \n  return statusBuilder.build();\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "Anthropometry Assessment",
+      "group": "Anthropometry",
+      "element": "Height",
+      "concept": "Height",
+      "dataType": "Numeric",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  const statusBuilder = new imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  \n   statusBuilder.show().when.valueInEncounter(\"Skip capturing height\").is.notDefined;\n   return statusBuilder.build();\n  \n};"
+    },
+    {
+      "type": "formElement",
+      "form": "Child Absent followup Form",
+      "group": "Details",
+      "element": "Other reason for remaining absent",
+      "concept": "Other reason for remaining absent",
+      "dataType": "Text",
+      "rule": "'use strict';\n({params, imports}) => {\n  const encounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new imports.rulesConfig.FormElementStatusBuilder({encounter, formElement});\n   statusBuilder.show().when.valueInEncounter('Reason for being absent').containsAnswerConceptName(\"Other\");\n  return statusBuilder.build();\n};"
+    },
+    {
+      "type": "visitSchedule",
+      "form": "Child Enrolment",
+      "rule": "\"use strict\";\n({params, imports}) => {\n    const programEnrolment = params.entity;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({\n        programEnrolment\n    });\n    const moment = imports.moment;\n    const FEB = 1;\n    const AUG = 7;\n    const findSlots = (anyDate) => {\n        anyDate = moment(anyDate).startOf('day').toDate();\n        if (moment(anyDate).month() < FEB) {\n            return moment(anyDate).startOf('month').month(FEB).toDate();\n        }\n        if (moment(anyDate).month() === FEB) {\n            return anyDate;\n        }\n        if (moment(anyDate).month() < AUG) {\n            return moment(anyDate).startOf('month').month(AUG).toDate();\n        }\n        if (moment(anyDate).month() === AUG) {\n            return anyDate;\n        }\n        return moment(anyDate).add(1, 'year').month(FEB).startOf('month').toDate();\n    };\n    const getVisitSchedule = (_earliestDate) => {\n        let earliestDate = moment(_earliestDate).startOf('day').toDate();\n        let maxDate = moment(earliestDate).endOf('month').toDate();\n        if (moment(_earliestDate).month() === FEB) {\n            return {\n                name: 'Albendazole FEB',\n                encounterType: 'Albendazole',\n                earliestDate, maxDate,\n            }\n        }\n        return {\n            name: 'Albendazole AUG',\n            encounterType: 'Albendazole',\n            earliestDate, maxDate,\n        }\n    };\n    const earliestDate = programEnrolment.enrolmentDateTime;\n    const maxDate = programEnrolment.enrolmentDateTime;\n    \n    scheduleBuilder.add({\n            name: \"Growth Monitoring Visit\",\n            encounterType: \"Anthropometry Assessment\",\n            earliestDate: earliestDate,\n            maxDate: maxDate\n        }\n    );\n    scheduleBuilder.add(getVisitSchedule(findSlots(programEnrolment.enrolmentDateTime)));\n    return scheduleBuilder.getAllUnique(\"encounterType\");\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "Child Enrolment",
+      "group": "Basic Details",
+      "element": "Enrol to",
+      "concept": "Phulwari",
+      "dataType": "Coded",
+      "rule": "'use strict';\n({params, imports}) => {\n    const programEnrolment = params.entity;\n    const formElement = params.formElement;\n    const statusBuilder = new imports.rulesConfig.FormElementStatusBuilder({programEnrolment, formElement});\n    var allPhulwari = formElement.concept.getAnswers();\n    const village = programEnrolment.individual.lowestAddressLevel.name;\n    const phulwariesToRemove = [];\n    const _ = imports.lodash;\n    _.forEach(allPhulwari,phulwari=>{ const phulwariVillage = phulwari.concept.recordValueByKey('village');\n        if (phulwariVillage && !_.includes(phulwariVillage.split(','), village)) {\n            phulwariesToRemove.push(phulwari)\n        }});\n    statusBuilder.skipAnswers.apply(statusBuilder, phulwariesToRemove);\n    return statusBuilder.build();\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "Child Enrolment",
+      "group": "Basic Details",
+      "element": "Enrol to",
+      "concept": "Phulwari group",
+      "dataType": "GroupAffiliation",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEnrolment = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new imports.rulesConfig.FormElementStatusBuilder({programEnrolment, formElement});\n  const _ = imports.lodash;\n  const individualService = params.services.individualService;\n  const phulwaris = individualService.getSubjectsInLocation(programEnrolment.individual.lowestAddressLevel, 'Phulwari');\n // console.log(\"phulwaris =>>>\", phulwaris);\n  const uuids = _.map(phulwaris, ({uuid}) => uuid);\n // console.log(\"uuids =>>>\", statusBuilder.showAnswers(...uuids));\n  statusBuilder.showAnswers(...uuids);\n  return statusBuilder.build();\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "Child Enrolment",
+      "group": "Basic Details",
+      "element": "Enrolment ID",
+      "concept": "Enrolment ID",
+      "dataType": "Id",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEnrolment = params.entity;\n  const formElement = params.formElement;\n  const individualService = params.services.individualService;\n  const enrolmentID = programEnrolment.getObservationReadableValue('Enrolment ID') || '';\n  const _ = imports.lodash;\n  const phulwariName = _.get(_.find(params.entityContext.affiliatedGroups, ({voided}) => !voided), ['groupSubject', 'firstName'], '');\n  const regex = /[a-z,A-Z]{2}\\d+/;\n  const originalIdGroups = enrolmentID.match(regex);\n  if(_.isEmpty(originalIdGroups) || _.isEmpty(phulwariName)) {\n    return new imports.rulesConfig.FormElementStatus(formElement.uuid, false, enrolmentID);\n  }\n  const originalId = originalIdGroups[0];\n  const _getId = (str = '') => str.substring(0, 3).toUpperCase().replace(/\\s+/g, '');\n  const villageName = programEnrolment.individual.lowestAddressLevel.name;\n  const uniqueID = `${_getId(villageName)}${_getId(phulwariName)}${originalId}`;\n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, !_.isEmpty(phulwariName), uniqueID);\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "Child Enrolment",
+      "group": "Basic Details",
+      "element": "Specify other disability",
+      "concept": "Other disability",
+      "dataType": "Text",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEnrolment = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new imports.rulesConfig.FormElementStatusBuilder({programEnrolment, formElement});\n  statusBuilder.show().when.valueInEnrolment(\"Child Disabilities\").containsAnswerConceptName(\"Other\");\n  return statusBuilder.build();\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "Child Enrolment",
+      "group": "Basic Details",
+      "element": "Chronic illness",
+      "concept": "Name of Disease",
+      "dataType": "Text",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEnrolment = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new imports.rulesConfig.FormElementStatusBuilder({programEnrolment, formElement});\n  statusBuilder.show().when.valueInEnrolment(\"Chronic Illness\").containsAnswerConceptName(\"Yes\");\n  return statusBuilder.build();\n};"
+    },
+    {
+      "type": "visitSchedule",
+      "form": "Daily Attendance Cancel Form",
+      "rule": "\"use strict\";\n({ params, imports }) => {\n  const encounter = params.entity;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({\n    encounter\n  });\n  \n let earliestVisitDate = imports.moment(encounter.earliestVisitDateTime).add(1, 'days').toDate();\n let weekDayName =  imports.moment(earliestVisitDate).format('ddd');\n  \n  if(_.isEqual(weekDayName,'Sun')){\n   earliestVisitDate = imports.moment(encounter.earliestVisitDateTime).add(2, 'days').toDate();\n     weekDayName =  imports.moment(earliestVisitDate).format('ddd');\n   }\n  \n  scheduleBuilder.add({\n                name: \"Daily Attendance\" +' -'+weekDayName,\n                encounterType: \"Daily Attendance Form\",\n                earliestDate: earliestVisitDate,\n                maxDate: earliestVisitDate\n            }\n        );\n        \n  return scheduleBuilder.getAll();\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "Daily Attendance Cancel Form",
+      "group": "Details",
+      "element": "Other reason for cancelling Phulwari Attendance",
+      "concept": "Other reason for cancelling Phulwari Attendance",
+      "dataType": "Text",
+      "rule": "'use strict';\n({params, imports}) => {\n  const encounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new imports.rulesConfig.FormElementStatusBuilder({encounter, formElement});\n  const reason=encounter.findCancelEncounterObservationReadableValue('Reason for cancelling Phulwari Attendance');\n  var check=_.isEqual(reason,'Other');\n  statusBuilder.show().whenItem(check).is.truthy;\n return statusBuilder.build();\n};"
+    },
+    {
+      "type": "visitSchedule",
+      "form": "Daily Attendance Form",
+      "rule": "\"use strict\";\n({ params, imports }) => {\n    const encounter = params.entity;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({\n        encounter\n    });\n    const visitDate = encounter.earliestVisitDateTime || encounter.encounterDateTime;\n    let earliestVisitDate = imports.moment(visitDate).add(1, 'days').toDate();\n    let weekDayName =  imports.moment(earliestVisitDate).format('ddd');\n\n    if(_.isEqual(weekDayName,'Sun')){\n        earliestVisitDate = imports.moment(visitDate).add(2, 'days').toDate();\n        weekDayName =  imports.moment(earliestVisitDate).format('ddd');\n    }\n\n    scheduleBuilder.add({\n            name: \"Daily Attendance\" +' -'+weekDayName,\n            encounterType: \"Daily Attendance Form\",\n            earliestDate: earliestVisitDate,\n            maxDate: earliestVisitDate\n        }\n    );\n\n    const groupSubject = params.entity.individual.groupSubjects;\n    const children = [];\n    const childrenDetails = [];\n\n groupSubject.forEach((groupSubject) => {\n         if (!groupSubject.memberSubject.voided) {\n            children.push(groupSubject.memberSubject.uuid);\n            childrenDetails.push(groupSubject.memberSubject);\n            }\n        });\n\n    let currentVisitAttendance = encounter.getObservationReadableValue('Children present in phulwari');\n\n    const encounters = encounter.individual.getEncounters(true);\n\n\n    let enc1 = _.chain(encounters)\n        .filter((enc) => enc.encounterDateTime)\n        .filter((enc) => enc.encounterDateTime < encounter.encounterDateTime)\n        .nth(0)\n        .value();\n\n    let enc2 = _.chain(encounters)\n        .filter((enc) => enc.encounterDateTime)\n        .filter((enc) => enc.encounterDateTime < encounter.encounterDateTime)\n        .filter((enc) => !_.isNil(enc.encounterDateTime))\n        .nth(1)\n        .value();\n\n    let enc1VisitAttendance = -1, enc2VisitAttendance = -1;\n\n    if (enc1 && enc2) {\n        enc1VisitAttendance = enc1.getObservationReadableValue('Children present in phulwari');\n        let enc1VisitAbsentChildern = _.difference(children, enc1VisitAttendance);\n\n        enc2VisitAttendance = enc2.getObservationReadableValue('Children present in phulwari');\n        let enc2VisitAbsentChildern = _.difference(children, enc2VisitAttendance);\n\n        let currentVisitAbsentChildern = _.difference(children, currentVisitAttendance);\n\n        let lastThreeVisitAbsentChildren = _.chain(currentVisitAbsentChildern)\n            .filter(e => _.includes(enc1VisitAbsentChildern,e)  === true)\n            .filter(e => _.includes(enc2VisitAbsentChildern,e)  === true)\n            .value();\n\n        //console.log('lastThreeVisitAbsentChildren',lastThreeVisitAbsentChildren);\n\n        if(lastThreeVisitAbsentChildren)\n            lastThreeVisitAbsentChildren.forEach((e) => {\n\n\n                let subject = _.chain(childrenDetails)\n                    .filter(childrenDetail => _.isEqual(childrenDetail.uuid,e)  === true)\n                    .value();\n\n                let hasAbsentResumeDate = subject[0].findLatestObservationFromEncounters('Date of phulwari resume',encounter);\n                let resumeDate;\n                if(hasAbsentResumeDate){\n                    resumeDate = hasAbsentResumeDate.getReadableValue();\n                }\n\n                if(resumeDate != undefined){\n                    if(imports.moment(visitDate).isAfter(resumeDate,'date'))\n                        scheduleBuilder.add({\n                            name: \"Child Absent followup Form\",\n                            encounterType: \"Child Absent followup Form\",\n                            earliestDate: imports.moment(visitDate).toDate(),\n                            maxDate: imports.moment(visitDate).add(2, 'days').toDate(),\n                            subjectUUID: e\n                        });\n                }else\n                    scheduleBuilder.add({\n                        name: \"Child Absent followup Form\",\n                        encounterType: \"Child Absent followup Form\",\n                        earliestDate: imports.moment(visitDate).toDate(),\n                        maxDate: imports.moment(visitDate).add(2, 'days').toDate(),\n                        subjectUUID: e\n                    });\n            });\n\n    }\n\n\n\n\n    return scheduleBuilder.getAll();\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "Daily Attendance Form",
+      "group": "Attendance Details",
+      "element": "Please select children present in Phulwari",
+      "concept": "Children present in phulwari",
+      "dataType": "Subject",
+      "rule": "'use strict';\n({params, imports}) => {\n    const encounter = params.entity;\n    const formElement = params.formElement;\n    const statusBuilder = new imports.rulesConfig.FormElementStatusBuilder({encounter, formElement});\n\n    let areChildPresent = encounter.getObservationReadableValue(\"Are there any children present\");\n    let showCondition = _.isEqual(areChildPresent, 'Yes');\n    const groupSubject = params.entity.individual.groupSubjects;\n    const children = [];\n    \n    groupSubject.forEach((e) => {\n        if (!e.voided) {\n            children.push(e.memberSubject.uuid);\n            statusBuilder.showAnswers(e.memberSubject.uuid);\n        }\n    });\n    \n\n    statusBuilder.show().whenItem(showCondition).is.truthy;\n    return statusBuilder.build();\n};"
+    },
+    {
+      "type": "visitSchedule",
+      "form": "Default Program Encounter Cancellation Form",
+      "rule": "\"use strict\";\n({params, imports}) => {\n    const programEncounter = params.entity;\n    let visitCancelReason = programEncounter.findCancelEncounterObservationReadableValue('Visit cancel reason');\n    if (visitCancelReason === 'Program exit') {\n        return [];\n    }\n    \n    const encounterTypeName = programEncounter.encounterType.name;\n    const moment = imports.moment;\n    const _ = imports.lodash;\n    if (encounterTypeName === 'Anthropometry Assessment') {\n        const myGroups = programEncounter.programEnrolment.individual.groups;\n        if (!programEncounter.programEnrolment.isActive || _.isEmpty(myGroups)) {\n            return [];\n        }\n        const groupSubject = _.get(_.find(myGroups, g => !g.voided && g.groupSubject.subjectType.name === 'Phulwari'), 'groupSubject');\n        const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({\n            programEnrolment: programEncounter.programEnrolment\n        });\n        const scheduledDateTime = programEncounter.earliestVisitDateTime;\n        const scheduledDate = moment(scheduledDateTime).date();\n        \n        if(!_.isNil(groupSubject)){\n        const dayOfMonth = groupSubject.getObservationReadableValue(\"Day of month for growth monitoring visit\");\n        var monthForNextVisit = moment(scheduledDateTime).month() != 11 ? moment(scheduledDateTime).month() + 1 : 0;\n        let earliestDate = moment(scheduledDateTime).month(monthForNextVisit).date(dayOfMonth).toDate();\n        if (moment(earliestDate).month() !== monthForNextVisit) {\n            earliestDate = moment(scheduledDateTime).add(1, 'M').endOf('month').toDate();\n        }else {\n        earliestDate = moment(scheduledDateTime).add(1, 'M').date(dayOfMonth).toDate();\n        }\n        const maxDate = moment(scheduledDateTime).month(monthForNextVisit).date(dayOfMonth).add(3, 'days').toDate();\n        \n        scheduleBuilder.add({\n                name: \"Growth Monitoring Visit\",\n                encounterType: \"Anthropometry Assessment\",\n                earliestDate: earliestDate,\n                maxDate: maxDate\n            }\n          );\n        }\n        return scheduleBuilder.getAllUnique(\"encounterType\");\n    } else if (encounterTypeName === 'Albendazole') {\n        const FEB = 1;\n        const AUG = 7;\n        const findSlot = (anyDate) => {\n            anyDate = moment(anyDate).startOf('day').toDate();\n            if (moment(anyDate).month() < FEB) {\n                return moment(anyDate).startOf('month').month(FEB).toDate();\n            }\n            if (moment(anyDate).month() === FEB) {\n                return anyDate;\n            }\n            if (moment(anyDate).month() < AUG) {\n                return moment(anyDate).startOf('month').month(AUG).toDate();\n            }\n            if (moment(anyDate).month() === AUG) {\n                return anyDate;\n            }\n            return moment(anyDate).add(1, 'year').month(FEB).startOf('month').toDate();\n        };\n\n        const getVisitSchedule = (_earliestDate) => {\n            let earliestDate = moment(_earliestDate).startOf('day').toDate();\n            let maxDate = moment(earliestDate).endOf('month').toDate();\n            if (moment(_earliestDate).month() === FEB) {\n                return {\n                    name: 'Albendazole FEB',\n                    encounterType: 'Albendazole',\n                    earliestDate,\n                    maxDate,\n                }\n            }\n            return {\n                name: 'Albendazole AUG',\n                encounterType: 'Albendazole',\n                earliestDate,\n                maxDate,\n            }\n        };\n\n        const findNextSlot = (currentVisitScheduledDate) => {\n            let guessedDate = moment(currentVisitScheduledDate).startOf('month').add(1, 'months').startOf('day').toDate();\n            return findSlot(guessedDate);\n        };\n\n        const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({\n            programEncounter,\n            programEnrolment: programEncounter.programEnrolment\n        });\n        const visitSchedule = getVisitSchedule(findNextSlot(programEncounter.earliestVisitDateTime));\n        if (moment().isSameOrBefore(visitSchedule.maxDate, 'day')) {\n            scheduleBuilder.add(visitSchedule);\n        }\n        return scheduleBuilder.getAllUnique(\"encounterType\");\n    }\n    return [];\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "Default Program Encounter Cancellation Form",
+      "group": "Cancel Details",
+      "element": "Cancel reason",
+      "concept": "Visit cancel reason",
+      "dataType": "Coded",
+      "rule": "//SAMPLE RULE EXAMPLE\n'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  const encounterTypeName = programEncounter.encounterType.name;\n  console.log('encounterTypeName---->',encounterTypeName);\n  return statusBuilder.build();\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "Default Program Encounter Cancellation Form",
+      "group": "Cancel Details",
+      "element": "Other reason",
+      "concept": "Other reason for cancelling",
+      "dataType": "Text",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const cancelReasonObs = programEncounter.findCancelEncounterObservation('Visit cancel reason');\n  const answer = cancelReasonObs && cancelReasonObs.getReadableValue();\n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, answer === 'Other');\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "JSS Registration Form",
+      "group": "Address Details",
+      "element": "Gram Panchayat",
+      "concept": "Gram Panchayat",
+      "dataType": "Location",
+      "rule": "'use strict';\n({params, imports}) => {\n  const individual = params.entity;\n  const formElement = params.formElement;\n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, true, individual.lowestAddressLevel.uuid);\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "JSS Registration Form",
+      "group": "Address Details",
+      "element": "Gram Panchayat",
+      "concept": "Gram panchayat",
+      "dataType": "Coded",
+      "rule": "'use strict';\n({params, imports}) => {\n    const individual = params.entity;\n    const formElement = params.formElement;\n    const statusBuilder = new imports.rulesConfig.FormElementStatusBuilder({individual, formElement});\n    var allGrampanchayat = formElement.concept.getAnswers();\n    const village = individual.lowestAddressLevel.name;\n    const grampanchayatToRemove = [];\n    const _ = imports.lodash;\n    _.forEach(allGrampanchayat, grampanchayat => {\n        const grampanchayatVillage = grampanchayat.concept.recordValueByKey('village');\n        if (grampanchayatVillage && !_.includes(grampanchayatVillage.split(','), village)) {\n            grampanchayatToRemove.push(grampanchayat)\n        }\n    });\n    statusBuilder.skipAnswers.apply(statusBuilder, grampanchayatToRemove);\n    return statusBuilder.build();\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "JSS Registration Form",
+      "group": "Address Details",
+      "element": "Other Gram panchayat (Please specify)",
+      "concept": "Other Gram panchayat",
+      "dataType": "Text",
+      "rule": "'use strict';\n({params, imports}) => {\n  const individual = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new imports.rulesConfig.FormElementStatusBuilder({individual, formElement});\n  statusBuilder.show().when.valueInRegistration(\"Gram panchayat\").containsAnswerConceptName(\"Other\");\n  return statusBuilder.build();\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "JSS Registration Form",
+      "group": "Personal Details",
+      "element": "Other sub caste (please specify)",
+      "concept": "Other sub caste",
+      "dataType": "Text",
+      "rule": "'use strict';\n({params, imports}) => {\n  const individual = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new imports.rulesConfig.FormElementStatusBuilder({individual, formElement});\n  statusBuilder.show().when.valueInRegistration(\"Sub Caste\").containsAnswerConceptName(\"Other\");\n  return statusBuilder.build();\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "JSS Registration Form",
+      "group": "Socio-Economic Details",
+      "element": "Land area",
+      "concept": "Land Area",
+      "dataType": "Numeric",
+      "rule": "'use strict';\n({params, imports}) => {\n  const individual = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new imports.rulesConfig.FormElementStatusBuilder({individual, formElement});\n  statusBuilder.show().when.valueInRegistration(\"Land possession\").containsAnswerConceptName(\"Yes\");\n  return statusBuilder.build();\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "JSS Registration Form",
+      "group": "Socio-Economic Details",
+      "element": "Other property (please specify)",
+      "concept": "Other property",
+      "dataType": "Text",
+      "rule": "'use strict';\n({params, imports}) => {\n  const individual = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new imports.rulesConfig.FormElementStatusBuilder({individual, formElement});\n  statusBuilder.show().when.valueInRegistration(\"Property\").containsAnswerConceptName(\"Other\");\n  return statusBuilder.build();\n};"
+    },
+    {
+      "type": "visitSchedule",
+      "form": "Phulwari Attendance Registration",
+      "rule": "\"use strict\";\n({ params, imports }) => {\n  const individual = params.entity;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({\n    individual\n  });\n  const _ = imports.lodash;\n  const dailyAttendanceEncounter = _.find(individual.encounters, ({encounterType}) => encounterType.name === 'Daily Attendance Form');\n  if(_.isEmpty(dailyAttendanceEncounter)) {\n      let earliestVisitDate = imports.moment(individual.registrationDate).toDate();\n      let weekDayName =  imports.moment(earliestVisitDate).format('ddd');\n      \n      if(_.isEqual(weekDayName,'Sun')){\n       earliestVisitDate = imports.moment(individual.registrationDate).add(1, 'days').toDate();\n         weekDayName =  imports.moment(earliestVisitDate).format('ddd');\n       }\n      \n      scheduleBuilder.add({\n                    name: \"Daily Attendance\" +' -'+weekDayName,\n                    encounterType: \"Daily Attendance Form\",\n                    earliestDate: earliestVisitDate,\n                    maxDate: earliestVisitDate\n                }\n            );\n    }\n            \n  return scheduleBuilder.getAll();\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "Phulwari Attendance Registration",
+      "group": "Visit details",
+      "element": "Placeholder for counselling form element",
+      "concept": "Placeholder for counselling form element",
+      "dataType": "Coded",
+      "rule": "'use strict';\n({params, imports}) => {\n  const individual = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new imports.rulesConfig.FormElementStatusBuilder({individual, formElement});\n  \n  statusBuilder.show().whenItem(false).is.truthy;\n   return statusBuilder.build();\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "Phulwari Attendance Registration",
+      "group": "Details",
+      "element": "A daily attendance form will start getting scheduled from date of registration of Phulwari.",
+      "concept": "A daily attendance form will start getting scheduled from date of registration of Phulwari.",
+      "dataType": "Coded",
+      "rule": "'use strict';\n({params, imports}) => {\n  const individual = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new imports.rulesConfig.FormElementStatusBuilder({individual, formElement});\n    statusBuilder.show().whenItem(false).is.truthy;\n  return statusBuilder.build();\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "Phulwari Attendance Registration",
+      "group": "Details",
+      "element": "Phulwari",
+      "concept": "Phulwari",
+      "dataType": "Coded",
+      "rule": "'use strict';\n({params, imports}) => {\n  const individual = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new imports.rulesConfig.FormElementStatusBuilder({individual, formElement});\n          \n  var allPhulwari = formElement.concept.getAnswers();   \n  const village = individual.lowestAddressLevel.name; \n  \n  const phulwariesToRemove = [];\n        _.forEach(allPhulwari, phulwari => { \n            const phulwariVillage = phulwari.concept.recordValueByKey('village');           \n                  if (phulwariVillage && !_.includes(phulwariVillage.split(','), village)) {\n                phulwariesToRemove.push(phulwari);                \n            }});\n\n   statusBuilder.skipAnswers.apply(statusBuilder, phulwariesToRemove);\n   \n   return statusBuilder.build();\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "Phulwari inspection Checklist Encounter",
+      "group": "Checklist",
+      "element": "Specify Other",
+      "concept": "Specify Other (attendance not filled)",
+      "dataType": "Text",
+      "rule": "'use strict';\n({params, imports}) => {\n  const encounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new imports.rulesConfig.FormElementStatusBuilder({encounter, formElement});\n   statusBuilder.show().when.valueInEncounter('Is attendance register filled').containsAnswerConceptName(\"Other\");\n  return statusBuilder.build();\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "Phulwari inspection Checklist Encounter",
+      "group": "Checklist",
+      "element": "Specify Other",
+      "concept": "Specify Other (consumption not filled)",
+      "dataType": "Text",
+      "rule": "'use strict';\n({params, imports}) => {\n  const encounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new imports.rulesConfig.FormElementStatusBuilder({encounter, formElement});\n   statusBuilder.show().when.valueInEncounter('Is consumption register filled').containsAnswerConceptName(\"Other\");\n  return statusBuilder.build();\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "Phulwari inspection Checklist Encounter",
+      "group": "Checklist",
+      "element": "Specify Other",
+      "concept": "Specify Other (ration availability)",
+      "dataType": "Text",
+      "rule": "'use strict';\n({params, imports}) => {\n  const encounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new imports.rulesConfig.FormElementStatusBuilder({encounter, formElement});\n   statusBuilder.show().when.valueInEncounter('Is ration available in sufficient amount').containsAnswerConceptName(\"Other\");\n  return statusBuilder.build();\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "Phulwari inspection Checklist Encounter",
+      "group": "Checklist",
+      "element": "Specify Other",
+      "concept": "Specify Other (availability of chlorine solution)",
+      "dataType": "Text",
+      "rule": "'use strict';\n({params, imports}) => {\n  const encounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new imports.rulesConfig.FormElementStatusBuilder({encounter, formElement});\n   statusBuilder.show().when.valueInEncounter('Is chlorine solution available in sufficient amount').containsAnswerConceptName(\"Other\");\n  return statusBuilder.build();\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "Phulwari inspection Checklist Encounter",
+      "group": "Checklist",
+      "element": "Please provide name of child and information about suffering.",
+      "concept": "Please provide name of child and information about suffering.",
+      "dataType": "Text",
+      "rule": "'use strict';\n({params, imports}) => {\n    const encounter = params.entity;\n    const formElement = params.formElement;\n    const statusBuilder = new imports.rulesConfig.FormElementStatusBuilder({encounter, formElement});\n\n    let childNeedHealthCheckup = encounter.getObservationReadableValue(\"Does any child need a health checkup\");\n    console.log('areChildPresent',childNeedHealthCheckup);\n    let showCondition = _.isEqual(childNeedHealthCheckup, 'Yes');\n    console.log('showCondition',showCondition);\n    const groupSubject = params.entity.individual.groupSubjects;\n    const children = [];\n    \n    groupSubject.forEach((e) => {\n        if (!e.voided) {\n            children.push(e.memberSubject.uuid);\n            statusBuilder.showAnswers(e.memberSubject.uuid);\n        }\n    });\n    \n\n    statusBuilder.show().whenItem(showCondition).is.truthy;\n    return statusBuilder.build();\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "Phulwari inspection Checklist Encounter",
+      "group": "Checklist",
+      "element": "Choose children who needs health checkup",
+      "concept": "Children who require health check-up",
+      "dataType": "Subject",
+      "rule": "'use strict';\n({params, imports}) => {\n    const encounter = params.entity;\n    const formElement = params.formElement;\n    const statusBuilder = new imports.rulesConfig.FormElementStatusBuilder({encounter, formElement});\n\n    let childNeedHealthCheckup = encounter.getObservationReadableValue(\"Does any child need a health checkup\");\n    console.log('areChildPresent',childNeedHealthCheckup);\n    let showCondition = _.isEqual(childNeedHealthCheckup, 'Yes');\n    console.log('showCondition',showCondition);\n    const groupSubject = params.entity.individual.groupSubjects;\n    const children = [];\n    \n    groupSubject.forEach((e) => {\n        if (!e.voided) {\n            children.push(e.memberSubject.uuid);\n            statusBuilder.showAnswers(e.memberSubject.uuid);\n        }\n    });\n    \n\n    statusBuilder.show().whenItem(showCondition).is.truthy;\n    return statusBuilder.build();\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "Phulwari inspection Checklist Encounter",
+      "group": "Checklist",
+      "element": "Is worker wearing a Mask?",
+      "concept": "Is worker wearing a Mask",
+      "dataType": "Coded",
+      "rule": "'use strict';\n({params, imports}) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({encounter, formElement}).when.lowestAddressLevel.defined.matches();\n  \n  visibility = !(condition11 );\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "Phulwari inspection Checklist Encounter",
+      "group": "Checklist",
+      "element": "Are children wearing Mask?",
+      "concept": "Are children wearing Mask",
+      "dataType": "Coded",
+      "rule": "'use strict';\n({params, imports}) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({encounter, formElement}).when.lowestAddressLevel.defined.matches();\n  \n  visibility = !(condition11 );\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "Phulwari inspection Checklist Encounter",
+      "group": "Checklist",
+      "element": "Are enough eggs boiled today?",
+      "concept": "Are enough eggs boiled today?",
+      "dataType": "Coded",
+      "rule": "'use strict';\n({params, imports}) => {\n  const encounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new imports.rulesConfig.FormElementStatusBuilder({encounter, formElement});\n   statusBuilder.show().when.valueInEncounter('Is today egg distribution day?').containsAnswerConceptName(\"Yes\");\n  return statusBuilder.build();\n};"
+    }
+  ],
+  "dashboards": [
+    {
+      "type": "reportCard",
+      "name": "Registered but not enrolled",
+      "color": "#27a4f9"
+    },
+    {
+      "type": "reportDashboard",
+      "name": "Phulwari",
+      "sections": [
+        {
+          "name": "",
+          "viewType": "Tile",
+          "displayOrder": 1,
+          "cardCount": 1
+        }
+      ],
+      "filters": []
+    }
+  ],
+  "addressHierarchies": [
+    {
+      "org": "JSS",
+      "hierarchy": [
+        "District (voided~21)",
+        "Block (voided~22)",
+        "Village"
+      ],
+      "levels": [
+        {
+          "name": "District (voided~21)",
+          "level": 4,
+          "uuid": "9fb51064-edbf-4ee5-99d6-57c8af45d4f6"
+        },
+        {
+          "name": "Block (voided~22)",
+          "level": 3,
+          "uuid": "240ba553-ddb0-4344-bf42-b6a9630869fa"
+        },
+        {
+          "name": "Village",
+          "level": 1,
+          "uuid": "b082563c-29af-40d8-9a0e-678dd7cc76d0"
+        }
+      ]
+    }
+  ],
+  "programEligibility": [],
+  "visitSchedules": [
+    {
+      "formName": "Albendazole Tracking",
+      "formType": "ProgramEncounter",
+      "jsRule": "\"use strict\";\n({params, imports}) => {\n    const programEncounter = params.entity;\n    const moment = imports.moment;\n    const FEB = 1;\n    const AUG = 7;\n    const findSlot = (anyDate) => {\n        anyDate = moment(anyDate).startOf('day').toDate();\n        if (moment(anyDate).month() < FEB) {\n            return moment(anyDate).startOf('month').month(FEB).toDate();\n        }\n        if (moment(anyDate).month() === FEB) {\n            return anyDate;\n        }\n        if (moment(anyDate).month() < AUG) {\n            return moment(anyDate).startOf('month').month(AUG).toDate();\n        }\n        if (moment(anyDate).month() === AUG) {\n            return anyDate;\n        }\n        return moment(anyDate).add(1, 'year').month(FEB).startOf('month').toDate();\n    };\n\n    const getVisitSchedule = (_earliestDate) => {\n        let earliestDate = moment(_earliestDate).startOf('day').toDate();\n        let maxDate = moment(earliestDate).endOf('month').toDate();\n        if (moment(_earliestDate).month() === FEB) {\n            return {\n                name: 'Albendazole FEB',\n                encounterType: 'Albendazole',\n                earliestDate,\n                maxDate,\n            }\n        }\n        return {\n            name: 'Albendazole AUG',\n            encounterType: 'Albendazole',\n            earliestDate,\n            maxDate,\n        }\n    };\n\n    const findNextSlot = (currentVisitScheduledDate) => {\n        let guessedDate = moment(currentVisitScheduledDate).startOf('month').add(1, 'months').startOf('day').toDate();\n        return findSlot(guessedDate);\n    };\n\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({\n        programEncounter,\n        programEnrolment: programEncounter.programEnrolment\n    });\n    const visitSchedule = getVisitSchedule(findNextSlot(programEncounter.earliestVisitDateTime));\n    if (moment().isSameOrBefore(visitSchedule.maxDate, 'day')) {\n        scheduleBuilder.add(visitSchedule);\n    }\n    return scheduleBuilder.getAllUnique(\"encounterType\");\n};"
+    },
+    {
+      "formName": "Anthropometry Assessment",
+      "formType": "ProgramEncounter",
+      "jsRule": "\"use strict\";\n({ params, imports }) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const _ = imports.lodash;\n  const myGroups = programEncounter.programEnrolment.individual.groups;\n\n  // ✅ If earliestVisitDateTime is missing (like after cancel), \n  // use the last valid scheduled or encounter date.\n  let scheduledDateTime = programEncounter.earliestVisitDateTime;\n\n  if (_.isNil(scheduledDateTime)) {\n    // fallback: use encounterDateTime or enrolmentDateTime as base\n    scheduledDateTime =\n      programEncounter.encounterDateTime ||\n      programEncounter.programEnrolment.enrolmentDateTime;\n\n    if (_.isNil(scheduledDateTime)) {\n      // still nothing? then safely exit\n      return [];\n    }\n  }\n\n  const groupSubject = _.get(\n    _.find(myGroups, (g) => !g.voided && g.groupSubject.subjectType.name === \"Phulwari\"),\n    \"groupSubject\"\n  );\n\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({ programEncounter });\n\n  if (!_.isNil(groupSubject)) {\n    const dayOfMonth = groupSubject.getObservationReadableValue(\n      \"Day of month for growth monitoring visit\"\n    );\n\n    // Calculate next month for visit (wrap December → January)\n    const monthForNextVisit =\n      moment(scheduledDateTime).month() !== 11\n        ? moment(scheduledDateTime).month() + 1\n        : 0;\n\n    let earliestDate = moment(scheduledDateTime)\n      .month(monthForNextVisit)\n      .date(dayOfMonth)\n      .toDate();\n\n    // ✅ Handle month-end cases (e.g. day doesn’t exist)\n    if (moment(earliestDate).month() !== monthForNextVisit) {\n      earliestDate = moment(scheduledDateTime).add(1, \"M\").endOf(\"month\").toDate();\n    } else {\n      earliestDate = moment(scheduledDateTime).add(1, \"M\").date(dayOfMonth).toDate();\n    }\n\n    const maxDate = moment(earliestDate).add(3, \"days\").toDate();\n\n    scheduleBuilder.add({\n      name: \"Growth Monitoring Visit\",\n      encounterType: \"Anthropometry Assessment\",\n      earliestDate,\n      maxDate,\n    });\n  }\n\n  return scheduleBuilder.getAll();\n};\n"
+    },
+    {
+      "formName": "Child Enrolment",
+      "formType": "ProgramEnrolment",
+      "jsRule": "\"use strict\";\n({params, imports}) => {\n    const programEnrolment = params.entity;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({\n        programEnrolment\n    });\n    const moment = imports.moment;\n    const FEB = 1;\n    const AUG = 7;\n    const findSlots = (anyDate) => {\n        anyDate = moment(anyDate).startOf('day').toDate();\n        if (moment(anyDate).month() < FEB) {\n            return moment(anyDate).startOf('month').month(FEB).toDate();\n        }\n        if (moment(anyDate).month() === FEB) {\n            return anyDate;\n        }\n        if (moment(anyDate).month() < AUG) {\n            return moment(anyDate).startOf('month').month(AUG).toDate();\n        }\n        if (moment(anyDate).month() === AUG) {\n            return anyDate;\n        }\n        return moment(anyDate).add(1, 'year').month(FEB).startOf('month').toDate();\n    };\n    const getVisitSchedule = (_earliestDate) => {\n        let earliestDate = moment(_earliestDate).startOf('day').toDate();\n        let maxDate = moment(earliestDate).endOf('month').toDate();\n        if (moment(_earliestDate).month() === FEB) {\n            return {\n                name: 'Albendazole FEB',\n                encounterType: 'Albendazole',\n                earliestDate, maxDate,\n            }\n        }\n        return {\n            name: 'Albendazole AUG',\n            encounterType: 'Albendazole',\n            earliestDate, maxDate,\n        }\n    };\n    const earliestDate = programEnrolment.enrolmentDateTime;\n    const maxDate = programEnrolment.enrolmentDateTime;\n    \n    scheduleBuilder.add({\n            name: \"Growth Monitoring Visit\",\n            encounterType: \"Anthropometry Assessment\",\n            earliestDate: earliestDate,\n            maxDate: maxDate\n        }\n    );\n    scheduleBuilder.add(getVisitSchedule(findSlots(programEnrolment.enrolmentDateTime)));\n    return scheduleBuilder.getAllUnique(\"encounterType\");\n};"
+    },
+    {
+      "formName": "Daily Attendance Cancel Form",
+      "formType": "IndividualEncounterCancellation",
+      "jsRule": "\"use strict\";\n({ params, imports }) => {\n  const encounter = params.entity;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({\n    encounter\n  });\n  \n let earliestVisitDate = imports.moment(encounter.earliestVisitDateTime).add(1, 'days').toDate();\n let weekDayName =  imports.moment(earliestVisitDate).format('ddd');\n  \n  if(_.isEqual(weekDayName,'Sun')){\n   earliestVisitDate = imports.moment(encounter.earliestVisitDateTime).add(2, 'days').toDate();\n     weekDayName =  imports.moment(earliestVisitDate).format('ddd');\n   }\n  \n  scheduleBuilder.add({\n                name: \"Daily Attendance\" +' -'+weekDayName,\n                encounterType: \"Daily Attendance Form\",\n                earliestDate: earliestVisitDate,\n                maxDate: earliestVisitDate\n            }\n        );\n        \n  return scheduleBuilder.getAll();\n};"
+    },
+    {
+      "formName": "Daily Attendance Form",
+      "formType": "Encounter",
+      "jsRule": "\"use strict\";\n({ params, imports }) => {\n    const encounter = params.entity;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({\n        encounter\n    });\n    const visitDate = encounter.earliestVisitDateTime || encounter.encounterDateTime;\n    let earliestVisitDate = imports.moment(visitDate).add(1, 'days').toDate();\n    let weekDayName =  imports.moment(earliestVisitDate).format('ddd');\n\n    if(_.isEqual(weekDayName,'Sun')){\n        earliestVisitDate = imports.moment(visitDate).add(2, 'days').toDate();\n        weekDayName =  imports.moment(earliestVisitDate).format('ddd');\n    }\n\n    scheduleBuilder.add({\n            name: \"Daily Attendance\" +' -'+weekDayName,\n            encounterType: \"Daily Attendance Form\",\n            earliestDate: earliestVisitDate,\n            maxDate: earliestVisitDate\n        }\n    );\n\n    const groupSubject = params.entity.individual.groupSubjects;\n    const children = [];\n    const childrenDetails = [];\n\n groupSubject.forEach((groupSubject) => {\n         if (!groupSubject.memberSubject.voided) {\n            children.push(groupSubject.memberSubject.uuid);\n            childrenDetails.push(groupSubject.memberSubject);\n            }\n        });\n\n    let currentVisitAttendance = encounter.getObservationReadableValue('Children present in phulwari');\n\n    const encounters = encounter.individual.getEncounters(true);\n\n\n    let enc1 = _.chain(encounters)\n        .filter((enc) => enc.encounterDateTime)\n        .filter((enc) => enc.encounterDateTime < encounter.encounterDateTime)\n        .nth(0)\n        .value();\n\n    let enc2 = _.chain(encounters)\n        .filter((enc) => enc.encounterDateTime)\n        .filter((enc) => enc.encounterDateTime < encounter.encounterDateTime)\n        .filter((enc) => !_.isNil(enc.encounterDateTime))\n        .nth(1)\n        .value();\n\n    let enc1VisitAttendance = -1, enc2VisitAttendance = -1;\n\n    if (enc1 && enc2) {\n        enc1VisitAttendance = enc1.getObservationReadableValue('Children present in phulwari');\n        let enc1VisitAbsentChildern = _.difference(children, enc1VisitAttendance);\n\n        enc2VisitAttendance = enc2.getObservationReadableValue('Children present in phulwari');\n        let enc2VisitAbsentChildern = _.difference(children, enc2VisitAttendance);\n\n        let currentVisitAbsentChildern = _.difference(children, currentVisitAttendance);\n\n        let lastThreeVisitAbsentChildren = _.chain(currentVisitAbsentChildern)\n            .filter(e => _.includes(enc1VisitAbsentChildern,e)  === true)\n            .filter(e => _.includes(enc2VisitAbsentChildern,e)  === true)\n            .value();\n\n        //console.log('lastThreeVisitAbsentChildren',lastThreeVisitAbsentChildren);\n\n        if(lastThreeVisitAbsentChildren)\n            lastThreeVisitAbsentChildren.forEach((e) => {\n\n\n                let subject = _.chain(childrenDetails)\n                    .filter(childrenDetail => _.isEqual(childrenDetail.uuid,e)  === true)\n                    .value();\n\n                let hasAbsentResumeDate = subject[0].findLatestObservationFromEncounters('Date of phulwari resume',encounter);\n                let resumeDate;\n                if(hasAbsentResumeDate){\n                    resumeDate = hasAbsentResumeDate.getReadableValue();\n                }\n\n                if(resumeDate != undefined){\n                    if(imports.moment(visitDate).isAfter(resumeDate,'date'))\n                        scheduleBuilder.add({\n                            name: \"Child Absent followup Form\",\n                            encounterType: \"Child Absent followup Form\",\n                            earliestDate: imports.moment(visitDate).toDate(),\n                            maxDate: imports.moment(visitDate).add(2, 'days').toDate(),\n                            subjectUUID: e\n                        });\n                }else\n                    scheduleBuilder.add({\n                        name: \"Child Absent followup Form\",\n                        encounterType: \"Child Absent followup Form\",\n                        earliestDate: imports.moment(visitDate).toDate(),\n                        maxDate: imports.moment(visitDate).add(2, 'days').toDate(),\n                        subjectUUID: e\n                    });\n            });\n\n    }\n\n\n\n\n    return scheduleBuilder.getAll();\n};"
+    },
+    {
+      "formName": "Default Program Encounter Cancellation Form",
+      "formType": "ProgramEncounterCancellation",
+      "jsRule": "\"use strict\";\n({params, imports}) => {\n    const programEncounter = params.entity;\n    let visitCancelReason = programEncounter.findCancelEncounterObservationReadableValue('Visit cancel reason');\n    if (visitCancelReason === 'Program exit') {\n        return [];\n    }\n    \n    const encounterTypeName = programEncounter.encounterType.name;\n    const moment = imports.moment;\n    const _ = imports.lodash;\n    if (encounterTypeName === 'Anthropometry Assessment') {\n        const myGroups = programEncounter.programEnrolment.individual.groups;\n        if (!programEncounter.programEnrolment.isActive || _.isEmpty(myGroups)) {\n            return [];\n        }\n        const groupSubject = _.get(_.find(myGroups, g => !g.voided && g.groupSubject.subjectType.name === 'Phulwari'), 'groupSubject');\n        const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({\n            programEnrolment: programEncounter.programEnrolment\n        });\n        const scheduledDateTime = programEncounter.earliestVisitDateTime;\n        const scheduledDate = moment(scheduledDateTime).date();\n        \n        if(!_.isNil(groupSubject)){\n        const dayOfMonth = groupSubject.getObservationReadableValue(\"Day of month for growth monitoring visit\");\n        var monthForNextVisit = moment(scheduledDateTime).month() != 11 ? moment(scheduledDateTime).month() + 1 : 0;\n        let earliestDate = moment(scheduledDateTime).month(monthForNextVisit).date(dayOfMonth).toDate();\n        if (moment(earliestDate).month() !== monthForNextVisit) {\n            earliestDate = moment(scheduledDateTime).add(1, 'M').endOf('month').toDate();\n        }else {\n        earliestDate = moment(scheduledDateTime).add(1, 'M').date(dayOfMonth).toDate();\n        }\n        const maxDate = moment(scheduledDateTime).month(monthForNextVisit).date(dayOfMonth).add(3, 'days').toDate();\n        \n        scheduleBuilder.add({\n                name: \"Growth Monitoring Visit\",\n                encounterType: \"Anthropometry Assessment\",\n                earliestDate: earliestDate,\n                maxDate: maxDate\n            }\n          );\n        }\n        return scheduleBuilder.getAllUnique(\"encounterType\");\n    } else if (encounterTypeName === 'Albendazole') {\n        const FEB = 1;\n        const AUG = 7;\n        const findSlot = (anyDate) => {\n            anyDate = moment(anyDate).startOf('day').toDate();\n            if (moment(anyDate).month() < FEB) {\n                return moment(anyDate).startOf('month').month(FEB).toDate();\n            }\n            if (moment(anyDate).month() === FEB) {\n                return anyDate;\n            }\n            if (moment(anyDate).month() < AUG) {\n                return moment(anyDate).startOf('month').month(AUG).toDate();\n            }\n            if (moment(anyDate).month() === AUG) {\n                return anyDate;\n            }\n            return moment(anyDate).add(1, 'year').month(FEB).startOf('month').toDate();\n        };\n\n        const getVisitSchedule = (_earliestDate) => {\n            let earliestDate = moment(_earliestDate).startOf('day').toDate();\n            let maxDate = moment(earliestDate).endOf('month').toDate();\n            if (moment(_earliestDate).month() === FEB) {\n                return {\n                    name: 'Albendazole FEB',\n                    encounterType: 'Albendazole',\n                    earliestDate,\n                    maxDate,\n                }\n            }\n            return {\n                name: 'Albendazole AUG',\n                encounterType: 'Albendazole',\n                earliestDate,\n                maxDate,\n            }\n        };\n\n        const findNextSlot = (currentVisitScheduledDate) => {\n            let guessedDate = moment(currentVisitScheduledDate).startOf('month').add(1, 'months').startOf('day').toDate();\n            return findSlot(guessedDate);\n        };\n\n        const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({\n            programEncounter,\n            programEnrolment: programEncounter.programEnrolment\n        });\n        const visitSchedule = getVisitSchedule(findNextSlot(programEncounter.earliestVisitDateTime));\n        if (moment().isSameOrBefore(visitSchedule.maxDate, 'day')) {\n            scheduleBuilder.add(visitSchedule);\n        }\n        return scheduleBuilder.getAllUnique(\"encounterType\");\n    }\n    return [];\n};"
+    },
+    {
+      "formName": "Phulwari Attendance Registration",
+      "formType": "IndividualProfile",
+      "jsRule": "\"use strict\";\n({ params, imports }) => {\n  const individual = params.entity;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({\n    individual\n  });\n  const _ = imports.lodash;\n  const dailyAttendanceEncounter = _.find(individual.encounters, ({encounterType}) => encounterType.name === 'Daily Attendance Form');\n  if(_.isEmpty(dailyAttendanceEncounter)) {\n      let earliestVisitDate = imports.moment(individual.registrationDate).toDate();\n      let weekDayName =  imports.moment(earliestVisitDate).format('ddd');\n      \n      if(_.isEqual(weekDayName,'Sun')){\n       earliestVisitDate = imports.moment(individual.registrationDate).add(1, 'days').toDate();\n         weekDayName =  imports.moment(earliestVisitDate).format('ddd');\n       }\n      \n      scheduleBuilder.add({\n                    name: \"Daily Attendance\" +' -'+weekDayName,\n                    encounterType: \"Daily Attendance Form\",\n                    earliestDate: earliestVisitDate,\n                    maxDate: earliestVisitDate\n                }\n            );\n    }\n            \n  return scheduleBuilder.getAll();\n};"
+    }
+  ],
+  "normalRanges": [
+    {
+      "conceptName": "Height",
+      "lowAbsolute": 20,
+      "highAbsolute": 300,
+      "lowNormal": 30,
+      "highNormal": 200
+    },
+    {
+      "conceptName": "Weight",
+      "lowAbsolute": 0,
+      "highAbsolute": 300,
+      "lowNormal": 1,
+      "highNormal": 100
+    },
+    {
+      "conceptName": "Birth Weight",
+      "lowNormal": 2.5
+    },
+    {
+      "conceptName": "Weight",
+      "lowAbsolute": 0,
+      "highAbsolute": 300,
+      "lowNormal": 1,
+      "highNormal": 100
+    },
+    {
+      "conceptName": "Birth Weight",
+      "lowNormal": 2.5
+    },
+    {
+      "conceptName": "Weight",
+      "lowAbsolute": 0,
+      "highAbsolute": 300,
+      "lowNormal": 1,
+      "highNormal": 100
+    }
+  ],
+  "skipLogicPatterns": [
+    {
+      "form": "Phulwari inspection Checklist Encounter",
+      "element": "Is worker wearing a Mask?",
+      "rule": "'use strict';\n({params, imports}) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({encounter, formElement}).when.lowestAddressLevel.defined.matches();\n  \n  visibility = !(condition11 );\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "form": "Phulwari inspection Checklist Encounter",
+      "element": "Is worker wearing a Mask?",
+      "declarativeRule": [
+        {
+          "actions": [
+            {
+              "actionType": "hideFormElement"
+            },
+            {}
+          ],
+          "conditions": [
+            {
+              "compoundRule": {
+                "rules": [
+                  {
+                    "lhs": {
+                      "type": "lowestAddressLevel"
+                    },
+                    "rhs": {},
+                    "operator": "defined"
+                  }
+                ],
+                "conjunction": "and"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "form": "Phulwari inspection Checklist Encounter",
+      "element": "Are children wearing Mask?",
+      "rule": "'use strict';\n({params, imports}) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({encounter, formElement}).when.lowestAddressLevel.defined.matches();\n  \n  visibility = !(condition11 );\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "form": "Phulwari inspection Checklist Encounter",
+      "element": "Are children wearing Mask?",
+      "declarativeRule": [
+        {
+          "actions": [
+            {
+              "actionType": "hideFormElement"
+            },
+            {}
+          ],
+          "conditions": [
+            {
+              "compoundRule": {
+                "rules": [
+                  {
+                    "lhs": {
+                      "type": "lowestAddressLevel"
+                    },
+                    "rhs": {},
+                    "operator": "defined"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

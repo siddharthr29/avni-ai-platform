@@ -1,0 +1,90 @@
+{
+  "name": "Community support group Meeting",
+  "uuid": "552bf0e4-de1e-4e4c-8835-fd38ffa22561",
+  "formType": "ProgramEncounter",
+  "formElementGroups": [
+    {
+      "uuid": "055b6914-7773-4e4d-9a24-e8f430d659b8",
+      "name": "Community Support group",
+      "displayOrder": 1,
+      "formElements": [
+        {
+          "name": "RQG Start",
+          "uuid": "55969f9b-7286-4ce2-86be-fa766ca12436",
+          "keyValues": [],
+          "concept": {
+            "name": "RQG Start",
+            "uuid": "7fecae88-9938-472e-8eb5-60c11faae7dd",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Participant Type",
+          "uuid": "03aa825b-df04-4f8b-966d-0ffa113aa798",
+          "keyValues": [],
+          "concept": {
+            "name": "Participant Type",
+            "uuid": "1ff640e7-77b6-4bbf-a27e-08f42361f681",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 2,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "No. of. Participants",
+          "uuid": "7ebdb185-9545-4c43-9930-aa2e85179d84",
+          "keyValues": [],
+          "concept": {
+            "name": "No. of. Participants",
+            "uuid": "53f02b2e-3ce6-47ec-b17f-3608c16878bb",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 3,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "RQG End",
+          "uuid": "49a16257-e95c-460b-9d4b-f803a4178058",
+          "keyValues": [],
+          "concept": {
+            "name": "RQG End",
+            "uuid": "04a99c8f-c936-47dc-8e15-dbc4f00d0c53",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 4,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Topic discussed",
+          "uuid": "5f347a3d-2799-4b1e-bb93-61a231240a9d",
+          "keyValues": [],
+          "concept": {
+            "name": "Topic discussed",
+            "uuid": "2e63ee64-b13a-4f6f-89d6-858de5461d70",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 5,
+          "type": "MultiSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}

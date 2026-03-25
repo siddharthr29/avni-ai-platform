@@ -1,0 +1,926 @@
+[
+  {
+    "type": "visitSchedule",
+    "formName": "ANC Encounter Cancellation",
+    "formType": "ProgramEncounterCancellation",
+    "rule": "//SAMPLE RULE EXAMPLE\n\"use strict\";\n({ params, imports }) => {\n  const programEncounter = params.entity;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({\n    programEncounter\n  });\n  \n  const moment = imports.moment;\n  const _ = imports.lodash;\n  let visitDate = programEncounter.encounterDateTime || programEncounter.earliestVisitDateTime;\n\n   \n   /*     \n    const visitScheduleCriteria = [60, 170, 260, 270];\n\n    const getDaysNeedsToBeAdd = function (duration) {\n        l",
+    "org": "APF Odisha"
+  },
+  {
+    "type": "decision",
+    "formName": "ANC",
+    "formType": "ProgramEncounter",
+    "rule": "\"use strict\";\n({params, imports}) => {\n    const programEncounter = params.entity;\n    const decisions = params.decisions;\n    const moment = imports.moment;\n    const _ = imports.lodash;\n\n    function pregnancyInducedMorbidityConditionChecker(answerConceptUUID) {\n        return new imports.rulesConfig.RuleCondition({programEncounter})\n            .when.valueInEncounter(\"12d99265-c769-4236-aff5-fcba73976396\")\n            .containsAnswerConceptName(answerConceptUUID)\n            .matches();\n    }",
+    "org": "APF Odisha"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "ANC",
+    "formType": "ProgramEncounter",
+    "rule": "//SAMPLE RULE EXAMPLE\n\"use strict\";\n({params, imports}) => {\n    const programEncounter = params.entity;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({programEncounter});\n    const moment = imports.moment;\n    const _ = imports.lodash;\n    \n    const currentlyActiveInProgram = !programEncounter.programEnrolment.programExitDateTime;\n    const isDeliveryEncounterIncomplete = !programEncounter.programEnrolment.hasCompletedEncounterOfType('Delivery');\n    \n    const sched",
+    "org": "APF Odisha"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "AWC Profile",
+    "formType": "IndividualProfile",
+    "rule": "//SAMPLE RULE EXAMPLE\n\"use strict\";\n({params, imports}) => {\n    const individual = params.entity;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({\n        individual\n    });\n    const moment = imports.moment;\n    const _ = imports.lodash;\n\n    const startDate = moment(individual.registrationDate).add(1, 'month').startOf('month');\n\n    let isVHSNDAlreadyScheduled = individual.encounters.some((enc) =>\n        enc.encounterType.name === 'Supervisor VHSND Visit' &&\n       ",
+    "org": "APF Odisha"
+  },
+  {
+    "type": "decision",
+    "formName": "Child Enrolment",
+    "formType": "ProgramEnrolment",
+    "rule": "//SAMPLE RULE EXAMPLE\n  \"use strict\";\n({params, imports}) => {\n    const programEnrolment = params.entity;\n    const decisions = params.decisions;\n    //create complicationBuilder using programEnrolment and then push to enrolmentDecisions array.\n    if (!programEnrolment.getObservationReadableValue('be0ab05f-b0f3-43ec-b598-fdde0679104a')) {\n      decisions.registrationDecisions.push({name : \"To be monitored by QRT\", value : \"No\"});\n      decisions.enrolmentDecisions.push({name : \"To be monitored",
+    "org": "APF Odisha"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Child Enrolment",
+    "formType": "ProgramEnrolment",
+    "rule": "//SAMPLE RULE EXAMPLE\n\"use strict\";\n({params, imports}) => {\n    const programEnrolment = params.entity;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({\n        programEnrolment\n    });\n    const moment = imports.moment;\t\t\n    const earliestDate = moment(programEnrolment.enrolmentDateTime).add(1, 'month').startOf('month').toDate();\n\n    if(programEnrolment.individual.getAgeInYears() < 5 && !programEnrolment.hasEncounter('Growth Monitoring', 'Growth Monitoring')) {\n    ",
+    "org": "APF Odisha"
+  },
+  {
+    "type": "decision",
+    "formName": "Child Exit",
+    "formType": "ProgramExit",
+    "rule": "//SAMPLE RULE EXAMPLE\n  \"use strict\";\n({params, imports}) => {\n    const programEnrolment = params.entity;\n    const decisions = params.decisions;\n            decisions.registrationDecisions.push({name : \"To be monitored by QRT\", value : \"No\"});\n            decisions.enrolmentDecisions.push({name : \"To be monitored by QRT\", value : \"No\"});\n            //decisions.encounterDecisions.push({name : \"To be monitored by QRT\", value : \"No\"});\n    return decisions;\n};",
+    "org": "APF Odisha"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Child Home Visit cancellation",
+    "formType": "ProgramEncounterCancellation",
+    "rule": "\"use strict\";\n({params, imports}) => {\n    const programEncounter = params.entity;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({\n        programEncounter\n    });\n\n    const cancelReasonIsOther = new imports.rulesConfig.RuleCondition({programEncounter}).when.valueInCancelEncounter(\"f0a6eee8-3421-46cb-a500-309127e98231\").containsAnswerConceptName(\"f169230d-809b-4d06-9ccb-96586977bb68\").matches();\n\n    function getChildHomeVisitDate(qrtEncounterDate) {\n        const int",
+    "org": "APF Odisha"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Child Home Visit",
+    "formType": "ProgramEncounter",
+    "rule": "\"use strict\";\n({params, imports}) => {\n    const programEncounter = params.entity;\n    const programEnrolment = programEncounter.programEnrolment;\n    const moment = imports.moment;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({programEncounter});\n\n    function isVisitAlreadyScheduled(earliestDate, encounterType, encounterName) {\n      const earliestVisitDateTime = moment(earliestDate);\n      return programEnrolment.encounters.some(enc => \n        enc.encounterType.na",
+    "org": "APF Odisha"
+  },
+  {
+    "type": "decision",
+    "formName": "Delivery Encounter",
+    "formType": "ProgramEncounter",
+    "rule": "//SAMPLE RULE EXAMPLE\n  \"use strict\";\n({params, imports}) => {\n    const programEncounter = params.entity;\n    const decisions = params.decisions;\n    //create complicationBuilder using programEncounter and then push to encounterDecisions array.\n    const encounterTypeNames = [\"Delivery\",\"ANC\"];\n    const latest = programEncounter.programEnrolment.lastFulfilledEncounter(\"ANC\",\"Delivery\");\n    if(latest === undefined || programEncounter.uuid === latest.uuid || imports.moment(programEncounter.enco",
+    "org": "APF Odisha"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Delivery Encounter",
+    "formType": "ProgramEncounter",
+    "rule": "//SAMPLE RULE EXAMPLE\n\"use strict\";\n({ params, imports }) => {\n  const programEncounter = params.entity;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({\n    programEncounter\n  });\n\n  const noPNCEncounters = programEncounter.programEnrolment.encounters.filter((enc) => enc.encounterType.name == 'PNC').length == 0;\n  if(noPNCEncounters){\n    const dateOfDelivery = programEncounter.getObservationValue('f72ec1db-50d5-409e-883a-421825fbebb5');\n    const earliestDate = imports.",
+    "org": "APF Odisha"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Growth Monitoring Encounter Cancellation",
+    "formType": "ProgramEncounterCancellation",
+    "rule": "//SAMPLE RULE EXAMPLE\n\"use strict\";\n({ params, imports }) => {\n  const programEncounter = params.entity;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({\n    programEncounter\n  });\n  \n  const moment = imports.moment;\n  const _ = imports.lodash;\n  const cancelReason = programEncounter.findCancelEncounterObservationReadableValue(\"Cancel reason\");\n  \n  const earliestDate = moment(programEncounter.earliestVisitDateTime).add(1, 'month').startOf('month').toDate();\n  let isEditS",
+    "org": "APF Odisha"
+  },
+  {
+    "type": "decision",
+    "formName": "Growth Monitoring",
+    "formType": "ProgramEncounter",
+    "rule": "'use strict';\n({params, imports}) => {\n    const programEncounter = params.entity;\n    const moment = imports.moment;\n    const _ = imports.lodash;\n    const decisions = params.decisions;\n    const complicationsBuilderForWFA = new imports.rulesConfig.complicationsBuilder({\n            programEncounter: programEncounter,\n            complicationsConcept: \"Weight for age z-score\"\n        },\n        {\n            programEnrolment: programEncounter,\n            complicationsConcept: \"High risk condi",
+    "org": "APF Odisha"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Growth Monitoring",
+    "formType": "ProgramEncounter",
+    "rule": "\"use strict\";\n({params, imports}) => {\n    const programEncounter = params.entity;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({\n        programEncounter\n    });\n    const moment = imports.moment;\n    const _ = imports.lodash;\n\n    function visitAlreadyScheduled(encounterType, earliestDate) {\n        const earliestDateMoment = moment(earliestDate);\n        const isVisitScheduled = programEncounter.programEnrolment.getEncountersOfType(encounterType)\n            .some(",
+    "org": "APF Odisha"
+  },
+  {
+    "type": "decision",
+    "formName": "Individual Registration",
+    "formType": "IndividualProfile",
+    "rule": "//SAMPLE RULE EXAMPLE\n  \"use strict\";\n({params, imports}) => {\n    const individual = params.entity;\n    const decisions = params.decisions;\n    if (!individual.getObservationReadableValue('be0ab05f-b0f3-43ec-b598-fdde0679104a')) {\n      decisions.registrationDecisions.push({name : \"To be monitored by QRT\", value : \"No\"});\n    }\n    //create complicationBuilder using individual and then push to registrationDecisions array.\n    return decisions;\n};",
+    "org": "APF Odisha"
+  },
+  {
+    "type": "decision",
+    "formName": "Medical Facilitation for Poshan Sathi",
+    "formType": "ProgramEncounter",
+    "rule": "\"use strict\";\n({params, imports}) => {\n    const programEncounter = params.entity;\n    const moment = imports.moment;\n    const decisions = params.decisions;\n    const decisionsList = [];\n\n    \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter}).when.valueInEncounter(\"3f11d680-4da0-43b9-a532-e080b855b9d6\").containsAnswerConceptName(\"8ebbf088-f292-483e-9084-7de919ce67b7\").matches();\n  \n    if(condition11 ){\n    decisionsList.push({name: \"To be monitored by QRT\", value:",
+    "org": "APF Odisha"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "NRC Admission",
+    "formType": "ProgramEncounter",
+    "rule": "\"use strict\";\n({ params, imports }) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({programEncounter});\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter}).when.valueInEncounter(\"055a54be-f12a-4e32-8fbc-aa2560ab88e4\").containsAnswerConceptName(\"1cb277a5-6666-4482-9108-c9c7737ec505\").matches();\n  \n  if(condition11 ){\n    const earliestDate = moment(programEncounte",
+    "org": "APF Odisha"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "NRC Discharge",
+    "formType": "ProgramEncounter",
+    "rule": "\"use strict\";\n({ params, imports }) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({programEncounter});\n  \n  const isDateOfDischargeDefined = new imports.rulesConfig.RuleCondition({programEncounter}).when.valueInEncounter(\"71e84ef3-4f1d-4814-84fc-3672b3a72423\").defined.matches();\n  \n  const isChildHomeVisitAlreadyScheduled = programEncounter.programEnrolment.getEncounters()\n  .some( enc => enc",
+    "org": "APF Odisha"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "PNC Encounter Cancellation",
+    "formType": "ProgramEncounterCancellation",
+    "rule": "\"use strict\";\n({ params, imports }) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const _ = imports.lodash;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({\n    programEncounter\n  });\n  \n  const isDeathOrDeliveryOrAbortionOrMigrated = new imports.rulesConfig.RuleCondition({programEncounter}).when.valueInCancelEncounter(\"f0a6eee8-3421-46cb-a500-309127e98231\").containsAnyAnswerConceptName(\"1c3c9c97-ba3f-46a2-88af-2a4e26dd0039\",\"1d98de98-c",
+    "org": "APF Odisha"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "PNC Encounter",
+    "formType": "ProgramEncounter",
+    "rule": "\"use strict\";\n({ params, imports }) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const _ = imports.lodash;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({\n    programEncounter\n  });\n  \n  const nextScheules = {\n    3: {'nextInterval': 7, 'encounterNo': 2},\n    7: {'nextInterval': 14, 'encounterNo': 3},\n    14: {'nextInterval': 21, 'encounterNo': 4},\n    21: {'nextInterval': 28, 'encounterNo': 5},\n    28: {'nextInterval': 42, 'encounter",
+    "org": "APF Odisha"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "PW Home Visit Cancellation",
+    "formType": "ProgramEncounterCancellation",
+    "rule": "\"use strict\";\n({ params, imports }) => {\n    const programEncounter = params.entity;\n    const moment = imports.moment;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({programEncounter});\n\n    const condition11 = new imports.rulesConfig.RuleCondition({programEncounter}).when.valueInCancelEncounter(\"f0a6eee8-3421-46cb-a500-309127e98231\").containsAnswerConceptName(\"f169230d-809b-4d06-9ccb-96586977bb68\").matches();\n\nfunction getPWHomeVisitDate(qrtEncounterDate) {\n    const",
+    "org": "APF Odisha"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "PW Home Visit",
+    "formType": "ProgramEncounter",
+    "rule": "\"use strict\";\n({params, imports}) => {\n    const programEncounter = params.entity;\n    const _ = imports.lodash;\n    const moment = imports.moment;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({\n        programEncounter\n    });\n\n\n    function getPWHomeVisitDate(qrtEncounterDate) {\n        const intervalInDays = imports.moment(programEncounter.earliestVisitDateTime).diff(imports.moment(qrtEncounterDate), 'days');\n\n        let daysToAdd = 0;\n        if (intervalInDays <",
+    "org": "APF Odisha"
+  },
+  {
+    "type": "decision",
+    "formName": "Pregnancy Enrolment",
+    "formType": "ProgramEnrolment",
+    "rule": "\"use strict\";\n({params, imports}) => {\n    const programEnrolment = params.entity;\n    const moment = imports.moment;\n    const decisions = params.decisions;\n    const enrolmentDecisions = [];\n    const _ = imports.lodash;\n    const complicationsBuilder = new imports.rulesConfig.complicationsBuilder({\n        programEnrolment: programEnrolment,\n        complicationsConcept: \"High risk condition\"\n    });\n\n    const highRiskConditions = {\n        \"Age is less than 18 years\": new imports.rulesConfi",
+    "org": "APF Odisha"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Pregnancy Enrolment",
+    "formType": "ProgramEnrolment",
+    "rule": "\n\"use strict\";\n({params, imports}) => {\n    const programEnrolment = params.entity;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({\n        programEnrolment\n    });\n    const moment = imports.moment;\n    const scheduledOrCompletedEncountersOfType = (type) => {\n        const data = programEnrolment.encounters.filter((enc)=> enc.encounterType.name === type && enc.voided == false);\n        return data;\n    }\n\n    const condition0 = !programEnrolment.programExitDateTime;\n ",
+    "org": "APF Odisha"
+  },
+  {
+    "type": "decision",
+    "formName": "Pregnancy Exit",
+    "formType": "ProgramExit",
+    "rule": "//SAMPLE RULE EXAMPLE\n  \"use strict\";\n({params, imports}) => {\n    const programEnrolment = params.entity;\n    const decisions = params.decisions;\n            decisions.registrationDecisions.push({name : \"To be monitored by QRT\", value : \"No\"});\n            decisions.enrolmentDecisions.push({name : \"To be monitored by QRT\", value : \"No\"});\n            //decisions.encounterDecisions.push({name : \"To be monitored by QRT\", value : \"No\"});\n    return decisions;\n};",
+    "org": "APF Odisha"
+  },
+  {
+    "type": "decision",
+    "formName": "QRT Child",
+    "formType": "ProgramEncounter",
+    "rule": "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const decisions = params.decisions;\n  const complicationsBuilderForWFA = new imports.rulesConfig.complicationsBuilder({\n        programEncounter: programEncounter,\n        complicationsConcept: \"Weight for age z-score\"\n    },\n    {\n        programEnrolment: programEncounter,\n        complicationsConcept: \"High risk condition\"\n    });\n    \n  const height = programEncounter.getObservationValue(\"Height\");\n  const wei",
+    "org": "APF Odisha"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "QRT Child",
+    "formType": "ProgramEncounter",
+    "rule": "\"use strict\";\n({params, imports}) => {\n    const programEncounter = params.entity;\n    const _ = imports.lodash;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({\n        programEncounter\n    });\n\n    const takenToMedicalFacility = programEncounter.getObservationReadableValue(\"QRT facilitated child to medical facility?\") == \"Yes\";\n    const referredToNRC = programEncounter.getObservationReadableValue(\"Advice given\") == \"Referred to NRC\";\n    \n    function lastfilledEncou",
+    "org": "APF Odisha"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "QRT PW",
+    "formType": "ProgramEncounter",
+    "rule": "\"use strict\";\n({params, imports}) => {\n    const programEncounter = params.entity;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({\n        programEncounter\n    });\n\n    let dateOfFollowup = imports.moment(programEncounter.encounterDateTime).add(15, 'days');    \n    \n    let isEditScenario = programEncounter.programEnrolment.encounters.some((enc) => \n    enc.encounterType.name === 'PW Home Visit' && \n    enc.voided === false && \n    imports.moment(enc.earliestVisitDateT",
+    "org": "APF Odisha"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Supervisor Growth Monitoring Encounter Cancellation",
+    "formType": "IndividualEncounterCancellation",
+    "rule": "//SAMPLE RULE EXAMPLE\n\"use strict\";\n({params, imports}) => {\n    const encounter = params.entity;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({\n        encounter\n    });\n    const moment = imports.moment;\n    const _ = imports.lodash;\n\n    const earliestDate = moment(encounter.earliestVisitDateTime).add(1, 'month').startOf('month');\n    const currentlyActive= !encounter.individual.voided;\n\n\n     let isAlreadyScheduled = _.some(encounter.individual.encounters, (enc) =",
+    "org": "APF Odisha"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Supervisor Growth Monitoring Session Encounter",
+    "formType": "Encounter",
+    "rule": "//SAMPLE RULE EXAMPLE\n\"use strict\";\n({params, imports}) => {\n    const encounter = params.entity;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({\n        encounter\n    });\n    const moment = imports.moment;\n    const _ = imports.lodash;\n\n    const currentlyActive= !encounter.individual.voided;\n    const earliestDate = moment(encounter.earliestVisitDateTime).add(1, 'month').startOf('month');\n     let isAlreadyScheduled = _.some(encounter.individual.encounters, (enc) =>\n",
+    "org": "APF Odisha"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Supervisor VHSND Visit Encounter",
+    "formType": "Encounter",
+    "rule": "//SAMPLE RULE EXAMPLE\n\"use strict\";\n({params, imports}) => {\n    const encounter = params.entity;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({\n        encounter\n    });\n    const moment = imports.moment;\n    const _ = imports.lodash;\n\n    const earliestDate = moment(encounter.earliestVisitDateTime).add(1, 'month').startOf('month');\n    const currentlyActive= !encounter.individual.voided;\n\n\n  let isAlreadyScheduled = _.some(encounter.individual.encounters, (enc) =>\n ",
+    "org": "APF Odisha"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Supervisor VHSND Visit cancellation",
+    "formType": "IndividualEncounterCancellation",
+    "rule": "//SAMPLE RULE EXAMPLE\n\"use strict\";\n({params, imports}) => {\n    const encounter = params.entity;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({\n        encounter\n    });\n    const moment = imports.moment;\n    const _ = imports.lodash;\n\n    const earliestDate = moment(encounter.earliestVisitDateTime).add(1, 'month').startOf('month');\n    const currentlyActive= !encounter.individual.voided;\n\n\n  let isAlreadyScheduled = _.some(encounter.individual.encounters, (enc) =>\n ",
+    "org": "APF Odisha"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Training",
+    "formType": "Encounter",
+    "rule": "\"use strict\";\n({ params, imports }) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({encounter});\n  const visitMonthYear = moment(encounter.encounterDateTime).format('MMMM YYYY'); \n  const visitName = `Training Completion - for ${visitMonthYear}`;\n\n  function visitAlreadyScheduled(visitType, visitName){\n    return encounter.individual.getEncounters().some((enc)=> enc.encounterType.name == visitType &&",
+    "org": "APF Odisha"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "ANC Encounter Cancellation",
+    "formType": "ProgramEncounterCancellation",
+    "rule": "\"use strict\";\n({ params, imports }) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({programEncounter});\n  \n  const edd = programEncounter.programEnrolment.getObservationValue(\"Estimated Delivery Date\");\n  \n  const deliveryEncounterCompleted = programEncounter.programEnrolment.getEncounters()\n    .some(enc => enc.encounterType.name === 'Delivery' && enc.encounterDateTime);\n  \n  if (deliveryEnco",
+    "org": "Animedh Charitable Trust DNH"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "ANC Encounter",
+    "formType": "ProgramEncounter",
+    "rule": "  \"use strict\";\n  \n  ({ params, imports }) => {\n    const programEncounter = params.entity;\n    const moment = imports.moment;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({ programEncounter });\n  \n    // Get all ANC encounters\n    const previousANCs = programEncounter.programEnrolment.getEncounters()\n      .filter(enc => enc.encounterType.name === \"ANC\")\n      .sort((a, b) => moment(a.encounterDateTime || a.cancelDateTime).diff(moment(b.encounterDateTime || b.cancelD",
+    "org": "Animedh Charitable Trust DNH"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Assessment 42 Encounter Cancellation",
+    "formType": "ProgramEncounterCancellation",
+    "rule": "\"use strict\";\n({ params, imports }) => {\n    const programEncounter = params.entity;\n    const moment = imports.moment;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({programEncounter});\n\n    const individual = programEncounter.programEnrolment.individual;\n    const earliestVisitDateTime = programEncounter.earliestVisitDateTime;\n\n    const isActive = !programEncounter.programEnrolment.programExitDateTime;\n    \n    if (!isActive) {\n        return scheduleBuilder.getAll(",
+    "org": "Animedh Charitable Trust DNH"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Assessment 42 Encounter",
+    "formType": "ProgramEncounter",
+    "rule": "\"use strict\";\n({ params, imports }) => {\n    const programEncounter = params.entity;\n    const individual = programEncounter.programEnrolment.individual;\n    const moment = imports.moment;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({programEncounter});\n\n    const encounterDateTime = programEncounter.encounterDateTime;\n\n    const isActive = !programEncounter.programEnrolment.programExitDateTime;\n    \n    if (!isActive) {\n        return scheduleBuilder.getAll();\n    }",
+    "org": "Animedh Charitable Trust DNH"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Child - Referral Enrolment",
+    "formType": "ProgramEnrolment",
+    "rule": "\"use strict\";\n({ params, imports }) => {\n  const programEnrolment = params.entity;\n  const moment = imports.moment;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({programEnrolment});\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEnrolment}).when.lowestAddressLevel.defined.matches();\n  \n  if(condition11 ){\n    const earliestDate = moment(programEnrolment.enrolmentDateTime).add(7, 'days').toDate();\n    const maxDate = moment(earliestDate).add(3, \"d",
+    "org": "Animedh Charitable Trust DNH"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Child - Referral Follow up Encounter",
+    "formType": "ProgramEncounter",
+    "rule": "\"use strict\";\n({ params, imports })=> {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({ programEncounter });\n\n  const dateOfNextFollowupDefined = new imports.rulesConfig.RuleCondition({programEncounter}).when.valueInEncounter(\"9332f042-3fc0-4498-ac94-6ca12757a0d7\").defined.matches();\n\n  let numberOfReferralFollowUpEncounters = programEncounter.programEnrolment.getEncounters()\n    .filter(enc => en",
+    "org": "Animedh Charitable Trust DNH"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Child Development Categorisation Enrolment",
+    "formType": "ProgramEnrolment",
+    "rule": "\"use strict\";\n({ params, imports }) => {\n    const programEnrolment = params.entity;\n    const moment = imports.moment;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({programEnrolment});\n    const enrolmentDateTime = programEnrolment.enrolmentDateTime;\n    const individual = programEnrolment.individual;\n\n    const isActive = !programEnrolment.programExitDateTime;\n    \n    if (!isActive) {\n        return scheduleBuilder.getAll();\n    }\n  \n    const alreadyScheduled = pr",
+    "org": "Animedh Charitable Trust DNH"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Child Enrolment",
+    "formType": "ProgramEnrolment",
+    "rule": "\"use strict\";\n({ params, imports }) => {\n  const programEnrolment = params.entity;\n  const moment = imports.moment;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({programEnrolment});\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEnrolment}).when.lowestAddressLevel.defined.matches();\n  \n  if(condition11 ){\n    const earliestDate = moment(programEnrolment.enrolmentDateTime).add(0, 'days').toDate();\n    const maxDate = moment(programEnrolment.enrolm",
+    "org": "Animedh Charitable Trust DNH"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Child Home Visit Anthropometry Encounter Cancellation",
+    "formType": "ProgramEncounterCancellation",
+    "rule": "\"use strict\";\n({ params, imports }) => {\n    const programEncounter = params.entity;\n    const individual = programEncounter.programEnrolment.individual;\n    const moment = imports.moment;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({ programEncounter });\n    const cancelDateTime = programEncounter.cancelDateTime;\n    const cancelDateTimeMoment = moment(programEncounter.cancelDateTime);\n\n    // Check if the encounter is already scheduled\n    function alreadyScheduled",
+    "org": "Animedh Charitable Trust DNH"
+  },
+  {
+    "type": "decision",
+    "formName": "Child Home Visit Anthropometry Encounter",
+    "formType": "ProgramEncounter",
+    "rule": "\"use strict\";\n({params, imports}) => {\n    const programEncounter = params.entity;\n    const decisions = params.decisions;\n    const individual = programEncounter.programEnrolment.individual;\n         \n   const zScoreGradeStatusMappingWeightForAge = {\n    '1': 'Normal',\n    '2': 'Moderately Underweight',\n    '3': 'Severely Underweight'\n};\n\nconst zScoreGradeStatusMappingHeightForAge = {\n    '1': 'Normal',\n    '2': 'Stunted',\n    '3': 'Severely stunted'\n};\n\nconst zScoreGradeStatusMappingWeightForH",
+    "org": "Animedh Charitable Trust DNH"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Child Home Visit Anthropometry Encounter",
+    "formType": "ProgramEncounter",
+    "rule": "\"use strict\";\n({ params, imports }) => {\n  const programEncounter = params.entity;\n  const individual = programEncounter.programEnrolment.individual;\n  const moment = imports.moment;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({ programEncounter });\n\n  // Counting previous \"Child Home Visit Anthropometry\" encounters\n  let numberOfChildHomeVisitEncounters = programEncounter.programEnrolment.getEncounters()\n    .filter(enc => enc.encounterType.name === \"Child Home Visit ",
+    "org": "Animedh Charitable Trust DNH"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "DNH-ECD Individual Referral - Follow up Encounter",
+    "formType": "ProgramEncounter",
+    "rule": "\"use strict\";\n({ params, imports }) => {\n    const programEncounter = params.entity;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({ programEncounter });\n    const moment = imports.moment;\n    const encounterType = programEncounter.encounterType.name;\n\n    // Get the follow-up date from the encounter observation\n    const followUpDateValue = programEncounter.getObservationReadableValue('Select date of next visit');\n    if (!followUpDateValue) {\n        return scheduleB",
+    "org": "Animedh Charitable Trust DNH"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Delivery Encounter",
+    "formType": "ProgramEncounter",
+    "rule": "\"use strict\";\n({ params, imports }) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({programEncounter});\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter}).when.lowestAddressLevel.defined.matches();\n  \n  if(condition11 && !programEncounter.programEnrolment.programExitDateTime){\n    const earliestDate = moment(programEncounter.encounterDateTime).add(0, 'days').toD",
+    "org": "Animedh Charitable Trust DNH"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Home-based therapy visit Encounter Cancellation",
+    "formType": "ProgramEncounterCancellation",
+    "rule": "\"use strict\";\n({ params, imports }) => {\n    const programEncounter = params.entity;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({ programEncounter });\n    const moment = imports.moment;\n    const encounterType = programEncounter.encounterType.name;\n\n    // Get the follow-up date from the encounter observation\n    const followUpDateValue = programEncounter.findCancelEncounterObservation('Select date of next visit');\n    if (!followUpDateValue) {\n        return schedu",
+    "org": "Animedh Charitable Trust DNH"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Home-based therapy visit Encounter",
+    "formType": "ProgramEncounter",
+    "rule": "\"use strict\";\n({ params, imports }) => {\n    const programEncounter = params.entity;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({ programEncounter });\n    const moment = imports.moment;\n    const encounterType = programEncounter.encounterType.name;\n\n    // Get the follow-up date from the encounter observation\n    const followUpDateValue = programEncounter.getObservationReadableValue('Select date of next visit');\n    if (!followUpDateValue) {\n        return scheduleB",
+    "org": "Animedh Charitable Trust DNH"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "IHV Assessment Encounter",
+    "formType": "ProgramEncounter",
+    "rule": "\"use strict\";\n({ params, imports }) => {\n    const programEncounter = params.entity;\n    const moment = imports.moment;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({programEncounter});\n    \n    const individual = programEncounter.programEnrolment.individual;\n    const encounterDateTime = programEncounter.encounterDateTime;\n\n    const isActive = !programEncounter.programEnrolment.programExitDateTime;\n    \n    if (!isActive) {\n        return scheduleBuilder.getAll();\n ",
+    "org": "Animedh Charitable Trust DNH"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Mantrana (adolescents) Enrolment",
+    "formType": "ProgramEnrolment",
+    "rule": "\"use strict\";\n({ params, imports }) => {\n  const programEnrolment = params.entity;\n  const moment = imports.moment;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({ programEnrolment });\n\n  const allEncounters = programEnrolment.getEncounters() || [];\n\n  const completedVisits = allEncounters.filter(enc =>\n    enc &&\n    enc.encounterType &&\n    enc.encounterType.name === \"Mantrana individual activity tracking\"\n  );\n\n  // Stop scheduling beyond 6\n  if (completedVisits.lengt",
+    "org": "Animedh Charitable Trust DNH"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Mantrana - Referral Enrolment",
+    "formType": "ProgramEnrolment",
+    "rule": "\"use strict\";\n({ params, imports }) => {\n  const programEnrolment = params.entity;\n  const moment = imports.moment;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({programEnrolment});\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEnrolment}).when.lowestAddressLevel.defined.matches();\n  \n  if(condition11 ){\n    const earliestDate = moment(programEnrolment.enrolmentDateTime).add(7, 'days').toDate();\n    const maxDate = moment(earliestDate).add(3, \"d",
+    "org": "Animedh Charitable Trust DNH"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Mantrana - Referral Follow up",
+    "formType": "ProgramEncounter",
+    "rule": "\"use strict\";\n({ params, imports })=> {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({ programEncounter });\n\n  const dateOfNextFollowupDefined = new imports.rulesConfig.RuleCondition({programEncounter}).when.valueInEncounter(\"5bbc2c01-b8aa-4fae-b151-8e187c5f2c23\").defined.matches();\n\n  let numberOfReferralFollowUpEncounters = programEncounter.programEnrolment.getEncounters()\n    .filter(enc => en",
+    "org": "Animedh Charitable Trust DNH"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Mantrana individual activity tracking Encounter",
+    "formType": "ProgramEncounter",
+    "rule": "\"use strict\";\n({ params, imports }) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({ programEncounter });\n\n  const allEncounters = programEncounter.programEnrolment.getEncounters() || [];\n\n  // Count COMPLETED visits\n  const completedVisits = allEncounters.filter(enc =>\n    enc &&\n    enc.encounterType &&\n    enc.encounterType.name == \"Mantrana individual activity tracking\"\n  );\n\n  // Schedule",
+    "org": "Animedh Charitable Trust DNH"
+  },
+  {
+    "type": "decision",
+    "formName": "Manual categorization Encounter",
+    "formType": "ProgramEncounter",
+    "rule": "\"use strict\";\n({params, imports}) => {\n    const programEncounter = params.entity;\n    const moment = imports.moment;\n    const decisions = params.decisions;\n    const enrolmentDecisions = [];\n    const encounterDecisions = [];\n    const registrationDecisions = [];\n    \n    const SelectChildCategoryAsPerActAlgorithm = programEncounter.getObservationReadableValue(\"3752c3dc-8067-48ea-b96d-55cc34320e94\");\n    const SelectChildCategoryAsPerActAlgorithm2 = programEncounter.getObservationReadableValue",
+    "org": "Animedh Charitable Trust DNH"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Milestone assessment Encounter Cancellation",
+    "formType": "ProgramEncounterCancellation",
+    "rule": "\"use strict\";\n({ params, imports }) => {\n    const programEncounter = params.entity;\n    const moment = imports.moment;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({programEncounter});\n\n    const individual = programEncounter.programEnrolment.individual;\n    const earliestVisitDateTime = programEncounter.earliestVisitDateTime;\n\n    const isActive = !programEncounter.programEnrolment.programExitDateTime;\n    if (!isActive) {\n        return scheduleBuilder.getAll();\n  ",
+    "org": "Animedh Charitable Trust DNH"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Milestone assessment Encounter",
+    "formType": "ProgramEncounter",
+    "rule": "\"use strict\";\n({ params, imports }) => {\n    const programEncounter = params.entity;\n    const individual = programEncounter.programEnrolment.individual;\n    const moment = imports.moment;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({programEncounter});\n\n    const encounterDateTime = programEncounter.encounterDateTime;\n\n    const isActive = !programEncounter.programEnrolment.programExitDateTime;;\n    \n    if (!isActive) {\n        return scheduleBuilder.getAll();\n    ",
+    "org": "Animedh Charitable Trust DNH"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "NK Individual Referral  Enrolment",
+    "formType": "ProgramEnrolment",
+    "rule": "\"use strict\";\n({ params, imports }) => {\n    const programEnrolment = params.entity;\n    const moment = imports.moment;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({programEnrolment});\n    const enrolmentDateTime = programEnrolment.enrolmentDateTime\n\n    const isActive = !programEnrolment.programExitDateTime;\n    \n    if (!isActive) {\n        return scheduleBuilder.getAll();\n    }\n  \n    const alreadyScheduled = programEnrolment.getEncountersOfType(\"NK Individual ref",
+    "org": "Animedh Charitable Trust DNH"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "NK Individual referral follow up Encounter Cancellation",
+    "formType": "ProgramEncounterCancellation",
+    "rule": "\"use strict\";\n({ params, imports }) => {\n    const programEncounter = params.entity;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({ programEncounter });\n    const moment = imports.moment;\n    const encounterType = programEncounter.encounterType.name;\n\n    // Get the follow-up date from the encounter observation\n    const followUpDateValue = programEncounter.findCancelEncounterObservation('Select date of next visit');\n    if (!followUpDateValue) {\n        return schedu",
+    "org": "Animedh Charitable Trust DNH"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "NK Individual referral follow up Encounter",
+    "formType": "ProgramEncounter",
+    "rule": "\"use strict\";\n({ params, imports }) => {\n    const programEncounter = params.entity;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({ programEncounter });\n    const moment = imports.moment;\n    const encounterType = programEncounter.encounterType.name;\n\n    // Get the follow-up date from the encounter observation\n    const followUpDateValue = programEncounter.getObservationReadableValue('Select date of next visit');\n    if (!followUpDateValue) {\n        return scheduleB",
+    "org": "Animedh Charitable Trust DNH"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "NK School Visit Encounter Cancellation",
+    "formType": "IndividualEncounterCancellation",
+    "rule": "\"use strict\";\n({ params, imports }) => {\n    const encounter = params.entity;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({ encounter });\n    const moment = imports.moment;\n    const encounterType = encounter.encounterType.name;\n\n    // Get the follow-up date from the encounter observation\n    const followUpDateValue = encounter.findCancelEncounterObservation('Select date of next visit');\n    if (!followUpDateValue) {\n        return scheduleBuilder.getAll();\n    }\n\n ",
+    "org": "Animedh Charitable Trust DNH"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "NK School Visit Encounter",
+    "formType": "Encounter",
+    "rule": "\"use strict\";\n({ params, imports }) => {\n    const encounter = params.entity;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({ encounter });\n    const moment = imports.moment;\n    const encounterType = encounter.encounterType.name;\n\n    // Get the follow-up date from the encounter observation\n    const followUpDateValue = encounter.getObservationReadableValue('Select date of next visit');\n    if (!followUpDateValue) {\n        return scheduleBuilder.getAll();\n    }\n\n    ",
+    "org": "Animedh Charitable Trust DNH"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Need Assessment - Referral Enrolment",
+    "formType": "ProgramEnrolment",
+    "rule": "\"use strict\";\n({ params, imports }) => {\n  const programEnrolment = params.entity;\n  const moment = imports.moment;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({ programEnrolment });\n\n  const condition11 = new imports.rulesConfig.RuleCondition({ programEnrolment })\n    .when.lowestAddressLevel.defined.matches();\n\n  if (condition11) {\n    const earliestDate = moment(programEnrolment.enrolmentDateTime).add(15, \"days\").toDate();\n    const maxDate = moment(earliestDate).ad",
+    "org": "Animedh Charitable Trust DNH"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Need Assessment Referral Follow up Encounter",
+    "formType": "ProgramEncounter",
+    "rule": "\"use strict\";\n({ params, imports }) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({ programEncounter });\n\n  // Check if the \"Date of next follow up visit\" is defined in the encounter\n  const dateOfNextFollowupDefined = new imports.rulesConfig.RuleCondition({ programEncounter })\n    .when.valueInEncounter(\"9332f042-3fc0-4498-ac94-6ca12757a0d7\")  // UUID of \"Date of next follow up visit\"\n    .d",
+    "org": "Animedh Charitable Trust DNH"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Needs Assessment Enrolment",
+    "formType": "ProgramEnrolment",
+    "rule": "\"use strict\";\n({ params, imports }) => {\n  const programEnrolment = params.entity;\n  const moment = imports.moment;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({programEnrolment});\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEnrolment}).when.lowestAddressLevel.defined.matches();\n  \n  if(condition11 ){\n    const earliestDate = moment(programEnrolment.enrolmentDateTime).add(0, 'days').toDate();\n    const maxDate = moment(programEnrolment.enrolm",
+    "org": "Animedh Charitable Trust DNH"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Needs Assessment Home Visit Encounter Cancellation",
+    "formType": "ProgramEncounterCancellation",
+    "rule": "\"use strict\";\n({ params, imports }) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({programEncounter});\n  \n  let numberOfNeedsAssmentEncounters = programEncounter.programEnrolment.getEncounters()\n  .filter( enc => enc.encounterType.name === 'Needs Assessment Home Visit' )\n  .length;\n    \n  const previousNeedsAssessments = programEncounter.programEnrolment.getEncounters()\n    .filter(enc => enc",
+    "org": "Animedh Charitable Trust DNH"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Needs Assessment Home Visit Encounter",
+    "formType": "ProgramEncounter",
+    "rule": "\"use strict\";\n({ params, imports }) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({ programEncounter });\n\n  // Condition: If the woman cannot get pregnant (Infertility, Menopause, Hysterectomy) - NO VISIT\n  const cannotGetPregnant = new imports.rulesConfig.RuleCondition({ programEncounter })\n    .when.valueInEncounter(\"If No, why?\")\n    .containsAnyAnswerConceptName(\"Infertility\", \"Menopause\"",
+    "org": "Animedh Charitable Trust DNH"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "PNC Encounter Cancellation",
+    "formType": "ProgramEncounterCancellation",
+    "rule": "\"use strict\"; \n({ params, imports }) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({ programEncounter });\n\n  // Fetch latest Delivery visit\n  const deliveryEncounter = programEncounter.programEnrolment.getEncountersOfType(\"Delivery\").sort(\n    (a, b) => moment(b.encounterDateTime).diff(moment(a.encounterDateTime))\n  )[0];\n\n  // Fetch \"Date of delivery\" from the latest Delivery encounter\n  con",
+    "org": "Animedh Charitable Trust DNH"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "PNC Encounter",
+    "formType": "ProgramEncounter",
+    "rule": "\"use strict\"; \n({ params, imports }) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({ programEncounter });\n  \n  // Get all PNC encounters\n  const previousPNCs = programEncounter.programEnrolment.getEncounters()\n    .filter(enc => enc.encounterType.name === \"PNC\")\n    .sort((a, b) => moment(a.encounterDateTime || a.cancelDateTime).diff(moment(b.encounterDateTime || b.cancelDateTime))); // Sort ",
+    "org": "Animedh Charitable Trust DNH"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "PTOT therapy visit Encounter Cancellation",
+    "formType": "ProgramEncounterCancellation",
+    "rule": "\"use strict\";\n({ params, imports }) => {\n    const programEncounter = params.entity;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({ programEncounter });\n    const moment = imports.moment;\n    const encounterType = programEncounter.encounterType.name;\n\n    // Get the follow-up date from the encounter observation\n    const followUpDateValue = programEncounter.findCancelEncounterObservation('Select date of next visit');\n    if (!followUpDateValue) {\n        return schedu",
+    "org": "Animedh Charitable Trust DNH"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "PTOT therapy visit",
+    "formType": "ProgramEncounter",
+    "rule": "\"use strict\";\n({ params, imports }) => {\n    const programEncounter = params.entity;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({ programEncounter });\n    const moment = imports.moment;\n    const encounterType = programEncounter.encounterType.name;\n\n    // Get the follow-up date from the encounter observation\n    const followUpDateValue = programEncounter.getObservationReadableValue('Select date of next visit');\n    if (!followUpDateValue) {\n        return scheduleB",
+    "org": "Animedh Charitable Trust DNH"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Pregnancy - Referral Enrolment",
+    "formType": "ProgramEnrolment",
+    "rule": "\"use strict\";\n({ params, imports }) => {\n  const programEnrolment = params.entity;\n  const moment = imports.moment;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({programEnrolment});\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEnrolment}).when.lowestAddressLevel.defined.matches();\n  \n  if(condition11 ){\n    const earliestDate = moment(programEnrolment.enrolmentDateTime).add(15, 'days').toDate();\n    const maxDate = moment(earliestDate).add(7, '",
+    "org": "Animedh Charitable Trust DNH"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Pregnancy - Referral Follow up Encounter",
+    "formType": "ProgramEncounter",
+    "rule": "\"use strict\";\n({ params, imports })=> {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({ programEncounter });\n\n  const dateOfNextFollowupDefined = new imports.rulesConfig.RuleCondition({programEncounter}).when.valueInEncounter(\"9332f042-3fc0-4498-ac94-6ca12757a0d7\").defined.matches();\n\n  let numberOfReferralFollowUpEncounters = programEncounter.programEnrolment.getEncounters()\n    .filter(enc => en",
+    "org": "Animedh Charitable Trust DNH"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Pregnancy Enrolment",
+    "formType": "ProgramEnrolment",
+    "rule": "\"use strict\";\n({ params, imports }) => {\n  const programEnrolment = params.entity;\n  const moment = imports.moment;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({ programEnrolment });\n\n  // Check if ANC 1 already exists in encounters\n  const existingANC1 = programEnrolment.getEncounters()\n    .some(enc => enc.encounterType.name === 'ANC');\n\n    const earliestDate = moment(programEnrolment.enrolmentDateTime).toDate();\n    const maxDate = moment(programEnrolment.enrolment",
+    "org": "Animedh Charitable Trust DNH"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Action Item Registration",
+    "formType": "IndividualProfile",
+    "rule": "\"use strict\";\n({ params, imports }) => {\n  const individual = params.entity;\n  const moment = imports.moment;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({individual});\n  \n  const isGrievanceFollowUpEncounterAlreadyPresent = individual.getEncounters().filter(encounter => \n      (encounter.name === 'FC Action Item Follow Up for Field Coordinator' || encounter.name === 'Action Item Follow Up for Cluster Coordinator (CC)') && encounter.encounterDateTime && !encounter.canc",
+    "org": "Collectives for Integrated Livelihood Initiatives (CInI)"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Activity Monthly Status Encounter Cancellation",
+    "formType": "IndividualEncounterCancellation",
+    "rule": "\"use strict\";\n({params, imports}) => {\n    const encounter = params.entity;\n    const moment = imports.moment;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({encounter});\n\n    const encounters = encounter.individual.getEncounters();\n\n    const nextEarliestDate = moment(encounter.earliestVisitDateTime).add(1, 'months').startOf('month');\n\n    const isEncounterAlreadyPresent = encounters.some(enc => \n        !enc.voided && \n        enc.encounterType.name === 'Activity Mon",
+    "org": "Collectives for Integrated Livelihood Initiatives (CInI)"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Activity Monthly Status",
+    "formType": "Encounter",
+    "rule": "\"use strict\";\n({ params, imports }) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({ encounter });\n  const individual = encounter.individual;\n\n  // Check if there is already a scheduled encounter of \"Activity Monthly Status\" excluding the current one\n  const isAlreadyScheduledEncounter = encounter.individual.scheduledEncountersOfType('Activity Monthly Status')\n    ? encounter.individual.scheduledEnco",
+    "org": "Collectives for Integrated Livelihood Initiatives (CInI)"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Activity Registration",
+    "formType": "IndividualProfile",
+    "rule": "\"use strict\";\n({ params, imports }) => {\n  console.log('params-->', params);\n  const individual = params.entity;\n  const moment = imports.moment;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({individual});\n  \n  const editFlag = individual.getEncounters(true).filter((enc) => enc.encounterType.name = 'Activity Monthly Status').length === 0;\n  \n  if(editFlag ){\n    const earliestDate = moment(individual.registrationDate).add(1, 'months').startOf('month').toDate();\n    cons",
+    "org": "Collectives for Integrated Livelihood Initiatives (CInI)"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Anganwadi Monthly Records Encounter Cancellation",
+    "formType": "IndividualEncounterCancellation",
+    "rule": "\"use strict\";\n({params, imports}) => {\n    const encounter = params.entity;\n    const moment = imports.moment;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({encounter});\n\n    const encounters = encounter.individual.getEncounters();\n\n    const nextEarliestDate = moment(encounter.earliestVisitDateTime).add(1, 'months').startOf('month');\n\n    const isEncounterAlreadyPresent = encounters.some(enc => \n        !enc.voided && \n        enc.encounterType.name === 'Anganwadi Mo",
+    "org": "Collectives for Integrated Livelihood Initiatives (CInI)"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Anganwadi Monthly Records",
+    "formType": "Encounter",
+    "rule": "\"use strict\";\n({ params, imports }) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({ encounter });\n        \n    const scheduledOrCompletedEncountersOfType = (type, nextVisitDate) => {\n      const nextDateMonth = moment(nextVisitDate).month();\n      const nextDateYear = moment(nextVisitDate).year();\n      const data = encounter.individual.encounters.filter((enc) =>\n        enc.encounterType.name === t",
+    "org": "Collectives for Integrated Livelihood Initiatives (CInI)"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Anganwadi Profile Encounter Cancellation",
+    "formType": "IndividualEncounterCancellation",
+    "rule": "//SAMPLE RULE EXAMPLE\n\"use strict\";\n({ params, imports }) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({\n    encounter\n  });\n  const individual = encounter.individual;\n  \n const getApril = (date) => {\n        const month = moment(date).month();\n        const year = moment(date).year()\n        if(month<3) return moment({year:year-1,month:3,day:1});\n        return moment({year:year,month:3,day:1});\n ",
+    "org": "Collectives for Integrated Livelihood Initiatives (CInI)"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Anganwadi Profile",
+    "formType": "Encounter",
+    "rule": "//SAMPLE RULE EXAMPLE\n\"use strict\";\n({ params, imports }) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({\n    encounter\n  });\n  // Check if there is already a scheduled encounter of \"Library Monthly Report\" excluding the current one\n    const isAlreadyScheduledEncounter = encounter.individual.scheduledEncountersOfType('Anganwadi Profile') ? encounter.individual.scheduledEncountersOfType('Anganwadi P",
+    "org": "Collectives for Integrated Livelihood Initiatives (CInI)"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Anganwadi Registration",
+    "formType": "IndividualProfile",
+    "rule": "    \"use strict\";\n    ({params, imports}) => {\n        const individual = params.entity;\n        const moment = imports.moment;\n        const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({\n            individual\n        });\n    \n        const isAnganwadiMonthlyRecordsEncounterAlreadyPresent = individual.getEncounters().filter(enc =>\n            enc.name === 'Anganwadi Monthly Records' && enc.encounterDateTime && !enc.cancelDateTime && !enc.voided\n        ).length > 0;\n    \n    ",
+    "org": "Collectives for Integrated Livelihood Initiatives (CInI)"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Anganwadi Teacher Capacity Building Encounter Cancellation",
+    "formType": "IndividualEncounterCancellation",
+    "rule": "\"use strict\";\n({params, imports}) => {\n    const encounter = params.entity;\n    const moment = imports.moment;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({encounter});\n\n    const encounters = encounter.individual.getEncounters();\n\n    const nextEarliestDate = moment(encounter.earliestVisitDateTime).add(6, 'hours').add(1, 'months').startOf('month').add(6, 'hours');\n\n    const isEncounterAlreadyPresent = encounters.some(enc => \n        !enc.voided && \n        enc.enco",
+    "org": "Collectives for Integrated Livelihood Initiatives (CInI)"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Anganwadi Teacher Capacity Building Encounter",
+    "formType": "Encounter",
+    "rule": "\"use strict\";\n({ params, imports }) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({\n    encounter\n  });\n\n  // Add new visit schedule object to scheduleBuilder\n  const scheduledOrCompletedEncountersOfType = (type, nextVisitDate) => {\n    const nextDateMonth = moment(nextVisitDate).add(6, 'hours').month();\n    const nextDateYear = moment(nextVisitDate).add(6, 'hours').year();\n    const data = encounte",
+    "org": "Collectives for Integrated Livelihood Initiatives (CInI)"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Block Monthly Record Encounter Cancellation",
+    "formType": "IndividualEncounterCancellation",
+    "rule": "\"use strict\";\n({params, imports}) => {\n    const encounter = params.entity;\n    const moment = imports.moment;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({encounter});\n\n    const encounters = encounter.individual.getEncounters();\n\n    const nextEarliestDate = moment(encounter.earliestVisitDateTime).add(1, 'months').startOf('month');\n\n    const isEncounterAlreadyPresent = encounters.some(enc => \n        !enc.voided && \n        enc.encounterType.name === 'Block Monthl",
+    "org": "Collectives for Integrated Livelihood Initiatives (CInI)"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Block Monthly Record",
+    "formType": "Encounter",
+    "rule": "\"use strict\";\n({ params, imports }) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({encounter});\n    \n    const scheduledOrCompletedEncountersOfType = (type, nextVisitDate) => {\n      const nextDateMonth = moment(nextVisitDate).month();\n      const nextDateYear = moment(nextVisitDate).year();\n      const data = encounter.individual.encounters.filter((enc) =>\n        enc.encounterType.name === type &&",
+    "org": "Collectives for Integrated Livelihood Initiatives (CInI)"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Block Registration",
+    "formType": "IndividualProfile",
+    "rule": "\"use strict\";\n({ params, imports }) => {\n  const individual = params.entity;\n  const moment = imports.moment;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({individual});\n\n  const isCRPCapacityBuildingEncounterAlreadyPresent = individual.getEncounters().filter(enc =>\n    enc.encounterType.name === 'CRP/BRPs Capacity Building' && !enc.voided).length > 0;\n\n  if (!isCRPCapacityBuildingEncounterAlreadyPresent) {\n    const firstDayOfNextMonth = moment(individual.registrationD",
+    "org": "Collectives for Integrated Livelihood Initiatives (CInI)"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Block level teachers capacity building Cancellation (voided~9022)",
+    "formType": "IndividualEncounterCancellation",
+    "rule": "\"use strict\";\n({params, imports}) => {\n    const encounter = params.entity;\n    const moment = imports.moment;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({encounter});\n\n    const encounters = encounter.individual.getEncounters();\n\n    const nextEarliestDate = moment(encounter.earliestVisitDateTime).add(1, 'months').startOf('month');\n\n    const isEncounterAlreadyPresent = encounters.some(enc => \n        !enc.voided && \n        enc.encounterType.name === 'Block level ",
+    "org": "Collectives for Integrated Livelihood Initiatives (CInI)"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Block level teachers capacity building form (voided~9023)",
+    "formType": "Encounter",
+    "rule": "//SAMPLE RULE EXAMPLE\n\"use strict\";\n({ params, imports }) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({\n    encounter\n  });\n  //add new visit schedule object to scheduleBuilder\n    const scheduledOrCompletedEncountersOfType = (type,nextVisitDate) => {\n      const nextDateMonth = moment(nextVisitDate).month();\n      const nextDateYear = moment(nextVisitDate).year();          \n      const data = enc",
+    "org": "Collectives for Integrated Livelihood Initiatives (CInI)"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "CRP/BRPs Capacity Building Encounter Cancellation",
+    "formType": "IndividualEncounterCancellation",
+    "rule": "\"use strict\";\n({params, imports}) => {\n    const encounter = params.entity;\n    const moment = imports.moment;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({encounter});\n\n    const encounters = encounter.individual.getEncounters();\n\n    const nextEarliestDate = moment(encounter.earliestVisitDateTime).add(1, 'months').startOf('month');\n\n    const isEncounterAlreadyPresent = encounters.some(enc => \n        !enc.voided && \n        enc.encounterType.name === 'CRP/BRPs Cap",
+    "org": "Collectives for Integrated Livelihood Initiatives (CInI)"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "CRP/BRPs Capacity Building Form",
+    "formType": "Encounter",
+    "rule": "\"use strict\";\n({params, imports}) => {\n    const encounter = params.entity;\n    const moment = imports.moment;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({encounter});\n\n    const scheduledOrCompletedEncountersOfType = (type, nextVisitDate) => {\n      const nextDateMonth = moment(nextVisitDate).month();\n      const nextDateYear = moment(nextVisitDate).year();\n      const data = encounter.individual.encounters.filter((enc) =>\n        enc.encounterType.name === type &&",
+    "org": "Collectives for Integrated Livelihood Initiatives (CInI)"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "District Monthly Record Encounter Cancellation",
+    "formType": "IndividualEncounterCancellation",
+    "rule": "\"use strict\";\n({params, imports}) => {\n    const encounter = params.entity;\n    const moment = imports.moment;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({encounter});\n\n    const encounters = encounter.individual.getEncounters();\n\n    const nextEarliestDate = moment(encounter.earliestVisitDateTime).add(1, 'months').startOf('month');\n\n    const isEncounterAlreadyPresent = encounters.some(enc => \n        !enc.voided && \n        enc.encounterType.name === 'District Mon",
+    "org": "Collectives for Integrated Livelihood Initiatives (CInI)"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "District Monthly Record",
+    "formType": "Encounter",
+    "rule": "\"use strict\";\n({ params, imports }) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({ encounter });\n        \n    const scheduledOrCompletedEncountersOfType = (type, nextVisitDate) => {\n      const nextDateMonth = moment(nextVisitDate).month();\n      const nextDateYear = moment(nextVisitDate).year();\n      const data = encounter.individual.encounters.filter((enc) =>\n        enc.encounterType.name === t",
+    "org": "Collectives for Integrated Livelihood Initiatives (CInI)"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "District Registration",
+    "formType": "IndividualProfile",
+    "rule": "\"use strict\";\n({ params, imports }) => {\n    const individual = params.entity;\n    const moment = imports.moment;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({\n        individual\n    });\n\n    const isDistrictTeamCapacityBuildingEncounterAlreadyPresent = individual.getEncounters().filter(enc =>\n        enc.name === 'District Team Capacity Building' && enc.encounterDateTime && !enc.cancelDateTime && !enc.voided\n    ).length > 0;\n\n    if (!isDistrictTeamCapacityBuilding",
+    "org": "Collectives for Integrated Livelihood Initiatives (CInI)"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "District Team Capacity Building Encounter Cancellation",
+    "formType": "IndividualEncounterCancellation",
+    "rule": "\"use strict\";\n({params, imports}) => {\n    const encounter = params.entity;\n    const moment = imports.moment;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({encounter});\n\n    const encounters = encounter.individual.getEncounters();\n\n    const nextEarliestDate = moment(encounter.earliestVisitDateTime).add(1, 'months').startOf('month');\n\n    const isEncounterAlreadyPresent = encounters.some(enc => \n        !enc.voided && \n        enc.encounterType.name === 'District Tea",
+    "org": "Collectives for Integrated Livelihood Initiatives (CInI)"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "District Team Capacity Building",
+    "formType": "Encounter",
+    "rule": "\"use strict\";\n({ params, imports }) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({ encounter });\n\n    const visitDate = encounter.earliestVisitDateTime || encounter.encounterDateTime;\n    const scheduledOrCompletedEncountersOfType = (type, nextVisitDate) => {\n      const nextDateMonth = moment(nextVisitDate).month();\n      const nextDateYear = moment(nextVisitDate).year();\n      const data = encoun",
+    "org": "Collectives for Integrated Livelihood Initiatives (CInI)"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Library Monthly Report Encounter Cancellation",
+    "formType": "IndividualEncounterCancellation",
+    "rule": "\"use strict\";\n({params, imports}) => {\n    const encounter = params.entity;\n    const moment = imports.moment;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({encounter});\n\n    const visitDate = encounter.earliestVisitDateTime || encounter.cancelDateTime;\n\n    const nextDate = moment(visitDate)\n        .utcOffset(\"+05:30\")\n        .add(1, \"month\")\n        .startOf(\"month\")\n        .utc();\n\n    const hasScheduledOrCompletedEncounterOfType = (type, nextVisitDate) => {\n   ",
+    "org": "Collectives for Integrated Livelihood Initiatives (CInI)"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Library Monthly Report",
+    "formType": "Encounter",
+    "rule": "\"use strict\";\n({ params, imports }) => {\n    const encounter = params.entity;\n    const moment = imports.moment;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({ encounter });\n\n    const visitDate = encounter.earliestVisitDateTime || encounter.encounterDateTime;\n\n    // Build next month schedule date (IST → normalize → UTC)\n    const nextDate = moment(visitDate)\n        .utcOffset(\"+05:30\")\n        .add(1, \"month\")\n        .startOf(\"month\")\n        .utc();\n\n    const ha",
+    "org": "Collectives for Integrated Livelihood Initiatives (CInI)"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Library Space and Collection - Library Profiling Encounter Cancellation",
+    "formType": "IndividualEncounterCancellation",
+    "rule": "// SAMPLE RULE EXAMPLE\n\"use strict\";\n({ params, imports }) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({\n    encounter\n  });\n\nconst getApril = (date) => {\n        const month = moment(date).month();\n        const year = moment(date).year()\n        if(month<3) return moment({year:year-1,month:3,day:1});\n        return moment({year:year,month:3,day:1});\n    }\n    const getOverdueDate=(earliestDate)=",
+    "org": "Collectives for Integrated Livelihood Initiatives (CInI)"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Library Space and Collection - Library Profiling",
+    "formType": "Encounter",
+    "rule": "\"use strict\";\n({ params, imports }) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({ encounter });\n  const individual = encounter.individual;\n\n  // Check if there is already a scheduled encounter of \"Library Space and Collection - Library Profiling\" excluding the current one\n  const isAlreadyScheduledEncounter = encounter.individual.scheduledEncountersOfType('Library Space and Collection - Library Pr",
+    "org": "Collectives for Integrated Livelihood Initiatives (CInI)"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Monthly School Monitoring Encounter Cancellation",
+    "formType": "IndividualEncounterCancellation",
+    "rule": "\"use strict\";\n({params, imports}) => {\n    const encounter = params.entity;\n    const moment = imports.moment;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({encounter});\n\n    const visitDate = encounter.earliestVisitDateTime || encounter.cancelDateTime;\n\n    const nextDate = moment(visitDate)\n        .utcOffset(\"+05:30\")\n        .add(1, \"month\")\n        .startOf(\"month\")\n        .utc();\n\n    const hasScheduledOrCompletedEncounterOfType = (type, nextVisitDate) => {\n   ",
+    "org": "Collectives for Integrated Livelihood Initiatives (CInI)"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Monthly School Monitoring",
+    "formType": "Encounter",
+    "rule": "\"use strict\";\n({ params, imports }) => {\n    const encounter = params.entity;\n    const moment = imports.moment;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({ encounter });\n\n    const visitDate = encounter.earliestVisitDateTime || encounter.encounterDateTime;\n\n    const nextDate = moment(visitDate)\n        .utcOffset(\"+05:30\")\n        .add(1, \"month\")\n        .startOf(\"month\")\n        .utc();\n\n    const hasScheduledOrCompletedEncounterOfType = (type, nextVisitDate) =",
+    "org": "Collectives for Integrated Livelihood Initiatives (CInI)"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "SMC School Monitoring Encounter Cancellation",
+    "formType": "IndividualEncounterCancellation",
+    "rule": "\"use strict\";\n({params, imports}) => {\n    const encounter = params.entity;\n    const moment = imports.moment;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({encounter});\n\n    const visitDate = encounter.earliestVisitDateTime || encounter.cancelDateTime;\n\n    const nextDate = moment(visitDate)\n        .utcOffset(\"+05:30\")\n        .add(1, \"month\")\n        .startOf(\"month\")\n        .utc();\n\n    const hasScheduledOrCompletedEncounterOfType = (type, nextVisitDate) => {\n   ",
+    "org": "Collectives for Integrated Livelihood Initiatives (CInI)"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "SMC School Monitoring",
+    "formType": "Encounter",
+    "rule": "\"use strict\";\n({ params, imports }) => {\n    const encounter = params.entity;\n    const moment = imports.moment;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({ encounter });\n\n    const visitDate = encounter.earliestVisitDateTime || encounter.encounterDateTime;\n\n    // Build next month schedule date (IST → normalize → UTC)\n    const nextDate = moment(visitDate)\n        .utcOffset(\"+05:30\")\n        .add(1, \"month\")\n        .startOf(\"month\")\n        .utc();\n\n    const ha",
+    "org": "Collectives for Integrated Livelihood Initiatives (CInI)"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "School Annual Form Encounter Cancellation",
+    "formType": "IndividualEncounterCancellation",
+    "rule": "// SAMPLE RULE EXAMPLE\n\"use strict\";\n({ params, imports }) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({\n    encounter\n  });\n\n\nconst getApril = (date) => {\n        const month = moment(date).month();\n        const year = moment(date).year()\n        if(month<3) return moment({year:year-1,month:3,day:1});\n        return moment({year:year,month:3,day:1});\n    }\n    const getOverdueDate=(earliestDate)",
+    "org": "Collectives for Integrated Livelihood Initiatives (CInI)"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "School Annual Form",
+    "formType": "Encounter",
+    "rule": "//SAMPLE RULE EXAMPLE\n\"use strict\";\n({ params, imports }) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({\n    encounter\n  });\n\n  // Check if there is already a scheduled encounter of \"School Annual Form\" excluding the current one\n  const isAlreadyScheduledEncounter = encounter.individual.scheduledEncountersOfType('School Annual Form')\n    ? encounter.individual.scheduledEncountersOfType('School Annu",
+    "org": "Collectives for Integrated Livelihood Initiatives (CInI)"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "School Registration",
+    "formType": "IndividualProfile",
+    "rule": "\"use strict\";\n({params, imports}) => {\n    const individual = params.entity;\n    const moment = imports.moment;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({individual});\n\n    const isLibraryMonthlyReportEncounterAlreadyPresent = individual.getEncounters().filter(encounter =>\n        encounter.name === 'Library Monthly Report' && encounter.encounterDateTime && !encounter.cancelDateTime && !encounter.voided\n    ).length > 0;\n\n    if (!isLibraryMonthlyReportEncounterAl",
+    "org": "Collectives for Integrated Livelihood Initiatives (CInI)"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "School Teacher Capacity Building Encounter Cancellation",
+    "formType": "IndividualEncounterCancellation",
+    "rule": "\"use strict\";\n({params, imports}) => {\n    const encounter = params.entity;\n    const moment = imports.moment;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({encounter});\n\n    const encounters = encounter.individual.getEncounters();\n\n    const nextEarliestDate = moment(encounter.earliestVisitDateTime).add(6, 'hours').add(1, 'months').startOf('month').add(6, 'hours');\n\n    const isEncounterAlreadyPresent = encounters.some(enc => \n        !enc.voided && \n        enc.enco",
+    "org": "Collectives for Integrated Livelihood Initiatives (CInI)"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "School Teacher Capacity Building Encounter",
+    "formType": "Encounter",
+    "rule": "\"use strict\";\n({ params, imports }) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({\n    encounter\n  });\n\n  // Add new visit schedule object to scheduleBuilder\n  const scheduledOrCompletedEncountersOfType = (type, nextVisitDate) => {\n    const nextDateMonth = moment(nextVisitDate).add(6, 'hours').month();\n    console.log('nextDateMonth------->',nextDateMonth);\n    const nextDateYear = moment(nextVisi",
+    "org": "Collectives for Integrated Livelihood Initiatives (CInI)"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "State Monthly Record Encounter Cancellation",
+    "formType": "IndividualEncounterCancellation",
+    "rule": "\"use strict\";\n({params, imports}) => {\n    const encounter = params.entity;\n    const moment = imports.moment;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({encounter});\n\n    const encounters = encounter.individual.getEncounters();\n\n    const nextEarliestDate = moment(encounter.earliestVisitDateTime).add(1, 'months').startOf('month');\n\n    const isEncounterAlreadyPresent = encounters.some(enc => \n        !enc.voided && \n        enc.encounterType.name === 'State Monthl",
+    "org": "Collectives for Integrated Livelihood Initiatives (CInI)"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "State Monthly Record",
+    "formType": "Encounter",
+    "rule": "//SAMPLE RULE EXAMPLE\n\"use strict\";\n({ params, imports }) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({encounter});\n  \n    const scheduledOrCompletedEncountersOfType = (type,nextVisitDate) => {\n      const nextDateMonth = moment(nextVisitDate).month();\n      const nextDateYear = moment(nextVisitDate).year();          \n      const data = encounter.individual.encounters.filter((enc)=> \n      enc.enc",
+    "org": "Collectives for Integrated Livelihood Initiatives (CInI)"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "State Registration",
+    "formType": "IndividualProfile",
+    "rule": "//SAMPLE RULE EXAMPLE\n\"use strict\";\n({ params, imports }) => {\n  const individual = params.entity;\n    const moment = imports.moment;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({\n    individual\n  });\n  //add new visit schedule object to scheduleBuilder\n   const scheduledOrCompletedEncountersOfType = (type) => {\n      const data = individual.encounters.filter((enc)=> enc.encounterType.name === type && enc.voided == false && enc.cancelDateTime == null)\n      return data",
+    "org": "Collectives for Integrated Livelihood Initiatives (CInI)"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Teachers Capacity Building Encounter Cancellation",
+    "formType": "IndividualEncounterCancellation",
+    "rule": "\"use strict\";\n({params, imports}) => {\n    const encounter = params.entity;\n    const moment = imports.moment;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({encounter});\n\n    const encounters = encounter.individual.getEncounters();\n\n    const nextEarliestDate = moment(encounter.earliestVisitDateTime).add(1, 'months').startOf('month');\n\n    const isEncounterAlreadyPresent = encounters.some(enc => \n        !enc.voided && \n        enc.encounterType.name === 'Teachers Cap",
+    "org": "Collectives for Integrated Livelihood Initiatives (CInI)"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Teachers Capacity Building",
+    "formType": "Encounter",
+    "rule": "//SAMPLE RULE EXAMPLE\n\"use strict\";\n({ params, imports }) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({\n    encounter\n  });\n  \n  // Check if there is already a scheduled encounter of \"Teachers Capacity Building\" excluding the current one\n    const isAlreadyScheduledEncounter = encounter.individual.scheduledEncountersOfType('Teachers Capacity Building') ? encounter.individual.scheduledEncountersOfT",
+    "org": "Collectives for Integrated Livelihood Initiatives (CInI)"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Test enc (to be delete) (voided~9222)",
+    "formType": "Encounter",
+    "rule": "//SAMPLE RULE EXAMPLE\n\"use strict\";\n({ params, imports }) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({\n    encounter\n  });\n  //add new visit schedule object to scheduleBuilder\n  const getNextApril = (date) => {\n    const month = moment(date).month();\n    const year = moment(date).year()\n    if(month<3) return moment({year:year,month:3,day:1});\n    return moment({year:year+1,month:3,day:1});\n}\n\nco",
+    "org": "Collectives for Integrated Livelihood Initiatives (CInI)"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Volunteer Monthly Report Encounter Cancellation",
+    "formType": "IndividualEncounterCancellation",
+    "rule": "\"use strict\";\n({params, imports}) => {\n    const encounter = params.entity;\n    const moment = imports.moment;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({encounter});\n\n    const encounters = encounter.individual.getEncounters();\n\n    const nextEarliestDate = moment(encounter.earliestVisitDateTime).add(1, 'months').startOf('month');\n\n    const isEncounterAlreadyPresent = encounters.some(enc => \n        !enc.voided && \n        enc.encounterType.name === 'Volunteer Mo",
+    "org": "Collectives for Integrated Livelihood Initiatives (CInI)"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Volunteer Monthly Report",
+    "formType": "Encounter",
+    "rule": "\"use strict\";\n({params, imports}) => {\n    const encounter = params.entity;\n    const moment = imports.moment;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({encounter});\n    \n    // Check if there is already a scheduled encounter of \"Volunteer Monthly Report\" excluding the current one\n    const isAlreadyScheduledEncounter = encounter.individual.scheduledEncountersOfType('Volunteer Monthly Report') ? encounter.individual.scheduledEncountersOfType('Volunteer Monthly Rep",
+    "org": "Collectives for Integrated Livelihood Initiatives (CInI)"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Volunteer Registration",
+    "formType": "IndividualProfile",
+    "rule": "\"use strict\";\n({ params, imports }) => {\n    const individual = params.entity;\n    const moment = imports.moment;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({\n        individual\n    });\n\n    const isDistrictTeamCapacityBuildingEncounterAlreadyPresent = individual.getEncounters().filter(enc =>\n        enc.name === 'Volunteer Monthly Report' && enc.encounterDateTime && !enc.cancelDateTime && !enc.voided\n    ).length > 0;\n\n    if (!isDistrictTeamCapacityBuildingEncount",
+    "org": "Collectives for Integrated Livelihood Initiatives (CInI)"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Albendazole Tracking",
+    "formType": "ProgramEncounter",
+    "rule": "\"use strict\";\n({params, imports}) => {\n    const programEncounter = params.entity;\n    const moment = imports.moment;\n    const FEB = 1;\n    const AUG = 7;\n    const findSlot = (anyDate) => {\n        anyDate = moment(anyDate).startOf('day').toDate();\n        if (moment(anyDate).month() < FEB) {\n            return moment(anyDate).startOf('month').month(FEB).toDate();\n        }\n        if (moment(anyDate).month() === FEB) {\n            return anyDate;\n        }\n        if (moment(anyDate).month() ",
+    "org": "JSS"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Anthropometry Assessment",
+    "formType": "ProgramEncounter",
+    "rule": "\"use strict\";\n({ params, imports }) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const _ = imports.lodash;\n  const myGroups = programEncounter.programEnrolment.individual.groups;\n\n  // ✅ If earliestVisitDateTime is missing (like after cancel), \n  // use the last valid scheduled or encounter date.\n  let scheduledDateTime = programEncounter.earliestVisitDateTime;\n\n  if (_.isNil(scheduledDateTime)) {\n    // fallback: use encounterDateTime or enrolmentDateTime as",
+    "org": "JSS"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Child Enrolment",
+    "formType": "ProgramEnrolment",
+    "rule": "\"use strict\";\n({params, imports}) => {\n    const programEnrolment = params.entity;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({\n        programEnrolment\n    });\n    const moment = imports.moment;\n    const FEB = 1;\n    const AUG = 7;\n    const findSlots = (anyDate) => {\n        anyDate = moment(anyDate).startOf('day').toDate();\n        if (moment(anyDate).month() < FEB) {\n            return moment(anyDate).startOf('month').month(FEB).toDate();\n        }\n        if (",
+    "org": "JSS"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Daily Attendance Cancel Form",
+    "formType": "IndividualEncounterCancellation",
+    "rule": "\"use strict\";\n({ params, imports }) => {\n  const encounter = params.entity;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({\n    encounter\n  });\n  \n let earliestVisitDate = imports.moment(encounter.earliestVisitDateTime).add(1, 'days').toDate();\n let weekDayName =  imports.moment(earliestVisitDate).format('ddd');\n  \n  if(_.isEqual(weekDayName,'Sun')){\n   earliestVisitDate = imports.moment(encounter.earliestVisitDateTime).add(2, 'days').toDate();\n     weekDayName =  import",
+    "org": "JSS"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Daily Attendance Form",
+    "formType": "Encounter",
+    "rule": "\"use strict\";\n({ params, imports }) => {\n    const encounter = params.entity;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({\n        encounter\n    });\n    const visitDate = encounter.earliestVisitDateTime || encounter.encounterDateTime;\n    let earliestVisitDate = imports.moment(visitDate).add(1, 'days').toDate();\n    let weekDayName =  imports.moment(earliestVisitDate).format('ddd');\n\n    if(_.isEqual(weekDayName,'Sun')){\n        earliestVisitDate = imports.moment(vi",
+    "org": "JSS"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Default Program Encounter Cancellation Form",
+    "formType": "ProgramEncounterCancellation",
+    "rule": "\"use strict\";\n({params, imports}) => {\n    const programEncounter = params.entity;\n    let visitCancelReason = programEncounter.findCancelEncounterObservationReadableValue('Visit cancel reason');\n    if (visitCancelReason === 'Program exit') {\n        return [];\n    }\n    \n    const encounterTypeName = programEncounter.encounterType.name;\n    const moment = imports.moment;\n    const _ = imports.lodash;\n    if (encounterTypeName === 'Anthropometry Assessment') {\n        const myGroups = programEn",
+    "org": "JSS"
+  },
+  {
+    "type": "visitSchedule",
+    "formName": "Phulwari Attendance Registration",
+    "formType": "IndividualProfile",
+    "rule": "\"use strict\";\n({ params, imports }) => {\n  const individual = params.entity;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({\n    individual\n  });\n  const _ = imports.lodash;\n  const dailyAttendanceEncounter = _.find(individual.encounters, ({encounterType}) => encounterType.name === 'Daily Attendance Form');\n  if(_.isEmpty(dailyAttendanceEncounter)) {\n      let earliestVisitDate = imports.moment(individual.registrationDate).toDate();\n      let weekDayName =  imports.momen",
+    "org": "JSS"
+  },
+  {
+    "type": "decision",
+    "formName": "ANC Encounter",
+    "formType": "ProgramEncounter",
+    "rule": "\"use strict\";\n({params, imports}) => {\n    const programEncounter = params.entity;\n    const moment = imports.moment;\n    const decisions = params.decisions;\n    const enrolmentDecisions = [];\n    const encounterDecisions = [];\n    const registrationDecisions = [];\n    const highRiskList = [];\n    const referToDoctorList = [];\n    const adviceList = [];\n    \n    let ancs = programEncounter.programEnrolment.getEncountersOfType('ANC');\n    \n    let ancType = programEncounter.getObservationReadable",
+    "org": "MLD Trust"
+  },
+  {
+    "type": "decision",
+    "formName": "Birth Form",
+    "formType": "ProgramEncounter",
+    "rule": "\"use strict\";\n({params, imports}) => {\n    const programEncounter = params.entity;\n    const decisions = params.decisions;\n    const enrolmentDecisions = [];\n    const encounterDecisions = [];\n    const registrationDecisions = [];\n    const moment = imports.moment;\n    const _ = imports.lodash;\n    const individualService = params.services.individualService;\n    let mother = null;\n    let ancEncounters = [];\n    let latestAnc = null;\n\n    function getMatchingConditions(conditionList) { \n        ",
+    "org": "MLD Trust"
+  },
+  {
+    "type": "decision",
+    "formName": "Child Monthly Gradation Form",
+    "formType": "ProgramEncounter",
+    "rule": "\"use strict\";\n({params, imports}) => {\n    const programEncounter = params.entity;\n    const moment = imports.moment;\n    const _ = imports.lodash;\n    const decisions = params.decisions;\n    const enrolmentDecisions = [];\n    const encounterDecisions = [];\n    const registrationDecisions = [];\n    \n    let encDateTime = programEncounter.encounterDateTime;\n    let momentDate = moment(encDateTime);\n    \n    let year = momentDate.year(); \n    let month = momentDate.month() + 1; \n    let monthlyGra",
+    "org": "MLD Trust"
+  },
+  {
+    "type": "decision",
+    "formName": "Child PNC Encounter",
+    "formType": "ProgramEncounter",
+    "rule": "\"use strict\";\n({ params, imports }) => {\n    const programEncounter = params.entity;\n    const decisions = params.decisions;\n    const enrolmentDecisions = [];\n    const encounterDecisions = [];\n    const registrationDecisions = [];\n    const highRiskList = [];\n\n    let pncType = programEncounter.getObservationReadableValue('44787f0e-609d-45df-b9da-a405183d6f13');\n    let seq = pncType.match(/\\d+/)[0]; \n    \n    const addDecision = (field, message, condition, ...lists) => {\n        const value =",
+    "org": "MLD Trust"
+  },
+  {
+    "type": "decision",
+    "formName": "Homeo Treatment Form: For Malnourished Children Encounter",
+    "formType": "ProgramEncounter",
+    "rule": "\"use strict\";\n({params, imports}) => {\n    const programEncounter = params.entity;\n    const moment = imports.moment;\n    const _ = imports.lodash;\n    const decisions = params.decisions;\n    const enrolmentDecisions = [];\n    const encounterDecisions = [];\n    const registrationDecisions = [];\n    \n    let encDateTime = programEncounter.encounterDateTime;\n    let momentDate = moment(encDateTime);\n    \n    let year = momentDate.year(); \n    let month = momentDate.month() + 1; \n    let homeoTreat",
+    "org": "MLD Trust"
+  },
+  {
+    "type": "decision",
+    "formName": "PNC",
+    "formType": "ProgramEncounter",
+    "rule": "\"use strict\";\n({params, imports}) => {\n    const programEncounter = params.entity;\n    const moment = imports.moment;\n    const decisions = params.decisions;\n    const enrolmentDecisions = [];\n    const encounterDecisions = [];\n    const registrationDecisions = [];\n    const highRiskList = [];\n    const referToDoctorList = [];\n    const referToHospitalList = [];\n    const adviceList = [];\n    \n    let pncs = programEncounter.programEnrolment.getEncountersOfType('PNC');\n    \n    let pncType = pro",
+    "org": "MLD Trust"
+  },
+  {
+    "type": "decision",
+    "formName": "Pregnancy Enrolment",
+    "formType": "ProgramEnrolment",
+    "rule": "\"use strict\";\n({params, imports}) => {\n    const programEnrolment = params.entity;\n    const moment = imports.moment;\n    const decisions = params.decisions;\n    const enrolmentDecisions = [];\n    const encounterDecisions = [];\n    const registrationDecisions = [];\n    \n    const condition11 = new imports.rulesConfig.RuleCondition({programEnrolment}).when.valueInEnrolment(\"cccfc848-b816-485a-86f7-e9d8369dda5d\").containsAnyAnswerConceptName(\"3fe8b630-ff07-42e4-84e1-ee55005c74a0\",\"8189304e-6ac6-42",
+    "org": "MLD Trust"
+  }
+]

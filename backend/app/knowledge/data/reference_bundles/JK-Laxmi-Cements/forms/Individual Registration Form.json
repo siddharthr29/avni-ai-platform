@@ -1,0 +1,294 @@
+{
+  "name": "Individual Registration Form",
+  "uuid": "060826e6-0925-44aa-8885-37950fa06f30",
+  "formType": "IndividualProfile",
+  "formElementGroups": [
+    {
+      "uuid": "2f30f400-c049-410d-b84e-3c733f1c4d57",
+      "name": "Default Question",
+      "displayOrder": 1,
+      "formElements": [
+        {
+          "name": "Full Name of the individual (First name, Middle name and Last name)",
+          "uuid": "40dc1daa-872e-4186-a0cd-92998c6c6d81",
+          "keyValues": [],
+          "concept": {
+            "name": "Full Name of the individual (First name, Middle name and Last name)",
+            "uuid": "3fb61cb9-d9fa-46f7-8374-2a8a8f57128d",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Gender of the individual",
+          "uuid": "1b6b3ee2-7418-4497-8e71-e6eef22b1401",
+          "keyValues": [],
+          "concept": {
+            "name": "Gender of the individual",
+            "uuid": "430bb464-5bd2-44f2-843a-a7457dedf69b",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 2,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Date of birth of the individual",
+          "uuid": "22908f9a-cb0d-43ce-834f-9fdddc6b5dbc",
+          "keyValues": [],
+          "concept": {
+            "name": "Date of birth of the individual",
+            "uuid": "6e297d27-6d23-47fd-a110-555e3553f686",
+            "dataType": "Date",
+            "active": true
+          },
+          "displayOrder": 3,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Age of the individual",
+          "uuid": "72b6bc4e-675b-4728-94e9-0241e1fc40d7",
+          "keyValues": [],
+          "concept": {
+            "name": "Age of the individual",
+            "uuid": "4e2a1a7e-d6a6-468d-a257-27c8f7048872",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 4,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Address",
+          "uuid": "5669a989-f7ba-48df-a436-efb850f7c9b9",
+          "keyValues": [],
+          "concept": {
+            "name": "Address",
+            "uuid": "65c90f3e-5919-4bde-9a53-b23590ef112f",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 5,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "71da1d15-6510-4090-98e9-ed912ff5aeb2",
+      "name": "Basic Details",
+      "displayOrder": 2,
+      "formElements": [
+        {
+          "name": "Registration happening where",
+          "uuid": "1fea58d4-cdd5-4f1d-997b-3b4d86c1eee0",
+          "keyValues": [],
+          "concept": {
+            "name": "Registration happening where",
+            "uuid": "1f18c4d2-56e8-4d27-b8cb-c00b5a01217d",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Contact Number",
+          "uuid": "12833464-9a99-4743-a3dc-8726218c66a7",
+          "keyValues": [],
+          "concept": {
+            "name": "Contact Number",
+            "uuid": "64cf6edb-aa9e-4f54-8259-a3ec1b502ecf",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 2,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Alternate Contact Number",
+          "uuid": "4a60c7db-e738-4d10-9653-2d8b2af16f92",
+          "keyValues": [],
+          "concept": {
+            "name": "Alternate Contact Number",
+            "uuid": "4b76d8e1-2ddd-434f-966a-8bce45db1885",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 3,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Religion",
+          "uuid": "43d98b18-3e7e-4be1-9779-f8abbc5284be",
+          "keyValues": [],
+          "concept": {
+            "name": "Religion",
+            "uuid": "2b55eddd-2522-4ab0-92a2-3b6ddcc3c4c4",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 4,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Other Religion, please specify",
+          "uuid": "2c108bdf-4ad1-4003-9fde-71c3a409cc7c",
+          "keyValues": [],
+          "concept": {
+            "name": "Other Religion, please specify",
+            "uuid": "37db9772-dcb3-4209-9e79-4d4940ae995c",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 5,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Caste",
+          "uuid": "7e377c34-d2c3-4c24-8565-2cc4ab3cad9f",
+          "keyValues": [],
+          "concept": {
+            "name": "Caste",
+            "uuid": "560b1d54-eeb4-4ff7-aba9-e8a9dc952aed",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 6,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Other Caste, please specify",
+          "uuid": "2b1da2fe-9aad-47ac-adc1-428847937d98",
+          "keyValues": [],
+          "concept": {
+            "name": "Other Caste, please specify",
+            "uuid": "56694b43-14ba-4e02-8b87-8f1ce9245b4b",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 7,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Marital Status",
+          "uuid": "6f80515a-3e73-4af6-ae41-25e5e14782e3",
+          "keyValues": [],
+          "concept": {
+            "name": "Marital Status",
+            "uuid": "58680fd0-89f9-4b53-adf9-dd30c5397d42",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 8,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Education",
+          "uuid": "3cf351ed-efe0-4102-b9d2-3fa0c38fdbb0",
+          "keyValues": [],
+          "concept": {
+            "name": "Education",
+            "uuid": "5d373f0a-175a-4734-88d9-8146cc16589c",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 9,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Other education, please specify",
+          "uuid": "011b48ff-bc68-4698-abae-cb06b5cd01bb",
+          "keyValues": [],
+          "concept": {
+            "name": "Other education, please specify",
+            "uuid": "05719cfb-c097-4f7b-b7ff-5b7ce273aeff",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 10,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Income Sources",
+          "uuid": "21b6bf9a-5b4a-4cfa-850f-787582d30367",
+          "keyValues": [],
+          "concept": {
+            "name": "Income Sources",
+            "uuid": "3353006d-6367-448e-9fa8-910ddae5d674",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 11,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Other income sources, please specify",
+          "uuid": "03f48ac8-8b0c-4b7d-92a9-05b12c6660ec",
+          "keyValues": [],
+          "concept": {
+            "name": "Other income sources, please specify",
+            "uuid": "67203ce2-0c0a-478c-8b6b-25f162665c48",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 12,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Does the individual is having any disability",
+          "uuid": "5ea7aadd-52a7-4dae-bb84-f4fa2dea752a",
+          "keyValues": [],
+          "concept": {
+            "name": "Does the individual is having any disability",
+            "uuid": "01cd9b38-003a-42c2-a834-ba959c5d5e76",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 13,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Other disability, please specify",
+          "uuid": "69b2a8bf-6b59-4865-b498-31bc258e656f",
+          "keyValues": [],
+          "concept": {
+            "name": "Other disability, please specify",
+            "uuid": "5aa91383-a13a-41cb-86ea-994217366a0e",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 14,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}

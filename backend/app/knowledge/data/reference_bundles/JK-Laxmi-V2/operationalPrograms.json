@@ -1,0 +1,22 @@
+[
+  {
+    "program": {
+      "uuid": "fa2bcbdb-dace-e5da-cf19-86f7af9c063c",
+      "name": "Pregnancy"
+    },
+    "uuid": "6f66e706-4531-a1f4-4f7b-32f7886a9daa",
+    "name": "Pregnancy",
+    "voided": false,
+    "programSubjectLabel": "Pregnant Woman"
+  },
+  {
+    "program": {
+      "uuid": "a31666c1-8d0e-78ec-708c-6ecd7c565114",
+      "name": "Child"
+    },
+    "uuid": "4272dae9-d22b-8d81-7c0c-8bdc10677f4d",
+    "name": "Child",
+    "voided": false,
+    "programSubjectLabel": "Child"
+  }
+]

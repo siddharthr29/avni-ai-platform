@@ -120,7 +120,7 @@ export function FormContextPanel({ formContext, onFormContextChange }: FormConte
               <div className="flex gap-2">
                 <button
                   onClick={() => fileInputRef.current?.click()}
-                  className="flex items-center gap-1.5 px-3 py-1.5 text-sm bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500"
                 >
                   <Upload className="w-3.5 h-3.5" />
                   Upload Form JSON
@@ -131,7 +131,7 @@ export function FormContextPanel({ formContext, onFormContextChange }: FormConte
                     'flex items-center gap-1.5 px-3 py-1.5 text-sm border rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500',
                     pasteMode
                       ? 'bg-primary-50 border-primary-300 text-primary-700'
-                      : 'bg-white border-gray-300 hover:bg-gray-50'
+                      : 'bg-white border-gray-300 text-gray-700 hover:bg-gray-50'
                   )}
                 >
                   <FileJson className="w-3.5 h-3.5" />

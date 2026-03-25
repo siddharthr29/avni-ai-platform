@@ -1,0 +1,48 @@
+# =============================================================================
+# Avni AI Platform — Prometheus Configuration
+# =============================================================================
+
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  scrape_timeout: 10s
+
+# ---------------------------------------------------------------------------
+# Alerting rules
+# ---------------------------------------------------------------------------
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets: ["alertmanager:9093"]
+
+rule_files:
+  - "alert_rules.yml"
+
+# ---------------------------------------------------------------------------
+# Scrape targets
+# ---------------------------------------------------------------------------
+scrape_configs:
+  # FastAPI backend metrics (prometheus_client)
+  - job_name: "avni-ai-backend"
+    metrics_path: /metrics
+    scrape_interval: 15s
+    static_configs:
+      - targets: ["backend:8080"]
+        labels:
+          service: "avni-ai-backend"
+          environment: "production"
+
+  # Nginx stub_status (if nginx-prometheus-exporter is configured)
+  - job_name: "nginx"
+    scrape_interval: 30s
+    static_configs:
+      - targets: ["nginx-exporter:9113"]
+        labels:
+          service: "avni-ai-nginx"
+          environment: "production"
+
+  # Prometheus self-monitoring
+  - job_name: "prometheus"
+    scrape_interval: 30s
+    static_configs:
+      - targets: ["localhost:9090"]

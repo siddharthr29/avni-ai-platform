@@ -1,0 +1,11 @@
+{
+  "name" : "Assessment & Distribution Cancellation",
+  "uuid" : "b7026aa1-cdd5-c1ef-bee5-9d30408bd2e1",
+  "formType" : "IndividualEncounterCancellation",
+  "formElementGroups" : [ ],
+  "decisionRule" : "",
+  "visitScheduleRule" : "",
+  "validationRule" : "",
+  "checklistsRule" : "",
+  "decisionConcepts" : [ ]
+}

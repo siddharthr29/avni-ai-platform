@@ -1,0 +1,142 @@
+{
+  "name": "Couselling",
+  "uuid": "1e1c7e3d-55fd-498b-bdfb-4477efd789bf",
+  "formType": "ProgramEncounter",
+  "formElementGroups": [
+    {
+      "uuid": "3eda6faf-7036-45b3-bb63-13ead6f839f3",
+      "name": "Counselling Topics",
+      "displayOrder": 1,
+      "formElements": [
+        {
+          "name": "Topic of counselling",
+          "uuid": "14b5eda5-5bf1-4ccc-b368-0e2a2f83dc67",
+          "keyValues": [],
+          "concept": {
+            "name": "Topic of counselling",
+            "uuid": "6544701b-1d19-4c27-8a59-0d3869f5dbd2",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "MultiSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "2c17ce81-18d4-4a3c-aef8-51732eb408b4",
+      "name": "General Health Education Counselling Details",
+      "displayOrder": 2,
+      "formElements": [
+        {
+          "name": "Details of couselling session",
+          "uuid": "5bdb7fff-de44-4b7e-84e0-700d572d00f3",
+          "keyValues": [],
+          "concept": {
+            "name": "Details of couselling session",
+            "uuid": "0e449cf6-9674-44dd-9969-04cf800c5936",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Counselling hours",
+          "uuid": "23ea234c-3847-4aba-9ec1-42cda8860aa9",
+          "keyValues": [],
+          "concept": {
+            "name": "Counselling hours",
+            "uuid": "627939a8-4570-4f25-b699-976ba565509c",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 2,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "2d4eae66-e7ca-404d-8921-69527aca78f0",
+      "name": "Menstrual hygiene and  menstrual management products Counselling Details",
+      "displayOrder": 3,
+      "formElements": [
+        {
+          "name": "Details of couselling session",
+          "uuid": "5bdb7ffd-92c2-4789-9621-189f4a70ead0",
+          "keyValues": [],
+          "concept": {
+            "name": "Details of couselling session",
+            "uuid": "0e449cf6-9674-44dd-9969-04cf800c5936",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Counselling hours",
+          "uuid": "23ea234a-3ad6-4d84-a450-95572aa25872",
+          "keyValues": [],
+          "concept": {
+            "name": "Counselling hours",
+            "uuid": "627939a8-4570-4f25-b699-976ba565509c",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 2,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "2970742c-b2c8-453b-9a35-9dc915c69f42",
+      "name": "Education Support Counselling Details",
+      "displayOrder": 4,
+      "formElements": [
+        {
+          "name": "Educaiton support Counselling",
+          "uuid": "26978bd5-b06f-4d20-b2fc-a54ff99ff28e",
+          "keyValues": [],
+          "concept": {
+            "name": "Educaiton support Counselling",
+            "uuid": "1aa85cc6-b35f-40d1-9c0e-45a61cf5d61d",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Details of couselling session",
+          "uuid": "5bdb7ffa-1ec4-47d4-9e00-0688980f3018",
+          "keyValues": [],
+          "concept": {
+            "name": "Details of couselling session",
+            "uuid": "0e449cf6-9674-44dd-9969-04cf800c5936",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 2,
+          "type": "MultiSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}

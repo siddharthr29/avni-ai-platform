@@ -1,0 +1,38 @@
+[ {
+  "uuid" : "6f16df55-de55-ce5a-00d3-e222757c0827",
+  "id" : 3461,
+  "name" : "State",
+  "level" : 5.0
+}, {
+  "uuid" : "0e698a2e-20f1-3474-2aa3-8ea3a3fdcbb0",
+  "id" : 3462,
+  "name" : "District",
+  "level" : 4.0,
+  "parent" : {
+    "uuid" : "6f16df55-de55-ce5a-00d3-e222757c0827"
+  }
+}, {
+  "uuid" : "5fc65a32-2e25-1661-5270-84ecc9a776a1",
+  "id" : 3463,
+  "name" : "Block",
+  "level" : 3.0,
+  "parent" : {
+    "uuid" : "0e698a2e-20f1-3474-2aa3-8ea3a3fdcbb0"
+  }
+}, {
+  "uuid" : "aa320261-e838-37ca-936f-b1ea4b8b3fec",
+  "id" : 3464,
+  "name" : "Village",
+  "level" : 2.0,
+  "parent" : {
+    "uuid" : "5fc65a32-2e25-1661-5270-84ecc9a776a1"
+  }
+}, {
+  "uuid" : "e3724f99-8359-5719-40a5-a36426bbacad",
+  "id" : 3465,
+  "name" : "Pada",
+  "level" : 1.0,
+  "parent" : {
+    "uuid" : "aa320261-e838-37ca-936f-b1ea4b8b3fec"
+  }
+} ]

@@ -1,0 +1,104 @@
+{
+  "name": "Health Check up encounter",
+  "uuid": "0c0580ec-162f-49d7-a7ba-6894e535d85f",
+  "formType": "ProgramEncounter",
+  "formElementGroups": [
+    {
+      "uuid": "359b4ea3-6d49-4867-afd7-33f387e6af57",
+      "name": "General",
+      "displayOrder": 1,
+      "formElements": [
+        {
+          "name": "Health Check up Type",
+          "uuid": "3571b248-a3ba-43b3-9884-4bb21a5ee756",
+          "keyValues": [],
+          "concept": {
+            "name": "Health Check up Type",
+            "uuid": "03a7ba4b-6649-4629-97a2-824783f03d8f",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Dignosed With",
+          "uuid": "67e0e81f-b2f4-448d-b4dc-1576e2853010",
+          "keyValues": [],
+          "concept": {
+            "name": "Dignosed With",
+            "uuid": "0614bafb-78cd-4937-9f63-a1c3326bab40",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 2,
+          "type": "MultiSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Upload Prescription Image",
+          "uuid": "519ed93f-6622-4d0a-b93d-202a31c2d668",
+          "keyValues": [],
+          "concept": {
+            "name": "Upload Prescription Image",
+            "uuid": "2fb2905e-ce10-466f-ad91-a67f99d49427",
+            "dataType": "ImageV2",
+            "active": true
+          },
+          "displayOrder": 3,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Is Reffral Required",
+          "uuid": "3ced8917-1ef5-4ffd-b4a0-80b14b8b246b",
+          "keyValues": [],
+          "concept": {
+            "name": "Is Reffral Required",
+            "uuid": "581391c7-6897-490c-bb0c-e1e0b280d86e",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 4,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Refered to",
+          "uuid": "41edd8f1-9c6a-4013-b380-8dfe60d63d67",
+          "keyValues": [],
+          "concept": {
+            "name": "Refered to",
+            "uuid": "2214f58e-af83-425a-8470-a10ab1b0d14e",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 5,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Follow up Required",
+          "uuid": "6524acc1-9f0f-4725-ac1c-3d9610fc33f9",
+          "keyValues": [],
+          "concept": {
+            "name": "Follow up Required",
+            "uuid": "1700c427-5251-436f-969f-aa8430d5fbba",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 6,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}

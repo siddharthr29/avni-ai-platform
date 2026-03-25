@@ -1,0 +1,17 @@
+{
+  "catchments" : [ {
+    "name" : "Master",
+    "uuid" : "492507a3-e0e5-4127-a979-088b0adbf7ff",
+    "locations" : [ {
+      "uuid" : "dbb34559-f91e-4e5d-abb7-02e0e594f010"
+    } ],
+    "voided" : false
+  }, {
+    "name" : "Palghar",
+    "uuid" : "e61dee85-5814-4be4-8af5-a8f7c78a347d",
+    "locations" : [ {
+      "uuid" : "d91ce7fd-4a9a-4898-82f8-a7e1f570e853"
+    } ],
+    "voided" : false
+  } ]
+}

@@ -1,0 +1,100 @@
+[
+  {
+    "name": "Other Important Document Link",
+    "uuid": "041d3456-c244-6e13-4dc1-9d3f180ce577",
+    "entityEligibilityCheckRule": "",
+    "active": true,
+    "immutable": false
+  },
+  {
+    "name": "ANC",
+    "uuid": "3e9a4a5b-330c-8bd5-e241-daec2820b574",
+    "entityEligibilityCheckRule": "",
+    "active": true,
+    "immutable": false
+  },
+  {
+    "name": "Delivery Outcome",
+    "uuid": "c3069eab-7a1e-729c-6bd2-70ca84c48459",
+    "entityEligibilityCheckRule": "",
+    "active": true,
+    "immutable": false
+  },
+  {
+    "name": "Mother PNC ",
+    "uuid": "5334b5cc-7c06-7ba6-ce26-245cc7d9afd3",
+    "entityEligibilityCheckRule": "",
+    "active": true,
+    "immutable": false
+  },
+  {
+    "name": "High Risk & Referral encounter",
+    "uuid": "d7b86204-2e6b-9759-222d-805dbdf24600",
+    "entityEligibilityCheckRule": "",
+    "active": true,
+    "immutable": false
+  },
+  {
+    "name": "Pregnancy Gov Schemes ",
+    "uuid": "a9554b7c-231a-17b3-6f4f-4f2540afc358",
+    "entityEligibilityCheckRule": "",
+    "active": true,
+    "immutable": false
+  },
+  {
+    "name": "HBNC New Born care",
+    "uuid": "b02990d0-93e6-3bd8-a4df-7f5621058bf6",
+    "entityEligibilityCheckRule": "",
+    "active": true,
+    "immutable": false
+  },
+  {
+    "name": "Immunization",
+    "uuid": "2ce8747a-450e-c50f-fd5c-4b3d75a806fb",
+    "entityEligibilityCheckRule": "",
+    "active": true,
+    "immutable": false
+  },
+  {
+    "name": "Health Check up encounter",
+    "uuid": "9f2f7276-9b4f-3372-2e62-82fabe3f499c",
+    "entityEligibilityCheckRule": "",
+    "active": true,
+    "immutable": false
+  },
+  {
+    "name": "Family Planning Services",
+    "uuid": "63da64d8-05c6-b90f-64da-2f1e752492a2",
+    "entityEligibilityCheckRule": "",
+    "active": true,
+    "immutable": false
+  },
+  {
+    "name": "Behavior Change Communication i",
+    "uuid": "668ac830-068e-7c1d-c59d-b2bc01ba36c0",
+    "entityEligibilityCheckRule": "",
+    "active": true,
+    "immutable": false
+  },
+  {
+    "name": "Saas Bahu Samelan ",
+    "uuid": "ce163155-950f-cf33-67da-79ce16875173",
+    "entityEligibilityCheckRule": "",
+    "active": true,
+    "immutable": false
+  },
+  {
+    "name": "Stakeholder Engagement",
+    "uuid": "0a27b87a-e572-2cae-bb6b-b4c5b3e70d53",
+    "entityEligibilityCheckRule": "",
+    "active": true,
+    "immutable": false
+  },
+  {
+    "name": "Fortline Workers Capacity build",
+    "uuid": "1a449fb0-8704-9114-86df-117313ee4979",
+    "entityEligibilityCheckRule": "",
+    "active": true,
+    "immutable": false
+  }
+]

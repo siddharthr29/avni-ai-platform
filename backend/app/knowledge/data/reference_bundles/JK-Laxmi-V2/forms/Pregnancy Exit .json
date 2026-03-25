@@ -1,0 +1,448 @@
+{
+  "name": "Pregnancy Exit ",
+  "uuid": "68ca08bd-5e88-7564-e044-a3a9242be2ac",
+  "formType": "ProgramExit",
+  "formElementGroups": [
+    {
+      "uuid": "a254fa86-a2ce-7c5b-a015-b8e68a9f0ff2",
+      "name": "Exit Details",
+      "displayOrder": 1,
+      "formElements": [
+        {
+          "name": "Reason for exit",
+          "uuid": "b16b5078-5543-6fa7-4b0e-a3e7ab0562aa",
+          "keyValues": [],
+          "concept": {
+            "name": "Reason for exit",
+            "uuid": "3c4c32f0-8660-3b45-25f2-553c745b56c3",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false,
+      "display": "Exit Details"
+    },
+    {
+      "uuid": "075463a7-b569-3702-33d5-1b5eeedf1866",
+      "name": "General",
+      "displayOrder": 2,
+      "formElements": [
+        {
+          "name": "Other reason, please specify",
+          "uuid": "1f2bfbb4-4a67-bfd4-0188-f05e1f532c59",
+          "keyValues": [],
+          "concept": {
+            "name": "Other reason, please specify",
+            "uuid": "49fd5953-4d47-965f-418f-16b1940fa7a3",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true,
+          "declarativeRule": [
+            {
+              "actions": [
+                {
+                  "actionType": "showFormElement"
+                }
+              ],
+              "conditions": [
+                {
+                  "compoundRule": {
+                    "rules": [
+                      {
+                        "lhs": {
+                          "type": "concept",
+                          "scope": "encounter",
+                          "conceptName": "Reason for exit",
+                          "conceptUuid": "3c4c32f0-8660-3b45-25f2-553c745b56c3",
+                          "conceptDataType": "Coded"
+                        },
+                        "rhs": {
+                          "type": "answerConcept",
+                          "answerConceptNames": [
+                            "Other"
+                          ]
+                        },
+                        "operator": "containsAnswerConceptName"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "timed": false,
+      "display": "General"
+    },
+    {
+      "uuid": "fad05939-a7bc-9a44-9e71-d4fdaf3fd2d7",
+      "name": "Abortion Details",
+      "displayOrder": 3,
+      "formElements": [
+        {
+          "name": "Abortion Type",
+          "uuid": "d87bd6df-43e1-536d-0636-2d5f97ff7d51",
+          "keyValues": [],
+          "concept": {
+            "name": "Abortion Type",
+            "uuid": "839db30c-ab95-4957-18be-05dfd151533b",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true,
+          "declarativeRule": [
+            {
+              "actions": [
+                {
+                  "actionType": "showFormElement"
+                }
+              ],
+              "conditions": [
+                {
+                  "compoundRule": {
+                    "rules": [
+                      {
+                        "lhs": {
+                          "type": "concept",
+                          "scope": "encounter",
+                          "conceptName": "Reason for exit",
+                          "conceptUuid": "3c4c32f0-8660-3b45-25f2-553c745b56c3",
+                          "conceptDataType": "Coded"
+                        },
+                        "rhs": {
+                          "type": "answerConcept",
+                          "answerConceptNames": [
+                            "Abortion, Miscarage"
+                          ]
+                        },
+                        "operator": "containsAnswerConceptName"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Abortion Date",
+          "uuid": "f8cf0ae1-c862-847c-5880-180127c4cc21",
+          "keyValues": [],
+          "concept": {
+            "name": "Abortion Date",
+            "uuid": "73466bf2-0f0f-8f4f-2553-7521afb5ebbf",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 2,
+          "type": "SingleSelect",
+          "mandatory": true,
+          "declarativeRule": [
+            {
+              "actions": [
+                {
+                  "actionType": "showFormElement"
+                }
+              ],
+              "conditions": [
+                {
+                  "compoundRule": {
+                    "rules": [
+                      {
+                        "lhs": {
+                          "type": "concept",
+                          "scope": "encounter",
+                          "conceptName": "Reason for exit",
+                          "conceptUuid": "3c4c32f0-8660-3b45-25f2-553c745b56c3",
+                          "conceptDataType": "Coded"
+                        },
+                        "rhs": {
+                          "type": "answerConcept",
+                          "answerConceptNames": [
+                            "Abortion, Miscarage"
+                          ]
+                        },
+                        "operator": "containsAnswerConceptName"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Gestational Age at Abortion (weeks)",
+          "uuid": "bfa382dc-1e85-161f-cd0c-df1ec2039d70",
+          "keyValues": [],
+          "concept": {
+            "name": "Gestational Age at Abortion (weeks)",
+            "uuid": "78ae65f4-79e7-e6b7-2f90-4d75fc527bb8",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 3,
+          "type": "SingleSelect",
+          "mandatory": true,
+          "declarativeRule": [
+            {
+              "actions": [
+                {
+                  "actionType": "showFormElement"
+                }
+              ],
+              "conditions": [
+                {
+                  "compoundRule": {
+                    "rules": [
+                      {
+                        "lhs": {
+                          "type": "concept",
+                          "scope": "encounter",
+                          "conceptName": "Reason for exit",
+                          "conceptUuid": "3c4c32f0-8660-3b45-25f2-553c745b56c3",
+                          "conceptDataType": "Coded"
+                        },
+                        "rhs": {
+                          "type": "answerConcept",
+                          "answerConceptNames": [
+                            "Abortion, Miscarage"
+                          ]
+                        },
+                        "operator": "containsAnswerConceptName"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Place",
+          "uuid": "75c55e5d-bde6-c538-49e8-eb19839b8ef7",
+          "keyValues": [],
+          "concept": {
+            "name": "Place",
+            "uuid": "ca44317c-4b4c-1261-257e-368b9a2a9672",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 4,
+          "type": "SingleSelect",
+          "mandatory": true,
+          "declarativeRule": [
+            {
+              "actions": [
+                {
+                  "actionType": "showFormElement"
+                }
+              ],
+              "conditions": [
+                {
+                  "compoundRule": {
+                    "rules": [
+                      {
+                        "lhs": {
+                          "type": "concept",
+                          "scope": "encounter",
+                          "conceptName": "Reason for exit",
+                          "conceptUuid": "3c4c32f0-8660-3b45-25f2-553c745b56c3",
+                          "conceptDataType": "Coded"
+                        },
+                        "rhs": {
+                          "type": "answerConcept",
+                          "answerConceptNames": [
+                            "Abortion, Miscarage"
+                          ]
+                        },
+                        "operator": "containsAnswerConceptName"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Complications",
+          "uuid": "575e1ff3-ad9c-512c-b61e-7c5bb33a2214",
+          "keyValues": [],
+          "concept": {
+            "name": "Complications",
+            "uuid": "b32ce130-be85-abea-205e-401324cf52d0",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 5,
+          "type": "SingleSelect",
+          "mandatory": true,
+          "declarativeRule": [
+            {
+              "actions": [
+                {
+                  "actionType": "showFormElement"
+                }
+              ],
+              "conditions": [
+                {
+                  "compoundRule": {
+                    "rules": [
+                      {
+                        "lhs": {
+                          "type": "concept",
+                          "scope": "encounter",
+                          "conceptName": "Reason for exit",
+                          "conceptUuid": "3c4c32f0-8660-3b45-25f2-553c745b56c3",
+                          "conceptDataType": "Coded"
+                        },
+                        "rhs": {
+                          "type": "answerConcept",
+                          "answerConceptNames": [
+                            "Abortion, Miscarage"
+                          ]
+                        },
+                        "operator": "containsAnswerConceptName"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "timed": false,
+      "display": "Abortion Details"
+    },
+    {
+      "uuid": "661be395-a639-7ec7-0e4f-eb20f99e3bb6",
+      "name": "Death Details",
+      "displayOrder": 4,
+      "formElements": [
+        {
+          "name": "Date of Death",
+          "uuid": "f2d24f90-0aaf-3bc2-689f-ea1de4d7da4f",
+          "keyValues": [],
+          "concept": {
+            "name": "Date of Death",
+            "uuid": "3902ab87-ba6d-2601-af52-75b827060f90",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false,
+      "display": "Death Details"
+    },
+    {
+      "uuid": "f1fad1f2-bd06-e7bf-a274-ee46863e1ec8",
+      "name": "General",
+      "displayOrder": 5,
+      "formElements": [
+        {
+          "name": "Reason for Death",
+          "uuid": "9946441c-53d5-6716-65ef-98b87d5d7fc7",
+          "keyValues": [],
+          "concept": {
+            "name": "Reason for Death",
+            "uuid": "9c8e8739-df1f-e9e9-277a-2f37d21e5bc6",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Other reason, please specify",
+          "uuid": "8d9e92d4-1359-bbab-cf8a-5e9ae1c875dc",
+          "keyValues": [],
+          "concept": {
+            "name": "Other reason, please specify",
+            "uuid": "49fd5953-4d47-965f-418f-16b1940fa7a3",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 2,
+          "type": "SingleSelect",
+          "mandatory": true,
+          "declarativeRule": [
+            {
+              "actions": [
+                {
+                  "actionType": "showFormElement"
+                }
+              ],
+              "conditions": [
+                {
+                  "compoundRule": {
+                    "rules": [
+                      {
+                        "lhs": {
+                          "type": "concept",
+                          "scope": "encounter",
+                          "conceptName": "Reason for Death",
+                          "conceptUuid": "9c8e8739-df1f-e9e9-277a-2f37d21e5bc6",
+                          "conceptDataType": "Coded"
+                        },
+                        "rhs": {
+                          "type": "answerConcept",
+                          "answerConceptNames": [
+                            "Other"
+                          ]
+                        },
+                        "operator": "containsAnswerConceptName"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "timed": false,
+      "display": "General"
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}

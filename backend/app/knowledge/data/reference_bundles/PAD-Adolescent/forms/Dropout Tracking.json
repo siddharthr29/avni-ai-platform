@@ -1,0 +1,76 @@
+{
+  "name": "Dropout Tracking",
+  "uuid": "257e6fee-60b4-4a6d-822b-6dddf77dff65",
+  "formType": "ProgramEncounter",
+  "formElementGroups": [
+    {
+      "uuid": "30dc40ff-614f-45e0-9eaf-23a31d8b3b13",
+      "name": "Dropout Tracking",
+      "displayOrder": 1,
+      "formElements": [
+        {
+          "name": "Current Status",
+          "uuid": "007861c6-634d-4658-acd8-9474622a07b5",
+          "keyValues": [],
+          "concept": {
+            "name": "Current Status",
+            "uuid": "296a440b-4aa8-44e2-bc75-3a625d6287ff",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Re-enrolled in which class?",
+          "uuid": "275a4d68-5cff-49bf-aef1-2f4d0e3b7910",
+          "keyValues": [],
+          "concept": {
+            "name": "Re-enrolled in which class?",
+            "uuid": "6540ca12-ba1f-4e65-81e6-001adb999e82",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 2,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Need followup?",
+          "uuid": "4686c806-7525-43c6-8e2c-3273114bc4ed",
+          "keyValues": [],
+          "concept": {
+            "name": "Need followup?",
+            "uuid": "35542fe5-614a-44af-97d3-270548de4ab4",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 3,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "When?",
+          "uuid": "37ca875b-b37e-471a-8160-ebe1242b5398",
+          "keyValues": [],
+          "concept": {
+            "name": "When?",
+            "uuid": "5727ec93-9fce-416b-a0e0-23ae831fe18f",
+            "dataType": "Date",
+            "active": true
+          },
+          "displayOrder": 4,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}

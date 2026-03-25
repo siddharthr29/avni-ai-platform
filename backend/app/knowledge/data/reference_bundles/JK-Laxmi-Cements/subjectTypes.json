@@ -1,0 +1,14 @@
+[
+  {
+    "name": "Individual",
+    "uuid": "361093d3-dbe8-4b35-9c57-fabfea6c4a56",
+    "type": "Person",
+    "active": true
+  },
+  {
+    "name": "Household",
+    "uuid": "6d8adfcb-3fa7-4a63-ba10-1c474a6cb360",
+    "type": "Household",
+    "active": true
+  }
+]

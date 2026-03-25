@@ -304,8 +304,10 @@ async def diagnose(
 
     matches = _match_patterns(full_text)
 
-    # Strong keyword match
-    if matches and matches[0][1] >= 0.3:
+    # Keyword match threshold -- 0.1 catches single-keyword matches
+    # even without the pattern name bonus. This avoids unnecessary Claude
+    # API calls for clearly classifiable issues.
+    if matches and matches[0][1] >= 0.1:
         best_pattern, score = matches[0]
         return {
             "pattern": best_pattern["pattern"],

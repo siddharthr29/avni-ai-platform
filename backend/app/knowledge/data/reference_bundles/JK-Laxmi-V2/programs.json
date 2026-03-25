@@ -1,0 +1,73 @@
+[
+  {
+    "name": "Pregnancy",
+    "uuid": "fa2bcbdb-dace-e5da-cf19-86f7af9c063c",
+    "colour": "#74b5de",
+    "voided": false,
+    "active": true,
+    "showGrowthChart": false,
+    "enrolmentEligibilityCheckDeclarativeRule": [
+      {
+        "actions": [
+          {
+            "actionType": "showProgram"
+          }
+        ],
+        "conditions": [
+          {
+            "compoundRule": {
+              "rules": [
+                {
+                  "lhs": {
+                    "type": "gender"
+                  },
+                  "rhs": {
+                    "type": "value",
+                    "value": "Female"
+                  },
+                  "operator": "equals"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Child",
+    "uuid": "a31666c1-8d0e-78ec-708c-6ecd7c565114",
+    "colour": "#96d643",
+    "voided": false,
+    "active": true,
+    "showGrowthChart": true,
+    "enrolmentEligibilityCheckDeclarativeRule": [
+      {
+        "actions": [
+          {
+            "actionType": "hideProgram"
+          }
+        ],
+        "conditions": [
+          {
+            "compoundRule": {
+              "rules": [
+                {
+                  "lhs": {
+                    "type": "ageInYears"
+                  },
+                  "rhs": {
+                    "type": "value",
+                    "value": 2
+                  },
+                  "operator": "greaterThan"
+                }
+              ],
+              "conjunction": "and"
+            }
+          }
+        ]
+      }
+    ]
+  }
+]

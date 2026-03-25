@@ -1,0 +1,90 @@
+{
+  "name": "CFAM",
+  "uuid": "69be24c5-8998-4c2c-9f4e-3a2c7f3434ea",
+  "formType": "ProgramEncounter",
+  "formElementGroups": [
+    {
+      "uuid": "5264215f-aef9-4e4c-909d-0b36c54ba30f",
+      "name": "CFAM",
+      "displayOrder": 1,
+      "formElements": [
+        {
+          "name": "Activity type",
+          "uuid": "5e8f5e15-3943-4b02-b7a0-af9de9812797",
+          "keyValues": [],
+          "concept": {
+            "name": "Activity type",
+            "uuid": "06da1ff9-814c-4d55-9e30-5986f1ad62f6",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Date",
+          "uuid": "602a7e13-d160-4898-91bc-ffdc07a02ff4",
+          "keyValues": [],
+          "concept": {
+            "name": "Date",
+            "uuid": "3f498260-9db1-4acf-80c6-a75f1e33190f",
+            "dataType": "Date",
+            "active": true
+          },
+          "displayOrder": 2,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "No of villages coverd",
+          "uuid": "1bcdde28-89a7-412b-9575-57e19aeb1d32",
+          "keyValues": [],
+          "concept": {
+            "name": "No of villages coverd",
+            "uuid": "201e5ab6-bc86-41c1-b889-b1c01b0cc811",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 3,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Location",
+          "uuid": "388cb0f8-f3c8-4653-b77e-99cc959e5591",
+          "keyValues": [],
+          "concept": {
+            "name": "Location",
+            "uuid": "669ae4a7-55c0-4173-819d-2fb91d178bfc",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 4,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Individual Name",
+          "uuid": "39c315c0-8d8e-4460-a48e-eebded391c5a",
+          "keyValues": [],
+          "concept": {
+            "name": "Individual Name",
+            "uuid": "33ee6560-47cc-4d35-8074-ca301ae095f1",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 5,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}

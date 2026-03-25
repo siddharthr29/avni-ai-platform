@@ -1,0 +1,23 @@
+[ {
+  "uuid" : "152aabe3-fd5c-4bac-ba54-c49ba5c77704",
+  "groupSubjectTypeUUID" : "0ffc778c-94ba-4ba2-b57e-ed23e1e75e6a",
+  "memberSubjectTypeUUID" : "5e0eab29-1cd0-3a39-1d2a-d87a164ce527",
+  "role" : "Teacher",
+  "subjectMemberName" : "Participant",
+  "groupRoleUUID" : "152aabe3-fd5c-4bac-ba54-c49ba5c77704",
+  "maximumNumberOfMembers" : 10,
+  "minimumNumberOfMembers" : 1,
+  "primary" : false,
+  "voided" : true
+}, {
+  "uuid" : "d95cc7d8-d5fc-4f64-a0be-1fc59db2fc54",
+  "groupSubjectTypeUUID" : "0ffc778c-94ba-4ba2-b57e-ed23e1e75e6a",
+  "memberSubjectTypeUUID" : "5e0eab29-1cd0-3a39-1d2a-d87a164ce527",
+  "role" : "Student",
+  "subjectMemberName" : "Participant",
+  "groupRoleUUID" : "d95cc7d8-d5fc-4f64-a0be-1fc59db2fc54",
+  "maximumNumberOfMembers" : 10,
+  "minimumNumberOfMembers" : 1,
+  "primary" : false,
+  "voided" : true
+} ]

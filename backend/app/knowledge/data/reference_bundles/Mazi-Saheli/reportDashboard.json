@@ -1,0 +1,262 @@
+[ {
+  "uuid" : "c4d3bc0a-027e-4a6a-87dd-85e5b7285523",
+  "id" : 1784,
+  "name" : "Default Dashboard",
+  "sections" : [ {
+    "uuid" : "741711ef-df17-4884-8928-20dee701479e",
+    "id" : 3657,
+    "name" : "Visit Details",
+    "description" : "",
+    "viewType" : "Tile",
+    "displayOrder" : 1.0,
+    "dashboardUUID" : "c4d3bc0a-027e-4a6a-87dd-85e5b7285523",
+    "dashboardSectionCardMappings" : [ {
+      "uuid" : "4d139c45-1854-46ec-ad80-40725f7b9b8a",
+      "displayOrder" : 1.0,
+      "dashboardSectionUUID" : "741711ef-df17-4884-8928-20dee701479e",
+      "reportCardUUID" : "6085c2f4-52e7-4b08-85b6-d6b2612b4cf5",
+      "voided" : false
+    }, {
+      "uuid" : "4dff9285-88b3-43de-a90b-9823ab32e433",
+      "displayOrder" : 2.0,
+      "dashboardSectionUUID" : "741711ef-df17-4884-8928-20dee701479e",
+      "reportCardUUID" : "85ce7239-e8b5-4e57-b07d-66c18cee47b2",
+      "voided" : false
+    } ],
+    "voided" : false
+  }, {
+    "uuid" : "fb302038-25a1-4cd6-9f56-80ef67b21103",
+    "id" : 3658,
+    "name" : "Recent Statistics",
+    "description" : "",
+    "viewType" : "Tile",
+    "displayOrder" : 2.0,
+    "dashboardUUID" : "c4d3bc0a-027e-4a6a-87dd-85e5b7285523",
+    "dashboardSectionCardMappings" : [ {
+      "uuid" : "9fb198b6-ae10-4c3f-a8e6-652b7d1b7e9c",
+      "displayOrder" : 3.0,
+      "dashboardSectionUUID" : "fb302038-25a1-4cd6-9f56-80ef67b21103",
+      "reportCardUUID" : "dd961ee1-9d4e-4ec9-99f0-99b36672be7c",
+      "voided" : false
+    }, {
+      "uuid" : "383b8df8-93d8-43d9-bc96-545e1176fe63",
+      "displayOrder" : 2.0,
+      "dashboardSectionUUID" : "fb302038-25a1-4cd6-9f56-80ef67b21103",
+      "reportCardUUID" : "e1036b69-df46-4351-9916-10cd4cfcb6bd",
+      "voided" : false
+    }, {
+      "uuid" : "8afecd6c-741c-4871-86f1-bce171f8bfd8",
+      "displayOrder" : 1.0,
+      "dashboardSectionUUID" : "fb302038-25a1-4cd6-9f56-80ef67b21103",
+      "reportCardUUID" : "f366f35a-5c4f-4ff7-b510-2dc9f5f88847",
+      "voided" : false
+    } ],
+    "voided" : false
+  }, {
+    "uuid" : "2ce712c2-3fa3-4ca4-9703-95766ef512c2",
+    "id" : 3656,
+    "name" : "Registration Overview",
+    "description" : "",
+    "viewType" : "Tile",
+    "displayOrder" : 3.0,
+    "dashboardUUID" : "c4d3bc0a-027e-4a6a-87dd-85e5b7285523",
+    "dashboardSectionCardMappings" : [ {
+      "uuid" : "e02a68ed-c02b-4cba-a5b5-6a5c71ab5eb8",
+      "displayOrder" : 1.0,
+      "dashboardSectionUUID" : "2ce712c2-3fa3-4ca4-9703-95766ef512c2",
+      "reportCardUUID" : "a1673f8a-c394-4bcf-8b6f-63d83a5443e2",
+      "voided" : false
+    } ],
+    "voided" : false
+  } ],
+  "filters" : [ {
+    "uuid" : "efea5b8d-d621-47d0-a02c-c9b1a667b680",
+    "id" : 2058,
+    "name" : "As On Date",
+    "filterConfig" : {
+      "type" : "AsOnDate",
+      "subjectTypeUUID" : null,
+      "widget" : null,
+      "groupSubjectTypeFilter" : null,
+      "observationBasedFilter" : null
+    },
+    "voided" : false
+  }, {
+    "uuid" : "20367018-a168-43ff-a28f-64cd46ad3e2c",
+    "id" : 2059,
+    "name" : "Subject Type",
+    "filterConfig" : {
+      "type" : "SubjectType",
+      "subjectTypeUUID" : null,
+      "widget" : null,
+      "groupSubjectTypeFilter" : null,
+      "observationBasedFilter" : null
+    },
+    "voided" : false
+  } ],
+  "voided" : false
+}, {
+  "uuid" : "a6f7c1f8-5a6f-bc6e-ac16-a843f8c13694",
+  "id" : 1785,
+  "name" : "Main Dashboard",
+  "description" : "Default dashboard for all users",
+  "sections" : [ {
+    "uuid" : "27ad4103-e844-b68b-27a5-e0d0a14ccd25",
+    "id" : 3659,
+    "name" : "Overview",
+    "description" : "Activity and participant statistics",
+    "viewType" : "Default",
+    "displayOrder" : 1.0,
+    "dashboardUUID" : "a6f7c1f8-5a6f-bc6e-ac16-a843f8c13694",
+    "dashboardSectionCardMappings" : [ ],
+    "voided" : false
+  } ],
+  "filters" : [ ],
+  "voided" : false
+}, {
+  "uuid" : "cc03ef45-3333-4ccc-9003-000000000001",
+  "id" : 1786,
+  "name" : "Activity Statistics",
+  "description" : "Activity registration and completion statistics for field executives",
+  "sections" : [ {
+    "uuid" : "cc03ef45-3333-4ccc-9003-000000000011",
+    "id" : 3660,
+    "name" : "Activity Registration",
+    "description" : "Number of activities registered",
+    "viewType" : "Tile",
+    "displayOrder" : 1.0,
+    "dashboardUUID" : "cc03ef45-3333-4ccc-9003-000000000001",
+    "dashboardSectionCardMappings" : [ {
+      "uuid" : "cc03ef45-3333-4ccc-9003-000000000101",
+      "displayOrder" : 1.0,
+      "dashboardSectionUUID" : "cc03ef45-3333-4ccc-9003-000000000011",
+      "reportCardUUID" : "aa01bc23-1111-4aaa-8001-000000000001",
+      "voided" : false
+    }, {
+      "uuid" : "cc03ef45-3333-4ccc-9003-000000000102",
+      "displayOrder" : 2.0,
+      "dashboardSectionUUID" : "cc03ef45-3333-4ccc-9003-000000000011",
+      "reportCardUUID" : "aa01bc23-1111-4aaa-8001-000000000002",
+      "voided" : false
+    }, {
+      "uuid" : "cc03ef45-3333-4ccc-9003-000000000103",
+      "displayOrder" : 3.0,
+      "dashboardSectionUUID" : "cc03ef45-3333-4ccc-9003-000000000011",
+      "reportCardUUID" : "aa01bc23-1111-4aaa-8001-000000000003",
+      "voided" : false
+    } ],
+    "voided" : false
+  }, {
+    "uuid" : "cc03ef45-3333-4ccc-9003-000000000012",
+    "id" : 3661,
+    "name" : "Activity Completion",
+    "description" : "Number of activities with completed Activity Summary",
+    "viewType" : "Tile",
+    "displayOrder" : 2.0,
+    "dashboardUUID" : "cc03ef45-3333-4ccc-9003-000000000001",
+    "dashboardSectionCardMappings" : [ {
+      "uuid" : "cc03ef45-3333-4ccc-9003-000000000104",
+      "displayOrder" : 1.0,
+      "dashboardSectionUUID" : "cc03ef45-3333-4ccc-9003-000000000012",
+      "reportCardUUID" : "aa01bc23-1111-4aaa-8001-000000000004",
+      "voided" : false
+    }, {
+      "uuid" : "cc03ef45-3333-4ccc-9003-000000000105",
+      "displayOrder" : 2.0,
+      "dashboardSectionUUID" : "cc03ef45-3333-4ccc-9003-000000000012",
+      "reportCardUUID" : "aa01bc23-1111-4aaa-8001-000000000005",
+      "voided" : false
+    }, {
+      "uuid" : "cc03ef45-3333-4ccc-9003-000000000106",
+      "displayOrder" : 3.0,
+      "dashboardSectionUUID" : "cc03ef45-3333-4ccc-9003-000000000012",
+      "reportCardUUID" : "aa01bc23-1111-4aaa-8001-000000000006",
+      "voided" : false
+    } ],
+    "voided" : false
+  } ],
+  "filters" : [ ],
+  "voided" : false
+}, {
+  "uuid" : "dd04fg56-4444-4ddd-9004-000000000001",
+  "id" : 1787,
+  "name" : "Participant Overview",
+  "description" : "Participant registration and assessment statistics for field executives",
+  "sections" : [ {
+    "uuid" : "dd04fg56-4444-4ddd-9004-000000000011",
+    "id" : 3662,
+    "name" : "Registrations",
+    "description" : "Number of participants registered",
+    "viewType" : "Tile",
+    "displayOrder" : 1.0,
+    "dashboardUUID" : "dd04fg56-4444-4ddd-9004-000000000001",
+    "dashboardSectionCardMappings" : [ {
+      "uuid" : "dd04fg56-4444-4ddd-9004-000000000101",
+      "displayOrder" : 1.0,
+      "dashboardSectionUUID" : "dd04fg56-4444-4ddd-9004-000000000011",
+      "reportCardUUID" : "bb02cd34-2222-4bbb-8002-000000000001",
+      "voided" : false
+    }, {
+      "uuid" : "dd04fg56-4444-4ddd-9004-000000000102",
+      "displayOrder" : 2.0,
+      "dashboardSectionUUID" : "dd04fg56-4444-4ddd-9004-000000000011",
+      "reportCardUUID" : "bb02cd34-2222-4bbb-8002-000000000002",
+      "voided" : false
+    }, {
+      "uuid" : "dd04fg56-4444-4ddd-9004-000000000103",
+      "displayOrder" : 3.0,
+      "dashboardSectionUUID" : "dd04fg56-4444-4ddd-9004-000000000011",
+      "reportCardUUID" : "bb02cd34-2222-4bbb-8002-000000000003",
+      "voided" : false
+    } ],
+    "voided" : false
+  }, {
+    "uuid" : "dd04fg56-4444-4ddd-9004-000000000012",
+    "id" : 3663,
+    "name" : "Assessment Status",
+    "description" : "Assessment & Distribution completion status",
+    "viewType" : "Tile",
+    "displayOrder" : 2.0,
+    "dashboardUUID" : "dd04fg56-4444-4ddd-9004-000000000001",
+    "dashboardSectionCardMappings" : [ {
+      "uuid" : "dd04fg56-4444-4ddd-9004-000000000104",
+      "displayOrder" : 1.0,
+      "dashboardSectionUUID" : "dd04fg56-4444-4ddd-9004-000000000012",
+      "reportCardUUID" : "bb02cd34-2222-4bbb-8002-000000000004",
+      "voided" : false
+    }, {
+      "uuid" : "dd04fg56-4444-4ddd-9004-000000000105",
+      "displayOrder" : 2.0,
+      "dashboardSectionUUID" : "dd04fg56-4444-4ddd-9004-000000000012",
+      "reportCardUUID" : "bb02cd34-2222-4bbb-8002-000000000005",
+      "voided" : false
+    }, {
+      "uuid" : "dd04fg56-4444-4ddd-9004-000000000106",
+      "displayOrder" : 3.0,
+      "dashboardSectionUUID" : "dd04fg56-4444-4ddd-9004-000000000012",
+      "reportCardUUID" : "bb02cd34-2222-4bbb-8002-000000000006",
+      "voided" : false
+    }, {
+      "uuid" : "dd04fg56-4444-4ddd-9004-000000000107",
+      "displayOrder" : 4.0,
+      "dashboardSectionUUID" : "dd04fg56-4444-4ddd-9004-000000000012",
+      "reportCardUUID" : "bb02cd34-2222-4bbb-8002-000000000007",
+      "voided" : false
+    }, {
+      "uuid" : "dd04fg56-4444-4ddd-9004-000000000108",
+      "displayOrder" : 5.0,
+      "dashboardSectionUUID" : "dd04fg56-4444-4ddd-9004-000000000012",
+      "reportCardUUID" : "bb02cd34-2222-4bbb-8002-000000000008",
+      "voided" : false
+    }, {
+      "uuid" : "dd04fg56-4444-4ddd-9004-000000000109",
+      "displayOrder" : 6.0,
+      "dashboardSectionUUID" : "dd04fg56-4444-4ddd-9004-000000000012",
+      "reportCardUUID" : "bb02cd34-2222-4bbb-8002-000000000009",
+      "voided" : false
+    } ],
+    "voided" : false
+  } ],
+  "filters" : [ ],
+  "voided" : false
+} ]

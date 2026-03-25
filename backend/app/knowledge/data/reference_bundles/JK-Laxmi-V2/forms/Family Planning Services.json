@@ -1,0 +1,117 @@
+{
+  "name": "Family Planning Services",
+  "uuid": "0489b9dd-4b22-d16f-7300-25b4575f7b29",
+  "formType": "ProgramEncounter",
+  "formElementGroups": [
+    {
+      "uuid": "873af532-a188-6a94-7e14-d8293a459928",
+      "name": "Family Planning",
+      "displayOrder": 1,
+      "formElements": [
+        {
+          "name": "Family Planning session happening where",
+          "uuid": "0f9d400d-74f8-314b-3f16-0e4f5e46081c",
+          "keyValues": [],
+          "concept": {
+            "name": "Family Planning session happening where",
+            "uuid": "aa9a9825-b178-d400-6314-39669e6f6ec6",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Method Adopted",
+          "uuid": "d6f11456-b17e-7068-dccc-e694d2d6197c",
+          "keyValues": [],
+          "concept": {
+            "name": "Method Adopted",
+            "uuid": "f8f84727-3cfc-b0b9-01fc-19d07714b19b",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 2,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Adoption Date",
+          "uuid": "112b90e2-b4b7-5f59-a25c-9a462c29685b",
+          "keyValues": [],
+          "concept": {
+            "name": "Adoption Date",
+            "uuid": "ea55bab4-6154-0e4f-4cf6-708fe7ecf485",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 3,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Side Effects",
+          "uuid": "0ab7e828-344f-6dd5-019d-2edc1ecd3e45",
+          "keyValues": [],
+          "concept": {
+            "name": "Side Effects",
+            "uuid": "0eb47682-0ba2-f43c-744a-eec9121dbc63",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 4,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Switch/Discontinue",
+          "uuid": "ca265abc-772b-2cab-fcba-7dc760c44937",
+          "keyValues": [],
+          "concept": {
+            "name": "Switch/Discontinue",
+            "uuid": "c3edac3b-1def-84c1-b240-6d058140ad90",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 5,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Method Adopted after swicth",
+          "uuid": "709d86f3-c693-7c50-4edc-fdfb931cf474",
+          "keyValues": [],
+          "concept": {
+            "name": "Method Adopted after swicth",
+            "uuid": "02a9276a-749f-79ff-b055-e6e75c3230c4",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 6,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false,
+      "display": "Family Planning"
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}

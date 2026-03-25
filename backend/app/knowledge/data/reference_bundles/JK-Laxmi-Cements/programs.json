@@ -1,0 +1,20 @@
+[
+  {
+    "name": "General Health",
+    "uuid": "28bb9f76-eca8-4585-9bd3-7bb1a4d37298",
+    "colour": "#2196F3",
+    "active": true
+  },
+  {
+    "name": "Maternal Health",
+    "uuid": "59980fe6-c983-4500-b8b0-72da4467e418",
+    "colour": "#E91E63",
+    "active": true
+  },
+  {
+    "name": "Child Health",
+    "uuid": "41390f56-30b4-4981-8aca-20391288a61b",
+    "colour": "#4CAF50",
+    "active": true
+  }
+]

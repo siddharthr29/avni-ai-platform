@@ -1,0 +1,288 @@
+[
+  {
+    "id": null,
+    "name": "Husband",
+    "uuid": "ebeac19b-0878-1c22-da67-78f3ae001a8f",
+    "voided": false,
+    "genders": [
+      {
+        "uuid": "b175441e-e0ce-4b35-b492-08df1521dd42",
+        "name": "Male",
+        "voided": false
+      }
+    ]
+  },
+  {
+    "id": null,
+    "name": "Wife",
+    "uuid": "ab32c011-fcdc-fa53-b778-2f85e41c85ec",
+    "voided": false,
+    "genders": [
+      {
+        "uuid": "4e92d0cf-426e-4e55-9162-711f60e722cb",
+        "name": "Female",
+        "voided": false
+      }
+    ]
+  },
+  {
+    "id": null,
+    "name": "Father",
+    "uuid": "62885014-7a4f-488e-c0dc-42c2fb51317a",
+    "voided": false,
+    "genders": [
+      {
+        "uuid": "b175441e-e0ce-4b35-b492-08df1521dd42",
+        "name": "Male",
+        "voided": false
+      }
+    ]
+  },
+  {
+    "id": null,
+    "name": "Mother",
+    "uuid": "043afd94-52f2-6574-a8d6-90796f9498be",
+    "voided": false,
+    "genders": [
+      {
+        "uuid": "4e92d0cf-426e-4e55-9162-711f60e722cb",
+        "name": "Female",
+        "voided": false
+      }
+    ]
+  },
+  {
+    "id": null,
+    "name": "Son",
+    "uuid": "8dadace4-1512-9a6b-927d-b7c088a08048",
+    "voided": false,
+    "genders": [
+      {
+        "uuid": "b175441e-e0ce-4b35-b492-08df1521dd42",
+        "name": "Male",
+        "voided": false
+      }
+    ]
+  },
+  {
+    "id": null,
+    "name": "Daughter",
+    "uuid": "b103cfe7-0e4f-00ee-8dc2-a8dd73761562",
+    "voided": false,
+    "genders": [
+      {
+        "uuid": "4e92d0cf-426e-4e55-9162-711f60e722cb",
+        "name": "Female",
+        "voided": false
+      }
+    ]
+  },
+  {
+    "id": null,
+    "name": "Brother",
+    "uuid": "2b805845-abb9-478b-97ee-c279ef4366f1",
+    "voided": false,
+    "genders": [
+      {
+        "uuid": "b175441e-e0ce-4b35-b492-08df1521dd42",
+        "name": "Male",
+        "voided": false
+      }
+    ]
+  },
+  {
+    "id": null,
+    "name": "Sister",
+    "uuid": "313a8b6d-f163-7ba0-7e6d-5dd82ad493b5",
+    "voided": false,
+    "genders": [
+      {
+        "uuid": "4e92d0cf-426e-4e55-9162-711f60e722cb",
+        "name": "Female",
+        "voided": false
+      }
+    ]
+  },
+  {
+    "id": null,
+    "name": "Grandfather",
+    "uuid": "4e5f3fde-0008-5206-8841-838843b6269b",
+    "voided": false,
+    "genders": [
+      {
+        "uuid": "b175441e-e0ce-4b35-b492-08df1521dd42",
+        "name": "Male",
+        "voided": false
+      }
+    ]
+  },
+  {
+    "id": null,
+    "name": "Grandmother",
+    "uuid": "ece7f605-c982-3dc6-961a-101281046439",
+    "voided": false,
+    "genders": [
+      {
+        "uuid": "4e92d0cf-426e-4e55-9162-711f60e722cb",
+        "name": "Female",
+        "voided": false
+      }
+    ]
+  },
+  {
+    "id": null,
+    "name": "Son in law",
+    "uuid": "6a6f1ba8-2fbf-25e8-967c-343b0dc0f9e1",
+    "voided": false,
+    "genders": [
+      {
+        "uuid": "b175441e-e0ce-4b35-b492-08df1521dd42",
+        "name": "Male",
+        "voided": false
+      }
+    ]
+  },
+  {
+    "id": null,
+    "name": "Daughter in law",
+    "uuid": "fd3babbf-694b-c605-73e7-137efb79cd33",
+    "voided": false,
+    "genders": [
+      {
+        "uuid": "4e92d0cf-426e-4e55-9162-711f60e722cb",
+        "name": "Female",
+        "voided": false
+      }
+    ]
+  },
+  {
+    "id": null,
+    "name": "Father in law",
+    "uuid": "431e6b03-585e-d9f3-2ad7-e0842db855b9",
+    "voided": false,
+    "genders": [
+      {
+        "uuid": "b175441e-e0ce-4b35-b492-08df1521dd42",
+        "name": "Male",
+        "voided": false
+      }
+    ]
+  },
+  {
+    "id": null,
+    "name": "Mother in law",
+    "uuid": "791d5be4-d9e1-ef33-7fd1-d779b57d95ee",
+    "voided": false,
+    "genders": [
+      {
+        "uuid": "4e92d0cf-426e-4e55-9162-711f60e722cb",
+        "name": "Female",
+        "voided": false
+      }
+    ]
+  },
+  {
+    "id": null,
+    "name": "Uncle",
+    "uuid": "00e34f37-d7b5-613f-2578-c12c8548c80b",
+    "voided": false,
+    "genders": [
+      {
+        "uuid": "b175441e-e0ce-4b35-b492-08df1521dd42",
+        "name": "Male",
+        "voided": false
+      }
+    ]
+  },
+  {
+    "id": null,
+    "name": "Aunt",
+    "uuid": "7771513c-b5cc-020b-5a08-071baa6d7222",
+    "voided": false,
+    "genders": [
+      {
+        "uuid": "4e92d0cf-426e-4e55-9162-711f60e722cb",
+        "name": "Female",
+        "voided": false
+      }
+    ]
+  },
+  {
+    "id": null,
+    "name": "Nephew",
+    "uuid": "c5996dd2-53fc-fb3a-0cbf-ba1dd9a23532",
+    "voided": false,
+    "genders": [
+      {
+        "uuid": "b175441e-e0ce-4b35-b492-08df1521dd42",
+        "name": "Male",
+        "voided": false
+      }
+    ]
+  },
+  {
+    "id": null,
+    "name": "Niece",
+    "uuid": "709e93f7-35d2-35ab-e9dd-c572c4415c5b",
+    "voided": false,
+    "genders": [
+      {
+        "uuid": "4e92d0cf-426e-4e55-9162-711f60e722cb",
+        "name": "Female",
+        "voided": false
+      }
+    ]
+  },
+  {
+    "id": null,
+    "name": "Grandson",
+    "uuid": "1fa512cf-7f05-996c-1e0f-d6eda5ced515",
+    "voided": false,
+    "genders": [
+      {
+        "uuid": "b175441e-e0ce-4b35-b492-08df1521dd42",
+        "name": "Male",
+        "voided": false
+      }
+    ]
+  },
+  {
+    "id": null,
+    "name": "Granddaughter",
+    "uuid": "b92a1f56-f40e-05eb-9710-0481b3eb5788",
+    "voided": false,
+    "genders": [
+      {
+        "uuid": "4e92d0cf-426e-4e55-9162-711f60e722cb",
+        "name": "Female",
+        "voided": false
+      }
+    ]
+  },
+  {
+    "id": null,
+    "name": "Brother in law",
+    "uuid": "90d8eef4-06bb-fb17-741b-b446c78031c9",
+    "voided": false,
+    "genders": [
+      {
+        "uuid": "b175441e-e0ce-4b35-b492-08df1521dd42",
+        "name": "Male",
+        "voided": false
+      }
+    ]
+  },
+  {
+    "id": null,
+    "name": "Sister in law",
+    "uuid": "604bfdad-e74b-716e-29fa-8b3c37808448",
+    "voided": false,
+    "genders": [
+      {
+        "uuid": "4e92d0cf-426e-4e55-9162-711f60e722cb",
+        "name": "Female",
+        "voided": false
+      }
+    ]
+  }
+]

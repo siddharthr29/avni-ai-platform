@@ -1,0 +1,12 @@
+{
+  "name" : "Help and Status Tracker Cancellation (voided~18182)",
+  "uuid" : "2ecba050-e536-6d52-11bf-bcced7ee6bc3",
+  "formType" : "IndividualEncounterCancellation",
+  "formElementGroups" : [ ],
+  "decisionRule" : "",
+  "visitScheduleRule" : "",
+  "validationRule" : "",
+  "checklistsRule" : "",
+  "decisionConcepts" : [ ],
+  "voided" : true
+}

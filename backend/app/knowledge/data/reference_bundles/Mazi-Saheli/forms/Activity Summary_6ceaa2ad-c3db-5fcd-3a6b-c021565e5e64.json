@@ -1,0 +1,324 @@
+{
+  "name" : "Activity Summary",
+  "uuid" : "6ceaa2ad-c3db-5fcd-3a6b-c021565e5e64",
+  "formType" : "Encounter",
+  "formElementGroups" : [ {
+    "uuid" : "6e4dc310-dd86-2a86-13af-6ca308645c18",
+    "name" : "General",
+    "displayOrder" : 1.0,
+    "formElements" : [ {
+      "name" : "Type of community Reached",
+      "uuid" : "35d6cc19-93e2-8abf-c530-d344c25bbf35",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Type of community Reached",
+        "uuid" : "abada98a-68c1-b63b-77af-45f650d6720a",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Rural",
+          "uuid" : "8d6a0040-edd0-46ce-809b-9aa056a96db3",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Semi Urban",
+          "uuid" : "d7a74d7f-ae0c-f34a-ef37-5478691588f2",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Tribal",
+          "uuid" : "deb364ca-8777-61fd-8909-7e7118757f7c",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Urban",
+          "uuid" : "be1ea98b-2e92-24a1-694f-2c4bb7e9ad84",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Initiative",
+      "uuid" : "3d7e9b14-2263-c207-89af-ae3376346c9b",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Initiative",
+        "uuid" : "fbe9a2fe-2bd3-22da-d45d-c3c411ea2e57",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Financial Literacy",
+          "uuid" : "56901aca-70a9-0317-8730-15681088bb77",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Menstrual Health & Hygiene",
+          "uuid" : "470f04bd-b118-d883-016f-d15a883e4029",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Other",
+          "uuid" : "dde76252-3032-41f5-ab53-1802951574ee",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Health",
+          "uuid" : "f51b3f98-62ff-7667-0ec5-13a9449f9c94",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Education",
+          "uuid" : "9c62817e-4678-0219-ceab-8c9633f24cbd",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Specify Details - Others",
+      "uuid" : "f4ccf86c-ac83-dbc2-decc-743dda0f52b0",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Specify Details - Others",
+        "uuid" : "797c4a9f-8511-485b-2631-72c246c1ba2f",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({encounter, formElement}).when.valueInEncounter(\"fbe9a2fe-2bd3-22da-d45d-c3c411ea2e57\").containsAnswerConceptName(\"dde76252-3032-41f5-ab53-1802951574ee\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Initiative",
+                "conceptUuid" : "fbe9a2fe-2bd3-22da-d45d-c3c411ea2e57",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Other" ],
+                "answerConceptUuids" : [ "dde76252-3032-41f5-ab53-1802951574ee" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ]
+          }
+        } ]
+      } ],
+      "mandatory" : false
+    }, {
+      "name" : "Objective of the Activity",
+      "uuid" : "ec5e8d59-6fe0-963c-95bf-64a9b369eb85",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Objective of the Activity",
+        "uuid" : "6bcaa463-291f-817b-a06a-f3d684c3daa7",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Outcome",
+      "uuid" : "9eb7607a-24fb-ba5a-023f-27afb218fec5",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Outcome",
+        "uuid" : "47e930b1-67d9-dac2-2669-c461df34c679",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 5.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Name of Field Officer",
+      "uuid" : "1e9fa04e-dc04-b221-2bff-fa3cd48f65f3",
+      "keyValues" : [ {
+        "key" : "editable",
+        "value" : false
+      } ],
+      "concept" : {
+        "name" : "Name of Field Officer",
+        "uuid" : "952f4020-4f5d-aa2c-1ae1-92160ebbb0f6",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 6.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const statusBuilder = new imports.rulesConfig.FormElementStatusBuilder({entity: params.entity, formElement: params.formElement});\n  statusBuilder.show();\n  const userName = params.user ? params.user.name : null;\n  if (userName) {\n    return new imports.rulesConfig.FormElementStatus(params.formElement.uuid, true, userName);\n  }\n  return statusBuilder.build();\n};",
+      "mandatory" : true
+    }, {
+      "name" : "Name of Community Representative",
+      "uuid" : "e7917a57-6b46-79a8-50f2-43cc9ede596d",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Name of Community Representative",
+        "uuid" : "3891820a-211a-9622-39ad-f4be4aeedb6c",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 7.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Contact number of CR",
+      "uuid" : "4b99ca23-e52b-16f7-37ad-af4fa749f186",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Contact number of CR",
+        "uuid" : "070739b2-1903-8dad-d11d-f805c59f258e",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "lowAbsolute" : 6.0E9,
+        "highAbsolute" : 9.999999999E9,
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 8.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Beneficiary photograph with material",
+      "uuid" : "10f147be-3979-3d56-8775-568c59746dd8",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Beneficiary photograph with material",
+        "uuid" : "01ef0a62-6e0e-471a-2b49-005b5f418420",
+        "dataType" : "Image",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 9.0,
+      "type" : "MultiSelect",
+      "mandatory" : true
+    } ],
+    "timed" : false,
+    "display" : "General"
+  }, {
+    "uuid" : "7799660c-e7df-2942-2575-bf38399f053f",
+    "name" : "Participants Info",
+    "displayOrder" : 2.0,
+    "formElements" : [ {
+      "name" : "Number of Male Participants",
+      "uuid" : "5283ac49-4fbb-35bd-a3c1-2333e17c09fa",
+      "keyValues" : [ {
+        "key" : "editable",
+        "value" : false
+      } ],
+      "concept" : {
+        "name" : "Number of Male Participants",
+        "uuid" : "fb61af89-19c0-6e3a-d5b9-2e02191b1792",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const entity = params.entity;\n  const formElement = params.formElement;\n  const db = params.db;\n  if (!db) return new imports.rulesConfig.FormElementStatus(formElement.uuid, true, null);\n  const activityUuid = entity.individual.uuid;\n  const allParticipants = db.objects('Individual').filtered('voided = false AND subjectType.name = \"Participant\"');\n  let count = 0;\n  for (let i = 0; i < allParticipants.length; i++) {\n    const p = allParticipants[i];\n    if (!(p.gender && p.gender.name === 'Male')) continue;\n    const encs = p.nonVoidedEncounters().filter(e => e.encounterType.name === 'Assessment & Distribution');\n    if (encs.some(e => { const ref = e.getObservationValue('Activity'); return ref && ref.uuid === activityUuid; })) count++;\n  }\n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, true, count);\n};",
+      "voided" : true,
+      "mandatory" : false
+    }, {
+      "name" : "Number of Female Participants",
+      "uuid" : "59a9eeb5-9692-2951-01d6-7fb17c50c969",
+      "keyValues" : [ {
+        "key" : "editable",
+        "value" : false
+      } ],
+      "concept" : {
+        "name" : "Number of Female Participants",
+        "uuid" : "28843759-e8c9-f56f-82a8-f758219f6e70",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const entity = params.entity;\n  const formElement = params.formElement;\n  const db = params.db;\n  if (!db) return new imports.rulesConfig.FormElementStatus(formElement.uuid, true, null);\n  const activityUuid = entity.individual.uuid;\n  const allParticipants = db.objects('Individual').filtered('voided = false AND subjectType.name = \"Participant\"');\n  let count = 0;\n  for (let i = 0; i < allParticipants.length; i++) {\n    const p = allParticipants[i];\n    if (!(p.gender && p.gender.name === 'Female')) continue;\n    const encs = p.nonVoidedEncounters().filter(e => e.encounterType.name === 'Assessment & Distribution');\n    if (encs.some(e => { const ref = e.getObservationValue('Activity'); return ref && ref.uuid === activityUuid; })) count++;\n  }\n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, true, count);\n};",
+      "voided" : true,
+      "mandatory" : false
+    }, {
+      "name" : "Number of Other Participants",
+      "uuid" : "519800bb-3bc6-3f2f-36e1-9264c98f1e56",
+      "keyValues" : [ {
+        "key" : "editable",
+        "value" : false
+      } ],
+      "concept" : {
+        "name" : "Number of Other Participants",
+        "uuid" : "5dddd987-8da9-da70-c14c-81e53ca79a42",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const entity = params.entity;\n  const formElement = params.formElement;\n  const db = params.db;\n  if (!db) return new imports.rulesConfig.FormElementStatus(formElement.uuid, true, null);\n  const activityUuid = entity.individual.uuid;\n  const allParticipants = db.objects('Individual').filtered('voided = false AND subjectType.name = \"Participant\"');\n  let count = 0;\n  for (let i = 0; i < allParticipants.length; i++) {\n    const p = allParticipants[i];\n    if (p.gender && (p.gender.name === 'Male' || p.gender.name === 'Female')) continue;\n    const encs = p.nonVoidedEncounters().filter(e => e.encounterType.name === 'Assessment & Distribution');\n    if (encs.some(e => { const ref = e.getObservationValue('Activity'); return ref && ref.uuid === activityUuid; })) count++;\n  }\n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, true, count);\n};",
+      "voided" : true,
+      "mandatory" : false
+    } ],
+    "voided" : true,
+    "timed" : false,
+    "display" : "Participants Info"
+  } ],
+  "decisionRule" : "",
+  "visitScheduleRule" : "",
+  "validationRule" : "'use strict';\n({params, imports}) => {\n  const entity = params.entity;\n  const validationResults = [];\n  const contactCR = entity.getObservationValue('Contact number of CR');\n  if (contactCR) {\n    const s = String(Math.round(contactCR));\n    if (s.length !== 10 || !/^[6-9]/.test(s)) {\n      validationResults.push(imports.common.createValidationError('Contact number of CR must be 10 digits starting with 6-9'));\n    }\n  }\n  return validationResults;\n};",
+  "checklistsRule" : "",
+  "decisionConcepts" : [ ]
+}

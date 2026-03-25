@@ -3,7 +3,7 @@ from __future__ import annotations
 from enum import Enum
 from typing import Any
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, EmailStr, Field
 
 
 # --- Enums ---
@@ -24,6 +24,8 @@ class SSEEventType(str, Enum):
     PROGRESS = "progress"
     DONE = "done"
     ERROR = "error"
+    CONFIRM_ACTION = "confirm_action"  # Human-in-the-loop approval
+    AGENT_STEP = "agent_step"  # ReAct agent step update
 
 
 class BundleStatusType(str, Enum):
@@ -51,6 +53,12 @@ class ChatRequest(BaseModel):
     message: str = Field(description="User message text")
     session_id: str = Field(description="Session identifier for conversation continuity")
     attachments: list[Attachment] = Field(default_factory=list)
+    org_name: str | None = Field(default=None, description="Organisation name for context")
+    sector: str | None = Field(default=None, description="Sector e.g. MCH, WASH, Education")
+    org_context: str | None = Field(default=None, description="Free-text description of the organisation")
+    # BYOK (Bring Your Own Key) — per-request LLM override
+    byok_provider: str | None = Field(default=None, description="LLM provider override: 'groq', 'anthropic', 'gemini', 'cerebras', 'openai'")
+    byok_api_key: str | None = Field(default=None, description="User's own API key for the provider")
 
 
 class ChatResponse(BaseModel):
@@ -83,6 +91,8 @@ class SRSFormField(BaseModel):
     unit: str | None = None
     lowAbsolute: float | None = None
     highAbsolute: float | None = None
+    lowNormal: float | None = None
+    highNormal: float | None = None
     keyValues: list[dict[str, Any]] | None = None
 
 
@@ -97,6 +107,7 @@ class SRSFormDefinition(BaseModel):
     groups: list[SRSFormGroup]
     programName: str | None = None
     encounterTypeName: str | None = None
+    subjectTypeName: str | None = None
 
 
 class SRSData(BaseModel):
@@ -113,6 +124,10 @@ class SRSData(BaseModel):
     addressLevelTypes: list[dict[str, Any]] | None = None
     programEncounterMappings: list[dict[str, Any]] | None = None
     generalEncounterTypes: list[str] | None = None
+    visitSchedules: list[dict[str, Any]] | None = None
+    decisions: list[dict[str, Any]] | None = None
+    eligibilityRules: list[dict[str, Any]] | None = None
+    reportCards: list[dict[str, Any]] | None = None
 
 
 class BundleGenerateRequest(BaseModel):
@@ -241,7 +256,74 @@ class RuleTemplateSummary(BaseModel):
     sectors: list[str] = Field(description="Applicable sectors or ['all']")
 
 
+class RuleValidateRequest(BaseModel):
+    code: str = Field(description="JavaScript rule code to validate")
+    rule_type: str | None = Field(
+        default=None,
+        description="Rule type: ViewFilter, VisitSchedule, Decision, Validation, etc.",
+    )
+
+
 # --- Avni Sync ---
+
+# --- Admin User Management ---
+
+class AdminUserListResponse(BaseModel):
+    id: str
+    name: str
+    email: str | None = None
+    org_name: str
+    sector: str = ""
+    role: str
+    is_active: bool = True
+    last_login: Any | None = None
+    created_at: Any | None = None
+
+
+class AdminUserCreateRequest(BaseModel):
+    name: str = Field(min_length=1, max_length=200)
+    email: EmailStr
+    password: str = Field(min_length=6, max_length=128)
+    org_name: str = Field(min_length=1, max_length=200)
+    sector: str = ""
+    role: str = Field(default="implementor", description="One of: ngo_user, implementor, org_admin, platform_admin")
+    org_context: str = ""
+
+
+class AdminUserRoleUpdateRequest(BaseModel):
+    role: str = Field(description="New role: ngo_user, implementor, org_admin, platform_admin")
+
+
+class AdminUserStatusUpdateRequest(BaseModel):
+    is_active: bool
+
+
+class AdminUserInviteRequest(BaseModel):
+    email: EmailStr
+    name: str = Field(min_length=1, max_length=200)
+    org_name: str = Field(min_length=1, max_length=200)
+    role: str = Field(default="implementor")
+
+
+class AdminBootstrapRequest(BaseModel):
+    email: EmailStr
+    password: str = Field(min_length=6, max_length=128)
+    name: str = Field(min_length=1, max_length=200)
+    org_name: str = Field(min_length=1, max_length=200)
+    sector: str = ""
+    org_context: str = ""
+
+
+class AdminStatsResponse(BaseModel):
+    total_users: int = 0
+    active_users: int = 0
+    users_by_role: dict[str, int] = Field(default_factory=dict)
+    users_by_org: dict[str, int] = Field(default_factory=dict)
+    total_sessions: int = 0
+    messages_24h: int = 0
+    messages_7d: int = 0
+    messages_30d: int = 0
+
 
 class SaveObservationsRequest(BaseModel):
     subject_uuid: str | None = None

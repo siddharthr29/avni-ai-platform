@@ -1,0 +1,365 @@
+{
+  "name": "Child Exit",
+  "uuid": "3b8a1e86-adb2-018f-fee0-55abf1fc0cd9",
+  "formType": "ProgramExit",
+  "formElementGroups": [
+    {
+      "uuid": "1f673878-4656-2bf2-ebfe-df7de8780c78",
+      "name": "Exit Details",
+      "displayOrder": 1,
+      "formElements": [
+        {
+          "name": "Reason for exit",
+          "uuid": "5f2ed855-3cdf-7a09-d977-88ca3a7c7dd8",
+          "keyValues": [],
+          "concept": {
+            "name": "Reason for exit",
+            "uuid": "3c4c32f0-8660-3b45-25f2-553c745b56c3",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false,
+      "display": "Exit Details"
+    },
+    {
+      "uuid": "851220b5-9c17-d194-8013-ca93784fb967",
+      "name": "General",
+      "displayOrder": 2,
+      "formElements": [
+        {
+          "name": "Other reason, please specify",
+          "uuid": "cd04102d-3927-af0b-2429-a3be7924a63f",
+          "keyValues": [],
+          "concept": {
+            "name": "Other reason, please specify",
+            "uuid": "49fd5953-4d47-965f-418f-16b1940fa7a3",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false,
+      "display": "General"
+    },
+    {
+      "uuid": "117916b9-c33a-8e6b-58ba-99f669d68535",
+      "name": "IMR Details",
+      "displayOrder": 3,
+      "formElements": [
+        {
+          "name": "Date of Death",
+          "uuid": "8cd92f17-b4ef-1694-e4ab-99d27fd6da64",
+          "keyValues": [],
+          "concept": {
+            "name": "Date of Death",
+            "uuid": "3902ab87-ba6d-2601-af52-75b827060f90",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true,
+          "declarativeRule": [
+            {
+              "actions": [
+                {
+                  "actionType": "showFormElement"
+                }
+              ],
+              "conditions": [
+                {
+                  "compoundRule": {
+                    "rules": [
+                      {
+                        "lhs": {
+                          "type": "concept",
+                          "scope": "encounter",
+                          "conceptName": "Reason for exit",
+                          "conceptUuid": "3c4c32f0-8660-3b45-25f2-553c745b56c3",
+                          "conceptDataType": "Coded"
+                        },
+                        "rhs": {
+                          "type": "answerConcept",
+                          "answerConceptNames": [
+                            "Child Death"
+                          ]
+                        },
+                        "operator": "containsAnswerConceptName"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Age at Death",
+          "uuid": "5ceb1934-3f66-84c2-51f7-37a16a05ad54",
+          "keyValues": [],
+          "concept": {
+            "name": "Age at Death",
+            "uuid": "fbeebdf6-6a18-fe66-6e66-e73df97e7474",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 2,
+          "type": "SingleSelect",
+          "mandatory": true,
+          "declarativeRule": [
+            {
+              "actions": [
+                {
+                  "actionType": "showFormElement"
+                }
+              ],
+              "conditions": [
+                {
+                  "compoundRule": {
+                    "rules": [
+                      {
+                        "lhs": {
+                          "type": "concept",
+                          "scope": "encounter",
+                          "conceptName": "Reason for exit",
+                          "conceptUuid": "3c4c32f0-8660-3b45-25f2-553c745b56c3",
+                          "conceptDataType": "Coded"
+                        },
+                        "rhs": {
+                          "type": "answerConcept",
+                          "answerConceptNames": [
+                            "Child Death"
+                          ]
+                        },
+                        "operator": "containsAnswerConceptName"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Place of Death",
+          "uuid": "6a78391f-d564-833b-84ad-993a198c7d72",
+          "keyValues": [],
+          "concept": {
+            "name": "Place of Death",
+            "uuid": "7dfdcb4c-3723-4e41-22c3-484ae9ce7ab0",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 3,
+          "type": "SingleSelect",
+          "mandatory": true,
+          "declarativeRule": [
+            {
+              "actions": [
+                {
+                  "actionType": "showFormElement"
+                }
+              ],
+              "conditions": [
+                {
+                  "compoundRule": {
+                    "rules": [
+                      {
+                        "lhs": {
+                          "type": "concept",
+                          "scope": "encounter",
+                          "conceptName": "Reason for exit",
+                          "conceptUuid": "3c4c32f0-8660-3b45-25f2-553c745b56c3",
+                          "conceptDataType": "Coded"
+                        },
+                        "rhs": {
+                          "type": "answerConcept",
+                          "answerConceptNames": [
+                            "Child Death"
+                          ]
+                        },
+                        "operator": "containsAnswerConceptName"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Probable Cause",
+          "uuid": "46bc9c6e-c2c3-c316-cd8a-71a0de310138",
+          "keyValues": [],
+          "concept": {
+            "name": "Probable Cause",
+            "uuid": "002280af-3768-6715-a5fd-bc1e2515e8c3",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 4,
+          "type": "SingleSelect",
+          "mandatory": true,
+          "declarativeRule": [
+            {
+              "actions": [
+                {
+                  "actionType": "showFormElement"
+                }
+              ],
+              "conditions": [
+                {
+                  "compoundRule": {
+                    "rules": [
+                      {
+                        "lhs": {
+                          "type": "concept",
+                          "scope": "encounter",
+                          "conceptName": "Reason for exit",
+                          "conceptUuid": "3c4c32f0-8660-3b45-25f2-553c745b56c3",
+                          "conceptDataType": "Coded"
+                        },
+                        "rhs": {
+                          "type": "answerConcept",
+                          "answerConceptNames": [
+                            "Child Death"
+                          ]
+                        },
+                        "operator": "containsAnswerConceptName"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Other Cause (specify)",
+          "uuid": "ed2b18e1-c038-719e-3aac-d5882c4ea3cb",
+          "keyValues": [],
+          "concept": {
+            "name": "Other Cause (specify)",
+            "uuid": "5a77b78e-1162-ed78-e1c8-4733c51871cf",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 5,
+          "type": "SingleSelect",
+          "mandatory": false,
+          "declarativeRule": [
+            {
+              "actions": [
+                {
+                  "actionType": "showFormElement"
+                }
+              ],
+              "conditions": [
+                {
+                  "compoundRule": {
+                    "rules": [
+                      {
+                        "lhs": {
+                          "type": "concept",
+                          "scope": "encounter",
+                          "conceptName": "Reason for exit",
+                          "conceptUuid": "3c4c32f0-8660-3b45-25f2-553c745b56c3",
+                          "conceptDataType": "Coded"
+                        },
+                        "rhs": {
+                          "type": "answerConcept",
+                          "answerConceptNames": [
+                            "Child Death"
+                          ]
+                        },
+                        "operator": "containsAnswerConceptName"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Whether Notified to Authority",
+          "uuid": "b15a8f8b-d5da-5801-8fca-ff23eb796ddb",
+          "keyValues": [],
+          "concept": {
+            "name": "Whether Notified to Authority",
+            "uuid": "6e733245-5fe0-d706-4382-914327973322",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 6,
+          "type": "SingleSelect",
+          "mandatory": true,
+          "declarativeRule": [
+            {
+              "actions": [
+                {
+                  "actionType": "showFormElement"
+                }
+              ],
+              "conditions": [
+                {
+                  "compoundRule": {
+                    "rules": [
+                      {
+                        "lhs": {
+                          "type": "concept",
+                          "scope": "encounter",
+                          "conceptName": "Reason for exit",
+                          "conceptUuid": "3c4c32f0-8660-3b45-25f2-553c745b56c3",
+                          "conceptDataType": "Coded"
+                        },
+                        "rhs": {
+                          "type": "answerConcept",
+                          "answerConceptNames": [
+                            "Child Death"
+                          ]
+                        },
+                        "operator": "containsAnswerConceptName"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "timed": false,
+      "display": "IMR Details"
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}

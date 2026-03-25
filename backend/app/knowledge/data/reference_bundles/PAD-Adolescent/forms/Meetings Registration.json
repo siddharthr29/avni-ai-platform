@@ -1,0 +1,48 @@
+{
+  "name": "Meetings Registration",
+  "uuid": "1b3a1ff5-af8e-4d09-a365-1d73ac1c450e",
+  "formType": "ProgramEncounter",
+  "formElementGroups": [
+    {
+      "uuid": "496d0610-6be3-46bb-940e-e574de5556f0",
+      "name": "Parents meeting",
+      "displayOrder": 1,
+      "formElements": [
+        {
+          "name": "Name",
+          "uuid": "565c2a39-2d5b-4954-96a1-097c38f30855",
+          "keyValues": [],
+          "concept": {
+            "name": "Name",
+            "uuid": "3f44f783-7934-4859-a76d-edf0e2a71b66",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Address",
+          "uuid": "43ec086b-bb5e-47b3-8d16-d983931e8c82",
+          "keyValues": [],
+          "concept": {
+            "name": "Address",
+            "uuid": "65c90f3e-3f90-45dd-a370-9ce31ddd96fb",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 2,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}

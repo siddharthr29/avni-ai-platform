@@ -1,0 +1,36 @@
+[
+  {
+    "name": "Individual",
+    "uuid": "c43228f4-05ae-defb-0f97-e7513ee4c838",
+    "active": true,
+    "type": "Person",
+    "allowMiddleName": true,
+    "allowProfilePicture": false,
+    "shouldSyncByLocation": true,
+    "settings": {
+      "displayRegistrationDetails": true,
+      "displayPlannedEncounters": true
+    },
+    "household": false,
+    "group": false,
+    "directlyAssignable": false,
+    "voided": false
+  },
+  {
+    "name": "Household",
+    "uuid": "ad0d84cb-a232-b775-42b9-2dea9412d137",
+    "active": true,
+    "type": "Household",
+    "allowMiddleName": false,
+    "allowProfilePicture": false,
+    "shouldSyncByLocation": true,
+    "settings": {
+      "displayRegistrationDetails": true,
+      "displayPlannedEncounters": true
+    },
+    "household": true,
+    "group": true,
+    "directlyAssignable": false,
+    "voided": false
+  }
+]

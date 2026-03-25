@@ -35,7 +35,8 @@ INTENT_KEYWORDS: dict[IntentType, list[str]] = {
     IntentType.SUPPORT: [
         "error", "bug", "issue", "not working", "sync fail", "sync error",
         "troubleshoot", "help me fix", "broken", "crash", "problem",
-        "data missing", "not showing", "upload fail",
+        "data missing", "not showing", "upload fail", "not syncing",
+        "sync issue", "sync problem",
     ],
     IntentType.KNOWLEDGE: [
         "what is", "how does", "explain", "tell me about", "documentation",
@@ -60,7 +61,12 @@ def _keyword_classify(message: str) -> IntentResult | None:
             if kw in lower:
                 match_count += 1
         if match_count > 0:
-            scores[intent] = match_count / len(keywords)
+            # Score based on both absolute match count and proportion.
+            # A single keyword match should give a base confidence of ~0.35,
+            # two matches ~0.55, three+ matches ~0.70+.
+            base = min(match_count * 0.25, 0.70)
+            proportion_bonus = (match_count / len(keywords)) * 0.25
+            scores[intent] = min(base + proportion_bonus, 0.95)
 
     if not scores:
         return None
@@ -72,7 +78,7 @@ def _keyword_classify(message: str) -> IntentResult | None:
     if best_score >= 0.1:
         return IntentResult(
             intent=best_intent,
-            confidence=min(best_score * 3, 0.95),  # Scale up but cap at 0.95
+            confidence=best_score,
             extracted_params=_extract_params(lower, best_intent),
         )
 
@@ -153,7 +159,7 @@ async def classify_intent(message: str, attachments: list | None = None) -> Inte
 
     # Try fast keyword classification
     keyword_result = _keyword_classify(message)
-    if keyword_result is not None and keyword_result.confidence >= 0.3:
+    if keyword_result is not None and keyword_result.confidence >= 0.25:
         return keyword_result
 
     # Fall back to Claude for ambiguous messages

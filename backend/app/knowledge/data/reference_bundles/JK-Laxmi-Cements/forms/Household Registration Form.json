@@ -1,0 +1,126 @@
+{
+  "name": "Household Registration Form",
+  "uuid": "1376440c-3fb9-4a0d-977f-fad20d39621e",
+  "formType": "ProgramEncounter",
+  "formElementGroups": [
+    {
+      "uuid": "6bf8f7f0-5a20-4146-a4d1-3ee91eec87c2",
+      "name": "Default Question",
+      "displayOrder": 1,
+      "formElements": [
+        {
+          "name": "Household Name",
+          "uuid": "2d0dce31-cf10-4891-9afd-490beb3a8f96",
+          "keyValues": [],
+          "concept": {
+            "name": "Household Name",
+            "uuid": "0ca67242-fc70-4639-9481-fa860222b416",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Address",
+          "uuid": "1a183a3e-7b98-4db5-96d5-77937c3515f7",
+          "keyValues": [],
+          "concept": {
+            "name": "Address",
+            "uuid": "65c90f3e-5919-4bde-9a53-b23590ef112f",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 2,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "5eb21b05-f33d-436b-925e-178a10719de5",
+      "name": "Basic Details",
+      "displayOrder": 2,
+      "formElements": [
+        {
+          "name": "Type of household",
+          "uuid": "59072639-5eca-4b82-937c-30a7b03273f4",
+          "keyValues": [],
+          "concept": {
+            "name": "Type of household",
+            "uuid": "1652b74a-4229-4abd-9020-1a9dbdad0380",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Total Annual Income of the household",
+          "uuid": "3a1bb541-2de7-482f-b3cf-f3c744231646",
+          "keyValues": [],
+          "concept": {
+            "name": "Total Annual Income of the household",
+            "uuid": "038f76f5-1844-469d-8c83-c17cf2bfa07e",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 2,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Pregnant Women in HH",
+          "uuid": "3fc0d93f-a6b0-4f74-8199-601bc58e685a",
+          "keyValues": [],
+          "concept": {
+            "name": "Pregnant Women in HH",
+            "uuid": "3ab39048-cd63-4014-842b-76ea69fa4d52",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 3,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Children <1yr",
+          "uuid": "0336fb23-fc62-453c-8d05-88f5bcd18213",
+          "keyValues": [],
+          "concept": {
+            "name": "Children <1yr",
+            "uuid": "70e176e3-7df3-4061-8a95-0e3d7cafee37",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 4,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Children 1–5yr",
+          "uuid": "4564b46a-6e61-452a-b0ba-b6a4037a07e7",
+          "keyValues": [],
+          "concept": {
+            "name": "Children 1–5yr",
+            "uuid": "6294d6dd-d45c-4dbd-af16-7602d95dbe68",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 5,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}

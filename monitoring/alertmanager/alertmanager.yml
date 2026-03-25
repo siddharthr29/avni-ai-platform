@@ -1,0 +1,143 @@
+global:
+  resolve_timeout: 5m
+  # SMTP settings for email notifications
+  smtp_smarthost: "${SMTP_SMARTHOST}"
+  smtp_from: "${SMTP_FROM}"
+  smtp_auth_username: "${SMTP_AUTH_USERNAME}"
+  smtp_auth_password: "${SMTP_PASSWORD}"
+  smtp_require_tls: true
+
+templates:
+  - "/etc/alertmanager/templates/*.tmpl"
+
+route:
+  receiver: default-receiver
+  group_by: ["alertname", "severity"]
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 4h
+  routes:
+    # Critical alerts go to both Slack and email immediately
+    - receiver: critical-alerts
+      match:
+        severity: critical
+      group_wait: 10s
+      repeat_interval: 1h
+      continue: false
+
+    # Warnings go to Slack only
+    - receiver: slack-warnings
+      match:
+        severity: warning
+      group_wait: 1m
+      repeat_interval: 4h
+      continue: false
+
+    # Info-level alerts go to a low-priority Slack channel
+    - receiver: slack-info
+      match:
+        severity: info
+      group_wait: 5m
+      repeat_interval: 12h
+      continue: false
+
+receivers:
+  - name: default-receiver
+    slack_configs:
+      - api_url: "${SLACK_WEBHOOK_URL}"
+        channel: "#avni-ai-alerts"
+        title: '{{ .GroupLabels.alertname }}'
+        text: >-
+          {{ range .Alerts }}
+          *Alert:* {{ .Annotations.summary }}
+          *Severity:* {{ .Labels.severity }}
+          *Description:* {{ .Annotations.description }}
+          {{ if .Annotations.runbook_url }}*Runbook:* {{ .Annotations.runbook_url }}{{ end }}
+          {{ end }}
+        send_resolved: true
+
+  - name: critical-alerts
+    slack_configs:
+      - api_url: "${SLACK_WEBHOOK_URL}"
+        channel: "#avni-ai-critical"
+        title: '[CRITICAL] {{ .GroupLabels.alertname }}'
+        text: >-
+          {{ range .Alerts }}
+          *Alert:* {{ .Annotations.summary }}
+          *Description:* {{ .Annotations.description }}
+          {{ if .Annotations.runbook_url }}*Runbook:* {{ .Annotations.runbook_url }}{{ end }}
+          {{ end }}
+        send_resolved: true
+        color: '{{ if eq .Status "firing" }}danger{{ else }}good{{ end }}'
+    email_configs:
+      - to: "${ALERT_EMAIL_TO}"
+        headers:
+          Subject: '[CRITICAL] Avni AI: {{ .GroupLabels.alertname }}'
+        html: |
+          <h2>Critical Alert: {{ .GroupLabels.alertname }}</h2>
+          {{ range .Alerts }}
+          <p><strong>Summary:</strong> {{ .Annotations.summary }}</p>
+          <p><strong>Description:</strong> {{ .Annotations.description }}</p>
+          {{ end }}
+        send_resolved: true
+
+  - name: slack-warnings
+    slack_configs:
+      - api_url: "${SLACK_WEBHOOK_URL}"
+        channel: "#avni-ai-alerts"
+        title: '[WARNING] {{ .GroupLabels.alertname }}'
+        text: >-
+          {{ range .Alerts }}
+          *Alert:* {{ .Annotations.summary }}
+          *Description:* {{ .Annotations.description }}
+          {{ end }}
+        send_resolved: true
+        color: warning
+
+  - name: slack-info
+    slack_configs:
+      - api_url: "${SLACK_WEBHOOK_URL}"
+        channel: "#avni-ai-info"
+        title: '[INFO] {{ .GroupLabels.alertname }}'
+        text: >-
+          {{ range .Alerts }}
+          *Alert:* {{ .Annotations.summary }}
+          {{ end }}
+        send_resolved: false
+        color: '#439FE0'
+
+inhibit_rules:
+  # Critical suppresses warning for the same alert
+  - source_match:
+      severity: critical
+    target_match:
+      severity: warning
+    equal: ["alertname"]
+
+  # If the backend is down, suppress all application-level warnings
+  - source_match:
+      alertname: BackendDown
+    target_match_re:
+      alertname: "High(LLM|Request)Latency|HighErrorRate|BundleGeneration.*|RAG.*|Embedding.*"
+    equal: []
+
+  # If the database is down, suppress DB-related warnings
+  - source_match:
+      alertname: DatabaseDown
+    target_match_re:
+      alertname: "DB.*|RAG.*"
+    equal: []
+
+  # If Ollama is down, suppress LLM performance alerts
+  - source_match:
+      alertname: OllamaDown
+    target_match_re:
+      alertname: "HighLLMLatency|LLMRequestFailureRate|OllamaHighMemory"
+    equal: []
+
+  # DiskSpaceCritical suppresses DiskSpaceHigh
+  - source_match:
+      alertname: DiskSpaceCritical
+    target_match:
+      alertname: DiskSpaceHigh
+    equal: []

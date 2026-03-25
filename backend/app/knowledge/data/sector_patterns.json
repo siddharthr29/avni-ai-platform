@@ -1,0 +1,126 @@
+{
+  "_description": "Sector-specific bundle patterns extracted from 13+ production Avni orgs. Used by the bundle generator to correctly classify forms, map subject types, and assign programs based on the org's sector.",
+
+  "sectors": {
+    "MCH": {
+      "description": "Maternal & Child Health — pregnancy tracking, child growth monitoring, immunization",
+      "example_orgs": ["Ashwini", "Calcutta Kids", "APF Odisha", "Yenepoya", "Atul Foundation", "Animedh Charitable Trust DNH"],
+      "subject_types": [
+        {"name": "Individual", "type": "Person", "purpose": "Primary person being tracked"},
+        {"name": "Household", "type": "Household", "purpose": "Family unit, optional"}
+      ],
+      "common_programs": [
+        {"name": "Pregnancy", "aliases": ["Mother", "ANC", "MCH"], "encounters": ["ANC", "Delivery", "PNC", "PNC Followup"]},
+        {"name": "Child", "aliases": ["Child Health", "Under 5"], "encounters": ["Child Home Visit", "Growth Monitoring", "Anthropometry Assessment", "Immunization", "Birth"]},
+        {"name": "Family Planning", "encounters": ["FP monthly assessment"]},
+        {"name": "NCD", "aliases": ["Hypertension", "Diabetes"], "encounters": ["NCD Followup", "Diabetes Followup", "HT Followup"]}
+      ],
+      "common_encounters_standalone": ["Household Survey", "Individual Survey", "Death Registration"],
+      "rules": {
+        "program_encounters_always_on": "Individual (Person) subject type",
+        "standalone_encounters_can_be_on": "any subject type including Household"
+      }
+    },
+
+    "Education": {
+      "description": "School health, Phulwari (early childhood), learning centers, child development",
+      "example_orgs": ["JSS", "C3 India", "Bal Kalyan Sangh"],
+      "subject_types": [
+        {"name": "Individual", "type": "Person", "aliases": ["Child", "Student"], "purpose": "Child being tracked"},
+        {"name": "Center", "type": "Group", "aliases": ["School", "Phulwari", "Learning Centre"], "purpose": "Group entity where activities happen"},
+        {"name": "Worker", "type": "Person", "aliases": ["Phulwari worker", "Facilitator", "Volunteer"], "purpose": "Staff member"}
+      ],
+      "common_programs": [
+        {"name": "Child Development", "aliases": ["Phulwari", "Nutrition"], "target_subject": "Individual", "encounters": ["Anthropometry Assessment", "Growth Monitoring"]},
+        {"name": "Worker Program", "aliases": ["Phulwari worker"], "target_subject": "Worker", "encounters": ["Leave form", "Training"]}
+      ],
+      "common_encounters_standalone": [
+        {"name": "Daily Attendance", "on_subject": "Center"},
+        {"name": "Learning Assessment", "on_subject": "Center"},
+        {"name": "Inspection Checklist", "on_subject": "Center"},
+        {"name": "Child Absent followup", "on_subject": "Individual"}
+      ],
+      "rules": {
+        "attendance_goes_on": "Center/School/Phulwari (Group) subject type, NOT Individual",
+        "assessment_goes_on": "Center/School (Group) subject type",
+        "child_followup_goes_on": "Individual (Person) subject type",
+        "program_encounters_on": "Individual (Person) subject type"
+      }
+    },
+
+    "Community Development": {
+      "description": "Village development, social protection, child protection, community mobilization",
+      "example_orgs": ["Aangan India", "Goonj", "Apnalaya Prototype"],
+      "subject_types": [
+        {"name": "Individual", "type": "Person", "purpose": "Person being served"},
+        {"name": "Household", "type": "Household", "aliases": ["Family"], "purpose": "Family unit"},
+        {"name": "Village", "type": "Individual", "aliases": ["Community"], "purpose": "Village/community entity"},
+        {"name": "Group", "type": "Group", "aliases": ["SHG", "Safety network", "Volunteer group"], "purpose": "Community groups"}
+      ],
+      "common_programs": [],
+      "common_encounters_standalone": [
+        {"name": "Family followup", "on_subject": "Household/Family"},
+        {"name": "Child followup", "on_subject": "Individual"},
+        {"name": "Village Assessment", "on_subject": "Village"},
+        {"name": "Community Meeting", "on_subject": "Village"}
+      ],
+      "rules": {
+        "village_meetings_go_on": "Village subject type, NOT Individual",
+        "family_followups_go_on": "Household/Family subject type",
+        "child_followups_go_on": "Individual (Person) subject type",
+        "often_no_programs": "Many community dev orgs use only Encounters, no Programs"
+      }
+    },
+
+    "Nutrition": {
+      "description": "Malnutrition tracking, NRC (Nutrition Rehabilitation), growth monitoring",
+      "example_orgs": ["Action North east Trust", "APF Odisha"],
+      "subject_types": [
+        {"name": "Individual", "type": "Person"}
+      ],
+      "common_programs": [
+        {"name": "Malnutrition", "encounters": ["Malnutrition follow up", "Growth Monitoring", "NRC Admission", "NRC Discharge"]},
+        {"name": "Anaemia", "encounters": ["Anaemia follow up", "Hemoglobin screening"]}
+      ],
+      "common_encounters_standalone": ["Hemoglobin survey", "Malnutrition survey"]
+    },
+
+    "Livelihoods": {
+      "description": "Supply chain, agriculture, skill development",
+      "example_orgs": ["Goonj", "Lend A Hand India"],
+      "subject_types": [
+        {"name": "Activity", "type": "Individual"},
+        {"name": "Demand", "type": "Individual"},
+        {"name": "Dispatch", "type": "Individual"},
+        {"name": "Distribution", "type": "Individual"},
+        {"name": "Village", "type": "Group"}
+      ],
+      "common_programs": [],
+      "rules": {
+        "each_entity_is_own_subject": "Supply chain entities are separate subject types, not programs",
+        "no_programs_typically": "Livelihoods orgs typically use Encounters, not Programs"
+      }
+    },
+
+    "WASH": {
+      "description": "Water, Sanitation and Hygiene",
+      "subject_types": [
+        {"name": "Individual", "type": "Person"},
+        {"name": "Household", "type": "Household"},
+        {"name": "Water Source", "type": "Individual"}
+      ],
+      "common_programs": [],
+      "common_encounters_standalone": ["Household Survey", "Water Quality Test"]
+    }
+  },
+
+  "universal_rules": {
+    "registration_form_matches_subject_type": "ALWAYS — 'Family Registration' maps to 'Family' subject type, never to another",
+    "program_encounters_target_person": "Program encounters (ANC, PNC, Growth Monitoring) almost always target the Person/Individual subject type",
+    "group_encounters_target_group": "Attendance, assessments, meetings on group entities (School, Center, Village, Phulwari) use Encounter form type on that Group subject type",
+    "every_program_needs": "ProgramEnrolment + ProgramExit + at least one ProgramEncounter form",
+    "every_encounter_needs_cancellation": "Every ProgramEncounter needs ProgramEncounterCancellation, every Encounter needs IndividualEncounterCancellation",
+    "exit_form_always_has": "Exit Date (Date) + Exit Reason (Coded) + optional Notes (Text)",
+    "cancellation_form_always_has": "Cancel Reason (Coded) + optional Other Reason (Text)"
+  }
+}

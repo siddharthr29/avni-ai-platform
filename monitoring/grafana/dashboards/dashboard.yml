@@ -1,0 +1,15 @@
+# Grafana auto-provisioning — Dashboard provider
+apiVersion: 1
+
+providers:
+  - name: "Avni AI"
+    orgId: 1
+    folder: "Avni AI Platform"
+    type: file
+    disableDeletion: false
+    editable: true
+    updateIntervalSeconds: 30
+    allowUiUpdates: true
+    options:
+      path: /etc/grafana/provisioning/dashboards
+      foldersFromFilesStructure: false

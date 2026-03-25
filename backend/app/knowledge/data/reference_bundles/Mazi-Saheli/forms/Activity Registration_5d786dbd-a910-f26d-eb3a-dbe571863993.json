@@ -1,0 +1,1013 @@
+{
+  "name" : "Activity Registration",
+  "uuid" : "5d786dbd-a910-f26d-eb3a-dbe571863993",
+  "formType" : "IndividualProfile",
+  "formElementGroups" : [ {
+    "uuid" : "ee82a296-f892-c6f4-a9c0-5d7215000144",
+    "name" : "General",
+    "displayOrder" : 1.0,
+    "formElements" : [ {
+      "name" : "Supported By",
+      "uuid" : "d5af0e44-ecf2-985c-72aa-9b08b40101a2",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Supported By",
+        "uuid" : "8306cba6-8019-6f8c-38c5-f87ca86593cc",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Goonj",
+          "uuid" : "5c741930-b72d-75a5-2a43-7aa2e41780b6",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Baala",
+          "uuid" : "d24c486a-32f9-02a1-ab64-9afe49da26df",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Connexus Social Responsibility",
+          "uuid" : "0aa73e14-3e37-7c59-30eb-8871ec5bc296",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 5.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Srujana",
+          "uuid" : "e3d7e29a-b1db-ec33-600c-ea15839eb274",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 7.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Enable India",
+          "uuid" : "ef21c60f-929f-2536-00c3-d57d78e9d83e",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 6.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "L&T Health Center & Bramhakumari",
+          "uuid" : "fd202868-b98d-6e5e-ef03-a8798288e586",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 8.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Rise Against Hunger India",
+          "uuid" : "531cd70d-d1c3-eb44-4353-44e7618db685",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Nana Palkar Smurti Saminiti",
+          "uuid" : "18d4bc55-eb95-5e11-305f-822813b9c98f",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 10.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Pagaria Welfare Foundation",
+          "uuid" : "cd7016dd-75f8-3b5b-6ec9-189f68aa19a1",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Renovate India",
+          "uuid" : "5b763762-8c0f-9b57-5c35-ed7a4dc23533",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Tara Netralaya",
+          "uuid" : "764c0c5f-b71c-2a0c-673b-56d5fb3cfb3b",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 9.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "CSR Partner",
+      "uuid" : "78e4d1ca-59e8-0315-c204-5b3afd26a40f",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "CSR Partner",
+        "uuid" : "964e9246-54a5-1beb-72b8-28c5760e551c",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Benow",
+          "uuid" : "703b679e-0336-afbf-78f4-1f7c438bdf6d",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Ideal Cures",
+          "uuid" : "bc22ebaf-7ce5-90d8-32c5-3c8cac021131",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Mosambee",
+          "uuid" : "0081811f-5f1c-103a-bd21-5abd71840a2d",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "NA",
+          "uuid" : "52eb2160-d50b-d3e9-bbb1-31b4689a1830",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "In Associates with",
+      "uuid" : "4fd49132-5400-45a4-ab08-38953e7f763b",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "In Associates with",
+        "uuid" : "e359f80c-d089-1e7b-fcb8-ea99fe987992",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Poornima Bahuddheshiya Sanstha",
+          "uuid" : "ea30f086-e8fd-ad10-0cb3-cdf3b2397383",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Yuva Sahas",
+          "uuid" : "2cfc98cd-f647-fa69-4820-f5b6534be4f5",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "NA",
+          "uuid" : "52eb2160-d50b-d3e9-bbb1-31b4689a1830",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "unique" : true,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Stambh Foundation",
+          "uuid" : "dfbc80d6-e402-234f-2688-9af4af26979b",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Digi Upskill",
+          "uuid" : "f15b5066-c89e-74f4-f08b-cf13306c79a4",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Start Date of Event",
+      "uuid" : "be16cfee-1a8c-4e0c-fb43-5fbd5c099a12",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Start Date of Event",
+        "uuid" : "fa8b64e2-933e-c253-78db-1defef9ccd82",
+        "dataType" : "Date",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "End Date of Event",
+      "uuid" : "d723ca32-9f8c-98a3-b788-9024e45cad22",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "End Date of Event",
+        "uuid" : "26633803-8f35-3e90-4e47-3fa14d2e6085",
+        "dataType" : "Date",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 5.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const individual = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  let startDateOfEventObservation = individual.findObservation('fa8b64e2-933e-c253-78db-1defef9ccd82');\n  let startDateOfEventValue = _.isEmpty(startDateOfEventObservation) ? startDateOfEventObservation : startDateOfEventObservation.getReadableValue();\n  const condition11 = new imports.rulesConfig.RuleCondition({individual, formElement}).when.valueInRegistration(\"26633803-8f35-3e90-4e47-3fa14d2e6085\").lessThan(startDateOfEventValue, 'ms').matches();\n  \n  if(condition11 ){\n    validationErrors.push(\"End date should be same or after start date\");  \n}\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "details" : {
+            "validationError" : "End date should be same or after start date"
+          },
+          "actionType" : "validationError"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "registration",
+                "conceptName" : "End Date of Event",
+                "conceptUuid" : "26633803-8f35-3e90-4e47-3fa14d2e6085",
+                "conceptDataType" : "Date"
+              },
+              "rhs" : {
+                "type" : "concept",
+                "scope" : "registration",
+                "conceptName" : "Start Date of Event",
+                "conceptUuid" : "fa8b64e2-933e-c253-78db-1defef9ccd82"
+              },
+              "operator" : "lessThan"
+            } ]
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    }, {
+      "name" : "Number of Days",
+      "uuid" : "7f0e1492-8559-f8b1-c9c1-08864ca8e2f9",
+      "keyValues" : [ {
+        "key" : "editable",
+        "value" : false
+      } ],
+      "concept" : {
+        "name" : "Number of Days",
+        "uuid" : "0f49a1e5-9033-3d4b-14cb-31d6f95d3aaf",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 6.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const entity = params.entity;\n  const formElement = params.formElement;\n  const startDate = entity.getObservationValue('Start Date of Event');\n  const endDate = entity.getObservationValue('End Date of Event');\n  let value = null;\n  if (startDate && endDate) {\n    const days = imports.moment(endDate).diff(imports.moment(startDate), 'days') + 1;\n    value = days > 0 ? days : 0;\n  }\n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, true, value);\n};",
+      "mandatory" : false
+    }, {
+      "name" : "Distribution Type",
+      "uuid" : "a6523cbe-0f33-0ad1-1a49-06cd40e6029f",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Distribution Type",
+        "uuid" : "11d93d28-7220-7020-5757-81dc31601b5b",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Other",
+          "uuid" : "dde76252-3032-41f5-ab53-1802951574ee",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Health Camp",
+          "uuid" : "cf4d08bd-79a6-575b-39d4-763c3ab517bf",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 7.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Material Given For",
+      "uuid" : "fcaa8e9e-760e-73f7-54c5-d122cd6592a7",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Material Given For",
+        "uuid" : "2d6951f3-5875-f325-ce93-d843372f30a2",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Animal Welfare",
+          "uuid" : "931063c5-7dba-bd2e-aa71-efe0e252421e",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 6.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Maternity",
+          "uuid" : "43a177aa-fe58-743d-4c23-f9d41e7bd8bb",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 13.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Person with Disability",
+          "uuid" : "64c77b52-a284-c17d-055b-90f2744f1cfd",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 8.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Stitching Center",
+          "uuid" : "80bfe4f9-2b84-94f8-eda0-e38517f472aa",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 15.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Residential Home",
+          "uuid" : "0297b950-b777-2484-fbf0-327b66e8370f",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 12.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Anganwadi Center",
+          "uuid" : "252c7b05-2270-54ad-7664-40c7bd08a54f",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Old Age-Home",
+          "uuid" : "80a2caa5-c477-e034-fc0e-6ebbd77bd6c1",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Children's Home",
+          "uuid" : "4d3780c6-c18b-6a3f-1d0a-5dd6d68746bb",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 5.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Health Center/ Camps",
+          "uuid" : "e97161b6-217a-a31f-2f0c-a920a881f366",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Libarary",
+          "uuid" : "29d64dc3-9cc9-23a3-7249-c6b15da60363",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 10.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "NA",
+          "uuid" : "52eb2160-d50b-d3e9-bbb1-31b4689a1830",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 16.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Study/ Computer Center",
+          "uuid" : "bff765e9-a486-bfed-330e-cb251537d864",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 7.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Night Shelter",
+          "uuid" : "f8e5d4e3-ad88-5fa1-83f0-3c33d5984ede",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 9.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Sport",
+          "uuid" : "74dba68e-0ad3-53cf-206e-e9416c568e00",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 14.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Marriage support",
+          "uuid" : "9cfc40e0-2de4-4297-53ff-d90c03da1258",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 11.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Office Support",
+          "uuid" : "f9be9f39-3b42-9c41-d5a2-a907490cbf1e",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 8.0,
+      "type" : "MultiSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const individual = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({individual, formElement}).when.valueInRegistration(\"11d93d28-7220-7020-5757-81dc31601b5b\").containsAnswerConceptName(\"dde76252-3032-41f5-ab53-1802951574ee\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "registration",
+                "conceptName" : "Distribution Type",
+                "conceptUuid" : "11d93d28-7220-7020-5757-81dc31601b5b",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Other" ],
+                "answerConceptUuids" : [ "dde76252-3032-41f5-ab53-1802951574ee" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ]
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    }, {
+      "name" : "Activity Type",
+      "uuid" : "b23bd310-c86e-7013-a93f-0124c963d228",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Activity Type",
+        "uuid" : "dd5064b5-abbe-0795-4995-dc80d57a2c99",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Financial Literacy",
+          "uuid" : "56901aca-70a9-0317-8730-15681088bb77",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Menstrual Health & Hygiene",
+          "uuid" : "470f04bd-b118-d883-016f-d15a883e4029",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Education",
+          "uuid" : "9c62817e-4678-0219-ceab-8c9633f24cbd",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Health",
+          "uuid" : "f51b3f98-62ff-7667-0ec5-13a9449f9c94",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Other",
+          "uuid" : "dde76252-3032-41f5-ab53-1802951574ee",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 9.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Specify Details - Others",
+      "uuid" : "b94ec6fd-1cdf-c67b-82c1-ab9013f6dbbf",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Specify Details - Others",
+        "uuid" : "797c4a9f-8511-485b-2631-72c246c1ba2f",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 10.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const individual = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({individual, formElement}).when.valueInRegistration(\"dd5064b5-abbe-0795-4995-dc80d57a2c99\").containsAnswerConceptName(\"dde76252-3032-41f5-ab53-1802951574ee\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "registration",
+                "conceptName" : "Activity Type",
+                "conceptUuid" : "dd5064b5-abbe-0795-4995-dc80d57a2c99",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Other" ],
+                "answerConceptUuids" : [ "dde76252-3032-41f5-ab53-1802951574ee" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ]
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    }, {
+      "name" : "Health Activity Sub-Type",
+      "uuid" : "ec7473a3-afa1-4f77-7c41-c70d1ca8f4dc",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Health Activity Sub-Type",
+        "uuid" : "f4decd5e-9420-2834-7828-f91a4a2cc11c",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "General Health Check-up Camp",
+          "uuid" : "cfa8d57a-b0e5-65e8-d9c7-612a8bc30572",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Breast Cancer Camp",
+          "uuid" : "50be6105-66da-580f-c6c0-2996b3e16406",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Eye Health Screening Camp",
+          "uuid" : "2480fb2f-0f33-62f6-ba0b-428ec9d55c50",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 11.0,
+      "type" : "MultiSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const individual = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({individual, formElement}).when.valueInRegistration(\"dd5064b5-abbe-0795-4995-dc80d57a2c99\").containsAnswerConceptName(\"f51b3f98-62ff-7667-0ec5-13a9449f9c94\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "registration",
+                "conceptName" : "Activity Type",
+                "conceptUuid" : "dd5064b5-abbe-0795-4995-dc80d57a2c99",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Health" ],
+                "answerConceptUuids" : [ "f51b3f98-62ff-7667-0ec5-13a9449f9c94" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ]
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    }, {
+      "name" : "Name on POC",
+      "uuid" : "628cd0fb-f68a-8753-71db-f302a6bd4f15",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Name on POC",
+        "uuid" : "0a88de0c-3144-65a5-cc0c-8f78e4235a93",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 12.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Contact No",
+      "uuid" : "9592a972-2968-bb39-5c51-9cbe3235c767",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Contact No",
+        "uuid" : "993accbc-f355-77df-f539-127ec845c648",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "lowAbsolute" : 6.0E9,
+        "highAbsolute" : 9.999999999E9,
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 13.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Center Name",
+      "uuid" : "bd4e9702-35e3-125d-60f6-be4a96bf7416",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Center Name",
+        "uuid" : "50b9f958-9cb9-480d-0d16-c50c1079d4e7",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 14.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Material Details with quantity",
+      "uuid" : "a9aa3881-391c-8656-c993-d8d0a0f9a11a",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Material Details with quantity",
+        "uuid" : "54eabd75-cfc1-acc8-65df-23e94b3ad27a",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Nutri Kit",
+          "uuid" : "0a678740-079a-06f5-f07b-388a6b20f76b",
+          "dataType" : "Coded",
+          "answers" : [ {
+            "name" : "Yes",
+            "uuid" : "e1018fd6-6a74-45e5-9191-6dec7647d817",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 0.0,
+            "active" : true,
+            "media" : [ ]
+          }, {
+            "name" : "No",
+            "uuid" : "cca1df60-04c2-497c-a5ad-47438ae9fb7c",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 1.0,
+            "active" : true,
+            "media" : [ ]
+          } ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Medicine",
+          "uuid" : "41097292-690d-2c06-34fa-4173341008bd",
+          "dataType" : "Coded",
+          "answers" : [ {
+            "name" : "No",
+            "uuid" : "cca1df60-04c2-497c-a5ad-47438ae9fb7c",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 1.0,
+            "active" : true,
+            "media" : [ ]
+          }, {
+            "name" : "Yes",
+            "uuid" : "e1018fd6-6a74-45e5-9191-6dec7647d817",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 0.0,
+            "active" : true,
+            "media" : [ ]
+          } ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Khichadi Packet",
+          "uuid" : "5035d7dd-2b60-b025-9dbd-5c2211ab8686",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Eye Drop",
+          "uuid" : "7fb560b6-3535-7749-9044-39661109ab4f",
+          "dataType" : "Coded",
+          "answers" : [ {
+            "name" : "Yes",
+            "uuid" : "e1018fd6-6a74-45e5-9191-6dec7647d817",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 0.0,
+            "active" : true,
+            "media" : [ ]
+          }, {
+            "name" : "No",
+            "uuid" : "cca1df60-04c2-497c-a5ad-47438ae9fb7c",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 1.0,
+            "active" : true,
+            "media" : [ ]
+          } ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Spectacles",
+          "uuid" : "8f9047e6-d5bb-f693-d8e7-1469fc0e8e72",
+          "dataType" : "Coded",
+          "answers" : [ {
+            "name" : "Yes",
+            "uuid" : "e1018fd6-6a74-45e5-9191-6dec7647d817",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 0.0,
+            "active" : true,
+            "media" : [ ]
+          }, {
+            "name" : "No",
+            "uuid" : "cca1df60-04c2-497c-a5ad-47438ae9fb7c",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 1.0,
+            "active" : true,
+            "media" : [ ]
+          } ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 15.0,
+      "type" : "MultiSelect",
+      "voided" : true,
+      "mandatory" : true
+    }, {
+      "name" : "Share Brief that how provided material will be useful",
+      "uuid" : "628fbdc1-82d4-1f7f-ceb7-79bc2031d9c8",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Share Brief that how provided material will be useful",
+        "uuid" : "3f0ad10e-6f41-da28-1e31-3f882799124f",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 16.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Material Distributed",
+      "uuid" : "302d9bb4-667e-cd87-6ffe-3a5b353a24a6",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Material Distributed",
+        "uuid" : "83d6374e-b43c-abdc-eb59-7589597e6126",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Medical equipment",
+          "uuid" : "930b8cad-1e24-b966-5b13-c09e1b9af3da",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 5.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Wheel Chairs",
+          "uuid" : "3c1ed54c-7e9c-205c-9425-b8ebfaceb47f",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "NA",
+          "uuid" : "52eb2160-d50b-d3e9-bbb1-31b4689a1830",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 6.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Recliner Beds",
+          "uuid" : "37dc188f-69c5-65c7-f3b2-2c66067f2381",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Computers/Laptop",
+          "uuid" : "2ed1dd56-1ddf-95ee-5616-1f230961e1e7",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Toys",
+          "uuid" : "25cd8dde-0a0c-b4cb-9a7a-9c6b258f41a3",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 17.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const individual = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({individual, formElement}).when.valueInRegistration(\"11d93d28-7220-7020-5757-81dc31601b5b\").containsAnswerConceptName(\"dde76252-3032-41f5-ab53-1802951574ee\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "registration",
+                "conceptName" : "Distribution Type",
+                "conceptUuid" : "11d93d28-7220-7020-5757-81dc31601b5b",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Other" ],
+                "answerConceptUuids" : [ "dde76252-3032-41f5-ab53-1802951574ee" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ]
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    }, {
+      "name" : "Supported By",
+      "uuid" : "a4e567eb-a15f-10c0-defe-db7a9f36b420",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Supported By (voided~text_to_coded)",
+        "uuid" : "256223b6-1461-5ab9-8d03-a964f223e592",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ],
+        "voided" : true
+      },
+      "displayOrder" : 18.0,
+      "type" : "SingleSelect",
+      "voided" : true,
+      "mandatory" : true
+    }, {
+      "name" : "CSR Partner",
+      "uuid" : "5e5bef0f-70d9-2bad-2207-9ddfcc1fac83",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "CSR Partner (voided~text_to_coded)",
+        "uuid" : "efa381e8-b3f7-7874-9ccd-1b010f24428f",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ],
+        "voided" : true
+      },
+      "displayOrder" : 19.0,
+      "type" : "SingleSelect",
+      "voided" : true,
+      "mandatory" : true
+    }, {
+      "name" : "Date of Event",
+      "uuid" : "a1f6b182-e804-c627-6268-1ad74fbfbd97",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Date of Event",
+        "uuid" : "1680d94d-583d-b46c-f3ea-6849a32821bb",
+        "dataType" : "Date",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 20.0,
+      "type" : "SingleSelect",
+      "voided" : true,
+      "mandatory" : true
+    }, {
+      "name" : "Activity Name",
+      "uuid" : "dea03e40-5230-1a50-d3c3-ba24897c5f4b",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Activity Name (voided~replaced_by_activity_type)",
+        "uuid" : "f3a18921-1311-f53d-59ea-9738ab88d71c",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Eye Health Screening Camp",
+          "uuid" : "2480fb2f-0f33-62f6-ba0b-428ec9d55c50",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "General Health Check-up Camp",
+          "uuid" : "cfa8d57a-b0e5-65e8-d9c7-612a8bc30572",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ],
+        "voided" : true
+      },
+      "displayOrder" : 21.0,
+      "type" : "MultiSelect",
+      "voided" : true,
+      "mandatory" : true
+    } ],
+    "timed" : false,
+    "display" : "General"
+  } ],
+  "decisionRule" : "",
+  "visitScheduleRule" : "",
+  "validationRule" : "'use strict';\n({params, imports}) => {\n  const entity = params.entity;\n  const validationResults = [];\n  const startDate = entity.getObservationValue('Start Date of Event');\n  const endDate = entity.getObservationValue('End Date of Event');\n  if (startDate && endDate && new Date(endDate) < new Date(startDate)) {\n    validationResults.push(imports.common.createValidationError('End Date must be on or after Start Date'));\n  }\n  const contactNo = entity.getObservationValue('Contact No');\n  if (contactNo) {\n    const s = String(Math.round(contactNo));\n    if (s.length !== 10 || !/^[6-9]/.test(s)) {\n      validationResults.push(imports.common.createValidationError('Contact No must be 10 digits starting with 6-9'));\n    }\n  }\n  return validationResults;\n};",
+  "checklistsRule" : "",
+  "decisionConcepts" : [ ]
+}

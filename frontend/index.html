@@ -2,12 +2,86 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Avni AI - Implementation Platform</title>
+    <title>Avni AI — Hai T"AI"yaar</title>
+    <meta name="description" content="AI-powered implementation platform for Avni field data collection. Avni Hai Taiyaar — from program vision to production app in days.">
+    <meta property="og:title" content="Avni AI — Hai T&quot;AI&quot;yaar">
+    <meta property="og:description" content="AI-powered implementation platform for Avni. From program vision to production app in days.">
+    <meta property="og:type" content="website">
+    <meta name="theme-color" content="#3D9B87">
+    <!-- Inline critical styles: branded splash screen shown until React mounts -->
+    <style>
+      /* Hide root until React is ready — prevents FOUC */
+      #root:empty { display: none; }
+      #root:not(:empty) ~ #splash { display: none; }
+
+      #splash {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: #ffffff;
+        font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
+        transition: opacity 0.3s ease-out;
+      }
+      #splash.fade-out {
+        opacity: 0;
+        pointer-events: none;
+      }
+      #splash-logo {
+        width: 48px;
+        height: 48px;
+        margin-bottom: 16px;
+      }
+      #splash-name {
+        font-size: 20px;
+        font-weight: 700;
+        color: #0f766e;
+        letter-spacing: -0.02em;
+        margin-bottom: 6px;
+      }
+      #splash-tagline {
+        font-size: 13px;
+        color: #6b7280;
+        margin-bottom: 28px;
+      }
+      #splash-spinner {
+        width: 24px;
+        height: 24px;
+        border: 2.5px solid #e5e7eb;
+        border-top-color: #0f766e;
+        border-radius: 50%;
+        animation: splash-spin 0.7s linear infinite;
+      }
+      @keyframes splash-spin {
+        to { transform: rotate(360deg); }
+      }
+    </style>
   </head>
   <body>
     <div id="root"></div>
+    <!-- Branded splash: visible instantly, hides when React renders into #root -->
+    <div id="splash">
+      <svg id="splash-logo" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="48" height="48" rx="12" fill="#0f766e"/>
+        <path d="M14 32L24 16L34 32H14Z" fill="#ffffff" opacity="0.9"/>
+        <circle cx="24" cy="26" r="4" fill="#ffffff"/>
+      </svg>
+      <div id="splash-name">Avni AI</div>
+      <div id="splash-tagline">Hai T"AI"yaar</div>
+      <div id="splash-spinner"></div>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
+    <script>
+      // Fallback: remove splash after 8s even if React fails to mount
+      setTimeout(function() {
+        var s = document.getElementById('splash');
+        if (s) { s.classList.add('fade-out'); setTimeout(function() { s.remove(); }, 300); }
+      }, 8000);
+    </script>
   </body>
 </html>

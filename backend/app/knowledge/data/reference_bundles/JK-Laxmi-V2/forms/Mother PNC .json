@@ -1,0 +1,158 @@
+{
+  "name": "Mother PNC ",
+  "uuid": "a4c22569-122f-b688-a017-282fd5077086",
+  "formType": "ProgramEncounter",
+  "formElementGroups": [
+    {
+      "uuid": "4201513d-8a12-126e-bccd-aad0be0fb1f2",
+      "name": "PNC Visit",
+      "displayOrder": 1,
+      "formElements": [
+        {
+          "name": "PNC happening where",
+          "uuid": "67bd4428-52d8-18eb-a36f-8dbc2abb345a",
+          "keyValues": [],
+          "concept": {
+            "name": "PNC happening where",
+            "uuid": "ce2b7131-6c32-f050-a5fe-234ccfc32aa1",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Mother Fever",
+          "uuid": "7ebda58b-4483-b687-bf79-5d4a430675f0",
+          "keyValues": [],
+          "concept": {
+            "name": "Mother Fever",
+            "uuid": "c0ca450f-e58c-8cc1-ab18-6f4d88ff7bbf",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 2,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Excessive Bleeding/Lochia",
+          "uuid": "70ab7261-6343-b85e-2518-406226f3fe54",
+          "keyValues": [],
+          "concept": {
+            "name": "Excessive Bleeding/Lochia",
+            "uuid": "24e6d3d0-ab51-5723-acda-0b7f3c3f87ba",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 3,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Seizures",
+          "uuid": "62490681-09de-b029-e0bf-d3eefcef97d4",
+          "keyValues": [],
+          "concept": {
+            "name": "Seizures",
+            "uuid": "7146819d-b46d-fda1-aeee-eb7dc1e7812f",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 4,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Breast problems",
+          "uuid": "428fb5a7-e238-40ad-50b1-cf47b92001b7",
+          "keyValues": [],
+          "concept": {
+            "name": "Breast problems",
+            "uuid": "8a152461-e989-72fe-4361-f8e89c92aab7",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 5,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Other Mother Problems",
+          "uuid": "32803003-54fd-885e-32a6-8b3e409f2c36",
+          "keyValues": [],
+          "concept": {
+            "name": "Other Mother Problems",
+            "uuid": "887a5ad8-e2c9-8a85-dc00-2bf1b7dbd63f",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 6,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false,
+      "display": "PNC Visit"
+    },
+    {
+      "uuid": "20f59878-d0cc-a83a-cfff-f9115daf703a",
+      "name": "Counselling",
+      "displayOrder": 2,
+      "formElements": [
+        {
+          "name": "Counselling Provided",
+          "uuid": "4052065e-942d-d50c-3150-b3326a6c61a2",
+          "keyValues": [],
+          "concept": {
+            "name": "Counselling Provided",
+            "uuid": "80367f8b-69b1-101b-696c-e232cc589206",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Counselling Points",
+          "uuid": "846805ce-5d7b-0b86-f0d5-7ab09741335d",
+          "keyValues": [],
+          "concept": {
+            "name": "Counselling Points",
+            "uuid": "14f4dc5b-dc93-2dcf-57b8-db9bc4852aa0",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 2,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false,
+      "display": "Counselling"
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}

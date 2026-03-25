@@ -1,179 +1,202 @@
 # Avni AI Platform
 
-AI-powered implementation platform for [Avni](https://avniproject.org) -- the open-source community health and field data collection system.
+![Python](https://img.shields.io/badge/Python-3.14-blue)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.115-green)
+![React](https://img.shields.io/badge/React-19-61DAFB)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16+pgvector-336791)
+![Ollama](https://img.shields.io/badge/Ollama-Self--Hosted_LLM-black)
+![Tests](https://img.shields.io/badge/Tests-438_passing-brightgreen)
+![Endpoints](https://img.shields.io/badge/API-114_endpoints-informational)
+![RAG](https://img.shields.io/badge/RAG-36%2C700+_chunks-purple)
+![License](https://img.shields.io/badge/License-AGPL--3.0-orange)
 
-## Features
+A self-hosted AI orchestration platform for [Avni](https://avniproject.org) -- the open-source community health and field data collection system. The platform provides a conversational AI interface backed by domain-specific RAG retrieval over 36,700+ knowledge chunks from 18 production implementations, enabling NGOs to configure, deploy, and troubleshoot Avni implementations through natural language.
 
-- **Chat Assistant** -- Context-aware AI that understands Avni's data model, SRS format, and implementation patterns. Streams responses via SSE with automatic intent classification.
-- **Bundle Generation** -- Paste SRS text or provide structured JSON, and the platform generates a complete Avni implementation bundle (concepts, forms, mappings, privileges) ready to upload.
-- **Voice Data Capture** -- Speak observations in natural language and the AI maps them to form fields. Supports 11 Indian languages via the Web Speech API.
-- **Image Data Extraction** -- Photograph a paper form or register and Claude Vision extracts structured data mapped to your Avni form fields.
-- **Rule Generation** -- Describe business rules in English and receive working JavaScript or declarative rule definitions that follow Avni's rule engine patterns.
-- **Support Diagnosis** -- Describe an issue and get a structured diagnosis covering common failure modes: sync problems, UUID mismatches, missing form mappings, and privilege gaps.
-- **Knowledge Search** -- Search across 4,949 concepts, 132 rule templates, and 280 form patterns drawn from 5 production organisations.
+The default deployment runs entirely self-hosted -- Ollama for LLM inference, sentence-transformers for embeddings, pgvector for retrieval -- with zero cloud dependencies and no data leaving the server.
+
+---
+
+## Key Features
+
+- **Conversational AI** -- Intent-aware chat with 6-layer system prompt, skill-based RAG retrieval, action detection, and SSE streaming
+- **Bundle Generation** -- SRS (text, JSON, Excel) to production-ready Avni implementation bundle with zero LLM dependency on the critical path
+- **Hybrid RAG Search** -- pgvector semantic search + PostgreSQL BM25, fused via Reciprocal Rank Fusion across 14 knowledge collections
+- **5 LLM Providers** -- Ollama (self-hosted), Groq, Cerebras, Gemini, Anthropic with per-provider circuit breaker and automatic failover
+- **Natural Language Bundle Editor** -- Apply corrections to generated bundles using plain English
+- **LLM Reasoner** -- 60+ field property rules for automatic inference of units, ranges, and validation constraints
+- **Skip Logic Generator** -- Convert showWhen/hideWhen declarations to production JavaScript rules
+- **Document Extractor** -- Structure, map, and clarify pipeline for raw documents to Avni domain models
+- **Rule Engine** -- Generate, test, and validate JavaScript rules (skip logic, visit scheduling, decisions, validations)
+- **Voice & Image** -- Map voice transcripts to form fields; extract structured data from images via vision models
+- **5 Domain Templates** -- MCH, Nutrition, WASH, Education, Livelihoods -- pre-built and customisable
+- **NGO Support** -- 7 troubleshooting flows, 40+ FAQs, quick symptom-based diagnosis
+- **RBAC** -- 4 hierarchical roles, 26 permissions, JWT + API key auth, prompt injection detection
+- **Production Infrastructure** -- Docker Compose (8 services), nginx SSL, Prometheus + Grafana, automated PostgreSQL backups
+- **438 Passing Tests** -- Comprehensive coverage across all subsystems
+- **MCP Integration** -- 20 CRUD tools via Avni MCP Server for real-time entity management
+- **ReAct Agent** -- Multi-step autonomous task execution with human-in-the-loop confirmation
+- **Personalisation** -- Custom instructions, org memory, saved prompts, suggested prompts, chat history search
+
+---
 
 ## Quick Start
 
-### Prerequisites
-
-- Python 3.12+
-- Node.js 20+
-- An [Anthropic API key](https://console.anthropic.com/)
-
-### Environment Setup
-
 ```bash
-cp .env.example .env
-# Edit .env and add your ANTHROPIC_API_KEY
+# 1. Clone and start infrastructure
+git clone <repo-url> && cd avni-ai-platform
+docker compose up -d
+
+# 2. Create custom Ollama models
+ollama create avni-coder -f backend/Modelfile.avni-coder
+ollama create avni-chat -f backend/Modelfile.avni-chat
+
+# 3. Ingest the knowledge base (36,700+ chunks)
+cd backend && source .venv/bin/activate
+python scripts/ingest_all_knowledge.py
+
+# 4. Start the backend
+uvicorn app.main:app --reload --port 8080
+
+# 5. Start the frontend
+cd ../frontend && npm install && npm run dev
 ```
 
-### Development (two terminals)
+Open `http://localhost:5173` to start chatting. API docs are at `http://localhost:8080/docs`.
 
-**Terminal 1 -- Backend:**
-
-```bash
-cd backend
-python3 -m venv venv
-./venv/bin/pip install -r requirements.txt
-./venv/bin/python run.py
-```
-
-The API server starts at http://localhost:8080. Interactive docs are available at http://localhost:8080/docs.
-
-**Terminal 2 -- Frontend:**
-
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
-The frontend dev server starts at http://localhost:5173 with hot module replacement. API requests are proxied to the backend automatically.
-
-**Open your browser** at http://localhost:5173.
-
-### Docker (single command)
-
-```bash
-cp .env.example .env
-# Edit .env and add your ANTHROPIC_API_KEY
-
-docker compose up --build
-```
-
-The application is available at http://localhost:80. The frontend nginx container proxies `/api/*` requests to the backend.
-
-### Using Make
-
-```bash
-make setup        # Install backend + frontend dependencies
-make dev           # Start both backend and frontend
-make build         # Build frontend for production
-make docker-up     # Start via Docker Compose
-make docker-down   # Stop Docker containers
-make clean         # Remove build artifacts
-```
-
-## Environment Variables
-
-| Variable | Required | Default | Description |
-|---|---|---|---|
-| `ANTHROPIC_API_KEY` | Yes | -- | Anthropic API key for Claude |
-| `AVNI_BASE_URL` | No | `https://staging.avniproject.org` | Avni server URL for sync operations |
-| `AVNI_AUTH_TOKEN` | No | -- | Auth token for Avni API calls |
-| `CLAUDE_MODEL` | No | `claude-sonnet-4-20250514` | Claude model to use |
-| `MAX_TOKENS` | No | `4096` | Maximum tokens per Claude response |
-| `BUNDLE_OUTPUT_DIR` | No | `/tmp/avni_bundles` | Directory for generated bundle zip files |
-| `VITE_API_URL` | No | `http://localhost:8080` | Backend URL (frontend, dev only) |
+---
 
 ## Architecture
 
-```
-avni-ai-platform/
-  backend/                  FastAPI Python application
-    app/
-      main.py               App entry point, CORS, router registration
-      config.py             Environment-based settings
-      routers/              API route handlers
-        chat.py             SSE streaming chat with intent classification
-        bundle.py           Bundle generation from SRS data/text
-        voice.py            Voice transcript to form field mapping
-        image.py            Image to form field extraction (Claude Vision)
-        knowledge.py        Knowledge base search
-        support.py          Support issue diagnosis
-        sync.py             Avni API sync (save observations, fetch forms)
-      services/             Business logic
-        claude_client.py    Anthropic Claude API wrapper
-        intent_router.py    Intent classification (8 intent types)
-        bundle_generator.py Bundle generation engine
-        srs_parser.py       SRS text parsing via Claude
-        voice_mapper.py     Voice transcript mapping
-        image_extractor.py  Image data extraction
-        rule_generator.py   Rule generation from English descriptions
-        support_diagnosis.py Issue diagnosis (7 patterns)
-        knowledge_base.py   In-memory knowledge search (keyword + fuzzy)
-        avni_sync.py        Avni API sync operations
-      models/
-        schemas.py          Pydantic request/response models
-      knowledge/
-        data/               Concept patterns, rule templates, form patterns
-  frontend/                 React + Vite + TypeScript application
-    src/
-      App.tsx               Root component with sidebar, header, chat layout
-      components/
-        Chat.tsx            Chat message list with auto-scroll
-        ChatInput.tsx       Message input with attachment support
-        ChatMessage.tsx     Message rendering with markdown and code blocks
-        Sidebar.tsx         Session list and quick actions
-        Header.tsx          Top navigation bar
-        BundlePreview.tsx   Bundle generation progress and download
-        VoiceCapture.tsx    Voice recording and transcript display
-        ImageUpload.tsx     Image upload and extraction results
-        FieldMapping.tsx    Mapped field display with confidence scores
-        FormContext.tsx     Form context provider for voice/image mapping
-        RuleDisplay.tsx     Rule output rendering
-        Toast.tsx           Notification toasts
-      hooks/
-        useChat.ts          Chat state management and SSE streaming
-        useVoice.ts         Web Speech API voice capture hook
-      services/             API client functions
-      types/                TypeScript type definitions
+```mermaid
+graph TB
+    subgraph "Client"
+        FE[React 19 + Vite<br/>47 Components]
+    end
+
+    subgraph "Edge"
+        NGINX[nginx<br/>SSL + Reverse Proxy]
+    end
+
+    subgraph "API Layer"
+        API[FastAPI Backend<br/>24 Routers, 114 Endpoints]
+        MW[Middleware Stack<br/>Auth - RBAC - Rate Limit - Metrics]
+    end
+
+    subgraph "AI Layer"
+        IR[Intent Router<br/>Keyword + LLM]
+        RAG[Hybrid RAG<br/>36,700+ Chunks<br/>Semantic + BM25 + RRF]
+        BG[Bundle Generator<br/>Template Engine<br/>UUID Registry]
+        LLM[LLM Client<br/>5 Providers<br/>Circuit Breaker]
+        RE[LLM Reasoner + Skip Logic<br/>+ NL Editor + Doc Extractor]
+    end
+
+    subgraph "Data Layer"
+        PG[(PostgreSQL 16<br/>pgvector<br/>13 Tables)]
+        OL[Ollama<br/>Qwen 2.5 7B + Mistral 7B]
+    end
+
+    subgraph "External"
+        AVNI[Avni Server API<br/>Bundle Upload + Diff]
+        MCP[Avni MCP Server<br/>20 CRUD Tools]
+    end
+
+    FE --> NGINX --> API
+    API --> MW
+    API --> IR --> LLM --> OL
+    API --> RAG --> PG
+    API --> BG
+    API --> RE
+    API --> AVNI
+    API --> MCP
 ```
 
-## API Endpoints
+---
 
-| Method | Path | Description |
-|---|---|---|
-| `GET` | `/health` | Service health check |
-| `GET` | `/api/health` | API health check with config details |
-| `POST` | `/api/chat` | Chat with SSE streaming (intent-aware) |
-| `POST` | `/api/bundle/generate` | Start bundle generation from SRS data or text |
-| `GET` | `/api/bundle/{id}/status` | Poll bundle generation progress |
-| `GET` | `/api/bundle/{id}/download` | Download completed bundle zip |
-| `POST` | `/api/voice/map` | Map voice transcript to form fields |
-| `POST` | `/api/image/extract` | Extract form data from an image |
-| `POST` | `/api/knowledge/search` | Search the Avni knowledge base |
-| `POST` | `/api/support/diagnose` | Diagnose a common Avni issue |
-| `POST` | `/api/avni/save-observations` | Save mapped data to Avni |
-| `GET` | `/api/avni/form/{uuid}` | Fetch an Avni form definition |
-| `GET` | `/api/avni/subjects/search` | Search Avni subjects by name |
+## Documentation
+
+| Document | Description |
+|----------|-------------|
+| **[Architecture](docs/ARCHITECTURE.md)** | System design with mermaid diagrams: component topology, request lifecycle, data model (ER), RAG pipeline, bundle pipeline, deployment architecture |
+| **[API Reference](docs/API_REFERENCE.md)** | All 114 endpoints across 23 domain groups with request/response examples |
+| **[Deployment Guide](docs/DEPLOYMENT.md)** | Production Docker Compose (8 services), environment variables, SSL, monitoring, backups, troubleshooting |
+| **[Developer Guide](docs/DEVELOPER_GUIDE.md)** | Local setup, project structure, adding endpoints/collections/providers, 438-test suite, code conventions |
+| **[Security](docs/SECURITY.md)** | Auth flow, RBAC with 4 roles and 26 permissions, rate limiting, circuit breaker, responsible AI guardrails, PII handling, audit trail |
+
+---
 
 ## Tech Stack
 
-- **Frontend:** React 19, Vite 7, TypeScript 5.9, Tailwind CSS v4, Lucide icons
-- **Backend:** FastAPI, Python 3.12, Uvicorn, Pydantic v2
-- **AI:** Claude Sonnet (Anthropic) for chat, rules, and vision; Web Speech API for voice
-- **Deployment:** Docker Compose, Nginx (reverse proxy + static serving)
+| Layer | Technology |
+|-------|-----------|
+| **Backend** | Python 3.14, FastAPI, Uvicorn, asyncpg, Pydantic v2 |
+| **Frontend** | React 19, Vite 7, TypeScript 5.9, Tailwind CSS v4 |
+| **Database** | PostgreSQL 16 + pgvector (HNSW + GIN indexes) |
+| **LLM Inference** | Ollama (Qwen 2.5 Coder 7B q4_K_M, Mistral 7B q4_K_M, LLaVA 7B) |
+| **Cloud LLM Fallbacks** | Groq (Llama 3.3 70B), Cerebras (Llama 3.3 70B), Gemini 2.0 Flash, Claude Sonnet |
+| **Embeddings** | sentence-transformers (all-MiniLM-L6-v2, 384 dimensions, local) |
+| **RAG** | Hybrid search: cosine similarity (HNSW) + BM25 (GIN tsvector) + RRF fusion |
+| **Auth** | JWT (HS256, 24h access / 30d refresh) + API key auth + bcrypt |
+| **Monitoring** | Prometheus + Grafana (provisioned dashboards and datasources) |
+| **Reverse Proxy** | nginx 1.27 + Let's Encrypt (Certbot auto-renewal) |
+| **Containers** | Docker Compose: 8 production services with health checks and resource limits |
+| **Backup** | postgres-backup-local (daily, 30d/4w/6m retention) |
+
+---
+
+## Knowledge Corpus
+
+| Collection | Chunks | Source |
+|------------|--------|--------|
+| org_bundles | 20,296 | 17 organisation implementation bundles |
+| concepts | 4,949 | Concept definitions across MCH, WASH, Education, Nutrition, Livelihoods |
+| srs_examples | 4,386 | 66 SRS Excel files from 20 organisations |
+| skills | 3,210 | 108 skill documents from avni-skills |
+| etl_code | 1,604 | avni-etl codebase |
+| server_code | 1,315 | avni-server codebase |
+| webapp_code | 326 | avni-webapp codebase |
+| forms | 280 | Production form definitions |
+| client_code | 141 | avni-client (Android) codebase |
+| rules | 132 | Rule templates and examples |
+| transcripts | 52 | Training session transcripts |
+| knowledge | 17 | Domain knowledge articles |
+| support | 9 | Support patterns |
+| **Total** | **36,717** | **14 collections** |
+
+---
+
+## Production Deployment
+
+```bash
+# Set required environment variables
+cp .env.production.example .env
+vi .env  # DB_PASSWORD, API_KEYS, JWT_SECRET, GRAFANA_PASSWORD
+
+# Launch all 8 services
+docker compose -f docker-compose.prod.yml up -d --build
+
+# Ingest knowledge base
+docker compose -f docker-compose.prod.yml exec backend \
+  python scripts/ingest_all_knowledge.py
+
+# Verify
+curl https://ai.avniproject.org/api/health
+```
+
+See [Deployment Guide](docs/DEPLOYMENT.md) for SSL setup, monitoring configuration, and backup management.
+
+---
 
 ## Contributing
 
 1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/your-feature`
-3. Make your changes and ensure both backend and frontend start without errors
-4. Run the frontend linter: `cd frontend && npm run lint`
-5. Commit your changes with a descriptive message
-6. Push to your fork and open a pull request
+2. Create a feature branch from `main`
+3. Run the test suite: `cd backend && pytest`
+4. Open a pull request with a clear description
+
+See [Developer Guide](docs/DEVELOPER_GUIDE.md) for local setup, project structure, and code conventions.
+
+---
 
 ## License
 
-MIT
+AGPL-3.0

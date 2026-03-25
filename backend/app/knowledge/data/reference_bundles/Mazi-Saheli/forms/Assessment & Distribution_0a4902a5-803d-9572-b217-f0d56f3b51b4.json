@@ -1,0 +1,539 @@
+{
+  "name" : "Assessment & Distribution",
+  "uuid" : "0a4902a5-803d-9572-b217-f0d56f3b51b4",
+  "formType" : "Encounter",
+  "formElementGroups" : [ {
+    "uuid" : "4f5f8fbc-8082-da07-e2be-8cbbc2449d24",
+    "name" : "Related Activity",
+    "displayOrder" : 1.0,
+    "formElements" : [ {
+      "name" : "Activity",
+      "uuid" : "3a7336b4-f35a-e34a-ab10-3b28d6fc2983",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Activity",
+        "uuid" : "7323efd4-a80a-5729-66e9-e94e2af0e6ee",
+        "dataType" : "Subject",
+        "answers" : [ ],
+        "active" : true,
+        "keyValues" : [ {
+          "key" : "subjectTypeUUID",
+          "value" : "69c82e65-11a7-2d62-1851-21efb50441ec"
+        } ],
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    } ],
+    "timed" : false,
+    "display" : "Related Activity"
+  }, {
+    "uuid" : "b6b6f4b0-7694-5f9b-6120-ddd2255a8008",
+    "name" : "as",
+    "displayOrder" : 2.0,
+    "formElements" : [ {
+      "name" : "Weight",
+      "uuid" : "675a9aed-cd3d-1022-92b5-6d49e265e667",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Weight",
+        "uuid" : "036ff915-6117-1c48-1797-4a8472998e15",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "lowAbsolute" : 0.0,
+        "highAbsolute" : 300.0,
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "MultiSelect",
+      "voided" : true,
+      "mandatory" : true
+    } ],
+    "voided" : true,
+    "timed" : false,
+    "display" : "as"
+  }, {
+    "uuid" : "d6f98415-f9cf-68c8-77f2-60e03c66e6c8",
+    "name" : "Vitals Readings",
+    "displayOrder" : 3.0,
+    "formElements" : [ {
+      "name" : "Weight",
+      "uuid" : "1da08ad8-2ffa-46b5-8386-df9a1a9a7967",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Weight",
+        "uuid" : "036ff915-6117-1c48-1797-4a8472998e15",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "lowAbsolute" : 0.0,
+        "highAbsolute" : 300.0,
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "MultiSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Height",
+      "uuid" : "639a5bc8-6775-28f7-fd40-009b732e5d2b",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Height",
+        "uuid" : "7424f3c4-dab2-2eb1-7cde-22538ef2637e",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "lowAbsolute" : 0.0,
+        "highAbsolute" : 250.0,
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "BP-Systolic",
+      "uuid" : "0795a3b7-49a5-cb97-00ce-e2c8e10ac813",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "BP-Systolic",
+        "uuid" : "5b9d8c54-af72-5bf7-1b1e-43c8ec5f0298",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "lowAbsolute" : 50.0,
+        "highAbsolute" : 250.0,
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "BP",
+      "uuid" : "72a200cf-8fb2-cccd-9814-8512cb38400a",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "BP (voided~split_to_systolic_diastolic)",
+        "uuid" : "4079b5e1-6b7f-0972-3dc9-e363f7bfe337",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ],
+        "voided" : true
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "voided" : true,
+      "mandatory" : true
+    }, {
+      "name" : "BP-Diastolic",
+      "uuid" : "b49ce55f-1cdd-d53c-9d4c-bed8c731524a",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "BP-Diastolic",
+        "uuid" : "de2b16dc-358c-e8b5-621b-5a75a0c8928b",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "lowAbsolute" : 30.0,
+        "highAbsolute" : 150.0,
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 5.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "PR",
+      "uuid" : "ae906480-3a19-2019-90fd-4726a5287dcb",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "PR",
+        "uuid" : "0ac0cad1-904b-750c-f0ab-376beb53c622",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "lowAbsolute" : 30.0,
+        "highAbsolute" : 200.0,
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 6.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "SpO2",
+      "uuid" : "cfc1bd91-1a2e-8204-6426-4da1e2e5ab9b",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "SpO2",
+        "uuid" : "5c71f9b1-b1c3-7445-dfdb-9e16023b59d1",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "lowAbsolute" : 50.0,
+        "highAbsolute" : 100.0,
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 7.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Hgt",
+      "uuid" : "1637e323-5998-0c72-d212-77a37bd6c242",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Hgt",
+        "uuid" : "6f4be595-0424-8745-e19d-dfd6305aac5b",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "lowAbsolute" : 50.0,
+        "highAbsolute" : 500.0,
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 8.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Temp",
+      "uuid" : "03890bda-2f24-ccbd-cc5a-71fffe5e66a4",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Temp",
+        "uuid" : "1ef6b6d0-ae2f-a4db-9b39-97be6a20cf87",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "lowAbsolute" : 90.0,
+        "highAbsolute" : 110.0,
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 9.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Special Case",
+      "uuid" : "43c3e1f2-4cb2-1b53-b381-815226307a68",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Special Case",
+        "uuid" : "9b548582-5faf-3c90-46f9-e7caecf7b046",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Hypertension",
+          "uuid" : "74952d7f-1988-4e4d-6b90-b1104aee17a7",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "NA (Special Case)",
+          "uuid" : "d8e5a0bf-9740-f8d8-de07-028033df0de9",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "unique" : true,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Diabetes",
+          "uuid" : "dcff3949-9b08-3619-c613-4c920ec48563",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Cataract",
+          "uuid" : "a8e26104-5a18-ec94-e539-b8eb838ebccd",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Other",
+          "uuid" : "dde76252-3032-41f5-ab53-1802951574ee",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 10.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Special Case - Others",
+      "uuid" : "680eb825-2de0-f2f2-2efa-ec253ff24af6",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Special Case - Others",
+        "uuid" : "0dd92da3-ad1e-81b2-b810-919ee0dc8b3b",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 11.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({encounter, formElement}).when.valueInEncounter(\"9b548582-5faf-3c90-46f9-e7caecf7b046\").containsAnswerConceptName(\"dde76252-3032-41f5-ab53-1802951574ee\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Special Case",
+                "conceptUuid" : "9b548582-5faf-3c90-46f9-e7caecf7b046",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Other" ],
+                "answerConceptUuids" : [ "dde76252-3032-41f5-ab53-1802951574ee" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ]
+          }
+        } ]
+      } ],
+      "mandatory" : false
+    }, {
+      "name" : "Remarks",
+      "uuid" : "80427515-c70d-1941-789d-60fad34a3d68",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Remarks",
+        "uuid" : "8227df59-9f95-25c1-6407-b3bf7697f594",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 12.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    } ],
+    "timed" : false,
+    "display" : "Vitals Readings"
+  }, {
+    "uuid" : "e499e6d2-993e-0076-eea1-97f0919e1798",
+    "name" : "Kit distribution",
+    "displayOrder" : 4.0,
+    "formElements" : [ {
+      "name" : "Nutri Kit",
+      "uuid" : "a8ff5d6e-1edd-ffff-d307-6aa16559cf47",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Nutri Kit",
+        "uuid" : "0a678740-079a-06f5-f07b-388a6b20f76b",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Yes",
+          "uuid" : "e1018fd6-6a74-45e5-9191-6dec7647d817",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "No",
+          "uuid" : "cca1df60-04c2-497c-a5ad-47438ae9fb7c",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "voided" : true,
+      "mandatory" : true
+    } ],
+    "voided" : true,
+    "timed" : false,
+    "display" : "Kit distribution"
+  }, {
+    "uuid" : "19ebaab8-2882-e749-b61b-722b4f4505d8",
+    "name" : "Kit distribution",
+    "displayOrder" : 5.0,
+    "formElements" : [ {
+      "name" : "Nutri Kit",
+      "uuid" : "dd712fe0-1d9e-480a-b5a8-80a0cb1d8d19",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Nutri Kit",
+        "uuid" : "0a678740-079a-06f5-f07b-388a6b20f76b",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Yes",
+          "uuid" : "e1018fd6-6a74-45e5-9191-6dec7647d817",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "No",
+          "uuid" : "cca1df60-04c2-497c-a5ad-47438ae9fb7c",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Khichadi pack",
+      "uuid" : "9f37ccd9-bff3-e146-002d-ab30a882ad7d",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Khichadi pack",
+        "uuid" : "29c998ca-a423-f19f-a0ef-ed86e03ee84c",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "No",
+          "uuid" : "cca1df60-04c2-497c-a5ad-47438ae9fb7c",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Yes",
+          "uuid" : "e1018fd6-6a74-45e5-9191-6dec7647d817",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Medicine",
+      "uuid" : "1b861749-bfca-3afa-564e-d7e64575ea3b",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Medicine",
+        "uuid" : "41097292-690d-2c06-34fa-4173341008bd",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "No",
+          "uuid" : "cca1df60-04c2-497c-a5ad-47438ae9fb7c",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Yes",
+          "uuid" : "e1018fd6-6a74-45e5-9191-6dec7647d817",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "rule" : "",
+      "mandatory" : true
+    }, {
+      "name" : "Spectacles",
+      "uuid" : "6e7c2898-d9b0-bd10-fe8f-cf4374395b94",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Spectacles",
+        "uuid" : "8f9047e6-d5bb-f693-d8e7-1469fc0e8e72",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Yes",
+          "uuid" : "e1018fd6-6a74-45e5-9191-6dec7647d817",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "No",
+          "uuid" : "cca1df60-04c2-497c-a5ad-47438ae9fb7c",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "rule" : "",
+      "mandatory" : true
+    }, {
+      "name" : "Eye Drop",
+      "uuid" : "8913515b-8dca-347f-5da8-7ed925cd1d4f",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Eye Drop",
+        "uuid" : "7fb560b6-3535-7749-9044-39661109ab4f",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Yes",
+          "uuid" : "e1018fd6-6a74-45e5-9191-6dec7647d817",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "No",
+          "uuid" : "cca1df60-04c2-497c-a5ad-47438ae9fb7c",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 5.0,
+      "type" : "SingleSelect",
+      "rule" : "",
+      "mandatory" : true
+    } ],
+    "timed" : false,
+    "display" : "Kit distribution"
+  } ],
+  "decisionRule" : "",
+  "visitScheduleRule" : "",
+  "validationRule" : "",
+  "checklistsRule" : "",
+  "decisionConcepts" : [ ]
+}

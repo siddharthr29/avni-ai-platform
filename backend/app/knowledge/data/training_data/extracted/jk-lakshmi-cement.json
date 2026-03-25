@@ -1,0 +1,2364 @@
+{
+  "org": "JK Lakshmi Cement",
+  "rules": [
+    {
+      "type": "programEligibility",
+      "program": "Child",
+      "rule": "'use strict';\n({params, imports}) => {\n  const individual = params.entity;\n  const moment = imports.moment;\n  let eligibility = true;\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({individual}).when.ageInYears.greaterThan(2).matches();\n  \n  eligibility = !(condition11 );\n  \n  return eligibility;\n};"
+    },
+    {
+      "type": "programEligibility",
+      "program": "Pregnancy",
+      "rule": "'use strict';\n({params, imports}) => {\n  const individual = params.entity;\n  const moment = imports.moment;\n  let eligibility = true;\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({individual}).when.gender.equals(\"Female\").matches();\n  \n  eligibility = condition11 ;\n  \n  return eligibility;\n};"
+    },
+    {
+      "type": "visitSchedule",
+      "form": "ANC Encounter",
+      "rule": "\"use strict\";\n({ params, imports }) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({programEncounter});\n  \n  if(true){\n    const earliestDate = moment(programEncounter.encounterDateTime).add(30, 'days').toDate();\n    const maxDate = moment(programEncounter.encounterDateTime).add(45, 'days').toDate();\n    scheduleBuilder.add({name: \"ANC\", encounterType: \"ANC\", earliestDate, maxDate});  \n}\n  \n  return scheduleBuilder.getAll();\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "ANC Encounter",
+      "group": "ANC Visit",
+      "element": "Visit Number",
+      "concept": "Visit Number",
+      "dataType": "Coded",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let answers = [];\n  let validationErrors = [];\n  \n  const encounterType = programEncounter.encounterType.name;\n  console.log('encounterType--->',encounterType);\n  \n  const lastEncounters = programEncounter.programEnrolment\n    .getEncountersOfType(encounterType, true)\n    .filter(enc =>\n      enc.encounterDateTime &&\n      programEncounter.encounterDateTime && moment(programEncounter.encounterDateTime).isAfter(moment(enc.encounterDateTime))\n    );\n\n  const visitNumberUUID = 'e528a7ec-6b78-4692-b593-1b63b7c11194';\n\n  console.log(lastEncounters.length);\n  \n  if (lastEncounters.length > 0) {\n    answers = lastEncounters\n      .map(enc => enc.getObservationValue(visitNumberUUID))\n      .filter(val => val);\n    console.log('answers--->',answers);\n  }\n  console.log('answers (UUIDs)--->', answers);\n  \n  _.forEach(answers, (answer) => {\n      const answerToSkip = formElement.getAnswerWithConceptUuid(answer);\n      console.log('answerToSkip--->',answerToSkip);\n      if (answerToSkip) answersToSkip.push(answerToSkip);\n  });\n\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "ANC Encounter",
+      "group": "ANC Visit",
+      "element": "Gestational Age",
+      "concept": "Gestational Age",
+      "dataType": "Numeric",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const LMP =  programEncounter.programEnrolment.getObservationValue(\"9200ce99-8da4-4b83-950f-be8e5cfc5e0e\"); \n  \n  if (LMP) {\n    const lmpDate = moment(LMP);\n    const today = moment();\n\n    if (lmpDate.isValid()) {\n      const weeks = today.diff(lmpDate, 'weeks');\n      value = weeks;\n    }\n  }\n\n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "ANC Encounter",
+      "group": "ANC Visit",
+      "element": "BP (Systolic)",
+      "concept": "BP (Systolic)",
+      "dataType": "Numeric",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n\n  function isInteger(value) {\n    const number = parseFloat(value);\n    return !isNaN(number) && Number.isInteger(number);\n  }\n  \n  const systolicBloodPressure = parseFloat(programEncounter.getObservationReadableValue('4e897b15-7612-4cb2-b6eb-4abcaef092c7'));\n\n  if(!isNaN(systolicBloodPressure)) {\n    if(!isInteger(systolicBloodPressure)) {\n      validationErrors.push('Systolic Blood Pressure cannot be a decimal value.');\n    }\n  }\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "ANC Encounter",
+      "group": "ANC Visit",
+      "element": "BP (Diastolic)",
+      "concept": "BP (Diastolic)",
+      "dataType": "Numeric",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n\n  function isInteger(value) {\n    const number = parseFloat(value);\n    return !isNaN(number) && Number.isInteger(number);\n  }\n\n  const diastolicBloodPressure = parseFloat(programEncounter.getObservationReadableValue('18cb4894-3a63-4748-856f-4c2aaf7e91a3'));\n\n  if(!isNaN(diastolicBloodPressure)) {\n    if(!isInteger(diastolicBloodPressure)) {\n      validationErrors.push('Diastolic Blood Pressure cannot be a decimal value.');\n    }\n  }\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "ANC Encounter",
+      "group": "ANC Visit",
+      "element": "Improved from last ANC",
+      "concept": "Improved from last ANC",
+      "dataType": "Coded",
+      "rule": "'use strict';\n({ params, imports }) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n\n  const ancVisitNo = programEncounter.getObservationReadableValue('Visit Number');\n  \n  if (ancVisitNo === '1st') {\n    visibility = false;\n    return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n  }\n\n  const encounterType = programEncounter.encounterType.name;\n\n  const previousEncounters = programEncounter.programEnrolment\n    .getEncountersOfType(encounterType, true)\n    .filter(enc =>\n      enc.encounterDateTime &&\n      programEncounter.encounterDateTime &&\n      moment(programEncounter.encounterDateTime)\n        .isAfter(moment(enc.encounterDateTime))\n    )\n    .sort((a, b) => moment(b.encounterDateTime).diff(moment(a.encounterDateTime)));\n\n  const HB_UUID = '561d9364-7a0d-4649-9c61-32da2d2c7a94';\n\n  const currentHB = parseFloat(\n    programEncounter.getObservationReadableValue(HB_UUID)\n  );\n\n  if (!isNaN(currentHB) && previousEncounters.length > 0) {\n    const lastEncounter = previousEncounters[0];\n    const lastHB = parseFloat(\n      lastEncounter.getObservationReadableValue(HB_UUID)\n    );\n    if (!isNaN(lastHB)) {\n      if (currentHB > lastHB) {\n        value = 'Yes';\n      } else if (currentHB < lastHB) {\n        value = 'No';\n      } else {\n        value = 'Same as last ANC';\n      }\n    }\n  }\n\n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "ANC Encounter",
+      "group": "ANC Visit",
+      "element": "Number of Doses Given",
+      "concept": "Number of Doses Given",
+      "dataType": "Numeric",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"51f8b304-7aec-4b90-ae97-8ff6dcdbe8b2\").defined.matches();\n  \n  if(condition11 ){\n    let num = programEncounter.getObservationValue(\"51f8b304-7aec-4b90-ae97-8ff6dcdbe8b2\");\n    if (!Number.isInteger(num)) {\n        validationErrors.push(\"Please provide a valid whole number.\")\n    } \n  }\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "ANC Encounter",
+      "group": "ANC Visit",
+      "element": "Date of Last Dose",
+      "concept": "Date of Last Dose",
+      "dataType": "Date",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  let dateOfDose = programEncounter.getObservationValue(\"b78fe0e0-aeb3-4289-b074-1680624dd461\");\n\n  if(dateOfDose) {\n    const today = moment().startOf('day');\n    dateOfDose = moment(dateOfDose).startOf('day');\n\n    if(dateOfDose.isAfter(today)) {\n      validationErrors.push(\"Date Of Dose cannot be in the future.\");\n    }\n  }\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "ANC Encounter",
+      "group": "Counselling",
+      "element": "Counselling Points",
+      "concept": "Counselling Points",
+      "dataType": "Coded",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"5d881d79-956f-4c4e-b5de-8532e43aa099\").containsAnswerConceptName(\"e1018fd6-6a74-45e5-9191-6dec7647d817\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "Child Enrolment",
+      "group": "Child Details",
+      "element": "Birth-Weight status",
+      "concept": "Birth-Weight status",
+      "dataType": "Coded",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEnrolment = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEnrolment, formElement}).when.valueInEnrolment(\"8546fb24-996f-4d30-a1eb-e397dad87f76\").lessThan(1000).matches();\n    \n  const condition12 = new imports.rulesConfig.RuleCondition({programEnrolment, formElement}).when.valueInEnrolment(\"8546fb24-996f-4d30-a1eb-e397dad87f76\").greaterThanOrEqualTo(1000).and.when.valueInEnrolment(\"8546fb24-996f-4d30-a1eb-e397dad87f76\").lessThan(1500).matches();\n    \n  const condition13 = new imports.rulesConfig.RuleCondition({programEnrolment, formElement}).when.valueInEnrolment(\"8546fb24-996f-4d30-a1eb-e397dad87f76\").greaterThanOrEqualTo(1500).and.when.valueInEnrolment(\"8546fb24-996f-4d30-a1eb-e397dad87f76\").lessThan(2500).matches();\n    \n  const condition14 = new imports.rulesConfig.RuleCondition({programEnrolment, formElement}).when.valueInEnrolment(\"8546fb24-996f-4d30-a1eb-e397dad87f76\").greaterThanOrEqualTo(2500).matches();\n  \n  if(condition11 ){\n    value = \"Extremely Low-Birth Weight Less than 1000 g (< 1 kg)\";  \n}\n    if(condition12 ){\n    value = \"Very Low-Birth Weight Less than 1500 g (1.5 kg)\";  \n}\n    if(condition13 ){\n    value = \"Low-Birth Weight Less than 2500 g (2.5 kg)\";  \n}\n    if(condition14 ){\n    value = \"Normal Weight 2500 g or greater (≥ 2.5 kg)\";  \n}\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "Child Enrolment",
+      "group": "Child Details",
+      "element": "Name of Mother",
+      "concept": "Name of mother",
+      "dataType": "Subject",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEnrolment = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const hasMotherRegistered = new imports.rulesConfig.RuleCondition({programEnrolment, formElement}).when.valueInEnrolment(\"6715e425-e142-4d78-9f6a-88fb653950bb\").containsAnswerConceptName(\"e1018fd6-6a74-45e5-9191-6dec7647d817\").matches();\n  \n  visibility = hasMotherRegistered ;\n  \n  if(visibility){\n    const individualService = params.services.individualService;\n    const individual = programEnrolment.individual;\n    \n    const motherSubjectsUUIDs = individualService.getSubjectsInLocation(individual.lowestAddressLevel, 'Individual')\n      .filter((ind) => ind.isFemale() && ind.dateOfBirth < individual.dateOfBirth)\n      .map((ind) => ind.uuid);\n      \n    const selectedMother = programEnrolment.getObservationValue(\"e13e9672-aab3-4159-ad64-f8b76638a5fa\");\n  \n    if(selectedMother && !motherSubjectsUUIDs.includes(selectedMother)) {\n      validationErrors.push(\"The selected individual is not a valid candidate for mother. Please select a valid individual.\");\n    }\n  }\n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "Child Enrolment",
+      "group": "Child Details",
+      "element": "Name of Mother",
+      "concept": "Mother Name",
+      "dataType": "Text",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEnrolment = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEnrolment, formElement}).when.valueInEnrolment(\"6715e425-e142-4d78-9f6a-88fb653950bb\").containsAnswerConceptName(\"cca1df60-04c2-497c-a5ad-47438ae9fb7c\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "Child Exit",
+      "group": "Exit Details",
+      "element": "Other reason, please specify",
+      "concept": "Other reason, please specify",
+      "dataType": "Text",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEnrolment = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEnrolment, formElement}).when.valueInExit(\"66fd7b45-7b0c-4128-8a9c-69fd2925de16\").containsAnswerConceptName(\"dde76252-3032-41f5-ab53-1802951574ee\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "Child Exit",
+      "group": "IMR Details",
+      "element": "Date of Death",
+      "concept": "Date of Death",
+      "dataType": "Date",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEnrolment = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  let selectedDate = programEncounter.getObservationValue(\"2dc38923-0ced-450e-9ff2-da9018c55351\");\n\n  if (selectedDate) {\n    const today = moment().startOf('day');\n    selectedDate = moment(selectedDate).startOf('day');\n\n    if (selectedDate.isAfter(today)) {\n      validationErrors.push(\"Selected Date should not be in the future.\");\n    }\n  }\n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "Child Exit",
+      "group": "IMR Details",
+      "element": "Other Cause (specify)",
+      "concept": "Other Cause (specify)",
+      "dataType": "Text",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEnrolment = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEnrolment, formElement}).when.valueInExit(\"8997337b-6a17-41bc-ba2c-c3b0db289894\").containsAnswerConceptName(\"dde76252-3032-41f5-ab53-1802951574ee\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "Delivery Encounter",
+      "group": "Delivery Outcome",
+      "element": "Delivery Date",
+      "concept": "Delivery Date",
+      "dataType": "Date",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const observationDate = programEncounter.getObservationValue('6a0252e3-a671-4b70-a1e7-9ebeded85188');\n  const lmp = programEncounter.programEnrolment.getObservationValue('9200ce99-8da4-4b83-950f-be8e5cfc5e0e');\n  const today = moment().startOf('day');\n\n  if (observationDate && moment(observationDate).isAfter(today, 'day')) {\n    validationErrors.push('Future date is not allowed');\n  }\n\n  if (observationDate && lmp && moment(observationDate).isSameOrBefore(moment(lmp), 'day')) {\n    validationErrors.push('Delivery date should be after LMP');\n  }\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "Delivery Encounter",
+      "group": "Delivery Outcome",
+      "element": "Gestational Age",
+      "concept": "Gestational Age",
+      "dataType": "Numeric",
+      "rule": "'use strict';\n({ params, imports }) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n\n  const LMPObs = programEncounter.programEnrolment\n    .getObservationValue(\"9200ce99-8da4-4b83-950f-be8e5cfc5e0e\");\n\n  const deliveryDateObs = programEncounter\n    .getObservationValue(\"6a0252e3-a671-4b70-a1e7-9ebeded85188\");\n\n  const lmpDate = moment(LMPObs);\n  const deliveryDate = moment(deliveryDateObs);\n\n  const isLmpValid =\n    lmpDate && lmpDate.toDate && !isNaN(lmpDate.toDate().getTime());\n\n  const isDeliveryValid =\n    deliveryDate && deliveryDate.toDate && !isNaN(deliveryDate.toDate().getTime());\n    \n  if (isLmpValid && isDeliveryValid) {\n    value = deliveryDate.diff(lmpDate, 'weeks');\n  }\n\n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "Delivery Encounter",
+      "group": "Delivery Outcome",
+      "element": "Number of child delivered",
+      "concept": "Number of child delivered",
+      "dataType": "Numeric",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"cd77cb7a-842e-418a-8dec-c4f7030e594f\").defined.matches();\n  \n  if(condition11 ){\n    let num = programEncounter.getObservationValue(\"cd77cb7a-842e-418a-8dec-c4f7030e594f\");\n    if (!Number.isInteger(num)) {\n        validationErrors.push(\"Please provide a valid whole number.\")\n    } \n  }\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "Delivery Encounter",
+      "group": "Delivery Outcome",
+      "element": "Delivery Details",
+      "concept": "Delivery Details",
+      "dataType": "QuestionGroup",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"cd77cb7a-842e-418a-8dec-c4f7030e594f\").greaterThan(0).matches();\n  \n  visibility = condition11 ;\n  \n  if(visibility){\n    const noOfChildDelivered = parseFloat(programEncounter.getObservationReadableValue('cd77cb7a-842e-418a-8dec-c4f7030e594f'));\n    \n    console.log('noOfChildDelivered--->',noOfChildDelivered);\n    \n    const childrenDetails = programEncounter.getObservationValue('8449a749-a977-4f74-af99-ccfc14749693');\n    \n    console.log('childrenDetails--->',childrenDetails);\n    \n    let activeGroupCount = 0;\n    \n    if (Array.isArray(childrenDetails)) {\n      console.log('in array if');\n      activeGroupCount = childrenDetails.filter(child => {\n        if (!child || typeof child !== 'object') return false;\n  \n        return Object.values(child).some(value => value !== undefined && value !== null && value !== '');\n      }).length;\n    }\n    console.log('activeGroupCount--->',activeGroupCount);\n    \n    if (!isNaN(noOfChildDelivered) && activeGroupCount > noOfChildDelivered) {\n      validationErrors.push(\"Repeatable Question Groups should not exceed the total number of Delivered child/children.\");\n    } else if (!isNaN(noOfChildDelivered) && activeGroupCount < noOfChildDelivered) {\n      validationErrors.push(\"Repeatable Question Groups should not less than the total number of Delivered child/children.\");\n    }\n  }\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "Delivery Encounter",
+      "group": "Delivery Outcome",
+      "element": "Child Number",
+      "concept": "Child Number",
+      "dataType": "Text",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const groupIndex = params.questionGroupIndex || 0;\n  value = `Child - ${groupIndex + 1}`;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "Delivery Encounter",
+      "group": "Counselling",
+      "element": "Counselling Points",
+      "concept": "Counselling Points",
+      "dataType": "Coded",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"5d881d79-956f-4c4e-b5de-8532e43aa099\").containsAnswerConceptName(\"e1018fd6-6a74-45e5-9191-6dec7647d817\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "Family Planning Services Encounter",
+      "group": "Family Planning Details",
+      "element": "Method Adoption Date",
+      "concept": "Method Adoption Date",
+      "dataType": "Date",
+      "rule": "'use strict';\n({params, imports}) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({encounter, formElement}).when.valueInEncounter(\"751d12fe-c14c-4aea-8f2a-fa8e27479e36\").containsAnyAnswerConceptName(\"6f5c522d-3710-4561-a5a7-8a25134a4358\",\"8ba36424-2caa-4f81-95d2-693a49203a40\",\"1b62cf87-7ea1-4ffb-96f2-eb5de2f37445\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "Family Planning Services Encounter",
+      "group": "Family Planning Details",
+      "element": "Method Adopted after switch",
+      "concept": "Method Adopted after switch",
+      "dataType": "Coded",
+      "rule": "'use strict';\n({params, imports}) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({encounter, formElement}).when.valueInEncounter(\"215ece15-c73c-47db-a75e-c1456d14cace\").containsAnswerConceptName(\"9a0f068e-11d0-4aad-b2f1-6b87536276e6\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "HBNC /New Born care Encounter",
+      "group": "Visit Details",
+      "element": "Weight for height (Wasting status) in kgs",
+      "concept": "Weight for height",
+      "dataType": "Text",
+      "rule": "'use strict';\n({params, imports}) => {\n    const programEncounter = params.entity;\n    const individual = programEncounter.programEnrolment.individual;\n    const asOnDate = programEncounter.encounterDateTime;\n    const moment = imports.moment;\n    const formElement = params.formElement;\n    const _ = imports.lodash;\n    let visibility = false;\n    let value = null;\n    let answersToSkip = [];\n    let validationErrors = [];\n\n    const weight = programEncounter.getObservationValue('Weight');\n    const height = programEncounter.getObservationValue('Height');\n\n    function getNutritionStatus(zScore) {\n        if(zScore < -3) {\n            return 'Severe Acute Malnutrition (SAM)';\n        } else if(zScore >= -3 && zScore < -2) {\n            return 'Moderate Acute Malnutrition (MAM)';\n        } else if(zScore >= -2 && zScore <= 2) {\n            return 'Normal';\n        } else if(zScore > 2 && zScore <= 3) {\n            return 'Overweight';\n        }\n        else if(zScore > 3){\n            return 'Obese';\n        }\n        return 'Unknown';\n    }\n    \n    if(weight && height) {\n        visibility = true;\n        const zScoresForChild = ruleServiceLibraryInterfaceForSharingModules.common.getZScore(individual, asOnDate, weight, height);\n\n        console.log('zScoreForChild--->', zScoresForChild);\n\n        const zScore = zScoresForChild.wfh;\n\n        value = getNutritionStatus(zScore);\n    }\n\n    return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n}; \n"
+    },
+    {
+      "type": "formElement",
+      "form": "HBNC /New Born care Encounter",
+      "group": "Visit Details",
+      "element": "Weight for age (Underweight status)",
+      "concept": "Weight for age",
+      "dataType": "Text",
+      "rule": "'use strict';\n({params, imports}) => {\n    const programEncounter = params.entity;\n    const individual = programEncounter.programEnrolment.individual;\n    const asOnDate = programEncounter.encounterDateTime;\n    const moment = imports.moment;\n    const formElement = params.formElement;\n    const _ = imports.lodash;\n    let visibility = false;\n    let value = null;\n    let answersToSkip = [];\n    let validationErrors = [];\n    \n    const weight = programEncounter.getObservationValue('Weight');\n    const height = programEncounter.getObservationValue('Height');\n\n    function getNutritionStatus(zScore) {\n        if(zScore < -3) {\n            return 'Severe Underweight (SAM)';\n        } else if(zScore >= -3 && zScore < -2) {\n            return 'Moderate Underweight (MAM)';\n        } else if(zScore >= -2 && zScore <= 2) {\n            return 'Normal';\n        } else if(zScore > 2 && zScore <= 3) {\n            return 'Overweight';\n        }\n        else if(zScore > 3){\n            return 'Obese';\n        }\n\n        return 'Unknown';\n    }\n    \n    if(weight && height) {\n        visibility = true;\n        const zScoresForChild = ruleServiceLibraryInterfaceForSharingModules.common.getZScore(individual, asOnDate, weight, height);\n\n        const zScore = zScoresForChild.wfa;\n\n        value = getNutritionStatus(zScore);\n    }\n    \n    return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "HBNC /New Born care Encounter",
+      "group": "Visit Details",
+      "element": "Height for age  (Stunting status):",
+      "concept": "Height for age",
+      "dataType": "Text",
+      "rule": "'use strict';\n({params, imports}) => {\n    const programEncounter = params.entity;\n    const individual = programEncounter.programEnrolment.individual;\n    const asOnDate = programEncounter.encounterDateTime;\n    const moment = imports.moment;\n    const formElement = params.formElement;\n    const _ = imports.lodash;\n    let visibility = false;\n    let value = null;\n    let answersToSkip = [];\n    let validationErrors = [];\n    \n    const weight = programEncounter.getObservationValue('Weight');\n    const height = programEncounter.getObservationValue('Height');\n\n    function getNutritionStatus(zScore) {\n        if(zScore < -3) {\n            return 'Severe Underweight (SAM)';\n        } else if(zScore >= -3 && zScore < -2) {\n            return 'Moderate Underweight (MAM)';\n        } else if(zScore >= -2 && zScore <= 2) {\n            return 'Normal';\n        } else if(zScore > 2 && zScore <= 3) {\n            return 'Overweight';\n        }\n        else if(zScore > 3){\n            return 'Obese';\n        }\n\n        return 'Unknown';\n    }\n    \n    if(weight && height) {\n        visibility = true;\n        const zScoresForChild = ruleServiceLibraryInterfaceForSharingModules.common.getZScore(individual, asOnDate, weight, height);\n\n        const zScore = zScoresForChild.wfa;\n\n        value = getNutritionStatus(zScore);\n    }\n    \n    return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "High Risk & Referral Enrolment",
+      "group": "High Risk & Referral Details",
+      "element": "Assessment Date",
+      "concept": "Assessment Date",
+      "dataType": "Date",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEnrolment = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  let selectedDate = programEnrolment.getObservationValue(\"04e952aa-3a53-493a-ace4-719752ef97c3\");\n\n  if (selectedDate) {\n    const today = moment().startOf('day');\n    selectedDate = moment(selectedDate).startOf('day');\n\n    if (selectedDate.isAfter(today)) {\n      validationErrors.push(\"Selected Date should not be in the future.\");\n    }\n  }\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "High Risk & Referral Enrolment",
+      "group": "High Risk & Referral Details",
+      "element": "Specify Other Reason",
+      "concept": "Specify Other Reason",
+      "dataType": "Text",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEnrolment = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEnrolment, formElement}).when.valueInEnrolment(\"8389e660-d951-446c-b346-ff40d965d8d2\").containsAnswerConceptName(\"dde76252-3032-41f5-ab53-1802951574ee\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "High Risk & Referral",
+      "group": "High Risk & Referral Details",
+      "element": "Assessment Date",
+      "concept": "Assessment Date",
+      "dataType": "Date",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEnrolment = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  let selectedDate = programEnrolment.getObservationValue(\"04e952aa-3a53-493a-ace4-719752ef97c3\");\n\n  if (selectedDate) {\n    const today = moment().startOf('day');\n    selectedDate = moment(selectedDate).startOf('day');\n\n    if (selectedDate.isAfter(today)) {\n      validationErrors.push(\"Selected Date should not be in the future.\");\n    }\n  }\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "High Risk & Referral",
+      "group": "High Risk & Referral Details",
+      "element": "Specify Other Reason",
+      "concept": "Specify Other Reason",
+      "dataType": "Text",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEnrolment(\"8389e660-d951-446c-b346-ff40d965d8d2\").containsAnswerConceptName(\"dde76252-3032-41f5-ab53-1802951574ee\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "Household Registration",
+      "group": "Basic Details",
+      "element": "Members Count",
+      "concept": "Members Count",
+      "dataType": "Numeric",
+      "rule": "'use strict';\n({params, imports}) => {\n  const individual = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const enteredNumber = individual.getObservationValue(\"db7d5753-5028-4dbd-bfaa-21dd1372865a\");\n\n  if(enteredNumber && !isNaN(enteredNumber) && !Number.isInteger(enteredNumber)){\n    validationErrors.push(\"Entered number should be an integer\");\n  }\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "Household Registration",
+      "group": "Basic Details",
+      "element": "Pregnant Women in HH",
+      "concept": "Pregnant Women in HH",
+      "dataType": "Numeric",
+      "rule": "'use strict';\n({params, imports}) => {\n  const individual = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const enteredNumber = individual.getObservationValue(\"6d255e49-b023-40a1-b8d8-83e71c076b70\");\n\n  if(enteredNumber && !isNaN(enteredNumber) && !Number.isInteger(enteredNumber)){\n    validationErrors.push(\"Entered number should be an integer\");\n  }\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "Household Registration",
+      "group": "Basic Details",
+      "element": "Children <1yr",
+      "concept": "Children <1yr",
+      "dataType": "Numeric",
+      "rule": "'use strict';\n({params, imports}) => {\n  const individual = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n \n  const enteredNumber = individual.getObservationValue(\"d21f44c4-59ba-4395-81a4-d54a8265624a\");\n\n  if(enteredNumber && !isNaN(enteredNumber) && !Number.isInteger(enteredNumber)){\n    validationErrors.push(\"Entered number should be an integer\");\n  }\n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "Household Registration",
+      "group": "Basic Details",
+      "element": "Children 1–5yr",
+      "concept": "Children 1–5yr",
+      "dataType": "Numeric",
+      "rule": "'use strict';\n({params, imports}) => {\n  const individual = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const enteredNumber = individual.getObservationValue(\"9451a4fd-c8a4-42a8-b97e-faead46f7d35\");\n\n  if(enteredNumber && !isNaN(enteredNumber) && !Number.isInteger(enteredNumber)){\n    validationErrors.push(\"Entered number should be an integer\");\n  }\n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "Individual Registration",
+      "group": "Basic Details",
+      "element": "Other Religion, please specify",
+      "concept": "Other Religion, please specify",
+      "dataType": "Text",
+      "rule": "'use strict';\n({params, imports}) => {\n  const individual = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({individual, formElement}).when.valueInRegistration(\"7e3e81ba-87f5-4ed7-9612-408388b46ad3\").containsAnswerConceptName(\"dde76252-3032-41f5-ab53-1802951574ee\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "Individual Registration",
+      "group": "Basic Details",
+      "element": "Other Caste, please specify",
+      "concept": "Other Caste, please specify",
+      "dataType": "Text",
+      "rule": "'use strict';\n({params, imports}) => {\n  const individual = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({individual, formElement}).when.valueInRegistration(\"de88ffa0-d862-4f67-be0b-794cdaf6b8c4\").containsAnswerConceptName(\"dde76252-3032-41f5-ab53-1802951574ee\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "Individual Registration",
+      "group": "Basic Details",
+      "element": "Other education, please specify",
+      "concept": "Other education, please specify",
+      "dataType": "Text",
+      "rule": "'use strict';\n({params, imports}) => {\n  const individual = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({individual, formElement}).when.valueInRegistration(\"24ecce77-a2fa-4dab-b2b5-d0e0172f64b6\").containsAnswerConceptName(\"dde76252-3032-41f5-ab53-1802951574ee\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "Individual Registration",
+      "group": "Basic Details",
+      "element": "Other income sources, please specify",
+      "concept": "Other income sources, please specify",
+      "dataType": "Text",
+      "rule": "'use strict';\n({params, imports}) => {\n  const individual = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({individual, formElement}).when.valueInRegistration(\"6ed476f8-f803-4e85-89d1-4a9f3d9f8981\").containsAnswerConceptName(\"dde76252-3032-41f5-ab53-1802951574ee\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "Individual Registration",
+      "group": "Basic Details",
+      "element": "Other disability, please specify",
+      "concept": "Other disability, please specify",
+      "dataType": "Text",
+      "rule": "'use strict';\n({params, imports}) => {\n  const individual = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({individual, formElement}).when.valueInRegistration(\"69ecb5b2-d270-45af-837d-340423c6bc82\").containsAnswerConceptName(\"dde76252-3032-41f5-ab53-1802951574ee\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "Mother PNC Encounter",
+      "group": "Counselling",
+      "element": "Counselling Points",
+      "concept": "Counselling Points",
+      "dataType": "Coded",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"5d881d79-956f-4c4e-b5de-8532e43aa099\").containsAnswerConceptName(\"e1018fd6-6a74-45e5-9191-6dec7647d817\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "Mother PNC Encounter",
+      "group": "MAA Voucher",
+      "element": "Other Benefit (specify)",
+      "concept": "Other Benefit (specify)",
+      "dataType": "Text",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"a27c05c0-ebae-4465-b7ac-05369315b248\").containsAnswerConceptName(\"dde76252-3032-41f5-ab53-1802951574ee\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "type": "visitSchedule",
+      "form": "Pregnancy Enrolment",
+      "rule": "\"use strict\";\n({ params, imports }) => {\n  const programEnrolment = params.entity;\n  const moment = imports.moment;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({programEnrolment});\n  \n  if(true){\n    const earliestDate = moment(programEnrolment.enrolmentDateTime).add(0, 'days').toDate();\n    const maxDate = moment(programEnrolment.enrolmentDateTime).add(15, 'days').toDate();\n    scheduleBuilder.add({name: \"ANC\", encounterType: \"ANC\", earliestDate, maxDate});  \n}\n  \n  return scheduleBuilder.getAll();\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "Pregnancy Enrolment",
+      "group": "Basic Details",
+      "element": "Last Menstrual Period (LMP)",
+      "concept": "Last menstrual period",
+      "dataType": "Date",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEnrolment = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n\n  let lmp = programEnrolment.getObservationValue(\"9200ce99-8da4-4b83-950f-be8e5cfc5e0e\");\n\n  if(lmp) {\n    const today = moment().startOf('day');\n    lmp = moment(lmp).startOf('day');\n\n    if(lmp.isAfter(today)) {\n      validationErrors.push(\"LMP cannot be in the future.\");\n    }\n    const maxDate = moment().subtract(1, 'year').startOf('day');\n    if(lmp.isBefore(maxDate)) {\n      validationErrors.push(\"LMP cannot be more than 1 year ago.\");\n    }\n  }\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "Pregnancy Enrolment",
+      "group": "Basic Details",
+      "element": "Expected Date of Delivery (EDD)",
+      "concept": "Estimated Date of Delivery",
+      "dataType": "Date",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEnrolment = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n    const condition11 = new imports.rulesConfig.RuleCondition({programEnrolment, formElement}).when.valueInEnrolment(\"Last menstrual period\").defined.matches();\n    \n    if(condition11 ){\n        value = imports.motherCalculations.estimatedDateOfDelivery(programEnrolment);\n    }\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "Pregnancy Enrolment",
+      "group": "Basic Details",
+      "element": "BMI",
+      "concept": "BMI",
+      "dataType": "Numeric",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEnrolment = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const height = parseFloat(programEnrolment.getObservationValue(\"13d5e6bc-c9be-4632-ae78-242655ce8411\")); \n  const weight = parseFloat(programEnrolment.getObservationValue(\"fd630eab-1122-46a8-afbc-d58656883eda\")); \n\n  if (!isNaN(height) && !isNaN(weight) && height > 0) {\n    const heightInMeters = height / 100;\n    //const bmi = weight / (heightInMeters * heightInMeters);\n    const bmi = ruleServiceLibraryInterfaceForSharingModules.common.calculateBMI(weight, height);\n    value = parseFloat(bmi.toFixed(2)); \n  }\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "Pregnancy Enrolment",
+      "group": "Basic Details",
+      "element": "BMI Status",
+      "concept": "BMI Status",
+      "dataType": "Text",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEnrolment = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const BMI = parseFloat(programEnrolment.getObservationValue(\"3d3cca9a-e9fd-42b4-b081-e2e330c5b166\")); \n  \n  if(BMI < 18.5){\n    value = \"Underweight\";\n  } else if(BMI >= 18.5 && BMI <= 22.9){\n    value = \"Normal\";\n  } else if(BMI >22.9 && BMI <= 24.9){\n    value = \"Overweight\";\n  } else {\n    value = \"Obesity\";\n  }\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "Pregnancy Enrolment",
+      "group": "Basic Details",
+      "element": "Aborta (No. of abortions)",
+      "concept": "Aborta",
+      "dataType": "Numeric",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEnrolment = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const enteredNumber = programEnrolment.getObservationValue(\"0399b185-1f3b-4365-9539-1ba7a77ff4cb\");\n\n  if(enteredNumber && !isNaN(enteredNumber) && !Number.isInteger(enteredNumber)){\n    validationErrors.push(\"Entered number should be an integer\");\n  }\n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "Pregnancy Enrolment",
+      "group": "Basic Details",
+      "element": "Para (No. of deliveries)",
+      "concept": "Para",
+      "dataType": "Numeric",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEnrolment = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const enteredNumber = programEnrolment.getObservationValue(\"ccae4e96-2846-4ff0-b7c1-49a72aa9583f\");\n\n  if(enteredNumber && !isNaN(enteredNumber) && !Number.isInteger(enteredNumber)){\n    validationErrors.push(\"Entered number should be an integer\");\n  }\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "Pregnancy Enrolment",
+      "group": "Basic Details",
+      "element": "Gravida (No. of pregnancies earlier)",
+      "concept": "Gravida",
+      "dataType": "Numeric",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEnrolment = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const enteredNumber = programEnrolment.getObservationValue(\"af646505-c2c6-4964-ac3a-7449a0180abc\");\n\n  if(enteredNumber && !isNaN(enteredNumber) && !Number.isInteger(enteredNumber)){\n    validationErrors.push(\"Entered number should be an integer\");\n  }\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "Pregnancy Enrolment",
+      "group": "Basic Details",
+      "element": "Live (No. of children alive at present)",
+      "concept": "Live",
+      "dataType": "Numeric",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEnrolment = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const enteredNumber = programEnrolment.getObservationValue(\"4050e2e7-ae39-445f-82c9-93068e55b1c3\");\n\n  if(enteredNumber && !isNaN(enteredNumber) && !Number.isInteger(enteredNumber)){\n    validationErrors.push(\"Entered number should be an integer\");\n  }\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "Pregnancy Enrolment",
+      "group": "Previous Pregnancy History",
+      "element": "Gravida (No. of pregnancies earlier)",
+      "concept": "Gravida",
+      "dataType": "Numeric",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEnrolment = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const enteredNumber = programEnrolment.getObservationValue(\"af646505-c2c6-4964-ac3a-7449a0180abc\");\n\n  if(enteredNumber && !isNaN(enteredNumber) && !Number.isInteger(enteredNumber)){\n    validationErrors.push(\"Entered number should be an integer\");\n  }\n  \n  // Convert values to numbers\n  const gravidaRaw = parseFloat(programEnrolment.getObservationReadableValue('Gravida'));\n  const para = programEnrolment.getObservationReadableValue('Para');\n  const live = programEnrolment.getObservationReadableValue('Live');\n  const aborta = programEnrolment.getObservationReadableValue('Aborta');\n  const stillBirth = programEnrolment.getObservationReadableValue('Still Birth');\n\n  if(!isNaN(gravidaRaw)) {\n    if(!isInteger(gravidaRaw)) {\n      validationErrors.push('Gravida cannot be a decimal value.');\n    } else if (gravidaRaw > 1) {\n      if(para !== null && para !== undefined && miscarriages !== null && miscarriages !== undefined && stillBirth !== null && stillBirth !== undefined) {\n        const paraNum = parseFloat(para) || 0;\n        const miscarriagesNum = parseFloat(miscarriages) || 0;\n        const stillBirthNum = parseFloat(stillBirth) || 0;\n        \n        let additionOfOther = paraNum + miscarriagesNum + stillBirthNum + 1;\n\n        if (additionOfOther !== gravidaRaw) {\n          validationErrors.push(\"Gravida count should be the sum of Para, Miscarriages, and Still Birth + 1.\");\n        }\n      }\n    }\n  }\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "Pregnancy Enrolment",
+      "group": "Previous Pregnancy History",
+      "element": "Para (No. of deliveries)",
+      "concept": "Para",
+      "dataType": "Numeric",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEnrolment = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const enteredNumber = programEnrolment.getObservationValue(\"ccae4e96-2846-4ff0-b7c1-49a72aa9583f\");\n\n  if(enteredNumber && !isNaN(enteredNumber) && !Number.isInteger(enteredNumber)){\n    validationErrors.push(\"Entered number should be an integer\");\n  }\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "Pregnancy Enrolment",
+      "group": "Previous Pregnancy History",
+      "element": "Live (No. of children alive at present)",
+      "concept": "Live",
+      "dataType": "Numeric",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEnrolment = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const enteredNumber = programEnrolment.getObservationValue(\"4050e2e7-ae39-445f-82c9-93068e55b1c3\");\n\n  if(enteredNumber && !isNaN(enteredNumber) && !Number.isInteger(enteredNumber)){\n    validationErrors.push(\"Entered number should be an integer\");\n  }\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "Pregnancy Enrolment",
+      "group": "Previous Pregnancy History",
+      "element": "Aborta (No. of abortions)",
+      "concept": "Aborta",
+      "dataType": "Numeric",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEnrolment = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const enteredNumber = programEnrolment.getObservationValue(\"0399b185-1f3b-4365-9539-1ba7a77ff4cb\");\n\n  if(enteredNumber && !isNaN(enteredNumber) && !Number.isInteger(enteredNumber)){\n    validationErrors.push(\"Entered number should be an integer\");\n  }\n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "Pregnancy Enrolment",
+      "group": "Previous Pregnancy History",
+      "element": "Still Birth",
+      "concept": "Still Birth",
+      "dataType": "Numeric",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEnrolment = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const enteredNumber = programEnrolment.getObservationValue(\"74f4426b-51b5-4baa-9cf2-9973c24a668f\");\n\n  if(enteredNumber && !isNaN(enteredNumber) && !Number.isInteger(enteredNumber)){\n    validationErrors.push(\"Entered number should be an integer\");\n  }\n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "Pregnancy Exit",
+      "group": "Exit Details",
+      "element": "Other reason, please specify",
+      "concept": "Other reason, please specify",
+      "dataType": "Text",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEnrolment = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEnrolment, formElement}).when.valueInExit(\"12353d16-1484-4d2d-a331-7abc534846e9\").containsAnswerConceptName(\"dde76252-3032-41f5-ab53-1802951574ee\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "Pregnancy Exit",
+      "group": "Abortion Details",
+      "element": "Abortion Date",
+      "concept": "Abortion Date",
+      "dataType": "Date",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEnrolment = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  let dateOfAbortion = programEnrolment.getObservationValue(\"070cd2ff-9489-4cca-971a-8084f7907c28\");\n\n  if(dateOfAbortion) {\n    const today = moment().startOf('day');\n    dateOfAbortion = moment(dateOfAbortion).startOf('day');\n\n    if(dateOfAbortion.isAfter(today)) {\n      validationErrors.push(\"Date Of Abortion cannot be in the future.\");\n    }\n  }\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "Pregnancy Exit",
+      "group": "Death Details",
+      "element": "Date of Death",
+      "concept": "Date of Death",
+      "dataType": "Date",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEnrolment = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEnrolment, formElement}).when.valueInExit(\"2dc38923-0ced-450e-9ff2-da9018c55351\").defined.matches();\n  \n  let dateOfDeath = programEnrolment.getObservationValue(\"2dc38923-0ced-450e-9ff2-da9018c55351\");\n\n  if(dateOfDeath) {\n    const today = moment().startOf('day');\n    dateOfDeath = moment(dateOfDeath).startOf('day');\n\n    if(dateOfDeath.isAfter(today)) {\n      validationErrors.push(\"Date Of Death cannot be in the future.\");\n    }\n  }\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "Pregnancy Gov Schemes Encounter",
+      "group": "Scheme Details",
+      "element": "Amount Received - PMMVY",
+      "concept": "Amount Received - PMMVY",
+      "dataType": "Numeric",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"68fae24d-6be8-48a9-aab7-77638d21d358\").containsAnswerConceptName(\"44900b3c-4444-4fc1-a728-198dfa396cfe\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "Pregnancy Gov Schemes Encounter",
+      "group": "Scheme Details",
+      "element": "Amount Received - JSSY",
+      "concept": "Amount Received - JSSY",
+      "dataType": "Numeric",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"68fae24d-6be8-48a9-aab7-77638d21d358\").containsAnswerConceptName(\"9512cd9f-1a9f-4e5d-8b7f-3ce85f5fb265\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "Pregnancy Gov Schemes Encounter",
+      "group": "Scheme Details",
+      "element": "Amount Received – PMSMA ( iron sucrose)",
+      "concept": "Amount Received – PMSMA ( iron sucrose)",
+      "dataType": "Numeric",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"68fae24d-6be8-48a9-aab7-77638d21d358\").containsAnswerConceptName(\"4e94054d-be7f-4ae8-a7fe-5fbe576450a6\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "Pregnancy Gov Schemes Encounter",
+      "group": "Scheme Details",
+      "element": "Amount Received - IGMPY",
+      "concept": "Amount Received - IGMPY",
+      "dataType": "Numeric",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"68fae24d-6be8-48a9-aab7-77638d21d358\").containsAnswerConceptName(\"4bef1816-93bb-4d2e-b87e-7c4e53674a09\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "Pregnancy Gov Schemes Encounter",
+      "group": "Scheme Details",
+      "element": "Amount Received - Maa Voucher Scheme",
+      "concept": "Amount Received - Maa Voucher Scheme",
+      "dataType": "Numeric",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"68fae24d-6be8-48a9-aab7-77638d21d358\").containsAnswerConceptName(\"2529cd60-8629-48b1-8452-e96a1840908e\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "Pregnancy Gov Schemes Encounter",
+      "group": "Scheme Details",
+      "element": "Other Scheme, Specify",
+      "concept": "Other Scheme, Specify",
+      "dataType": "Text",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"68fae24d-6be8-48a9-aab7-77638d21d358\").containsAnswerConceptName(\"59a922a8-22f2-40ab-aed4-5ffd3cd97a13\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "type": "formElement",
+      "form": "Pregnancy Gov Schemes Encounter",
+      "group": "Scheme Details",
+      "element": "Amount Received - Other scheme",
+      "concept": "Amount Received - Other scheme",
+      "dataType": "Numeric",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"68fae24d-6be8-48a9-aab7-77638d21d358\").containsAnswerConceptName(\"59a922a8-22f2-40ab-aed4-5ffd3cd97a13\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    }
+  ],
+  "dashboards": [
+    {
+      "type": "reportCard",
+      "name": "Scheduled visits",
+      "color": "#388e3c",
+      "standardReportCardType": "27020b32-c21b-43a4-81bd-7b88ad3a6ef0"
+    },
+    {
+      "type": "reportCard",
+      "name": "Overdue visits",
+      "color": "#d32f2f",
+      "standardReportCardType": "9f88bee5-2ab9-4ac4-ae19-d07e9715bdb5"
+    },
+    {
+      "type": "reportCard",
+      "name": "Total",
+      "color": "#ffffff",
+      "standardReportCardType": "1fbcadf3-bf1a-439e-9e13-24adddfbf6c0"
+    },
+    {
+      "type": "reportCard",
+      "name": "Recent registrations",
+      "color": "#ffffff",
+      "standardReportCardType": "88a7514c-48c0-4d5d-a421-d074e43bb36c",
+      "recentDuration": "{\"value\":\"1\",\"unit\":\"days\"}"
+    },
+    {
+      "type": "reportCard",
+      "name": "Recent enrolments",
+      "color": "#ffffff",
+      "standardReportCardType": "a5efc04c-317a-4823-a203-e62603454a65",
+      "recentDuration": "{\"value\":\"1\",\"unit\":\"days\"}"
+    },
+    {
+      "type": "reportCard",
+      "name": "Recent visits",
+      "color": "#ffffff",
+      "standardReportCardType": "77b5b3fa-de35-4f24-996b-2842492ea6e0",
+      "recentDuration": "{\"value\":\"1\",\"unit\":\"days\"}"
+    },
+    {
+      "type": "reportDashboard",
+      "name": "Default Dashboard",
+      "sections": [
+        {
+          "name": "Registration Overview",
+          "viewType": "Tile",
+          "displayOrder": 3,
+          "cardCount": 1
+        },
+        {
+          "name": "Recent Statistics",
+          "viewType": "Tile",
+          "displayOrder": 2,
+          "cardCount": 3
+        },
+        {
+          "name": "Visit Details",
+          "viewType": "Tile",
+          "displayOrder": 1,
+          "cardCount": 2
+        }
+      ],
+      "filters": [
+        {
+          "name": "Subject Type",
+          "type": "SubjectType"
+        },
+        {
+          "name": "As On Date",
+          "type": "AsOnDate"
+        }
+      ]
+    }
+  ],
+  "addressHierarchies": [
+    {
+      "org": "JK Lakshmi Cement",
+      "hierarchy": [
+        "State",
+        "District",
+        "Block",
+        "Village"
+      ],
+      "levels": [
+        {
+          "name": "State",
+          "level": 4,
+          "uuid": "d566bb54-6f81-49c2-96b8-884c075ae457"
+        },
+        {
+          "name": "District",
+          "level": 3,
+          "uuid": "5b1a0d15-7a7e-4809-a123-17fd3abc7b45",
+          "parentUuid": "d566bb54-6f81-49c2-96b8-884c075ae457"
+        },
+        {
+          "name": "Block",
+          "level": 2,
+          "uuid": "c8245610-883c-4b44-8121-c91727afe685",
+          "parentUuid": "5b1a0d15-7a7e-4809-a123-17fd3abc7b45"
+        },
+        {
+          "name": "Village",
+          "level": 1,
+          "uuid": "a1835940-f94e-4d64-bc69-f66ac9520be7",
+          "parentUuid": "c8245610-883c-4b44-8121-c91727afe685"
+        }
+      ]
+    }
+  ],
+  "programEligibility": [
+    {
+      "programName": "Child",
+      "programUuid": "f90e407a-8c06-4dea-b355-706e74dc6c02",
+      "jsRule": "'use strict';\n({params, imports}) => {\n  const individual = params.entity;\n  const moment = imports.moment;\n  let eligibility = true;\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({individual}).when.ageInYears.greaterThan(2).matches();\n  \n  eligibility = !(condition11 );\n  \n  return eligibility;\n};",
+      "declarativeRule": [
+        {
+          "actions": [
+            {
+              "actionType": "hideProgram"
+            },
+            {}
+          ],
+          "conditions": [
+            {
+              "compoundRule": {
+                "rules": [
+                  {
+                    "lhs": {
+                      "type": "ageInYears"
+                    },
+                    "rhs": {
+                      "type": "value",
+                      "value": 2
+                    },
+                    "operator": "greaterThan"
+                  }
+                ],
+                "conjunction": "and"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "programName": "Pregnancy",
+      "programUuid": "2bdd763d-ca04-4b1c-ada1-8525b8929abb",
+      "jsRule": "'use strict';\n({params, imports}) => {\n  const individual = params.entity;\n  const moment = imports.moment;\n  let eligibility = true;\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({individual}).when.gender.equals(\"Female\").matches();\n  \n  eligibility = condition11 ;\n  \n  return eligibility;\n};",
+      "declarativeRule": [
+        {
+          "actions": [
+            {
+              "actionType": "showProgram"
+            },
+            {}
+          ],
+          "conditions": [
+            {
+              "compoundRule": {
+                "rules": [
+                  {
+                    "lhs": {
+                      "type": "gender"
+                    },
+                    "rhs": {
+                      "type": "value",
+                      "value": "Female"
+                    },
+                    "operator": "equals"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "visitSchedules": [
+    {
+      "formName": "ANC Encounter",
+      "formType": "ProgramEncounter",
+      "jsRule": "\"use strict\";\n({ params, imports }) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({programEncounter});\n  \n  if(true){\n    const earliestDate = moment(programEncounter.encounterDateTime).add(30, 'days').toDate();\n    const maxDate = moment(programEncounter.encounterDateTime).add(45, 'days').toDate();\n    scheduleBuilder.add({name: \"ANC\", encounterType: \"ANC\", earliestDate, maxDate});  \n}\n  \n  return scheduleBuilder.getAll();\n};"
+    },
+    {
+      "formName": "ANC Encounter",
+      "formType": "ProgramEncounter",
+      "declarativeRule": [
+        {
+          "actions": [
+            {
+              "details": {
+                "dateField": "encounterDateTime",
+                "daysToOverdue": "45",
+                "encounterName": "ANC",
+                "encounterType": "ANC",
+                "daysToSchedule": "30"
+              },
+              "actionType": "scheduleVisit"
+            },
+            {}
+          ],
+          "conditions": [
+            {
+              "compoundRule": {
+                "rules": [
+                  {
+                    "lhs": {},
+                    "rhs": {}
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "formName": "Pregnancy Enrolment",
+      "formType": "ProgramEnrolment",
+      "jsRule": "\"use strict\";\n({ params, imports }) => {\n  const programEnrolment = params.entity;\n  const moment = imports.moment;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({programEnrolment});\n  \n  if(true){\n    const earliestDate = moment(programEnrolment.enrolmentDateTime).add(0, 'days').toDate();\n    const maxDate = moment(programEnrolment.enrolmentDateTime).add(15, 'days').toDate();\n    scheduleBuilder.add({name: \"ANC\", encounterType: \"ANC\", earliestDate, maxDate});  \n}\n  \n  return scheduleBuilder.getAll();\n};"
+    },
+    {
+      "formName": "Pregnancy Enrolment",
+      "formType": "ProgramEnrolment",
+      "declarativeRule": [
+        {
+          "actions": [
+            {
+              "details": {
+                "dateField": "enrolmentDateTime",
+                "daysToOverdue": "15",
+                "encounterName": "ANC",
+                "encounterType": "ANC",
+                "daysToSchedule": "0"
+              },
+              "actionType": "scheduleVisit"
+            },
+            {}
+          ],
+          "conditions": [
+            {
+              "compoundRule": {
+                "rules": [
+                  {
+                    "lhs": {},
+                    "rhs": {}
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "normalRanges": [
+    {
+      "conceptName": "Weight",
+      "lowAbsolute": 0,
+      "highAbsolute": 300,
+      "lowNormal": 45,
+      "highNormal": 100
+    },
+    {
+      "conceptName": "BP (Systolic)",
+      "lowAbsolute": 80,
+      "highAbsolute": 220,
+      "lowNormal": 100,
+      "highNormal": 139
+    },
+    {
+      "conceptName": "BP (Diastolic)",
+      "lowAbsolute": 40,
+      "highAbsolute": 120,
+      "lowNormal": 60,
+      "highNormal": 90
+    },
+    {
+      "conceptName": "Hemoglobin",
+      "lowAbsolute": 2,
+      "highAbsolute": 16,
+      "lowNormal": 11,
+      "highNormal": 16
+    },
+    {
+      "conceptName": "Fetal Heart Rate",
+      "lowAbsolute": 0,
+      "highAbsolute": 200,
+      "lowNormal": 110,
+      "highNormal": 160
+    },
+    {
+      "conceptName": "Weight",
+      "lowAbsolute": 0,
+      "highAbsolute": 300,
+      "lowNormal": 45,
+      "highNormal": 100
+    }
+  ],
+  "skipLogicPatterns": [
+    {
+      "form": "ANC Encounter",
+      "element": "Visit Number",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let answers = [];\n  let validationErrors = [];\n  \n  const encounterType = programEncounter.encounterType.name;\n  console.log('encounterType--->',encounterType);\n  \n  const lastEncounters = programEncounter.programEnrolment\n    .getEncountersOfType(encounterType, true)\n    .filter(enc =>\n      enc.encounterDateTime &&\n      programEncounter.encounterDateTime && moment(programEncounter.encounterDateTime).isAfter(moment(enc.encounterDateTime))\n    );\n\n  const visitNumberUUID = 'e528a7ec-6b78-4692-b593-1b63b7c11194';\n\n  console.log(lastEncounters.length);\n  \n  if (lastEncounters.length > 0) {\n    answers = lastEncounters\n      .map(enc => enc.getObservationValue(visitNumberUUID))\n      .filter(val => val);\n    console.log('answers--->',answers);\n  }\n  console.log('answers (UUIDs)--->', answers);\n  \n  _.forEach(answers, (answer) => {\n      const answerToSkip = formElement.getAnswerWithConceptUuid(answer);\n      console.log('answerToSkip--->',answerToSkip);\n      if (answerToSkip) answersToSkip.push(answerToSkip);\n  });\n\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "form": "ANC Encounter",
+      "element": "Gestational Age",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const LMP =  programEncounter.programEnrolment.getObservationValue(\"9200ce99-8da4-4b83-950f-be8e5cfc5e0e\"); \n  \n  if (LMP) {\n    const lmpDate = moment(LMP);\n    const today = moment();\n\n    if (lmpDate.isValid()) {\n      const weeks = today.diff(lmpDate, 'weeks');\n      value = weeks;\n    }\n  }\n\n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "form": "ANC Encounter",
+      "element": "BP (Systolic)",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n\n  function isInteger(value) {\n    const number = parseFloat(value);\n    return !isNaN(number) && Number.isInteger(number);\n  }\n  \n  const systolicBloodPressure = parseFloat(programEncounter.getObservationReadableValue('4e897b15-7612-4cb2-b6eb-4abcaef092c7'));\n\n  if(!isNaN(systolicBloodPressure)) {\n    if(!isInteger(systolicBloodPressure)) {\n      validationErrors.push('Systolic Blood Pressure cannot be a decimal value.');\n    }\n  }\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "form": "ANC Encounter",
+      "element": "BP (Diastolic)",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n\n  function isInteger(value) {\n    const number = parseFloat(value);\n    return !isNaN(number) && Number.isInteger(number);\n  }\n\n  const diastolicBloodPressure = parseFloat(programEncounter.getObservationReadableValue('18cb4894-3a63-4748-856f-4c2aaf7e91a3'));\n\n  if(!isNaN(diastolicBloodPressure)) {\n    if(!isInteger(diastolicBloodPressure)) {\n      validationErrors.push('Diastolic Blood Pressure cannot be a decimal value.');\n    }\n  }\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "form": "ANC Encounter",
+      "element": "Improved from last ANC",
+      "rule": "'use strict';\n({ params, imports }) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n\n  const ancVisitNo = programEncounter.getObservationReadableValue('Visit Number');\n  \n  if (ancVisitNo === '1st') {\n    visibility = false;\n    return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n  }\n\n  const encounterType = programEncounter.encounterType.name;\n\n  const previousEncounters = programEncounter.programEnrolment\n    .getEncountersOfType(encounterType, true)\n    .filter(enc =>\n      enc.encounterDateTime &&\n      programEncounter.encounterDateTime &&\n      moment(programEncounter.encounterDateTime)\n        .isAfter(moment(enc.encounterDateTime))\n    )\n    .sort((a, b) => moment(b.encounterDateTime).diff(moment(a.encounterDateTime)));\n\n  const HB_UUID = '561d9364-7a0d-4649-9c61-32da2d2c7a94';\n\n  const currentHB = parseFloat(\n    programEncounter.getObservationReadableValue(HB_UUID)\n  );\n\n  if (!isNaN(currentHB) && previousEncounters.length > 0) {\n    const lastEncounter = previousEncounters[0];\n    const lastHB = parseFloat(\n      lastEncounter.getObservationReadableValue(HB_UUID)\n    );\n    if (!isNaN(lastHB)) {\n      if (currentHB > lastHB) {\n        value = 'Yes';\n      } else if (currentHB < lastHB) {\n        value = 'No';\n      } else {\n        value = 'Same as last ANC';\n      }\n    }\n  }\n\n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "form": "ANC Encounter",
+      "element": "Number of Doses Given",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"51f8b304-7aec-4b90-ae97-8ff6dcdbe8b2\").defined.matches();\n  \n  if(condition11 ){\n    let num = programEncounter.getObservationValue(\"51f8b304-7aec-4b90-ae97-8ff6dcdbe8b2\");\n    if (!Number.isInteger(num)) {\n        validationErrors.push(\"Please provide a valid whole number.\")\n    } \n  }\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "form": "ANC Encounter",
+      "element": "Date of Last Dose",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  let dateOfDose = programEncounter.getObservationValue(\"b78fe0e0-aeb3-4289-b074-1680624dd461\");\n\n  if(dateOfDose) {\n    const today = moment().startOf('day');\n    dateOfDose = moment(dateOfDose).startOf('day');\n\n    if(dateOfDose.isAfter(today)) {\n      validationErrors.push(\"Date Of Dose cannot be in the future.\");\n    }\n  }\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "form": "ANC Encounter",
+      "element": "Counselling Points",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"5d881d79-956f-4c4e-b5de-8532e43aa099\").containsAnswerConceptName(\"e1018fd6-6a74-45e5-9191-6dec7647d817\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "form": "ANC Encounter",
+      "element": "Counselling Points",
+      "declarativeRule": [
+        {
+          "actions": [
+            {
+              "actionType": "showFormElement"
+            },
+            {}
+          ],
+          "conditions": [
+            {
+              "compoundRule": {
+                "rules": [
+                  {
+                    "lhs": {
+                      "type": "concept",
+                      "scope": "encounter",
+                      "conceptName": "Counselling Provided",
+                      "conceptUuid": "5d881d79-956f-4c4e-b5de-8532e43aa099",
+                      "conceptDataType": "Coded"
+                    },
+                    "rhs": {
+                      "type": "answerConcept",
+                      "answerConceptNames": [
+                        "Yes"
+                      ],
+                      "answerConceptUuids": [
+                        "e1018fd6-6a74-45e5-9191-6dec7647d817"
+                      ]
+                    },
+                    "operator": "containsAnswerConceptName"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "form": "Child Enrolment",
+      "element": "Birth-Weight status",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEnrolment = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEnrolment, formElement}).when.valueInEnrolment(\"8546fb24-996f-4d30-a1eb-e397dad87f76\").lessThan(1000).matches();\n    \n  const condition12 = new imports.rulesConfig.RuleCondition({programEnrolment, formElement}).when.valueInEnrolment(\"8546fb24-996f-4d30-a1eb-e397dad87f76\").greaterThanOrEqualTo(1000).and.when.valueInEnrolment(\"8546fb24-996f-4d30-a1eb-e397dad87f76\").lessThan(1500).matches();\n    \n  const condition13 = new imports.rulesConfig.RuleCondition({programEnrolment, formElement}).when.valueInEnrolment(\"8546fb24-996f-4d30-a1eb-e397dad87f76\").greaterThanOrEqualTo(1500).and.when.valueInEnrolment(\"8546fb24-996f-4d30-a1eb-e397dad87f76\").lessThan(2500).matches();\n    \n  const condition14 = new imports.rulesConfig.RuleCondition({programEnrolment, formElement}).when.valueInEnrolment(\"8546fb24-996f-4d30-a1eb-e397dad87f76\").greaterThanOrEqualTo(2500).matches();\n  \n  if(condition11 ){\n    value = \"Extremely Low-Birth Weight Less than 1000 g (< 1 kg)\";  \n}\n    if(condition12 ){\n    value = \"Very Low-Birth Weight Less than 1500 g (1.5 kg)\";  \n}\n    if(condition13 ){\n    value = \"Low-Birth Weight Less than 2500 g (2.5 kg)\";  \n}\n    if(condition14 ){\n    value = \"Normal Weight 2500 g or greater (≥ 2.5 kg)\";  \n}\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "form": "Child Enrolment",
+      "element": "Birth-Weight status",
+      "declarativeRule": [
+        {
+          "actions": [
+            {
+              "details": {
+                "value": "Extremely Low-Birth Weight Less than 1000 g (< 1 kg)"
+              },
+              "actionType": "value"
+            },
+            {}
+          ],
+          "conditions": [
+            {
+              "compoundRule": {
+                "rules": [
+                  {
+                    "lhs": {
+                      "type": "concept",
+                      "scope": "enrolment",
+                      "conceptName": "Birth-Weight",
+                      "conceptUuid": "8546fb24-996f-4d30-a1eb-e397dad87f76",
+                      "conceptDataType": "Numeric"
+                    },
+                    "rhs": {
+                      "type": "value",
+                      "value": 1000
+                    },
+                    "operator": "lessThan"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "actions": [
+            {
+              "details": {
+                "value": "Very Low-Birth Weight Less than 1500 g (1.5 kg)"
+              },
+              "actionType": "value"
+            }
+          ],
+          "conditions": [
+            {
+              "compoundRule": {
+                "rules": [
+                  {
+                    "lhs": {
+                      "type": "concept",
+                      "scope": "enrolment",
+                      "conceptName": "Birth-Weight",
+                      "conceptUuid": "8546fb24-996f-4d30-a1eb-e397dad87f76",
+                      "conceptDataType": "Numeric"
+                    },
+                    "rhs": {
+                      "type": "value",
+                      "value": 1000
+                    },
+                    "operator": "greaterThanOrEqualTo"
+                  },
+                  {
+                    "lhs": {
+                      "type": "concept",
+                      "scope": "enrolment",
+                      "conceptName": "Birth-Weight",
+                      "conceptUuid": "8546fb24-996f-4d30-a1eb-e397dad87f76",
+                      "conceptDataType": "Numeric"
+                    },
+                    "rhs": {
+                      "type": "value",
+                      "value": 1500
+                    },
+                    "operator": "lessThan"
+                  }
+                ],
+                "conjunction": "and"
+              }
+            }
+          ]
+        },
+        {
+          "actions": [
+            {
+              "details": {
+                "value": "Low-Birth Weight Less than 2500 g (2.5 kg)"
+              },
+              "actionType": "value"
+            }
+          ],
+          "conditions": [
+            {
+              "compoundRule": {
+                "rules": [
+                  {
+                    "lhs": {
+                      "type": "concept",
+                      "scope": "enrolment",
+                      "conceptName": "Birth-Weight",
+                      "conceptUuid": "8546fb24-996f-4d30-a1eb-e397dad87f76",
+                      "conceptDataType": "Numeric"
+                    },
+                    "rhs": {
+                      "type": "value",
+                      "value": 1500
+                    },
+                    "operator": "greaterThanOrEqualTo"
+                  },
+                  {
+                    "lhs": {
+                      "type": "concept",
+                      "scope": "enrolment",
+                      "conceptName": "Birth-Weight",
+                      "conceptUuid": "8546fb24-996f-4d30-a1eb-e397dad87f76",
+                      "conceptDataType": "Numeric"
+                    },
+                    "rhs": {
+                      "type": "value",
+                      "value": 2500
+                    },
+                    "operator": "lessThan"
+                  }
+                ],
+                "conjunction": "and"
+              }
+            }
+          ]
+        },
+        {
+          "actions": [
+            {
+              "details": {
+                "value": "Normal Weight 2500 g or greater (≥ 2.5 kg)"
+              },
+              "actionType": "value"
+            }
+          ],
+          "conditions": [
+            {
+              "compoundRule": {
+                "rules": [
+                  {
+                    "lhs": {
+                      "type": "concept",
+                      "scope": "enrolment",
+                      "conceptName": "Birth-Weight",
+                      "conceptUuid": "8546fb24-996f-4d30-a1eb-e397dad87f76",
+                      "conceptDataType": "Numeric"
+                    },
+                    "rhs": {
+                      "type": "value",
+                      "value": 2500
+                    },
+                    "operator": "greaterThanOrEqualTo"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "form": "Child Enrolment",
+      "element": "Name of Mother",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEnrolment = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const hasMotherRegistered = new imports.rulesConfig.RuleCondition({programEnrolment, formElement}).when.valueInEnrolment(\"6715e425-e142-4d78-9f6a-88fb653950bb\").containsAnswerConceptName(\"e1018fd6-6a74-45e5-9191-6dec7647d817\").matches();\n  \n  visibility = hasMotherRegistered ;\n  \n  if(visibility){\n    const individualService = params.services.individualService;\n    const individual = programEnrolment.individual;\n    \n    const motherSubjectsUUIDs = individualService.getSubjectsInLocation(individual.lowestAddressLevel, 'Individual')\n      .filter((ind) => ind.isFemale() && ind.dateOfBirth < individual.dateOfBirth)\n      .map((ind) => ind.uuid);\n      \n    const selectedMother = programEnrolment.getObservationValue(\"e13e9672-aab3-4159-ad64-f8b76638a5fa\");\n  \n    if(selectedMother && !motherSubjectsUUIDs.includes(selectedMother)) {\n      validationErrors.push(\"The selected individual is not a valid candidate for mother. Please select a valid individual.\");\n    }\n  }\n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "form": "Child Enrolment",
+      "element": "Name of Mother",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEnrolment = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEnrolment, formElement}).when.valueInEnrolment(\"6715e425-e142-4d78-9f6a-88fb653950bb\").containsAnswerConceptName(\"cca1df60-04c2-497c-a5ad-47438ae9fb7c\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "form": "Child Enrolment",
+      "element": "Name of Mother",
+      "declarativeRule": [
+        {
+          "actions": [
+            {
+              "actionType": "showFormElement"
+            },
+            {}
+          ],
+          "conditions": [
+            {
+              "compoundRule": {
+                "rules": [
+                  {
+                    "lhs": {
+                      "type": "concept",
+                      "scope": "enrolment",
+                      "conceptName": "Is the mother registered?",
+                      "conceptUuid": "6715e425-e142-4d78-9f6a-88fb653950bb",
+                      "conceptDataType": "Coded"
+                    },
+                    "rhs": {
+                      "type": "answerConcept",
+                      "answerConceptNames": [
+                        "No"
+                      ],
+                      "answerConceptUuids": [
+                        "cca1df60-04c2-497c-a5ad-47438ae9fb7c"
+                      ]
+                    },
+                    "operator": "containsAnswerConceptName"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "form": "Child Exit",
+      "element": "Other reason, please specify",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEnrolment = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEnrolment, formElement}).when.valueInExit(\"66fd7b45-7b0c-4128-8a9c-69fd2925de16\").containsAnswerConceptName(\"dde76252-3032-41f5-ab53-1802951574ee\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "form": "Child Exit",
+      "element": "Other reason, please specify",
+      "declarativeRule": [
+        {
+          "actions": [
+            {
+              "actionType": "showFormElement"
+            },
+            {}
+          ],
+          "conditions": [
+            {
+              "compoundRule": {
+                "rules": [
+                  {
+                    "lhs": {
+                      "type": "concept",
+                      "scope": "exit",
+                      "conceptName": "Reason for exit - Child",
+                      "conceptUuid": "66fd7b45-7b0c-4128-8a9c-69fd2925de16",
+                      "conceptDataType": "Coded"
+                    },
+                    "rhs": {
+                      "type": "answerConcept",
+                      "answerConceptNames": [
+                        "Other"
+                      ],
+                      "answerConceptUuids": [
+                        "dde76252-3032-41f5-ab53-1802951574ee"
+                      ]
+                    },
+                    "operator": "containsAnswerConceptName"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "form": "Child Exit",
+      "element": "Date of Death",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEnrolment = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  let selectedDate = programEncounter.getObservationValue(\"2dc38923-0ced-450e-9ff2-da9018c55351\");\n\n  if (selectedDate) {\n    const today = moment().startOf('day');\n    selectedDate = moment(selectedDate).startOf('day');\n\n    if (selectedDate.isAfter(today)) {\n      validationErrors.push(\"Selected Date should not be in the future.\");\n    }\n  }\n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "form": "Child Exit",
+      "element": "Other Cause (specify)",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEnrolment = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEnrolment, formElement}).when.valueInExit(\"8997337b-6a17-41bc-ba2c-c3b0db289894\").containsAnswerConceptName(\"dde76252-3032-41f5-ab53-1802951574ee\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "form": "Child Exit",
+      "element": "Other Cause (specify)",
+      "declarativeRule": [
+        {
+          "actions": [
+            {
+              "actionType": "showFormElement"
+            },
+            {}
+          ],
+          "conditions": [
+            {
+              "compoundRule": {
+                "rules": [
+                  {
+                    "lhs": {
+                      "type": "concept",
+                      "scope": "exit",
+                      "conceptName": "Probable Cause",
+                      "conceptUuid": "8997337b-6a17-41bc-ba2c-c3b0db289894",
+                      "conceptDataType": "Coded"
+                    },
+                    "rhs": {
+                      "type": "answerConcept",
+                      "answerConceptNames": [
+                        "Other"
+                      ],
+                      "answerConceptUuids": [
+                        "dde76252-3032-41f5-ab53-1802951574ee"
+                      ]
+                    },
+                    "operator": "containsAnswerConceptName"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "form": "Delivery Encounter",
+      "element": "Delivery Date",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const observationDate = programEncounter.getObservationValue('6a0252e3-a671-4b70-a1e7-9ebeded85188');\n  const lmp = programEncounter.programEnrolment.getObservationValue('9200ce99-8da4-4b83-950f-be8e5cfc5e0e');\n  const today = moment().startOf('day');\n\n  if (observationDate && moment(observationDate).isAfter(today, 'day')) {\n    validationErrors.push('Future date is not allowed');\n  }\n\n  if (observationDate && lmp && moment(observationDate).isSameOrBefore(moment(lmp), 'day')) {\n    validationErrors.push('Delivery date should be after LMP');\n  }\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "form": "Delivery Encounter",
+      "element": "Gestational Age",
+      "rule": "'use strict';\n({ params, imports }) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n\n  const LMPObs = programEncounter.programEnrolment\n    .getObservationValue(\"9200ce99-8da4-4b83-950f-be8e5cfc5e0e\");\n\n  const deliveryDateObs = programEncounter\n    .getObservationValue(\"6a0252e3-a671-4b70-a1e7-9ebeded85188\");\n\n  const lmpDate = moment(LMPObs);\n  const deliveryDate = moment(deliveryDateObs);\n\n  const isLmpValid =\n    lmpDate && lmpDate.toDate && !isNaN(lmpDate.toDate().getTime());\n\n  const isDeliveryValid =\n    deliveryDate && deliveryDate.toDate && !isNaN(deliveryDate.toDate().getTime());\n    \n  if (isLmpValid && isDeliveryValid) {\n    value = deliveryDate.diff(lmpDate, 'weeks');\n  }\n\n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "form": "Delivery Encounter",
+      "element": "Number of child delivered",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"cd77cb7a-842e-418a-8dec-c4f7030e594f\").defined.matches();\n  \n  if(condition11 ){\n    let num = programEncounter.getObservationValue(\"cd77cb7a-842e-418a-8dec-c4f7030e594f\");\n    if (!Number.isInteger(num)) {\n        validationErrors.push(\"Please provide a valid whole number.\")\n    } \n  }\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "form": "Delivery Encounter",
+      "element": "Delivery Details",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"cd77cb7a-842e-418a-8dec-c4f7030e594f\").greaterThan(0).matches();\n  \n  visibility = condition11 ;\n  \n  if(visibility){\n    const noOfChildDelivered = parseFloat(programEncounter.getObservationReadableValue('cd77cb7a-842e-418a-8dec-c4f7030e594f'));\n    \n    console.log('noOfChildDelivered--->',noOfChildDelivered);\n    \n    const childrenDetails = programEncounter.getObservationValue('8449a749-a977-4f74-af99-ccfc14749693');\n    \n    console.log('childrenDetails--->',childrenDetails);\n    \n    let activeGroupCount = 0;\n    \n    if (Array.isArray(childrenDetails)) {\n      console.log('in array if');\n      activeGroupCount = childrenDetails.filter(child => {\n        if (!child || typeof child !== 'object') return false;\n  \n        return Object.values(child).some(value => value !== undefined && value !== null && value !== '');\n      }).length;\n    }\n    console.log('activeGroupCount--->',activeGroupCount);\n    \n    if (!isNaN(noOfChildDelivered) && activeGroupCount > noOfChildDelivered) {\n      validationErrors.push(\"Repeatable Question Groups should not exceed the total number of Delivered child/children.\");\n    } else if (!isNaN(noOfChildDelivered) && activeGroupCount < noOfChildDelivered) {\n      validationErrors.push(\"Repeatable Question Groups should not less than the total number of Delivered child/children.\");\n    }\n  }\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "form": "Delivery Encounter",
+      "element": "Child Number",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const groupIndex = params.questionGroupIndex || 0;\n  value = `Child - ${groupIndex + 1}`;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "form": "Delivery Encounter",
+      "element": "Counselling Points",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"5d881d79-956f-4c4e-b5de-8532e43aa099\").containsAnswerConceptName(\"e1018fd6-6a74-45e5-9191-6dec7647d817\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "form": "Delivery Encounter",
+      "element": "Counselling Points",
+      "declarativeRule": [
+        {
+          "actions": [
+            {
+              "actionType": "showFormElement"
+            },
+            {}
+          ],
+          "conditions": [
+            {
+              "compoundRule": {
+                "rules": [
+                  {
+                    "lhs": {
+                      "type": "concept",
+                      "scope": "encounter",
+                      "conceptName": "Counselling Provided",
+                      "conceptUuid": "5d881d79-956f-4c4e-b5de-8532e43aa099",
+                      "conceptDataType": "Coded"
+                    },
+                    "rhs": {
+                      "type": "answerConcept",
+                      "answerConceptNames": [
+                        "Yes"
+                      ],
+                      "answerConceptUuids": [
+                        "e1018fd6-6a74-45e5-9191-6dec7647d817"
+                      ]
+                    },
+                    "operator": "containsAnswerConceptName"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "form": "Family Planning Services Encounter",
+      "element": "Method Adoption Date",
+      "rule": "'use strict';\n({params, imports}) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({encounter, formElement}).when.valueInEncounter(\"751d12fe-c14c-4aea-8f2a-fa8e27479e36\").containsAnyAnswerConceptName(\"6f5c522d-3710-4561-a5a7-8a25134a4358\",\"8ba36424-2caa-4f81-95d2-693a49203a40\",\"1b62cf87-7ea1-4ffb-96f2-eb5de2f37445\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "form": "Family Planning Services Encounter",
+      "element": "Method Adoption Date",
+      "declarativeRule": [
+        {
+          "actions": [
+            {
+              "actionType": "showFormElement"
+            },
+            {}
+          ],
+          "conditions": [
+            {
+              "compoundRule": {
+                "rules": [
+                  {
+                    "lhs": {
+                      "type": "concept",
+                      "scope": "encounter",
+                      "conceptName": "Method Adopted",
+                      "conceptUuid": "751d12fe-c14c-4aea-8f2a-fa8e27479e36",
+                      "conceptDataType": "Coded"
+                    },
+                    "rhs": {
+                      "type": "answerConcept",
+                      "answerConceptNames": [
+                        "IUCD",
+                        "Sterilization",
+                        "Injection"
+                      ],
+                      "answerConceptUuids": [
+                        "6f5c522d-3710-4561-a5a7-8a25134a4358",
+                        "8ba36424-2caa-4f81-95d2-693a49203a40",
+                        "1b62cf87-7ea1-4ffb-96f2-eb5de2f37445"
+                      ]
+                    },
+                    "operator": "containsAnyAnswerConceptName"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "form": "Family Planning Services Encounter",
+      "element": "Method Adopted after switch",
+      "rule": "'use strict';\n({params, imports}) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({encounter, formElement}).when.valueInEncounter(\"215ece15-c73c-47db-a75e-c1456d14cace\").containsAnswerConceptName(\"9a0f068e-11d0-4aad-b2f1-6b87536276e6\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "form": "Family Planning Services Encounter",
+      "element": "Method Adopted after switch",
+      "declarativeRule": [
+        {
+          "actions": [
+            {
+              "actionType": "showFormElement"
+            },
+            {}
+          ],
+          "conditions": [
+            {
+              "compoundRule": {
+                "rules": [
+                  {
+                    "lhs": {
+                      "type": "concept",
+                      "scope": "encounter",
+                      "conceptName": "Switch/Discontinue",
+                      "conceptUuid": "215ece15-c73c-47db-a75e-c1456d14cace",
+                      "conceptDataType": "Coded"
+                    },
+                    "rhs": {
+                      "type": "answerConcept",
+                      "answerConceptNames": [
+                        "Switch"
+                      ],
+                      "answerConceptUuids": [
+                        "9a0f068e-11d0-4aad-b2f1-6b87536276e6"
+                      ]
+                    },
+                    "operator": "containsAnswerConceptName"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "form": "HBNC /New Born care Encounter",
+      "element": "Weight for height (Wasting status) in kgs",
+      "rule": "'use strict';\n({params, imports}) => {\n    const programEncounter = params.entity;\n    const individual = programEncounter.programEnrolment.individual;\n    const asOnDate = programEncounter.encounterDateTime;\n    const moment = imports.moment;\n    const formElement = params.formElement;\n    const _ = imports.lodash;\n    let visibility = false;\n    let value = null;\n    let answersToSkip = [];\n    let validationErrors = [];\n\n    const weight = programEncounter.getObservationValue('Weight');\n    const height = programEncounter.getObservationValue('Height');\n\n    function getNutritionStatus(zScore) {\n        if(zScore < -3) {\n            return 'Severe Acute Malnutrition (SAM)';\n        } else if(zScore >= -3 && zScore < -2) {\n            return 'Moderate Acute Malnutrition (MAM)';\n        } else if(zScore >= -2 && zScore <= 2) {\n            return 'Normal';\n        } else if(zScore > 2 && zScore <= 3) {\n            return 'Overweight';\n        }\n        else if(zScore > 3){\n            return 'Obese';\n        }\n        return 'Unknown';\n    }\n    \n    if(weight && height) {\n        visibility = true;\n        const zScoresForChild = ruleServiceLibraryInterfaceForSharingModules.common.getZScore(individual, asOnDate, weight, height);\n\n        console.log('zScoreForChild--->', zScoresForChild);\n\n        const zScore = zScoresForChild.wfh;\n\n        value = getNutritionStatus(zScore);\n    }\n\n    return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n}; \n"
+    },
+    {
+      "form": "HBNC /New Born care Encounter",
+      "element": "Weight for age (Underweight status)",
+      "rule": "'use strict';\n({params, imports}) => {\n    const programEncounter = params.entity;\n    const individual = programEncounter.programEnrolment.individual;\n    const asOnDate = programEncounter.encounterDateTime;\n    const moment = imports.moment;\n    const formElement = params.formElement;\n    const _ = imports.lodash;\n    let visibility = false;\n    let value = null;\n    let answersToSkip = [];\n    let validationErrors = [];\n    \n    const weight = programEncounter.getObservationValue('Weight');\n    const height = programEncounter.getObservationValue('Height');\n\n    function getNutritionStatus(zScore) {\n        if(zScore < -3) {\n            return 'Severe Underweight (SAM)';\n        } else if(zScore >= -3 && zScore < -2) {\n            return 'Moderate Underweight (MAM)';\n        } else if(zScore >= -2 && zScore <= 2) {\n            return 'Normal';\n        } else if(zScore > 2 && zScore <= 3) {\n            return 'Overweight';\n        }\n        else if(zScore > 3){\n            return 'Obese';\n        }\n\n        return 'Unknown';\n    }\n    \n    if(weight && height) {\n        visibility = true;\n        const zScoresForChild = ruleServiceLibraryInterfaceForSharingModules.common.getZScore(individual, asOnDate, weight, height);\n\n        const zScore = zScoresForChild.wfa;\n\n        value = getNutritionStatus(zScore);\n    }\n    \n    return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "form": "HBNC /New Born care Encounter",
+      "element": "Height for age  (Stunting status):",
+      "rule": "'use strict';\n({params, imports}) => {\n    const programEncounter = params.entity;\n    const individual = programEncounter.programEnrolment.individual;\n    const asOnDate = programEncounter.encounterDateTime;\n    const moment = imports.moment;\n    const formElement = params.formElement;\n    const _ = imports.lodash;\n    let visibility = false;\n    let value = null;\n    let answersToSkip = [];\n    let validationErrors = [];\n    \n    const weight = programEncounter.getObservationValue('Weight');\n    const height = programEncounter.getObservationValue('Height');\n\n    function getNutritionStatus(zScore) {\n        if(zScore < -3) {\n            return 'Severe Underweight (SAM)';\n        } else if(zScore >= -3 && zScore < -2) {\n            return 'Moderate Underweight (MAM)';\n        } else if(zScore >= -2 && zScore <= 2) {\n            return 'Normal';\n        } else if(zScore > 2 && zScore <= 3) {\n            return 'Overweight';\n        }\n        else if(zScore > 3){\n            return 'Obese';\n        }\n\n        return 'Unknown';\n    }\n    \n    if(weight && height) {\n        visibility = true;\n        const zScoresForChild = ruleServiceLibraryInterfaceForSharingModules.common.getZScore(individual, asOnDate, weight, height);\n\n        const zScore = zScoresForChild.wfa;\n\n        value = getNutritionStatus(zScore);\n    }\n    \n    return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "form": "High Risk & Referral Enrolment",
+      "element": "Assessment Date",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEnrolment = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  let selectedDate = programEnrolment.getObservationValue(\"04e952aa-3a53-493a-ace4-719752ef97c3\");\n\n  if (selectedDate) {\n    const today = moment().startOf('day');\n    selectedDate = moment(selectedDate).startOf('day');\n\n    if (selectedDate.isAfter(today)) {\n      validationErrors.push(\"Selected Date should not be in the future.\");\n    }\n  }\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "form": "High Risk & Referral Enrolment",
+      "element": "Specify Other Reason",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEnrolment = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEnrolment, formElement}).when.valueInEnrolment(\"8389e660-d951-446c-b346-ff40d965d8d2\").containsAnswerConceptName(\"dde76252-3032-41f5-ab53-1802951574ee\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "form": "High Risk & Referral Enrolment",
+      "element": "Specify Other Reason",
+      "declarativeRule": [
+        {
+          "actions": [
+            {
+              "actionType": "showFormElement"
+            },
+            {}
+          ],
+          "conditions": [
+            {
+              "compoundRule": {
+                "rules": [
+                  {
+                    "lhs": {
+                      "type": "concept",
+                      "scope": "enrolment",
+                      "conceptName": "Reason for Referral",
+                      "conceptUuid": "8389e660-d951-446c-b346-ff40d965d8d2",
+                      "conceptDataType": "Coded"
+                    },
+                    "rhs": {
+                      "type": "answerConcept",
+                      "answerConceptNames": [
+                        "Other"
+                      ],
+                      "answerConceptUuids": [
+                        "dde76252-3032-41f5-ab53-1802951574ee"
+                      ]
+                    },
+                    "operator": "containsAnswerConceptName"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "form": "High Risk & Referral",
+      "element": "Assessment Date",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEnrolment = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  let selectedDate = programEnrolment.getObservationValue(\"04e952aa-3a53-493a-ace4-719752ef97c3\");\n\n  if (selectedDate) {\n    const today = moment().startOf('day');\n    selectedDate = moment(selectedDate).startOf('day');\n\n    if (selectedDate.isAfter(today)) {\n      validationErrors.push(\"Selected Date should not be in the future.\");\n    }\n  }\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "form": "High Risk & Referral",
+      "element": "Specify Other Reason",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEnrolment(\"8389e660-d951-446c-b346-ff40d965d8d2\").containsAnswerConceptName(\"dde76252-3032-41f5-ab53-1802951574ee\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "form": "High Risk & Referral",
+      "element": "Specify Other Reason",
+      "declarativeRule": [
+        {
+          "actions": [
+            {
+              "actionType": "showFormElement"
+            },
+            {}
+          ],
+          "conditions": [
+            {
+              "compoundRule": {
+                "rules": [
+                  {
+                    "lhs": {
+                      "type": "concept",
+                      "scope": "enrolment",
+                      "conceptName": "Reason for Referral",
+                      "conceptUuid": "8389e660-d951-446c-b346-ff40d965d8d2",
+                      "conceptDataType": "Coded"
+                    },
+                    "rhs": {
+                      "type": "answerConcept",
+                      "answerConceptNames": [
+                        "Other"
+                      ],
+                      "answerConceptUuids": [
+                        "dde76252-3032-41f5-ab53-1802951574ee"
+                      ]
+                    },
+                    "operator": "containsAnswerConceptName"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "form": "Household Registration",
+      "element": "Members Count",
+      "rule": "'use strict';\n({params, imports}) => {\n  const individual = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const enteredNumber = individual.getObservationValue(\"db7d5753-5028-4dbd-bfaa-21dd1372865a\");\n\n  if(enteredNumber && !isNaN(enteredNumber) && !Number.isInteger(enteredNumber)){\n    validationErrors.push(\"Entered number should be an integer\");\n  }\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "form": "Household Registration",
+      "element": "Pregnant Women in HH",
+      "rule": "'use strict';\n({params, imports}) => {\n  const individual = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const enteredNumber = individual.getObservationValue(\"6d255e49-b023-40a1-b8d8-83e71c076b70\");\n\n  if(enteredNumber && !isNaN(enteredNumber) && !Number.isInteger(enteredNumber)){\n    validationErrors.push(\"Entered number should be an integer\");\n  }\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "form": "Household Registration",
+      "element": "Children <1yr",
+      "rule": "'use strict';\n({params, imports}) => {\n  const individual = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n \n  const enteredNumber = individual.getObservationValue(\"d21f44c4-59ba-4395-81a4-d54a8265624a\");\n\n  if(enteredNumber && !isNaN(enteredNumber) && !Number.isInteger(enteredNumber)){\n    validationErrors.push(\"Entered number should be an integer\");\n  }\n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "form": "Household Registration",
+      "element": "Children 1–5yr",
+      "rule": "'use strict';\n({params, imports}) => {\n  const individual = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const enteredNumber = individual.getObservationValue(\"9451a4fd-c8a4-42a8-b97e-faead46f7d35\");\n\n  if(enteredNumber && !isNaN(enteredNumber) && !Number.isInteger(enteredNumber)){\n    validationErrors.push(\"Entered number should be an integer\");\n  }\n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "form": "Individual Registration",
+      "element": "Other Religion, please specify",
+      "rule": "'use strict';\n({params, imports}) => {\n  const individual = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({individual, formElement}).when.valueInRegistration(\"7e3e81ba-87f5-4ed7-9612-408388b46ad3\").containsAnswerConceptName(\"dde76252-3032-41f5-ab53-1802951574ee\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "form": "Individual Registration",
+      "element": "Other Religion, please specify",
+      "declarativeRule": [
+        {
+          "actions": [
+            {
+              "actionType": "showFormElement"
+            },
+            {}
+          ],
+          "conditions": [
+            {
+              "compoundRule": {
+                "rules": [
+                  {
+                    "lhs": {
+                      "type": "concept",
+                      "scope": "registration",
+                      "conceptName": "Religion",
+                      "conceptUuid": "7e3e81ba-87f5-4ed7-9612-408388b46ad3",
+                      "conceptDataType": "Coded"
+                    },
+                    "rhs": {
+                      "type": "answerConcept",
+                      "answerConceptNames": [
+                        "Other"
+                      ],
+                      "answerConceptUuids": [
+                        "dde76252-3032-41f5-ab53-1802951574ee"
+                      ]
+                    },
+                    "operator": "containsAnswerConceptName"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "form": "Individual Registration",
+      "element": "Other Caste, please specify",
+      "rule": "'use strict';\n({params, imports}) => {\n  const individual = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({individual, formElement}).when.valueInRegistration(\"de88ffa0-d862-4f67-be0b-794cdaf6b8c4\").containsAnswerConceptName(\"dde76252-3032-41f5-ab53-1802951574ee\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "form": "Individual Registration",
+      "element": "Other Caste, please specify",
+      "declarativeRule": [
+        {
+          "actions": [
+            {
+              "actionType": "showFormElement"
+            },
+            {}
+          ],
+          "conditions": [
+            {
+              "compoundRule": {
+                "rules": [
+                  {
+                    "lhs": {
+                      "type": "concept",
+                      "scope": "registration",
+                      "conceptName": "Caste",
+                      "conceptUuid": "de88ffa0-d862-4f67-be0b-794cdaf6b8c4",
+                      "conceptDataType": "Coded"
+                    },
+                    "rhs": {
+                      "type": "answerConcept",
+                      "answerConceptNames": [
+                        "Other"
+                      ],
+                      "answerConceptUuids": [
+                        "dde76252-3032-41f5-ab53-1802951574ee"
+                      ]
+                    },
+                    "operator": "containsAnswerConceptName"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "form": "Individual Registration",
+      "element": "Other education, please specify",
+      "rule": "'use strict';\n({params, imports}) => {\n  const individual = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({individual, formElement}).when.valueInRegistration(\"24ecce77-a2fa-4dab-b2b5-d0e0172f64b6\").containsAnswerConceptName(\"dde76252-3032-41f5-ab53-1802951574ee\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "form": "Individual Registration",
+      "element": "Other education, please specify",
+      "declarativeRule": [
+        {
+          "actions": [
+            {
+              "actionType": "showFormElement"
+            },
+            {}
+          ],
+          "conditions": [
+            {
+              "compoundRule": {
+                "rules": [
+                  {
+                    "lhs": {
+                      "type": "concept",
+                      "scope": "registration",
+                      "conceptName": "Education",
+                      "conceptUuid": "24ecce77-a2fa-4dab-b2b5-d0e0172f64b6",
+                      "conceptDataType": "Coded"
+                    },
+                    "rhs": {
+                      "type": "answerConcept",
+                      "answerConceptNames": [
+                        "Other"
+                      ],
+                      "answerConceptUuids": [
+                        "dde76252-3032-41f5-ab53-1802951574ee"
+                      ]
+                    },
+                    "operator": "containsAnswerConceptName"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "form": "Individual Registration",
+      "element": "Other income sources, please specify",
+      "rule": "'use strict';\n({params, imports}) => {\n  const individual = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({individual, formElement}).when.valueInRegistration(\"6ed476f8-f803-4e85-89d1-4a9f3d9f8981\").containsAnswerConceptName(\"dde76252-3032-41f5-ab53-1802951574ee\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "form": "Individual Registration",
+      "element": "Other income sources, please specify",
+      "declarativeRule": [
+        {
+          "actions": [
+            {
+              "actionType": "showFormElement"
+            },
+            {}
+          ],
+          "conditions": [
+            {
+              "compoundRule": {
+                "rules": [
+                  {
+                    "lhs": {
+                      "type": "concept",
+                      "scope": "registration",
+                      "conceptName": "Income Sources",
+                      "conceptUuid": "6ed476f8-f803-4e85-89d1-4a9f3d9f8981",
+                      "conceptDataType": "Coded"
+                    },
+                    "rhs": {
+                      "type": "answerConcept",
+                      "answerConceptNames": [
+                        "Other"
+                      ],
+                      "answerConceptUuids": [
+                        "dde76252-3032-41f5-ab53-1802951574ee"
+                      ]
+                    },
+                    "operator": "containsAnswerConceptName"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "form": "Individual Registration",
+      "element": "Other disability, please specify",
+      "rule": "'use strict';\n({params, imports}) => {\n  const individual = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({individual, formElement}).when.valueInRegistration(\"69ecb5b2-d270-45af-837d-340423c6bc82\").containsAnswerConceptName(\"dde76252-3032-41f5-ab53-1802951574ee\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "form": "Individual Registration",
+      "element": "Other disability, please specify",
+      "declarativeRule": [
+        {
+          "actions": [
+            {
+              "actionType": "showFormElement"
+            },
+            {}
+          ],
+          "conditions": [
+            {
+              "compoundRule": {
+                "rules": [
+                  {
+                    "lhs": {
+                      "type": "concept",
+                      "scope": "registration",
+                      "conceptName": "Does the individual is having any disability",
+                      "conceptUuid": "69ecb5b2-d270-45af-837d-340423c6bc82",
+                      "conceptDataType": "Coded"
+                    },
+                    "rhs": {
+                      "type": "answerConcept",
+                      "answerConceptNames": [
+                        "Other"
+                      ],
+                      "answerConceptUuids": [
+                        "dde76252-3032-41f5-ab53-1802951574ee"
+                      ]
+                    },
+                    "operator": "containsAnswerConceptName"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "form": "Mother PNC Encounter",
+      "element": "Counselling Points",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"5d881d79-956f-4c4e-b5de-8532e43aa099\").containsAnswerConceptName(\"e1018fd6-6a74-45e5-9191-6dec7647d817\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "form": "Mother PNC Encounter",
+      "element": "Counselling Points",
+      "declarativeRule": [
+        {
+          "actions": [
+            {
+              "actionType": "showFormElement"
+            },
+            {}
+          ],
+          "conditions": [
+            {
+              "compoundRule": {
+                "rules": [
+                  {
+                    "lhs": {
+                      "type": "concept",
+                      "scope": "encounter",
+                      "conceptName": "Counselling Provided",
+                      "conceptUuid": "5d881d79-956f-4c4e-b5de-8532e43aa099",
+                      "conceptDataType": "Coded"
+                    },
+                    "rhs": {
+                      "type": "answerConcept",
+                      "answerConceptNames": [
+                        "Yes"
+                      ],
+                      "answerConceptUuids": [
+                        "e1018fd6-6a74-45e5-9191-6dec7647d817"
+                      ]
+                    },
+                    "operator": "containsAnswerConceptName"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "form": "Mother PNC Encounter",
+      "element": "Other Benefit (specify)",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"a27c05c0-ebae-4465-b7ac-05369315b248\").containsAnswerConceptName(\"dde76252-3032-41f5-ab53-1802951574ee\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "form": "Mother PNC Encounter",
+      "element": "Other Benefit (specify)",
+      "declarativeRule": [
+        {
+          "actions": [
+            {
+              "actionType": "showFormElement"
+            },
+            {}
+          ],
+          "conditions": [
+            {
+              "compoundRule": {
+                "rules": [
+                  {
+                    "lhs": {
+                      "type": "concept",
+                      "scope": "encounter",
+                      "conceptName": "Benefit Provided",
+                      "conceptUuid": "a27c05c0-ebae-4465-b7ac-05369315b248",
+                      "conceptDataType": "Coded"
+                    },
+                    "rhs": {
+                      "type": "answerConcept",
+                      "answerConceptNames": [
+                        "Other"
+                      ],
+                      "answerConceptUuids": [
+                        "dde76252-3032-41f5-ab53-1802951574ee"
+                      ]
+                    },
+                    "operator": "containsAnswerConceptName"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "form": "Pregnancy Enrolment",
+      "element": "Last Menstrual Period (LMP)",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEnrolment = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n\n  let lmp = programEnrolment.getObservationValue(\"9200ce99-8da4-4b83-950f-be8e5cfc5e0e\");\n\n  if(lmp) {\n    const today = moment().startOf('day');\n    lmp = moment(lmp).startOf('day');\n\n    if(lmp.isAfter(today)) {\n      validationErrors.push(\"LMP cannot be in the future.\");\n    }\n    const maxDate = moment().subtract(1, 'year').startOf('day');\n    if(lmp.isBefore(maxDate)) {\n      validationErrors.push(\"LMP cannot be more than 1 year ago.\");\n    }\n  }\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "form": "Pregnancy Enrolment",
+      "element": "Expected Date of Delivery (EDD)",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEnrolment = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n    const condition11 = new imports.rulesConfig.RuleCondition({programEnrolment, formElement}).when.valueInEnrolment(\"Last menstrual period\").defined.matches();\n    \n    if(condition11 ){\n        value = imports.motherCalculations.estimatedDateOfDelivery(programEnrolment);\n    }\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "form": "Pregnancy Enrolment",
+      "element": "BMI",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEnrolment = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const height = parseFloat(programEnrolment.getObservationValue(\"13d5e6bc-c9be-4632-ae78-242655ce8411\")); \n  const weight = parseFloat(programEnrolment.getObservationValue(\"fd630eab-1122-46a8-afbc-d58656883eda\")); \n\n  if (!isNaN(height) && !isNaN(weight) && height > 0) {\n    const heightInMeters = height / 100;\n    //const bmi = weight / (heightInMeters * heightInMeters);\n    const bmi = ruleServiceLibraryInterfaceForSharingModules.common.calculateBMI(weight, height);\n    value = parseFloat(bmi.toFixed(2)); \n  }\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "form": "Pregnancy Enrolment",
+      "element": "BMI Status",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEnrolment = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const BMI = parseFloat(programEnrolment.getObservationValue(\"3d3cca9a-e9fd-42b4-b081-e2e330c5b166\")); \n  \n  if(BMI < 18.5){\n    value = \"Underweight\";\n  } else if(BMI >= 18.5 && BMI <= 22.9){\n    value = \"Normal\";\n  } else if(BMI >22.9 && BMI <= 24.9){\n    value = \"Overweight\";\n  } else {\n    value = \"Obesity\";\n  }\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "form": "Pregnancy Enrolment",
+      "element": "Aborta (No. of abortions)",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEnrolment = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const enteredNumber = programEnrolment.getObservationValue(\"0399b185-1f3b-4365-9539-1ba7a77ff4cb\");\n\n  if(enteredNumber && !isNaN(enteredNumber) && !Number.isInteger(enteredNumber)){\n    validationErrors.push(\"Entered number should be an integer\");\n  }\n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "form": "Pregnancy Enrolment",
+      "element": "Para (No. of deliveries)",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEnrolment = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const enteredNumber = programEnrolment.getObservationValue(\"ccae4e96-2846-4ff0-b7c1-49a72aa9583f\");\n\n  if(enteredNumber && !isNaN(enteredNumber) && !Number.isInteger(enteredNumber)){\n    validationErrors.push(\"Entered number should be an integer\");\n  }\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "form": "Pregnancy Enrolment",
+      "element": "Gravida (No. of pregnancies earlier)",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEnrolment = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const enteredNumber = programEnrolment.getObservationValue(\"af646505-c2c6-4964-ac3a-7449a0180abc\");\n\n  if(enteredNumber && !isNaN(enteredNumber) && !Number.isInteger(enteredNumber)){\n    validationErrors.push(\"Entered number should be an integer\");\n  }\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "form": "Pregnancy Enrolment",
+      "element": "Live (No. of children alive at present)",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEnrolment = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const enteredNumber = programEnrolment.getObservationValue(\"4050e2e7-ae39-445f-82c9-93068e55b1c3\");\n\n  if(enteredNumber && !isNaN(enteredNumber) && !Number.isInteger(enteredNumber)){\n    validationErrors.push(\"Entered number should be an integer\");\n  }\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "form": "Pregnancy Enrolment",
+      "element": "Gravida (No. of pregnancies earlier)",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEnrolment = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const enteredNumber = programEnrolment.getObservationValue(\"af646505-c2c6-4964-ac3a-7449a0180abc\");\n\n  if(enteredNumber && !isNaN(enteredNumber) && !Number.isInteger(enteredNumber)){\n    validationErrors.push(\"Entered number should be an integer\");\n  }\n  \n  // Convert values to numbers\n  const gravidaRaw = parseFloat(programEnrolment.getObservationReadableValue('Gravida'));\n  const para = programEnrolment.getObservationReadableValue('Para');\n  const live = programEnrolment.getObservationReadableValue('Live');\n  const aborta = programEnrolment.getObservationReadableValue('Aborta');\n  const stillBirth = programEnrolment.getObservationReadableValue('Still Birth');\n\n  if(!isNaN(gravidaRaw)) {\n    if(!isInteger(gravidaRaw)) {\n      validationErrors.push('Gravida cannot be a decimal value.');\n    } else if (gravidaRaw > 1) {\n      if(para !== null && para !== undefined && miscarriages !== null && miscarriages !== undefined && stillBirth !== null && stillBirth !== undefined) {\n        const paraNum = parseFloat(para) || 0;\n        const miscarriagesNum = parseFloat(miscarriages) || 0;\n        const stillBirthNum = parseFloat(stillBirth) || 0;\n        \n        let additionOfOther = paraNum + miscarriagesNum + stillBirthNum + 1;\n\n        if (additionOfOther !== gravidaRaw) {\n          validationErrors.push(\"Gravida count should be the sum of Para, Miscarriages, and Still Birth + 1.\");\n        }\n      }\n    }\n  }\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "form": "Pregnancy Enrolment",
+      "element": "Para (No. of deliveries)",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEnrolment = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const enteredNumber = programEnrolment.getObservationValue(\"ccae4e96-2846-4ff0-b7c1-49a72aa9583f\");\n\n  if(enteredNumber && !isNaN(enteredNumber) && !Number.isInteger(enteredNumber)){\n    validationErrors.push(\"Entered number should be an integer\");\n  }\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "form": "Pregnancy Enrolment",
+      "element": "Live (No. of children alive at present)",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEnrolment = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const enteredNumber = programEnrolment.getObservationValue(\"4050e2e7-ae39-445f-82c9-93068e55b1c3\");\n\n  if(enteredNumber && !isNaN(enteredNumber) && !Number.isInteger(enteredNumber)){\n    validationErrors.push(\"Entered number should be an integer\");\n  }\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "form": "Pregnancy Enrolment",
+      "element": "Aborta (No. of abortions)",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEnrolment = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const enteredNumber = programEnrolment.getObservationValue(\"0399b185-1f3b-4365-9539-1ba7a77ff4cb\");\n\n  if(enteredNumber && !isNaN(enteredNumber) && !Number.isInteger(enteredNumber)){\n    validationErrors.push(\"Entered number should be an integer\");\n  }\n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "form": "Pregnancy Enrolment",
+      "element": "Still Birth",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEnrolment = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const enteredNumber = programEnrolment.getObservationValue(\"74f4426b-51b5-4baa-9cf2-9973c24a668f\");\n\n  if(enteredNumber && !isNaN(enteredNumber) && !Number.isInteger(enteredNumber)){\n    validationErrors.push(\"Entered number should be an integer\");\n  }\n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "form": "Pregnancy Exit",
+      "element": "Other reason, please specify",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEnrolment = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEnrolment, formElement}).when.valueInExit(\"12353d16-1484-4d2d-a331-7abc534846e9\").containsAnswerConceptName(\"dde76252-3032-41f5-ab53-1802951574ee\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "form": "Pregnancy Exit",
+      "element": "Other reason, please specify",
+      "declarativeRule": [
+        {
+          "actions": [
+            {
+              "actionType": "showFormElement"
+            },
+            {}
+          ],
+          "conditions": [
+            {
+              "compoundRule": {
+                "rules": [
+                  {
+                    "lhs": {
+                      "type": "concept",
+                      "scope": "exit",
+                      "conceptName": "Reason for exit",
+                      "conceptUuid": "12353d16-1484-4d2d-a331-7abc534846e9",
+                      "conceptDataType": "Coded"
+                    },
+                    "rhs": {
+                      "type": "answerConcept",
+                      "answerConceptNames": [
+                        "Other"
+                      ],
+                      "answerConceptUuids": [
+                        "dde76252-3032-41f5-ab53-1802951574ee"
+                      ]
+                    },
+                    "operator": "containsAnswerConceptName"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "form": "Pregnancy Exit",
+      "element": "Abortion Date",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEnrolment = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  let dateOfAbortion = programEnrolment.getObservationValue(\"070cd2ff-9489-4cca-971a-8084f7907c28\");\n\n  if(dateOfAbortion) {\n    const today = moment().startOf('day');\n    dateOfAbortion = moment(dateOfAbortion).startOf('day');\n\n    if(dateOfAbortion.isAfter(today)) {\n      validationErrors.push(\"Date Of Abortion cannot be in the future.\");\n    }\n  }\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "form": "Pregnancy Exit",
+      "element": "Date of Death",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEnrolment = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEnrolment, formElement}).when.valueInExit(\"2dc38923-0ced-450e-9ff2-da9018c55351\").defined.matches();\n  \n  let dateOfDeath = programEnrolment.getObservationValue(\"2dc38923-0ced-450e-9ff2-da9018c55351\");\n\n  if(dateOfDeath) {\n    const today = moment().startOf('day');\n    dateOfDeath = moment(dateOfDeath).startOf('day');\n\n    if(dateOfDeath.isAfter(today)) {\n      validationErrors.push(\"Date Of Death cannot be in the future.\");\n    }\n  }\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "form": "Pregnancy Gov Schemes Encounter",
+      "element": "Amount Received - PMMVY",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"68fae24d-6be8-48a9-aab7-77638d21d358\").containsAnswerConceptName(\"44900b3c-4444-4fc1-a728-198dfa396cfe\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "form": "Pregnancy Gov Schemes Encounter",
+      "element": "Amount Received - PMMVY",
+      "declarativeRule": [
+        {
+          "actions": [
+            {
+              "actionType": "showFormElement"
+            },
+            {}
+          ],
+          "conditions": [
+            {
+              "compoundRule": {
+                "rules": [
+                  {
+                    "lhs": {
+                      "type": "concept",
+                      "scope": "encounter",
+                      "conceptName": "Scheme Name",
+                      "conceptUuid": "68fae24d-6be8-48a9-aab7-77638d21d358",
+                      "conceptDataType": "Coded"
+                    },
+                    "rhs": {
+                      "type": "answerConcept",
+                      "answerConceptNames": [
+                        "Pradhan Mantri Matru Vandana Yojana – PMMVY)"
+                      ],
+                      "answerConceptUuids": [
+                        "44900b3c-4444-4fc1-a728-198dfa396cfe"
+                      ]
+                    },
+                    "operator": "containsAnswerConceptName"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "form": "Pregnancy Gov Schemes Encounter",
+      "element": "Amount Received - JSSY",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"68fae24d-6be8-48a9-aab7-77638d21d358\").containsAnswerConceptName(\"9512cd9f-1a9f-4e5d-8b7f-3ce85f5fb265\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "form": "Pregnancy Gov Schemes Encounter",
+      "element": "Amount Received - JSSY",
+      "declarativeRule": [
+        {
+          "actions": [
+            {
+              "actionType": "showFormElement"
+            },
+            {}
+          ],
+          "conditions": [
+            {
+              "compoundRule": {
+                "rules": [
+                  {
+                    "lhs": {
+                      "type": "concept",
+                      "scope": "encounter",
+                      "conceptName": "Scheme Name",
+                      "conceptUuid": "68fae24d-6be8-48a9-aab7-77638d21d358",
+                      "conceptDataType": "Coded"
+                    },
+                    "rhs": {
+                      "type": "answerConcept",
+                      "answerConceptNames": [
+                        "Janani Shishu Suraksha Yojana"
+                      ],
+                      "answerConceptUuids": [
+                        "9512cd9f-1a9f-4e5d-8b7f-3ce85f5fb265"
+                      ]
+                    },
+                    "operator": "containsAnswerConceptName"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "form": "Pregnancy Gov Schemes Encounter",
+      "element": "Amount Received – PMSMA ( iron sucrose)",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"68fae24d-6be8-48a9-aab7-77638d21d358\").containsAnswerConceptName(\"4e94054d-be7f-4ae8-a7fe-5fbe576450a6\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "form": "Pregnancy Gov Schemes Encounter",
+      "element": "Amount Received – PMSMA ( iron sucrose)",
+      "declarativeRule": [
+        {
+          "actions": [
+            {
+              "actionType": "showFormElement"
+            },
+            {}
+          ],
+          "conditions": [
+            {
+              "compoundRule": {
+                "rules": [
+                  {
+                    "lhs": {
+                      "type": "concept",
+                      "scope": "encounter",
+                      "conceptName": "Scheme Name",
+                      "conceptUuid": "68fae24d-6be8-48a9-aab7-77638d21d358",
+                      "conceptDataType": "Coded"
+                    },
+                    "rhs": {
+                      "type": "answerConcept",
+                      "answerConceptNames": [
+                        "Pradhan Mantri Surakshit Matritva Abhiyan – PMSMA ( iron sucrose)"
+                      ],
+                      "answerConceptUuids": [
+                        "4e94054d-be7f-4ae8-a7fe-5fbe576450a6"
+                      ]
+                    },
+                    "operator": "containsAnswerConceptName"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "form": "Pregnancy Gov Schemes Encounter",
+      "element": "Amount Received - IGMPY",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"68fae24d-6be8-48a9-aab7-77638d21d358\").containsAnswerConceptName(\"4bef1816-93bb-4d2e-b87e-7c4e53674a09\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "form": "Pregnancy Gov Schemes Encounter",
+      "element": "Amount Received - IGMPY",
+      "declarativeRule": [
+        {
+          "actions": [
+            {
+              "actionType": "showFormElement"
+            },
+            {}
+          ],
+          "conditions": [
+            {
+              "compoundRule": {
+                "rules": [
+                  {
+                    "lhs": {
+                      "type": "concept",
+                      "scope": "encounter",
+                      "conceptName": "Scheme Name",
+                      "conceptUuid": "68fae24d-6be8-48a9-aab7-77638d21d358",
+                      "conceptDataType": "Coded"
+                    },
+                    "rhs": {
+                      "type": "answerConcept",
+                      "answerConceptNames": [
+                        "Indira Gandhi Matritva Poshan Yojana"
+                      ],
+                      "answerConceptUuids": [
+                        "4bef1816-93bb-4d2e-b87e-7c4e53674a09"
+                      ]
+                    },
+                    "operator": "containsAnswerConceptName"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "form": "Pregnancy Gov Schemes Encounter",
+      "element": "Amount Received - Maa Voucher Scheme",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"68fae24d-6be8-48a9-aab7-77638d21d358\").containsAnswerConceptName(\"2529cd60-8629-48b1-8452-e96a1840908e\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "form": "Pregnancy Gov Schemes Encounter",
+      "element": "Amount Received - Maa Voucher Scheme",
+      "declarativeRule": [
+        {
+          "actions": [
+            {
+              "actionType": "showFormElement"
+            },
+            {}
+          ],
+          "conditions": [
+            {
+              "compoundRule": {
+                "rules": [
+                  {
+                    "lhs": {
+                      "type": "concept",
+                      "scope": "encounter",
+                      "conceptName": "Scheme Name",
+                      "conceptUuid": "68fae24d-6be8-48a9-aab7-77638d21d358",
+                      "conceptDataType": "Coded"
+                    },
+                    "rhs": {
+                      "type": "answerConcept",
+                      "answerConceptNames": [
+                        "Maa Voucher Scheme"
+                      ],
+                      "answerConceptUuids": [
+                        "2529cd60-8629-48b1-8452-e96a1840908e"
+                      ]
+                    },
+                    "operator": "containsAnswerConceptName"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "form": "Pregnancy Gov Schemes Encounter",
+      "element": "Other Scheme, Specify",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"68fae24d-6be8-48a9-aab7-77638d21d358\").containsAnswerConceptName(\"59a922a8-22f2-40ab-aed4-5ffd3cd97a13\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "form": "Pregnancy Gov Schemes Encounter",
+      "element": "Other Scheme, Specify",
+      "declarativeRule": [
+        {
+          "actions": [
+            {
+              "actionType": "showFormElement"
+            },
+            {}
+          ],
+          "conditions": [
+            {
+              "compoundRule": {
+                "rules": [
+                  {
+                    "lhs": {
+                      "type": "concept",
+                      "scope": "encounter",
+                      "conceptName": "Scheme Name",
+                      "conceptUuid": "68fae24d-6be8-48a9-aab7-77638d21d358",
+                      "conceptDataType": "Coded"
+                    },
+                    "rhs": {
+                      "type": "answerConcept",
+                      "answerConceptNames": [
+                        "Others"
+                      ],
+                      "answerConceptUuids": [
+                        "59a922a8-22f2-40ab-aed4-5ffd3cd97a13"
+                      ]
+                    },
+                    "operator": "containsAnswerConceptName"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "form": "Pregnancy Gov Schemes Encounter",
+      "element": "Amount Received - Other scheme",
+      "rule": "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"68fae24d-6be8-48a9-aab7-77638d21d358\").containsAnswerConceptName(\"59a922a8-22f2-40ab-aed4-5ffd3cd97a13\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};"
+    },
+    {
+      "form": "Pregnancy Gov Schemes Encounter",
+      "element": "Amount Received - Other scheme",
+      "declarativeRule": [
+        {
+          "actions": [
+            {
+              "actionType": "showFormElement"
+            },
+            {}
+          ],
+          "conditions": [
+            {
+              "compoundRule": {
+                "rules": [
+                  {
+                    "lhs": {
+                      "type": "concept",
+                      "scope": "encounter",
+                      "conceptName": "Scheme Name",
+                      "conceptUuid": "68fae24d-6be8-48a9-aab7-77638d21d358",
+                      "conceptDataType": "Coded"
+                    },
+                    "rhs": {
+                      "type": "answerConcept",
+                      "answerConceptNames": [
+                        "Others"
+                      ],
+                      "answerConceptUuids": [
+                        "59a922a8-22f2-40ab-aed4-5ffd3cd97a13"
+                      ]
+                    },
+                    "operator": "containsAnswerConceptName"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

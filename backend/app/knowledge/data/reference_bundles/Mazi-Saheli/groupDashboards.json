@@ -1,0 +1,89 @@
+[ {
+  "uuid" : "92455f87-6ccb-abbc-5cff-22bc4d1cc2a1",
+  "voided" : false,
+  "dashboardUUID" : "a6f7c1f8-5a6f-bc6e-ac16-a843f8c13694",
+  "groupUUID" : "896f2850-2999-8aa0-368c-1bbade123494",
+  "groupName" : "Field Executive",
+  "dashboardName" : "Main Dashboard",
+  "dashboardDescription" : "Default dashboard for all users",
+  "groupOneOfTheDefaultGroups" : false,
+  "primaryDashboard" : true,
+  "secondaryDashboard" : false
+}, {
+  "uuid" : "43c720ae-e70b-9cae-be86-48f8e19ba93b",
+  "voided" : false,
+  "dashboardUUID" : "a6f7c1f8-5a6f-bc6e-ac16-a843f8c13694",
+  "groupUUID" : "bac6ae6b-c056-da08-2e9b-b488002ed428",
+  "groupName" : "Operational Head",
+  "dashboardName" : "Main Dashboard",
+  "dashboardDescription" : "Default dashboard for all users",
+  "groupOneOfTheDefaultGroups" : false,
+  "primaryDashboard" : true,
+  "secondaryDashboard" : false
+}, {
+  "uuid" : "1e02dd71-c271-3ee2-82c5-a545532cb14c",
+  "voided" : false,
+  "dashboardUUID" : "a6f7c1f8-5a6f-bc6e-ac16-a843f8c13694",
+  "groupUUID" : "dc595c26-5645-65fd-cefc-7a76af84bae3",
+  "groupName" : "Founder",
+  "dashboardName" : "Main Dashboard",
+  "dashboardDescription" : "Default dashboard for all users",
+  "groupOneOfTheDefaultGroups" : false,
+  "primaryDashboard" : true,
+  "secondaryDashboard" : false
+}, {
+  "uuid" : "3c7273f7-2acf-4bc9-b4e8-17ea41a93b8a",
+  "voided" : false,
+  "dashboardUUID" : "a6f7c1f8-5a6f-bc6e-ac16-a843f8c13694",
+  "groupUUID" : "aa7a845f-ff9c-48f1-ac0f-f0b58cbea9f8",
+  "groupName" : "Everyone",
+  "dashboardName" : "Main Dashboard",
+  "dashboardDescription" : "Default dashboard for all users",
+  "groupOneOfTheDefaultGroups" : true,
+  "primaryDashboard" : false,
+  "secondaryDashboard" : false
+}, {
+  "uuid" : "f4e4c9dc-feb4-49f5-9a2c-955dec26ab68",
+  "voided" : false,
+  "dashboardUUID" : "cc03ef45-3333-4ccc-9003-000000000001",
+  "groupUUID" : "aa7a845f-ff9c-48f1-ac0f-f0b58cbea9f8",
+  "groupName" : "Everyone",
+  "dashboardName" : "Activity Statistics",
+  "dashboardDescription" : "Activity registration and completion statistics for field executives",
+  "groupOneOfTheDefaultGroups" : true,
+  "primaryDashboard" : true,
+  "secondaryDashboard" : false
+}, {
+  "uuid" : "9542352f-c41c-448c-91da-8be3296b7c65",
+  "voided" : false,
+  "dashboardUUID" : "c4d3bc0a-027e-4a6a-87dd-85e5b7285523",
+  "groupUUID" : "aa7a845f-ff9c-48f1-ac0f-f0b58cbea9f8",
+  "groupName" : "Everyone",
+  "dashboardName" : "Default Dashboard",
+  "dashboardDescription" : null,
+  "groupOneOfTheDefaultGroups" : true,
+  "primaryDashboard" : false,
+  "secondaryDashboard" : false
+}, {
+  "uuid" : "0eae4191-ac0b-4f63-8550-a3af9bab50aa",
+  "voided" : false,
+  "dashboardUUID" : "c4d3bc0a-027e-4a6a-87dd-85e5b7285523",
+  "groupUUID" : "aa7a845f-ff9c-48f1-ac0f-f0b58cbea9f8",
+  "groupName" : "Everyone",
+  "dashboardName" : "Default Dashboard",
+  "dashboardDescription" : null,
+  "groupOneOfTheDefaultGroups" : true,
+  "primaryDashboard" : false,
+  "secondaryDashboard" : false
+}, {
+  "uuid" : "a1912a3d-de37-4f36-839f-5f744a305c04",
+  "voided" : false,
+  "dashboardUUID" : "dd04fg56-4444-4ddd-9004-000000000001",
+  "groupUUID" : "aa7a845f-ff9c-48f1-ac0f-f0b58cbea9f8",
+  "groupName" : "Everyone",
+  "dashboardName" : "Participant Overview",
+  "dashboardDescription" : "Participant registration and assessment statistics for field executives",
+  "groupOneOfTheDefaultGroups" : true,
+  "primaryDashboard" : false,
+  "secondaryDashboard" : true
+} ]

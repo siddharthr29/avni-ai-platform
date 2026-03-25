@@ -1,0 +1,195 @@
+{
+  "name": "Pregnancy Gov Schemes ",
+  "uuid": "f7458afb-2aeb-db4a-fd43-da2228bfdd93",
+  "formType": "ProgramEncounter",
+  "formElementGroups": [
+    {
+      "uuid": "7cb5847d-da99-e78b-e0d6-1ea661b439ab",
+      "name": "Scheme Details",
+      "displayOrder": 1,
+      "formElements": [
+        {
+          "name": "Scheme Name",
+          "uuid": "136dbc1e-d307-00d9-1086-26988d08f239",
+          "keyValues": [],
+          "concept": {
+            "name": "Scheme Name",
+            "uuid": "8e70906c-62a2-3e0c-2b85-5bf2a21f3469",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false,
+      "display": "Scheme Details"
+    },
+    {
+      "uuid": "2e428ccd-35d6-9ea4-c12e-10e590dbeb77",
+      "name": "General",
+      "displayOrder": 2,
+      "formElements": [
+        {
+          "name": "Other Scheme, Specify",
+          "uuid": "1f888a06-2a81-e99a-254b-24e542b73356",
+          "keyValues": [],
+          "concept": {
+            "name": "Other Scheme, Specify",
+            "uuid": "03248c90-f195-3368-a519-cac857c1d09c",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true,
+          "declarativeRule": [
+            {
+              "actions": [
+                {
+                  "actionType": "showFormElement"
+                }
+              ],
+              "conditions": [
+                {
+                  "compoundRule": {
+                    "rules": [
+                      {
+                        "lhs": {
+                          "type": "concept",
+                          "scope": "encounter",
+                          "conceptName": "Scheme Name",
+                          "conceptUuid": "8e70906c-62a2-3e0c-2b85-5bf2a21f3469",
+                          "conceptDataType": "Coded"
+                        },
+                        "rhs": {
+                          "type": "answerConcept",
+                          "answerConceptNames": [
+                            "Other"
+                          ]
+                        },
+                        "operator": "containsAnswerConceptName"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "timed": false,
+      "display": "General"
+    },
+    {
+      "uuid": "63d1f5a4-09c7-8314-7bcb-70037b0ede76",
+      "name": "Prime Minister's Matru Vandana Yojana(PMMVY) Details",
+      "displayOrder": 3,
+      "formElements": [
+        {
+          "name": "Scheme Amount Recievied",
+          "uuid": "74e6b646-6db5-569e-c357-95dbc9fd206a",
+          "keyValues": [],
+          "concept": {
+            "name": "Scheme Amount Recievied",
+            "uuid": "eaaa8da9-2565-893a-3119-11101109f8be",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false,
+      "display": "Prime Minister's Matru Vandana Yojana(PMMVY) Details"
+    },
+    {
+      "uuid": "fa1f6356-9d32-b7b1-eb5d-31c24af5c04e",
+      "name": "Janani Shishu Suraksha Yojana Details",
+      "displayOrder": 4,
+      "formElements": [
+        {
+          "name": "Scheme Amount Recievied",
+          "uuid": "74e6b646-6db5-569e-c357-95dbc9fd206a",
+          "keyValues": [],
+          "concept": {
+            "name": "Scheme Amount Recievied",
+            "uuid": "eaaa8da9-2565-893a-3119-11101109f8be",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false,
+      "display": "Janani Shishu Suraksha Yojana Details"
+    },
+    {
+      "uuid": "1487df3b-c686-5ad3-7931-dff323ad2b9d",
+      "name": "Pradhan Mantri Surakshit Matritva Abhiyan – PMSMA Details",
+      "displayOrder": 5,
+      "formElements": [
+        {
+          "name": "Scheme Amount Recievied",
+          "uuid": "74e6b646-6db5-569e-c357-95dbc9fd206a",
+          "keyValues": [],
+          "concept": {
+            "name": "Scheme Amount Recievied",
+            "uuid": "eaaa8da9-2565-893a-3119-11101109f8be",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false,
+      "display": "Pradhan Mantri Surakshit Matritva Abhiyan – PMSMA Details"
+    },
+    {
+      "uuid": "71a7cf17-2934-2e43-f5fe-767871c89d87",
+      "name": "Indira Gandhi Matritva Poshan Yojana",
+      "displayOrder": 6,
+      "formElements": [
+        {
+          "name": "Scheme Amount Recievied",
+          "uuid": "74e6b646-6db5-569e-c357-95dbc9fd206a",
+          "keyValues": [],
+          "concept": {
+            "name": "Scheme Amount Recievied",
+            "uuid": "eaaa8da9-2565-893a-3119-11101109f8be",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false,
+      "display": "Indira Gandhi Matritva Poshan Yojana"
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}

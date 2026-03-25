@@ -1,0 +1,22 @@
+[ {
+  "uuid" : "aa7a845f-ff9c-48f1-ac0f-f0b58cbea9f8",
+  "id" : 3936,
+  "name" : "Everyone",
+  "notEveryoneGroup" : false
+}, {
+  "uuid" : "896f2850-2999-8aa0-368c-1bbade123494",
+  "id" : 3977,
+  "name" : "Field Executive"
+}, {
+  "uuid" : "bac6ae6b-c056-da08-2e9b-b488002ed428",
+  "id" : 3978,
+  "name" : "Operational Head"
+}, {
+  "uuid" : "dc595c26-5645-65fd-cefc-7a76af84bae3",
+  "id" : 3979,
+  "name" : "Founder"
+}, {
+  "uuid" : "81eff4fd-0c15-41bf-9523-25af9f12115c",
+  "id" : 3983,
+  "name" : "Metabase Users"
+} ]

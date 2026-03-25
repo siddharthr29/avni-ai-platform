@@ -1,0 +1,106 @@
+[
+  {
+    "uuid": "de37884b-5d4f-97bb-7710-da7f56220a24",
+    "name": "Husband-Wife",
+    "individualAIsToBRelation": {
+      "name": "Husband",
+      "uuid": "ebeac19b-0878-1c22-da67-78f3ae001a8f"
+    },
+    "individualBIsToARelation": {
+      "name": "Wife",
+      "uuid": "ab32c011-fcdc-fa53-b778-2f85e41c85ec"
+    },
+    "voided": false
+  },
+  {
+    "uuid": "0661beeb-e81f-856c-7247-047801717b18",
+    "name": "Father-Son",
+    "individualAIsToBRelation": {
+      "name": "Father",
+      "uuid": "62885014-7a4f-488e-c0dc-42c2fb51317a"
+    },
+    "individualBIsToARelation": {
+      "name": "Son",
+      "uuid": "8dadace4-1512-9a6b-927d-b7c088a08048"
+    },
+    "voided": false
+  },
+  {
+    "uuid": "da00dd7c-4903-0dac-1673-1946ab8eb228",
+    "name": "Father-Daughter",
+    "individualAIsToBRelation": {
+      "name": "Father",
+      "uuid": "62885014-7a4f-488e-c0dc-42c2fb51317a"
+    },
+    "individualBIsToARelation": {
+      "name": "Daughter",
+      "uuid": "b103cfe7-0e4f-00ee-8dc2-a8dd73761562"
+    },
+    "voided": false
+  },
+  {
+    "uuid": "37881583-d74b-9deb-88f7-dc3b2132bba7",
+    "name": "Mother-Son",
+    "individualAIsToBRelation": {
+      "name": "Mother",
+      "uuid": "043afd94-52f2-6574-a8d6-90796f9498be"
+    },
+    "individualBIsToARelation": {
+      "name": "Son",
+      "uuid": "8dadace4-1512-9a6b-927d-b7c088a08048"
+    },
+    "voided": false
+  },
+  {
+    "uuid": "602ff881-aa66-2afd-7a4e-04e25668c9e1",
+    "name": "Mother-Daughter",
+    "individualAIsToBRelation": {
+      "name": "Mother",
+      "uuid": "043afd94-52f2-6574-a8d6-90796f9498be"
+    },
+    "individualBIsToARelation": {
+      "name": "Daughter",
+      "uuid": "b103cfe7-0e4f-00ee-8dc2-a8dd73761562"
+    },
+    "voided": false
+  },
+  {
+    "uuid": "7b13d9a3-243e-5bf8-e351-ce2053e5688e",
+    "name": "Brother-Sister",
+    "individualAIsToBRelation": {
+      "name": "Brother",
+      "uuid": "2b805845-abb9-478b-97ee-c279ef4366f1"
+    },
+    "individualBIsToARelation": {
+      "name": "Sister",
+      "uuid": "313a8b6d-f163-7ba0-7e6d-5dd82ad493b5"
+    },
+    "voided": false
+  },
+  {
+    "uuid": "8e100f3d-a7fb-daf3-828c-f18ae0ee1ea9",
+    "name": "Grandfather-Grandson",
+    "individualAIsToBRelation": {
+      "name": "Grandfather",
+      "uuid": "4e5f3fde-0008-5206-8841-838843b6269b"
+    },
+    "individualBIsToARelation": {
+      "name": "Grandson",
+      "uuid": "1fa512cf-7f05-996c-1e0f-d6eda5ced515"
+    },
+    "voided": false
+  },
+  {
+    "uuid": "1bbef2a0-5aec-859f-d8ea-473ba1f87ce6",
+    "name": "Grandmother-Granddaughter",
+    "individualAIsToBRelation": {
+      "name": "Grandmother",
+      "uuid": "ece7f605-c982-3dc6-961a-101281046439"
+    },
+    "individualBIsToARelation": {
+      "name": "Granddaughter",
+      "uuid": "b92a1f56-f40e-05eb-9710-0481b3eb5788"
+    },
+    "voided": false
+  }
+]

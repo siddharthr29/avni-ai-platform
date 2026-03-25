@@ -1,0 +1,181 @@
+{
+  "name": "HBNC New Born care",
+  "uuid": "449e2edf-f6e5-06f4-17f4-e009f26e277e",
+  "formType": "ProgramEncounter",
+  "formElementGroups": [
+    {
+      "uuid": "f2ca0fde-06e6-9220-0142-34c5f1890e29",
+      "name": "General",
+      "displayOrder": 1,
+      "formElements": [
+        {
+          "name": "Child Registration encounter happening where",
+          "uuid": "2c30b676-6a1e-1dcd-44d3-5dfa2f15bae9",
+          "keyValues": [],
+          "concept": {
+            "name": "Child Registration encounter happening where",
+            "uuid": "cb3c2dcd-e805-1e7a-9b29-65bd6c499710",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Weight",
+          "uuid": "15976b6f-71e8-a8b9-e649-d686dc1585f9",
+          "keyValues": [],
+          "concept": {
+            "name": "Weight",
+            "uuid": "036ff915-6117-1c48-1797-4a8472998e15",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 2,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Height",
+          "uuid": "984dd74a-a825-5a1b-1608-fcecd47ddbbe",
+          "keyValues": [],
+          "concept": {
+            "name": "Height",
+            "uuid": "7424f3c4-dab2-2eb1-7cde-22538ef2637e",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 3,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Weight for height (Wasting status) in kgs",
+          "uuid": "0acd7249-6851-9b8a-7911-1a4e903f0e9b",
+          "keyValues": [],
+          "concept": {
+            "name": "Weight for height (Wasting status) in kgs",
+            "uuid": "942e8838-284d-61bc-0282-974fd45c1212",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 4,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Weight for age (Underweight status)",
+          "uuid": "58577ec5-d882-d9b5-bd22-3a839efab345",
+          "keyValues": [],
+          "concept": {
+            "name": "Weight for age (Underweight status)",
+            "uuid": "f6c54766-c37b-86b7-46a8-9426577fa1c3",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 5,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Height for age  (Stunting status):",
+          "uuid": "9351ffe6-ff2a-1789-f81e-e05190c35a60",
+          "keyValues": [],
+          "concept": {
+            "name": "Height for age  (Stunting status):",
+            "uuid": "9aad90fe-b588-feab-b911-4cd394a8e436",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 6,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Newborn Temperature",
+          "uuid": "dc03614e-a81f-7dc4-912d-3bf8c711b0c6",
+          "keyValues": [],
+          "concept": {
+            "name": "Newborn Temperature",
+            "uuid": "7342aa9f-02dd-614d-4a61-4c1a22d98de7",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 7,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Newborn Respiratory Rate",
+          "uuid": "dab9cafb-3099-4ca3-b2fb-3b660bf6326a",
+          "keyValues": [],
+          "concept": {
+            "name": "Newborn Respiratory Rate",
+            "uuid": "e22ad58e-cfce-7bf3-8880-64dd03db05b8",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 8,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Newborn Danger Signs",
+          "uuid": "43d94b39-bceb-2557-ce00-273bffbcbfa1",
+          "keyValues": [],
+          "concept": {
+            "name": "Newborn Danger Signs",
+            "uuid": "c710badb-12d7-b4f9-f3a2-237ac723ef53",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 9,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Next PNC/Immunization Date",
+          "uuid": "10c38a6e-a417-d72e-ccab-6237a3e3f89a",
+          "keyValues": [],
+          "concept": {
+            "name": "Next PNC/Immunization Date",
+            "uuid": "398f1f6a-40d1-5de7-bcdb-743916f2db1f",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 10,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false,
+      "display": "General"
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}

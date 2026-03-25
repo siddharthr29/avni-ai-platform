@@ -1,0 +1,76 @@
+{
+  "name": "Bio Intensive Garden",
+  "uuid": "4e2eaf3a-f9de-4166-8168-ead4fb8d7168",
+  "formType": "ProgramEncounter",
+  "formElementGroups": [
+    {
+      "uuid": "67a827f4-aa38-4303-8ff3-74ce6e9c41e1",
+      "name": "Bio-Intensive Garden",
+      "displayOrder": 1,
+      "formElements": [
+        {
+          "name": "Name of the Seeds",
+          "uuid": "562ff3d2-79f4-465a-9cb3-5eabfefe621b",
+          "keyValues": [],
+          "concept": {
+            "name": "Name of the Seeds",
+            "uuid": "3e20574d-f3d0-4d63-8acf-999f469f0474",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Harvest yield",
+          "uuid": "5f3c9e86-a380-453b-aebf-201951b0c4f0",
+          "keyValues": [],
+          "concept": {
+            "name": "Harvest yield",
+            "uuid": "5e3f4e64-63ae-4bbb-b294-3d78929c2804",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 2,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Manure supplied",
+          "uuid": "5d5fea3f-acf7-4edc-80e8-e9d3b87044bd",
+          "keyValues": [],
+          "concept": {
+            "name": "Manure supplied",
+            "uuid": "3f4abe9e-0981-4f89-8180-25dbc58d0046",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 3,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Seed bank",
+          "uuid": "768ad443-3332-4fd1-9487-005b20fd2f13",
+          "keyValues": [],
+          "concept": {
+            "name": "Seed bank",
+            "uuid": "29e32027-057f-4acb-ad86-294ba6a9c8ce",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 4,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}

@@ -1,0 +1,1064 @@
+[ {
+  "name" : "Activity",
+  "uuid" : "7323efd4-a80a-5729-66e9-e94e2af0e6ee",
+  "dataType" : "Subject",
+  "active" : true,
+  "keyValues" : [ {
+    "key" : "subjectTypeUUID",
+    "value" : "69c82e65-11a7-2d62-1851-21efb50441ec"
+  } ]
+}, {
+  "name" : "Activity Name (voided~replaced_by_activity_type)",
+  "uuid" : "f3a18921-1311-f53d-59ea-9738ab88d71c",
+  "dataType" : "Coded",
+  "active" : true,
+  "voided" : true,
+  "answers" : [ {
+    "name" : "General Health Check-up Camp",
+    "uuid" : "cfa8d57a-b0e5-65e8-d9c7-612a8bc30572",
+    "order" : 0.0
+  }, {
+    "name" : "Eye Health Screening Camp",
+    "uuid" : "2480fb2f-0f33-62f6-ba0b-428ec9d55c50",
+    "order" : 1.0
+  } ]
+}, {
+  "name" : "Activity Type",
+  "uuid" : "dd5064b5-abbe-0795-4995-dc80d57a2c99",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Health",
+    "uuid" : "f51b3f98-62ff-7667-0ec5-13a9449f9c94",
+    "order" : 0.0
+  }, {
+    "name" : "Financial Literacy",
+    "uuid" : "56901aca-70a9-0317-8730-15681088bb77",
+    "order" : 1.0
+  }, {
+    "name" : "Education",
+    "uuid" : "9c62817e-4678-0219-ceab-8c9633f24cbd",
+    "order" : 2.0
+  }, {
+    "name" : "Menstrual Health & Hygiene",
+    "uuid" : "470f04bd-b118-d883-016f-d15a883e4029",
+    "order" : 3.0
+  }, {
+    "name" : "Other",
+    "uuid" : "dde76252-3032-41f5-ab53-1802951574ee",
+    "order" : 4.0
+  } ]
+}, {
+  "name" : "Address",
+  "uuid" : "20f9d49e-f796-1433-c4c7-ec3e3acd5dc8",
+  "dataType" : "Text",
+  "active" : true
+}, {
+  "name" : "Age",
+  "uuid" : "db495147-f81c-db40-752d-9fa10517ce0c",
+  "dataType" : "Numeric",
+  "lowAbsolute" : 0.0,
+  "highAbsolute" : 120.0,
+  "unit" : "years",
+  "active" : true
+}, {
+  "name" : "Anganwadi Center",
+  "uuid" : "252c7b05-2270-54ad-7664-40c7bd08a54f",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "Animal Welfare",
+  "uuid" : "931063c5-7dba-bd2e-aa71-efe0e252421e",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "Baala",
+  "uuid" : "d24c486a-32f9-02a1-ab64-9afe49da26df",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "Beneficiary photograph with material",
+  "uuid" : "01ef0a62-6e0e-471a-2b49-005b5f418420",
+  "dataType" : "Image",
+  "active" : true
+}, {
+  "name" : "Benow",
+  "uuid" : "703b679e-0336-afbf-78f4-1f7c438bdf6d",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "BP (voided~split_to_systolic_diastolic)",
+  "uuid" : "4079b5e1-6b7f-0972-3dc9-e363f7bfe337",
+  "dataType" : "Numeric",
+  "active" : true,
+  "voided" : true
+}, {
+  "name" : "BP-Diastolic",
+  "uuid" : "de2b16dc-358c-e8b5-621b-5a75a0c8928b",
+  "dataType" : "Numeric",
+  "lowAbsolute" : 30.0,
+  "highAbsolute" : 150.0,
+  "unit" : "mmHg",
+  "active" : true
+}, {
+  "name" : "BP-Systolic",
+  "uuid" : "5b9d8c54-af72-5bf7-1b1e-43c8ec5f0298",
+  "dataType" : "Numeric",
+  "lowAbsolute" : 50.0,
+  "highAbsolute" : 250.0,
+  "unit" : "mmHg",
+  "active" : true
+}, {
+  "name" : "Breast Cancer Camp",
+  "uuid" : "50be6105-66da-580f-c6c0-2996b3e16406",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "Cataract",
+  "uuid" : "a8e26104-5a18-ec94-e539-b8eb838ebccd",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "Catchment",
+  "uuid" : "232e9856-7962-50fc-943b-9c106ced27b8",
+  "dataType" : "Text",
+  "active" : true
+}, {
+  "name" : "Center Name",
+  "uuid" : "50b9f958-9cb9-480d-0d16-c50c1079d4e7",
+  "dataType" : "Text",
+  "active" : true
+}, {
+  "name" : "Children's Home",
+  "uuid" : "4d3780c6-c18b-6a3f-1d0a-5dd6d68746bb",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "Column",
+  "uuid" : "965a529b-4b49-cf3b-45dc-22bff5626dc2",
+  "dataType" : "Text",
+  "active" : true
+}, {
+  "name" : "Computers/Laptop",
+  "uuid" : "2ed1dd56-1ddf-95ee-5616-1f230961e1e7",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "Connexus Social Responsibility",
+  "uuid" : "0aa73e14-3e37-7c59-30eb-8871ec5bc296",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "Contact No",
+  "uuid" : "993accbc-f355-77df-f539-127ec845c648",
+  "dataType" : "Numeric",
+  "lowAbsolute" : 6.0E9,
+  "highAbsolute" : 9.999999999E9,
+  "active" : true
+}, {
+  "name" : "Contact Number",
+  "uuid" : "bd3fb603-d0ae-c5c5-08b9-043ada3f23ae",
+  "dataType" : "Numeric",
+  "lowAbsolute" : 6.0E9,
+  "highAbsolute" : 9.999999999E9,
+  "active" : true
+}, {
+  "name" : "Contact number of CR",
+  "uuid" : "070739b2-1903-8dad-d11d-f805c59f258e",
+  "dataType" : "Numeric",
+  "lowAbsolute" : 6.0E9,
+  "highAbsolute" : 9.999999999E9,
+  "active" : true
+}, {
+  "name" : "CSR Partner",
+  "uuid" : "964e9246-54a5-1beb-72b8-28c5760e551c",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Benow",
+    "uuid" : "703b679e-0336-afbf-78f4-1f7c438bdf6d",
+    "order" : 1.0
+  }, {
+    "name" : "Mosambee",
+    "uuid" : "0081811f-5f1c-103a-bd21-5abd71840a2d",
+    "order" : 2.0
+  }, {
+    "name" : "Ideal Cures",
+    "uuid" : "bc22ebaf-7ce5-90d8-32c5-3c8cac021131",
+    "order" : 3.0
+  }, {
+    "name" : "NA",
+    "uuid" : "52eb2160-d50b-d3e9-bbb1-31b4689a1830",
+    "order" : 4.0
+  } ]
+}, {
+  "name" : "CSR Partner (voided~text_to_coded)",
+  "uuid" : "efa381e8-b3f7-7874-9ccd-1b010f24428f",
+  "dataType" : "Text",
+  "active" : true,
+  "voided" : true
+}, {
+  "name" : "Datatype",
+  "uuid" : "d5f04f7e-8391-9997-6565-3f4214d03fa0",
+  "dataType" : "Text",
+  "active" : true
+}, {
+  "name" : "Date of Event",
+  "uuid" : "1680d94d-583d-b46c-f3ea-6849a32821bb",
+  "dataType" : "Date",
+  "active" : true
+}, {
+  "name" : "Date of programme",
+  "uuid" : "18a3ce5b-6fb7-70c1-95f2-f7c6e03eb8f5",
+  "dataType" : "Numeric",
+  "active" : true
+}, {
+  "name" : "Description",
+  "uuid" : "2b234727-9546-fef8-e3b7-7d9b39e21f5e",
+  "dataType" : "Text",
+  "active" : true
+}, {
+  "name" : "Diabetes",
+  "uuid" : "dcff3949-9b08-3619-c613-4c920ec48563",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "Digi Upskill",
+  "uuid" : "f15b5066-c89e-74f4-f08b-cf13306c79a4",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "Distribution Type",
+  "uuid" : "11d93d28-7220-7020-5757-81dc31601b5b",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Health Camp",
+    "uuid" : "cf4d08bd-79a6-575b-39d4-763c3ab517bf",
+    "order" : 0.0
+  }, {
+    "name" : "Other",
+    "uuid" : "dde76252-3032-41f5-ab53-1802951574ee",
+    "order" : 1.0
+  } ]
+}, {
+  "name" : "Education",
+  "uuid" : "9c62817e-4678-0219-ceab-8c9633f24cbd",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "Enable India",
+  "uuid" : "ef21c60f-929f-2536-00c3-d57d78e9d83e",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "End Date of Event",
+  "uuid" : "26633803-8f35-3e90-4e47-3fa14d2e6085",
+  "dataType" : "Date",
+  "active" : true
+}, {
+  "name" : "Eye Drop",
+  "uuid" : "7fb560b6-3535-7749-9044-39661109ab4f",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Yes",
+    "uuid" : "e1018fd6-6a74-45e5-9191-6dec7647d817",
+    "order" : 0.0
+  }, {
+    "name" : "No",
+    "uuid" : "cca1df60-04c2-497c-a5ad-47438ae9fb7c",
+    "order" : 1.0
+  } ]
+}, {
+  "name" : "Eye Health Screening Camp",
+  "uuid" : "2480fb2f-0f33-62f6-ba0b-428ec9d55c50",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "Female",
+  "uuid" : "4e92d0cf-426e-4e55-9162-711f60e722cb",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "Financial Literacy",
+  "uuid" : "56901aca-70a9-0317-8730-15681088bb77",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "Full Name of the individual (First name, Middle name and Last name)",
+  "uuid" : "c18998a5-ef48-1648-9fdf-daba41dbd51c",
+  "dataType" : "Text",
+  "active" : true
+}, {
+  "name" : "Gender",
+  "uuid" : "8b66456c-6841-d352-284e-cddec3aa9bdc",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Male",
+    "uuid" : "b175441e-e0ce-4b35-b492-08df1521dd42",
+    "order" : 0.0
+  }, {
+    "name" : "Female",
+    "uuid" : "4e92d0cf-426e-4e55-9162-711f60e722cb",
+    "order" : 1.0
+  }, {
+    "name" : "Other",
+    "uuid" : "dde76252-3032-41f5-ab53-1802951574ee",
+    "order" : 2.0
+  } ]
+}, {
+  "name" : "Gender of the individual (voided~text_to_coded)",
+  "uuid" : "43887e87-5422-c8f5-25b2-c6ccd5503017",
+  "dataType" : "Text",
+  "active" : true,
+  "voided" : true
+}, {
+  "name" : "General Health Check-up Camp",
+  "uuid" : "cfa8d57a-b0e5-65e8-d9c7-612a8bc30572",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "Goonj",
+  "uuid" : "5c741930-b72d-75a5-2a43-7aa2e41780b6",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "Health",
+  "uuid" : "f51b3f98-62ff-7667-0ec5-13a9449f9c94",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "Health Activity Sub-Type",
+  "uuid" : "f4decd5e-9420-2834-7828-f91a4a2cc11c",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "General Health Check-up Camp",
+    "uuid" : "cfa8d57a-b0e5-65e8-d9c7-612a8bc30572",
+    "order" : 0.0
+  }, {
+    "name" : "Eye Health Screening Camp",
+    "uuid" : "2480fb2f-0f33-62f6-ba0b-428ec9d55c50",
+    "order" : 1.0
+  }, {
+    "name" : "Breast Cancer Camp",
+    "uuid" : "50be6105-66da-580f-c6c0-2996b3e16406",
+    "order" : 2.0
+  } ]
+}, {
+  "name" : "Health Camp",
+  "uuid" : "cf4d08bd-79a6-575b-39d4-763c3ab517bf",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "Health Center/ Camps",
+  "uuid" : "e97161b6-217a-a31f-2f0c-a920a881f366",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "Height",
+  "uuid" : "7424f3c4-dab2-2eb1-7cde-22538ef2637e",
+  "dataType" : "Numeric",
+  "lowAbsolute" : 0.0,
+  "highAbsolute" : 250.0,
+  "unit" : "cm",
+  "active" : true
+}, {
+  "name" : "Hgt",
+  "uuid" : "6f4be595-0424-8745-e19d-dfd6305aac5b",
+  "dataType" : "Numeric",
+  "lowAbsolute" : 50.0,
+  "highAbsolute" : 500.0,
+  "unit" : "mg/dL",
+  "active" : true
+}, {
+  "name" : "How",
+  "uuid" : "16d570ba-2597-4f13-cbba-7063ff978811",
+  "dataType" : "Text",
+  "active" : true
+}, {
+  "name" : "Hypertension",
+  "uuid" : "74952d7f-1988-4e4d-6b90-b1104aee17a7",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "Ideal Cures",
+  "uuid" : "bc22ebaf-7ce5-90d8-32c5-3c8cac021131",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "In Associates with",
+  "uuid" : "e359f80c-d089-1e7b-fcb8-ea99fe987992",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Stambh Foundation",
+    "uuid" : "dfbc80d6-e402-234f-2688-9af4af26979b",
+    "order" : 0.0
+  }, {
+    "name" : "Digi Upskill",
+    "uuid" : "f15b5066-c89e-74f4-f08b-cf13306c79a4",
+    "order" : 1.0
+  }, {
+    "name" : "Yuva Sahas",
+    "uuid" : "2cfc98cd-f647-fa69-4820-f5b6534be4f5",
+    "order" : 2.0
+  }, {
+    "name" : "Poornima Bahuddheshiya Sanstha",
+    "uuid" : "ea30f086-e8fd-ad10-0cb3-cdf3b2397383",
+    "order" : 3.0
+  }, {
+    "name" : "NA",
+    "uuid" : "52eb2160-d50b-d3e9-bbb1-31b4689a1830",
+    "unique" : true,
+    "order" : 4.0
+  } ]
+}, {
+  "name" : "Initiative",
+  "uuid" : "fbe9a2fe-2bd3-22da-d45d-c3c411ea2e57",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Menstrual Health & Hygiene",
+    "uuid" : "470f04bd-b118-d883-016f-d15a883e4029",
+    "order" : 0.0
+  }, {
+    "name" : "Financial Literacy",
+    "uuid" : "56901aca-70a9-0317-8730-15681088bb77",
+    "order" : 1.0
+  }, {
+    "name" : "Health",
+    "uuid" : "f51b3f98-62ff-7667-0ec5-13a9449f9c94",
+    "order" : 2.0
+  }, {
+    "name" : "Education",
+    "uuid" : "9c62817e-4678-0219-ceab-8c9633f24cbd",
+    "order" : 3.0
+  }, {
+    "name" : "Other",
+    "uuid" : "dde76252-3032-41f5-ab53-1802951574ee",
+    "order" : 4.0
+  } ]
+}, {
+  "name" : "Khichadi pack",
+  "uuid" : "29c998ca-a423-f19f-a0ef-ed86e03ee84c",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Yes",
+    "uuid" : "e1018fd6-6a74-45e5-9191-6dec7647d817",
+    "order" : 0.0
+  }, {
+    "name" : "No",
+    "uuid" : "cca1df60-04c2-497c-a5ad-47438ae9fb7c",
+    "order" : 1.0
+  } ]
+}, {
+  "name" : "Khichadi Packet",
+  "uuid" : "5035d7dd-2b60-b025-9dbd-5c2211ab8686",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "L&T Health Center & Bramhakumari",
+  "uuid" : "fd202868-b98d-6e5e-ef03-a8798288e586",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "Libarary",
+  "uuid" : "29d64dc3-9cc9-23a3-7249-c6b15da60363",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "Male",
+  "uuid" : "b175441e-e0ce-4b35-b492-08df1521dd42",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "Mandatory",
+  "uuid" : "48450efc-e28d-6a11-98b3-9c3aa169932b",
+  "dataType" : "Text",
+  "active" : true
+}, {
+  "name" : "Marriage support",
+  "uuid" : "9cfc40e0-2de4-4297-53ff-d90c03da1258",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "Material Details with quantity",
+  "uuid" : "54eabd75-cfc1-acc8-65df-23e94b3ad27a",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Nutri Kit",
+    "uuid" : "0a678740-079a-06f5-f07b-388a6b20f76b",
+    "order" : 0.0
+  }, {
+    "name" : "Khichadi Packet",
+    "uuid" : "5035d7dd-2b60-b025-9dbd-5c2211ab8686",
+    "order" : 1.0
+  }, {
+    "name" : "Medicine",
+    "uuid" : "41097292-690d-2c06-34fa-4173341008bd",
+    "order" : 2.0
+  }, {
+    "name" : "Spectacles",
+    "uuid" : "8f9047e6-d5bb-f693-d8e7-1469fc0e8e72",
+    "order" : 3.0
+  }, {
+    "name" : "Eye Drop",
+    "uuid" : "7fb560b6-3535-7749-9044-39661109ab4f",
+    "order" : 4.0
+  } ]
+}, {
+  "name" : "Material Distributed",
+  "uuid" : "83d6374e-b43c-abdc-eb59-7589597e6126",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Recliner Beds",
+    "uuid" : "37dc188f-69c5-65c7-f3b2-2c66067f2381",
+    "order" : 1.0
+  }, {
+    "name" : "Toys",
+    "uuid" : "25cd8dde-0a0c-b4cb-9a7a-9c6b258f41a3",
+    "order" : 2.0
+  }, {
+    "name" : "Wheel Chairs",
+    "uuid" : "3c1ed54c-7e9c-205c-9425-b8ebfaceb47f",
+    "order" : 3.0
+  }, {
+    "name" : "Computers/Laptop",
+    "uuid" : "2ed1dd56-1ddf-95ee-5616-1f230961e1e7",
+    "order" : 4.0
+  }, {
+    "name" : "Medical equipment",
+    "uuid" : "930b8cad-1e24-b966-5b13-c09e1b9af3da",
+    "order" : 5.0
+  }, {
+    "name" : "NA",
+    "uuid" : "52eb2160-d50b-d3e9-bbb1-31b4689a1830",
+    "order" : 6.0
+  } ]
+}, {
+  "name" : "Material Given For",
+  "uuid" : "2d6951f3-5875-f325-ce93-d843372f30a2",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Old Age-Home",
+    "uuid" : "80a2caa5-c477-e034-fc0e-6ebbd77bd6c1",
+    "order" : 1.0
+  }, {
+    "name" : "Health Center/ Camps",
+    "uuid" : "e97161b6-217a-a31f-2f0c-a920a881f366",
+    "order" : 2.0
+  }, {
+    "name" : "Anganwadi Center",
+    "uuid" : "252c7b05-2270-54ad-7664-40c7bd08a54f",
+    "order" : 3.0
+  }, {
+    "name" : "Office Support",
+    "uuid" : "f9be9f39-3b42-9c41-d5a2-a907490cbf1e",
+    "order" : 4.0
+  }, {
+    "name" : "Children's Home",
+    "uuid" : "4d3780c6-c18b-6a3f-1d0a-5dd6d68746bb",
+    "order" : 5.0
+  }, {
+    "name" : "Animal Welfare",
+    "uuid" : "931063c5-7dba-bd2e-aa71-efe0e252421e",
+    "order" : 6.0
+  }, {
+    "name" : "Study/ Computer Center",
+    "uuid" : "bff765e9-a486-bfed-330e-cb251537d864",
+    "order" : 7.0
+  }, {
+    "name" : "Person with Disability",
+    "uuid" : "64c77b52-a284-c17d-055b-90f2744f1cfd",
+    "order" : 8.0
+  }, {
+    "name" : "Night Shelter",
+    "uuid" : "f8e5d4e3-ad88-5fa1-83f0-3c33d5984ede",
+    "order" : 9.0
+  }, {
+    "name" : "Libarary",
+    "uuid" : "29d64dc3-9cc9-23a3-7249-c6b15da60363",
+    "order" : 10.0
+  }, {
+    "name" : "Marriage support",
+    "uuid" : "9cfc40e0-2de4-4297-53ff-d90c03da1258",
+    "order" : 11.0
+  }, {
+    "name" : "Residential Home",
+    "uuid" : "0297b950-b777-2484-fbf0-327b66e8370f",
+    "order" : 12.0
+  }, {
+    "name" : "Maternity",
+    "uuid" : "43a177aa-fe58-743d-4c23-f9d41e7bd8bb",
+    "order" : 13.0
+  }, {
+    "name" : "Sport",
+    "uuid" : "74dba68e-0ad3-53cf-206e-e9416c568e00",
+    "order" : 14.0
+  }, {
+    "name" : "Stitching Center",
+    "uuid" : "80bfe4f9-2b84-94f8-eda0-e38517f472aa",
+    "order" : 15.0
+  }, {
+    "name" : "NA",
+    "uuid" : "52eb2160-d50b-d3e9-bbb1-31b4689a1830",
+    "order" : 16.0
+  } ]
+}, {
+  "name" : "Maternity",
+  "uuid" : "43a177aa-fe58-743d-4c23-f9d41e7bd8bb",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "Medical equipment",
+  "uuid" : "930b8cad-1e24-b966-5b13-c09e1b9af3da",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "Medicine",
+  "uuid" : "41097292-690d-2c06-34fa-4173341008bd",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Yes",
+    "uuid" : "e1018fd6-6a74-45e5-9191-6dec7647d817",
+    "order" : 0.0
+  }, {
+    "name" : "No",
+    "uuid" : "cca1df60-04c2-497c-a5ad-47438ae9fb7c",
+    "order" : 1.0
+  } ]
+}, {
+  "name" : "Menstrual Health & Hygiene",
+  "uuid" : "470f04bd-b118-d883-016f-d15a883e4029",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "Mosambee",
+  "uuid" : "0081811f-5f1c-103a-bd21-5abd71840a2d",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "NA",
+  "uuid" : "52eb2160-d50b-d3e9-bbb1-31b4689a1830",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "NA (Special Case)",
+  "uuid" : "d8e5a0bf-9740-f8d8-de07-028033df0de9",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "Name of Community Representative",
+  "uuid" : "3891820a-211a-9622-39ad-f4be4aeedb6c",
+  "dataType" : "Text",
+  "active" : true
+}, {
+  "name" : "Name of Field Officer",
+  "uuid" : "952f4020-4f5d-aa2c-1ae1-92160ebbb0f6",
+  "dataType" : "Text",
+  "active" : true
+}, {
+  "name" : "Name on POC",
+  "uuid" : "0a88de0c-3144-65a5-cc0c-8f78e4235a93",
+  "dataType" : "Text",
+  "active" : true
+}, {
+  "name" : "Nana Palkar Smurti Saminiti",
+  "uuid" : "18d4bc55-eb95-5e11-305f-822813b9c98f",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "Night Shelter",
+  "uuid" : "f8e5d4e3-ad88-5fa1-83f0-3c33d5984ede",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "No",
+  "uuid" : "cca1df60-04c2-497c-a5ad-47438ae9fb7c",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "Number",
+  "uuid" : "a3a357de-9266-c51a-af76-18a4c223cd81",
+  "dataType" : "Numeric",
+  "active" : true
+}, {
+  "name" : "Number of Days",
+  "uuid" : "0f49a1e5-9033-3d4b-14cb-31d6f95d3aaf",
+  "dataType" : "Numeric",
+  "unit" : "days",
+  "active" : true
+}, {
+  "name" : "Number of Female Participants",
+  "uuid" : "28843759-e8c9-f56f-82a8-f758219f6e70",
+  "dataType" : "Numeric",
+  "active" : true
+}, {
+  "name" : "Number of Male Participants",
+  "uuid" : "fb61af89-19c0-6e3a-d5b9-2e02191b1792",
+  "dataType" : "Numeric",
+  "active" : true
+}, {
+  "name" : "Number of Other Participants",
+  "uuid" : "5dddd987-8da9-da70-c14c-81e53ca79a42",
+  "dataType" : "Numeric",
+  "active" : true
+}, {
+  "name" : "Nutri Kit",
+  "uuid" : "0a678740-079a-06f5-f07b-388a6b20f76b",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Yes",
+    "uuid" : "e1018fd6-6a74-45e5-9191-6dec7647d817",
+    "order" : 0.0
+  }, {
+    "name" : "No",
+    "uuid" : "cca1df60-04c2-497c-a5ad-47438ae9fb7c",
+    "order" : 1.0
+  } ]
+}, {
+  "name" : "Objective of the Activity",
+  "uuid" : "6bcaa463-291f-817b-a06a-f3d684c3daa7",
+  "dataType" : "Text",
+  "active" : true
+}, {
+  "name" : "Office Support",
+  "uuid" : "f9be9f39-3b42-9c41-d5a2-a907490cbf1e",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "Old Age-Home",
+  "uuid" : "80a2caa5-c477-e034-fc0e-6ebbd77bd6c1",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "Option condition/Validation",
+  "uuid" : "00e8f60b-1fea-edfa-49ae-6483e05d58ae",
+  "dataType" : "Text",
+  "active" : true
+}, {
+  "name" : "Other",
+  "uuid" : "dde76252-3032-41f5-ab53-1802951574ee",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "Outcome",
+  "uuid" : "47e930b1-67d9-dac2-2669-c461df34c679",
+  "dataType" : "Text",
+  "active" : true
+}, {
+  "name" : "Pagaria Welfare Foundation",
+  "uuid" : "cd7016dd-75f8-3b5b-6ec9-189f68aa19a1",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "Person with Disability",
+  "uuid" : "64c77b52-a284-c17d-055b-90f2744f1cfd",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "Poornima Bahuddheshiya Sanstha",
+  "uuid" : "ea30f086-e8fd-ad10-0cb3-cdf3b2397383",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "PR",
+  "uuid" : "0ac0cad1-904b-750c-f0ab-376beb53c622",
+  "dataType" : "Numeric",
+  "lowAbsolute" : 30.0,
+  "highAbsolute" : 200.0,
+  "unit" : "bpm",
+  "active" : true
+}, {
+  "name" : "Recliner Beds",
+  "uuid" : "37dc188f-69c5-65c7-f3b2-2c66067f2381",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "Remarks",
+  "uuid" : "8227df59-9f95-25c1-6407-b3bf7697f594",
+  "dataType" : "Text",
+  "active" : true
+}, {
+  "name" : "Renovate India",
+  "uuid" : "5b763762-8c0f-9b57-5c35-ed7a4dc23533",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "Residential Home",
+  "uuid" : "0297b950-b777-2484-fbf0-327b66e8370f",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "Rise Against Hunger India",
+  "uuid" : "531cd70d-d1c3-eb44-4353-44e7618db685",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "Rural",
+  "uuid" : "8d6a0040-edd0-46ce-809b-9aa056a96db3",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "Semi Urban",
+  "uuid" : "d7a74d7f-ae0c-f34a-ef37-5478691588f2",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "Share Brief that how provided material will be useful",
+  "uuid" : "3f0ad10e-6f41-da28-1e31-3f882799124f",
+  "dataType" : "Text",
+  "active" : true
+}, {
+  "name" : "Special Case",
+  "uuid" : "9b548582-5faf-3c90-46f9-e7caecf7b046",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Diabetes",
+    "uuid" : "dcff3949-9b08-3619-c613-4c920ec48563",
+    "order" : 0.0
+  }, {
+    "name" : "Hypertension",
+    "uuid" : "74952d7f-1988-4e4d-6b90-b1104aee17a7",
+    "order" : 1.0
+  }, {
+    "name" : "Cataract",
+    "uuid" : "a8e26104-5a18-ec94-e539-b8eb838ebccd",
+    "order" : 2.0
+  }, {
+    "name" : "Other",
+    "uuid" : "dde76252-3032-41f5-ab53-1802951574ee",
+    "order" : 3.0
+  }, {
+    "name" : "NA (Special Case)",
+    "uuid" : "d8e5a0bf-9740-f8d8-de07-028033df0de9",
+    "unique" : true,
+    "order" : 4.0
+  } ]
+}, {
+  "name" : "Special Case - Others",
+  "uuid" : "0dd92da3-ad1e-81b2-b810-919ee0dc8b3b",
+  "dataType" : "Text",
+  "active" : true
+}, {
+  "name" : "Specify Details - Others",
+  "uuid" : "797c4a9f-8511-485b-2631-72c246c1ba2f",
+  "dataType" : "Text",
+  "active" : true
+}, {
+  "name" : "Spectacles",
+  "uuid" : "8f9047e6-d5bb-f693-d8e7-1469fc0e8e72",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Yes",
+    "uuid" : "e1018fd6-6a74-45e5-9191-6dec7647d817",
+    "order" : 0.0
+  }, {
+    "name" : "No",
+    "uuid" : "cca1df60-04c2-497c-a5ad-47438ae9fb7c",
+    "order" : 1.0
+  } ]
+}, {
+  "name" : "SpO2",
+  "uuid" : "5c71f9b1-b1c3-7445-dfdb-9e16023b59d1",
+  "dataType" : "Numeric",
+  "lowAbsolute" : 50.0,
+  "highAbsolute" : 100.0,
+  "unit" : "%",
+  "active" : true
+}, {
+  "name" : "Sport",
+  "uuid" : "74dba68e-0ad3-53cf-206e-e9416c568e00",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "Srujana",
+  "uuid" : "e3d7e29a-b1db-ec33-600c-ea15839eb274",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "Stambh Foundation",
+  "uuid" : "dfbc80d6-e402-234f-2688-9af4af26979b",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "Start Date of Event",
+  "uuid" : "fa8b64e2-933e-c253-78db-1defef9ccd82",
+  "dataType" : "Date",
+  "active" : true
+}, {
+  "name" : "Stitching Center",
+  "uuid" : "80bfe4f9-2b84-94f8-eda0-e38517f472aa",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "Study/ Computer Center",
+  "uuid" : "bff765e9-a486-bfed-330e-cb251537d864",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "Supported By",
+  "uuid" : "8306cba6-8019-6f8c-38c5-f87ca86593cc",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Renovate India",
+    "uuid" : "5b763762-8c0f-9b57-5c35-ed7a4dc23533",
+    "order" : 0.0
+  }, {
+    "name" : "Baala",
+    "uuid" : "d24c486a-32f9-02a1-ab64-9afe49da26df",
+    "order" : 1.0
+  }, {
+    "name" : "Pagaria Welfare Foundation",
+    "uuid" : "cd7016dd-75f8-3b5b-6ec9-189f68aa19a1",
+    "order" : 2.0
+  }, {
+    "name" : "Goonj",
+    "uuid" : "5c741930-b72d-75a5-2a43-7aa2e41780b6",
+    "order" : 3.0
+  }, {
+    "name" : "Rise Against Hunger India",
+    "uuid" : "531cd70d-d1c3-eb44-4353-44e7618db685",
+    "order" : 4.0
+  }, {
+    "name" : "Connexus Social Responsibility",
+    "uuid" : "0aa73e14-3e37-7c59-30eb-8871ec5bc296",
+    "order" : 5.0
+  }, {
+    "name" : "Enable India",
+    "uuid" : "ef21c60f-929f-2536-00c3-d57d78e9d83e",
+    "order" : 6.0
+  }, {
+    "name" : "Srujana",
+    "uuid" : "e3d7e29a-b1db-ec33-600c-ea15839eb274",
+    "order" : 7.0
+  }, {
+    "name" : "L&T Health Center & Bramhakumari",
+    "uuid" : "fd202868-b98d-6e5e-ef03-a8798288e586",
+    "order" : 8.0
+  }, {
+    "name" : "Tara Netralaya",
+    "uuid" : "764c0c5f-b71c-2a0c-673b-56d5fb3cfb3b",
+    "order" : 9.0
+  }, {
+    "name" : "Nana Palkar Smurti Saminiti",
+    "uuid" : "18d4bc55-eb95-5e11-305f-822813b9c98f",
+    "order" : 10.0
+  } ]
+}, {
+  "name" : "Supported By (voided~text_to_coded)",
+  "uuid" : "256223b6-1461-5ab9-8d03-a964f223e592",
+  "dataType" : "Text",
+  "active" : true,
+  "voided" : true
+}, {
+  "name" : "Tara Netralaya",
+  "uuid" : "764c0c5f-b71c-2a0c-673b-56d5fb3cfb3b",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "Temp",
+  "uuid" : "1ef6b6d0-ae2f-a4db-9b39-97be6a20cf87",
+  "dataType" : "Numeric",
+  "lowAbsolute" : 90.0,
+  "highAbsolute" : 110.0,
+  "unit" : "F",
+  "active" : true
+}, {
+  "name" : "Toys",
+  "uuid" : "25cd8dde-0a0c-b4cb-9a7a-9c6b258f41a3",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "Tribal",
+  "uuid" : "deb364ca-8777-61fd-8909-7e7118757f7c",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "Type of community Reached",
+  "uuid" : "abada98a-68c1-b63b-77af-45f650d6720a",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Rural",
+    "uuid" : "8d6a0040-edd0-46ce-809b-9aa056a96db3",
+    "order" : 0.0
+  }, {
+    "name" : "Tribal",
+    "uuid" : "deb364ca-8777-61fd-8909-7e7118757f7c",
+    "order" : 1.0
+  }, {
+    "name" : "Urban",
+    "uuid" : "be1ea98b-2e92-24a1-694f-2c4bb7e9ad84",
+    "order" : 2.0
+  }, {
+    "name" : "Semi Urban",
+    "uuid" : "d7a74d7f-ae0c-f34a-ef37-5478691588f2",
+    "order" : 3.0
+  } ]
+}, {
+  "name" : "Urban",
+  "uuid" : "be1ea98b-2e92-24a1-694f-2c4bb7e9ad84",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "User entered / System generated",
+  "uuid" : "c2d4944b-6907-2018-fc45-580dfd625d15",
+  "dataType" : "Text",
+  "active" : true
+}, {
+  "name" : "User Type",
+  "uuid" : "3168605e-8eb7-b4a1-e618-7990c586698c",
+  "dataType" : "Text",
+  "active" : true
+}, {
+  "name" : "Weight",
+  "uuid" : "036ff915-6117-1c48-1797-4a8472998e15",
+  "dataType" : "Numeric",
+  "lowAbsolute" : 0.0,
+  "highAbsolute" : 300.0,
+  "unit" : "kg",
+  "active" : true
+}, {
+  "name" : "What",
+  "uuid" : "d8343a37-ce41-9afb-d333-8ff35e196a00",
+  "dataType" : "Text",
+  "active" : true
+}, {
+  "name" : "Wheel Chairs",
+  "uuid" : "3c1ed54c-7e9c-205c-9425-b8ebfaceb47f",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "When",
+  "uuid" : "8e2a1852-060b-c09e-3478-93cb1ef69c09",
+  "dataType" : "Text",
+  "active" : true
+}, {
+  "name" : "Who",
+  "uuid" : "27116b78-6362-e02d-9f73-3f84b8126b12",
+  "dataType" : "Text",
+  "active" : true
+}, {
+  "name" : "Yes",
+  "uuid" : "e1018fd6-6a74-45e5-9191-6dec7647d817",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "Yuva Sahas",
+  "uuid" : "2cfc98cd-f647-fa69-4820-f5b6534be4f5",
+  "dataType" : "NA",
+  "active" : true
+} ]

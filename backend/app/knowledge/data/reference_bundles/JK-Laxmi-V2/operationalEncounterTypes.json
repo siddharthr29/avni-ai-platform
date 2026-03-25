@@ -1,0 +1,128 @@
+[
+  {
+    "encounterType": {
+      "uuid": "041d3456-c244-6e13-4dc1-9d3f180ce577",
+      "name": "Other Important Document Link"
+    },
+    "uuid": "3af01ef3-3d2c-c550-fa07-e1947528c8bf",
+    "name": "Other Important Document Link",
+    "voided": false
+  },
+  {
+    "encounterType": {
+      "uuid": "3e9a4a5b-330c-8bd5-e241-daec2820b574",
+      "name": "ANC"
+    },
+    "uuid": "60ab896e-fef9-1af9-165d-148a426d0f5a",
+    "name": "ANC",
+    "voided": false
+  },
+  {
+    "encounterType": {
+      "uuid": "c3069eab-7a1e-729c-6bd2-70ca84c48459",
+      "name": "Delivery Outcome"
+    },
+    "uuid": "378d32a7-3a54-bf44-0db6-b8797252b190",
+    "name": "Delivery Outcome",
+    "voided": false
+  },
+  {
+    "encounterType": {
+      "uuid": "5334b5cc-7c06-7ba6-ce26-245cc7d9afd3",
+      "name": "Mother PNC "
+    },
+    "uuid": "2b260026-1acc-f0e9-a696-432b16b6824b",
+    "name": "Mother PNC ",
+    "voided": false
+  },
+  {
+    "encounterType": {
+      "uuid": "d7b86204-2e6b-9759-222d-805dbdf24600",
+      "name": "High Risk & Referral encounter"
+    },
+    "uuid": "c77a29c9-3e93-fc52-8d5a-9c9290e32485",
+    "name": "High Risk & Referral encounter",
+    "voided": false
+  },
+  {
+    "encounterType": {
+      "uuid": "a9554b7c-231a-17b3-6f4f-4f2540afc358",
+      "name": "Pregnancy Gov Schemes "
+    },
+    "uuid": "cdfccc41-b753-dcb7-6098-a24c8c2d4eec",
+    "name": "Pregnancy Gov Schemes ",
+    "voided": false
+  },
+  {
+    "encounterType": {
+      "uuid": "b02990d0-93e6-3bd8-a4df-7f5621058bf6",
+      "name": "HBNC New Born care"
+    },
+    "uuid": "3bb3ce34-5812-5b1c-2df2-7e9e1f14750c",
+    "name": "HBNC New Born care",
+    "voided": false
+  },
+  {
+    "encounterType": {
+      "uuid": "2ce8747a-450e-c50f-fd5c-4b3d75a806fb",
+      "name": "Immunization"
+    },
+    "uuid": "397b1952-fb9f-dfee-9e5e-f0424fcbb461",
+    "name": "Immunization",
+    "voided": false
+  },
+  {
+    "encounterType": {
+      "uuid": "9f2f7276-9b4f-3372-2e62-82fabe3f499c",
+      "name": "Health Check up encounter"
+    },
+    "uuid": "57891974-394b-963e-213d-9c0c9633c7c4",
+    "name": "Health Check up encounter",
+    "voided": false
+  },
+  {
+    "encounterType": {
+      "uuid": "63da64d8-05c6-b90f-64da-2f1e752492a2",
+      "name": "Family Planning Services"
+    },
+    "uuid": "d83a1bd3-bb5e-5269-9132-26c0aff5cb3f",
+    "name": "Family Planning Services",
+    "voided": false
+  },
+  {
+    "encounterType": {
+      "uuid": "668ac830-068e-7c1d-c59d-b2bc01ba36c0",
+      "name": "Behavior Change Communication i"
+    },
+    "uuid": "3859e427-5a0a-bf0f-ebfc-5095ce4a640c",
+    "name": "Behavior Change Communication i",
+    "voided": false
+  },
+  {
+    "encounterType": {
+      "uuid": "ce163155-950f-cf33-67da-79ce16875173",
+      "name": "Saas Bahu Samelan "
+    },
+    "uuid": "a4e060b2-6e2d-2064-cb66-832edd95825f",
+    "name": "Saas Bahu Samelan ",
+    "voided": false
+  },
+  {
+    "encounterType": {
+      "uuid": "0a27b87a-e572-2cae-bb6b-b4c5b3e70d53",
+      "name": "Stakeholder Engagement"
+    },
+    "uuid": "ef1ad4a5-6f3f-52a9-2aa2-4a45553091bf",
+    "name": "Stakeholder Engagement",
+    "voided": false
+  },
+  {
+    "encounterType": {
+      "uuid": "1a449fb0-8704-9114-86df-117313ee4979",
+      "name": "Fortline Workers Capacity build"
+    },
+    "uuid": "431aeb63-7e54-9e0d-6ea0-db5e0db9569c",
+    "name": "Fortline Workers Capacity build",
+    "voided": false
+  }
+]

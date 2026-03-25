@@ -1,0 +1,11 @@
+{
+  "name" : "Activity Summary Cancellation",
+  "uuid" : "2105f76e-fbac-0d1a-e469-3cf26384d4c7",
+  "formType" : "IndividualEncounterCancellation",
+  "formElementGroups" : [ ],
+  "decisionRule" : "",
+  "visitScheduleRule" : "",
+  "validationRule" : "",
+  "checklistsRule" : "",
+  "decisionConcepts" : [ ]
+}

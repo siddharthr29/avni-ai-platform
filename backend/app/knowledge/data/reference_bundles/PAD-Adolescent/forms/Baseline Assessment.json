@@ -1,0 +1,332 @@
+{
+  "name": "Baseline Assessment",
+  "uuid": "4cd14c39-4cc5-40f3-98f3-669ea7a0d206",
+  "formType": "ProgramEncounter",
+  "formElementGroups": [
+    {
+      "uuid": "51ec3acb-130a-4e80-882d-c0d72e001ce2",
+      "name": "Gender Equality and Adolescent Girls",
+      "displayOrder": 1,
+      "formElements": [
+        {
+          "name": "Girls feel safe in community",
+          "uuid": "4ce4fac0-e02f-4ba2-8dae-d215714c5134",
+          "keyValues": [],
+          "concept": {
+            "name": "Girls feel safe in community",
+            "uuid": "708fc542-4434-4c0a-9596-b6446493b8c3",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Freedom in education/marriage decisions",
+          "uuid": "260c14f8-328c-4c22-a305-d29935d31315",
+          "keyValues": [],
+          "concept": {
+            "name": "Freedom in education/marriage decisions",
+            "uuid": "5da380d9-bba9-41cd-806a-c6d9ffe0bdaf",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 2,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Family support for girls’ education",
+          "uuid": "4d9f24ee-9c86-45cd-9baf-28a94eabe43f",
+          "keyValues": [],
+          "concept": {
+            "name": "Family support for girls’ education",
+            "uuid": "10842c24-5e6d-4ae2-ae8b-25416b93f2a9",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 3,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Belief in gender equality",
+          "uuid": "60e0353e-10f7-4245-af26-046cd836fafb",
+          "keyValues": [],
+          "concept": {
+            "name": "Belief in gender equality",
+            "uuid": "63bb50ab-1240-49b7-a6ec-aca9e8d3b9d4",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 4,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Boys/men involved in household support tasks",
+          "uuid": "666874bc-ea9f-4a59-8815-da6a178942ae",
+          "keyValues": [],
+          "concept": {
+            "name": "Boys/men involved in household support tasks",
+            "uuid": "5e945f46-d433-4688-a18d-2c20eedfe12d",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 5,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Participation in community/social activities",
+          "uuid": "2883716d-f9b9-45f1-b732-199c60cfe424",
+          "keyValues": [],
+          "concept": {
+            "name": "Participation in community/social activities",
+            "uuid": "17483810-ecf8-4502-a06e-3a3b3ffe6dfa",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 6,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "298436a4-b41d-49e1-85d7-aa489d332704",
+      "name": "Health and Wellbeing",
+      "displayOrder": 2,
+      "formElements": [
+        {
+          "name": "General health of adolescents",
+          "uuid": "63e3377c-c3be-4942-8a34-d07fe3412fef",
+          "keyValues": [],
+          "concept": {
+            "name": "General health of adolescents",
+            "uuid": "4e8aad2e-5245-4b24-9252-5e193549d9ad",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Major health issues present",
+          "uuid": "2158f4a9-95f2-415d-9396-3cc03c5cdcbd",
+          "keyValues": [],
+          "concept": {
+            "name": "Major health issues present",
+            "uuid": "661b25c0-b72b-4f8b-8523-97f19b9163be",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 2,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Type of health issues",
+          "uuid": "41ead881-af0d-4b4d-9e18-a230baa1364c",
+          "keyValues": [],
+          "concept": {
+            "name": "Type of health issues",
+            "uuid": "704296e9-f70e-4660-875c-db15063e44e6",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 3,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "7509b6ea-c7d0-4f8d-bf83-773ecbe022f2",
+      "name": "Health Services and Awareness",
+      "displayOrder": 3,
+      "formElements": [
+        {
+          "name": "Primary health access point",
+          "uuid": "7cd981a8-6899-418e-b1cd-39e8eb0a7148",
+          "keyValues": [],
+          "concept": {
+            "name": "Primary health access point",
+            "uuid": "43a1adc8-56fe-4cf1-a475-d0abb2b70f9e",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Awareness of government health schemes",
+          "uuid": "46499a66-641a-4b24-88f3-ddc199a3e46c",
+          "keyValues": [],
+          "concept": {
+            "name": "Awareness of government health schemes",
+            "uuid": "5e591953-11dc-4033-becd-b6e9270e0ca2",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 2,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Received reproductive health education",
+          "uuid": "382b8059-a586-4cbe-8f47-221936b4c61b",
+          "keyValues": [],
+          "concept": {
+            "name": "Received reproductive health education",
+            "uuid": "08e615fb-4e13-4ffc-a0d0-646c8f34308b",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 3,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "32b3d6ef-d702-415b-b29a-f03081f218a2",
+      "name": "Menstrual Health and Hygiene",
+      "displayOrder": 4,
+      "formElements": [
+        {
+          "name": "Age of first awareness",
+          "uuid": "563cae5a-e0ec-406a-8c08-c6ca65b6f6cd",
+          "keyValues": [],
+          "concept": {
+            "name": "Age of first awareness",
+            "uuid": "544ec5d1-d646-4f7b-a223-bdec0fc124d5",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Use of home/traditional remedies",
+          "uuid": "319d7693-f39c-4fba-925b-27383fa7c040",
+          "keyValues": [],
+          "concept": {
+            "name": "Use of home/traditional remedies",
+            "uuid": "2d430b17-6cbd-45ab-9e09-40561007ce90",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 2,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Type of remedies used",
+          "uuid": "508fbf1b-e300-4716-848f-62b08d083463",
+          "keyValues": [],
+          "concept": {
+            "name": "Type of remedies used",
+            "uuid": "7fc0f0f6-00af-49d4-969f-a1defb29f622",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 3,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Access to menstrual facilities in school",
+          "uuid": "425fcf8e-5326-4f9e-9532-dd43abf14b10",
+          "keyValues": [],
+          "concept": {
+            "name": "Access to menstrual facilities in school",
+            "uuid": "203ddbc6-ed84-4a01-a699-3a6cd68f79a0",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 4,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Comfort discussing reproductive issues",
+          "uuid": "2da291f3-4310-4337-a6eb-b47ae02675dd",
+          "keyValues": [],
+          "concept": {
+            "name": "Comfort discussing reproductive issues",
+            "uuid": "68768b7a-cf25-41bf-a7ac-b6b6bf5ccc0a",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 5,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "182a4880-5d45-449c-a953-bfe677534b0c",
+      "name": "Violence Against Women and Girls",
+      "displayOrder": 5,
+      "formElements": [
+        {
+          "name": "Experience of violence",
+          "uuid": "12f217ba-c483-4fca-9a56-915b2bb413ac",
+          "keyValues": [],
+          "concept": {
+            "name": "Experience of violence",
+            "uuid": "6c0bc680-cbe0-47c2-a724-4e518d96c67e",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Type of violence experienced",
+          "uuid": "4b92bd51-f905-4362-8542-539a481c2434",
+          "keyValues": [],
+          "concept": {
+            "name": "Type of violence experienced",
+            "uuid": "48577616-b2af-4a25-8c80-9593eaf868f5",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 2,
+          "type": "MultiSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Reporting channels used",
+          "uuid": "0410cc4a-3858-4636-acab-a72ba67b2d49",
+          "keyValues": [],
+          "concept": {
+            "name": "Reporting channels used",
+            "uuid": "0a102469-f9f2-4c77-b139-42c4921f0b03",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 3,
+          "type": "MultiSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}

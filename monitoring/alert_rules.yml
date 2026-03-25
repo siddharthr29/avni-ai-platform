@@ -1,0 +1,94 @@
+# =============================================================================
+# Avni AI Platform — Prometheus Alert Rules
+# =============================================================================
+
+groups:
+  - name: avni_ai_alerts
+    rules:
+      # -----------------------------------------------------------------------
+      # Error rate > 5% over 5 minutes
+      # -----------------------------------------------------------------------
+      - alert: HighErrorRate
+        expr: |
+          (
+            sum(rate(http_requests_total{status=~"5.."}[5m]))
+            /
+            sum(rate(http_requests_total[5m]))
+          ) > 0.05
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "High error rate detected"
+          description: "Error rate is {{ $value | humanizePercentage }} over the last 5 minutes."
+
+      # -----------------------------------------------------------------------
+      # P95 latency > 5 seconds
+      # -----------------------------------------------------------------------
+      - alert: HighLatencyP95
+        expr: |
+          histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket[5m])) by (le))
+          > 5
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "P95 latency above 5 seconds"
+          description: "P95 request latency is {{ $value }}s."
+
+      # -----------------------------------------------------------------------
+      # LLM request failures
+      # -----------------------------------------------------------------------
+      - alert: LLMFailureRate
+        expr: |
+          (
+            sum(rate(llm_requests_total{status="error"}[10m]))
+            /
+            sum(rate(llm_requests_total[10m]))
+          ) > 0.1
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "LLM failure rate above 10%"
+          description: "{{ $value | humanizePercentage }} of LLM requests are failing."
+
+      # -----------------------------------------------------------------------
+      # Database connection failures (backend health returns degraded)
+      # -----------------------------------------------------------------------
+      - alert: BackendUnhealthy
+        expr: up{job="avni-ai-backend"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Backend is down"
+          description: "The avni-ai-backend target has been unreachable for over 1 minute."
+
+      # -----------------------------------------------------------------------
+      # High LLM latency by provider
+      # -----------------------------------------------------------------------
+      - alert: LLMSlowResponses
+        expr: |
+          histogram_quantile(0.95, sum(rate(llm_request_duration_seconds_bucket[5m])) by (le, provider))
+          > 30
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "LLM P95 latency above 30s for provider {{ $labels.provider }}"
+          description: "LLM P95 latency is {{ $value }}s for provider {{ $labels.provider }}."
+
+      # -----------------------------------------------------------------------
+      # RAG search latency
+      # -----------------------------------------------------------------------
+      - alert: RAGSlowSearch
+        expr: |
+          histogram_quantile(0.95, sum(rate(rag_search_duration_seconds_bucket[5m])) by (le))
+          > 2
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "RAG search P95 latency above 2 seconds"
+          description: "RAG search P95 latency is {{ $value }}s."

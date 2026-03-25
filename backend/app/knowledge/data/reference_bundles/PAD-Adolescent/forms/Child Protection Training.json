@@ -1,0 +1,218 @@
+{
+  "name": "Child Protection Training",
+  "uuid": "54feb219-a934-4098-965e-a77bffc93f21",
+  "formType": "ProgramEncounter",
+  "formElementGroups": [
+    {
+      "uuid": "0d4bf372-c3cb-483b-aa09-f08095ecc82f",
+      "name": "Village Level Child Protection Commitee",
+      "displayOrder": 1,
+      "formElements": [
+        {
+          "name": "Meeting Date",
+          "uuid": "18a9ebe3-83f4-4e5d-8c4f-d2054bf377f1",
+          "keyValues": [],
+          "concept": {
+            "name": "Meeting Date",
+            "uuid": "3fdb4d7b-782e-4494-abda-00e3569d19dc",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Meeting Happening where?",
+          "uuid": "3b8a0472-28fc-4541-8d47-63bf4e498879",
+          "keyValues": [],
+          "concept": {
+            "name": "Meeting Happening where?",
+            "uuid": "116a272f-1ec7-4c09-a371-6e91df5b0603",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 2,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Village",
+          "uuid": "6931866c-7344-4d3a-9838-fc6158478387",
+          "keyValues": [],
+          "concept": {
+            "name": "Village",
+            "uuid": "05f00686-6149-449c-a11c-edb7768ee419",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 3,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "No. of. parcipants",
+          "uuid": "17f174fc-58c0-40dd-ae98-05d6330c7dd5",
+          "keyValues": [],
+          "concept": {
+            "name": "No. of. parcipants",
+            "uuid": "3bf53a63-0c5a-40af-9832-704f9ab3fbf7",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 4,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Training/Orientation Topics",
+          "uuid": "7fda760b-ab34-434c-86c4-d48e87ff596e",
+          "keyValues": [],
+          "concept": {
+            "name": "Training/Orientation Topics",
+            "uuid": "47dadd29-f852-44fd-bf4f-580a5c1e289a",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 5,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "6ef43ead-920c-4f7b-91e9-40d1602efffa",
+      "name": "Block Level Child Protection Commitee",
+      "displayOrder": 2,
+      "formElements": [
+        {
+          "name": "Meeting Date",
+          "uuid": "18a9ebe8-9b78-4c2c-906a-9644d5b691ce",
+          "keyValues": [],
+          "concept": {
+            "name": "Meeting Date",
+            "uuid": "3fdb4d7b-782e-4494-abda-00e3569d19dc",
+            "dataType": "Date",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Village",
+          "uuid": "69318670-07fa-4249-b296-b89219bdf6d6",
+          "keyValues": [],
+          "concept": {
+            "name": "Village",
+            "uuid": "05f00686-6149-449c-a11c-edb7768ee419",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 2,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "No. of. parcipants",
+          "uuid": "17f174f8-3e57-4fbb-96d0-7c31c3aca8ec",
+          "keyValues": [],
+          "concept": {
+            "name": "No. of. parcipants",
+            "uuid": "3bf53a63-0c5a-40af-9832-704f9ab3fbf7",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 3,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Training/Orientation Topics",
+          "uuid": "7fda760f-4451-4ea7-a0d5-e47e45cb4014",
+          "keyValues": [],
+          "concept": {
+            "name": "Training/Orientation Topics",
+            "uuid": "47dadd29-f852-44fd-bf4f-580a5c1e289a",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 4,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "63595ac4-dcf9-4004-96a4-87ad99d7f148",
+      "name": "District Level Child Protection Commitee",
+      "displayOrder": 3,
+      "formElements": [
+        {
+          "name": "Meeting Date",
+          "uuid": "036c6f53-5012-47d9-91c2-42b47d9b3c3e",
+          "keyValues": [],
+          "concept": {
+            "name": "Meeting Date",
+            "uuid": "3fdb4d7b-782e-4494-abda-00e3569d19dc",
+            "dataType": "Date",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Village",
+          "uuid": "4300b8f9-93f9-4eb8-9ac0-a9b2a5eb1d4a",
+          "keyValues": [],
+          "concept": {
+            "name": "Village",
+            "uuid": "05f00686-6149-449c-a11c-edb7768ee419",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 2,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "No. of. parcipants",
+          "uuid": "19c2d551-dabe-4505-aee1-901e41562484",
+          "keyValues": [],
+          "concept": {
+            "name": "No. of. parcipants",
+            "uuid": "3bf53a63-0c5a-40af-9832-704f9ab3fbf7",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 3,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Training/Orientation Topics",
+          "uuid": "7b744b0c-242c-410d-a744-0a8b098f7cd5",
+          "keyValues": [],
+          "concept": {
+            "name": "Training/Orientation Topics",
+            "uuid": "47dadd29-f852-44fd-bf4f-580a5c1e289a",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 4,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}

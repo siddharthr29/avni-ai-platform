@@ -1,0 +1,298 @@
+{
+  "name": "Anaemic Camp",
+  "uuid": "3fea33ff-53ec-40cf-a87b-297ea17be8ca",
+  "formType": "ProgramEncounter",
+  "formElementGroups": [
+    {
+      "uuid": "34cda805-56d8-4a3c-bfec-111021b9e616",
+      "name": "Field Name",
+      "displayOrder": 1,
+      "formElements": [
+        {
+          "name": "Data Type",
+          "uuid": "61f3aaa4-7a61-4737-b75b-ca7111ecd66e",
+          "keyValues": [],
+          "concept": {
+            "name": "Data Type",
+            "uuid": "651168a2-3695-4344-8b64-9fa4dd6ed3f2",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "1b9e6179-da72-4a54-a3d7-7da1ddbdbceb",
+      "name": "Camp date",
+      "displayOrder": 2,
+      "formElements": [
+        {
+          "name": "Date",
+          "uuid": "60bf0c17-00b8-4490-b63a-a38f3c58b39c",
+          "keyValues": [],
+          "concept": {
+            "name": "Date",
+            "uuid": "3f498260-9db1-4acf-80c6-a75f1e33190f",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "5d3a44ae-46d3-4a48-8e1f-5bed556cac04",
+      "name": "No. Screened",
+      "displayOrder": 3,
+      "formElements": [
+        {
+          "name": "Numeric",
+          "uuid": "00c7efa3-a4b2-4e4c-a404-3b020600381e",
+          "keyValues": [],
+          "concept": {
+            "name": "Numeric",
+            "uuid": "67636fdb-3bb0-4146-9c8b-f4e374641b81",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "046d76e5-a400-40dd-bc0d-4b21df0abb4c",
+      "name": "Height",
+      "displayOrder": 4,
+      "formElements": [
+        {
+          "name": "Numeric",
+          "uuid": "00c7efa4-ba26-452d-b171-5e7da2421c17",
+          "keyValues": [],
+          "concept": {
+            "name": "Numeric",
+            "uuid": "67636fdb-3bb0-4146-9c8b-f4e374641b81",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "152b3a6c-dbc2-48dd-8acd-cdbc67110d9c",
+      "name": "Weight",
+      "displayOrder": 5,
+      "formElements": [
+        {
+          "name": "Numeric",
+          "uuid": "00c7efa5-97b7-4f23-ba10-67f64b483bd5",
+          "keyValues": [],
+          "concept": {
+            "name": "Numeric",
+            "uuid": "67636fdb-3bb0-4146-9c8b-f4e374641b81",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "38387897-43bc-484f-99da-bf277224b847",
+      "name": "Hemoglobin (Hb)",
+      "displayOrder": 6,
+      "formElements": [
+        {
+          "name": "Numeric",
+          "uuid": "00c7efa6-37ee-4b46-8e00-dbacd6f83585",
+          "keyValues": [],
+          "concept": {
+            "name": "Numeric",
+            "uuid": "67636fdb-3bb0-4146-9c8b-f4e374641b81",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "057f259c-ad42-49da-ab0b-fd09c72526b3",
+      "name": "HT (M)",
+      "displayOrder": 7,
+      "formElements": [
+        {
+          "name": "Numeric",
+          "uuid": "00c7efa7-2807-4281-902a-e1cb822472f7",
+          "keyValues": [],
+          "concept": {
+            "name": "Numeric",
+            "uuid": "67636fdb-3bb0-4146-9c8b-f4e374641b81",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "10ce3e4c-c8e2-4c13-b618-052abbce60ed",
+      "name": "No. Found Anemic",
+      "displayOrder": 8,
+      "formElements": [
+        {
+          "name": "Numeric",
+          "uuid": "00c7efa8-e47b-477b-8aba-4814199af462",
+          "keyValues": [],
+          "concept": {
+            "name": "Numeric",
+            "uuid": "67636fdb-3bb0-4146-9c8b-f4e374641b81",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "20f28643-65b3-4bd9-9f41-578970241be1",
+      "name": "Supplements given",
+      "displayOrder": 9,
+      "formElements": [
+        {
+          "name": "Pre added Options",
+          "uuid": "1b7e699f-535a-439d-9911-838332e04490",
+          "keyValues": [],
+          "concept": {
+            "name": "Pre added Options",
+            "uuid": "69e82c11-77ad-45f3-9c3b-afef8e872228",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "MultiSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "07b24002-57f1-4875-bb33-5b355f904880",
+      "name": "Required Referal",
+      "displayOrder": 10,
+      "formElements": [
+        {
+          "name": "Pre added Options",
+          "uuid": "544ecb09-c3ee-42fb-9980-63eb10b1d8f5",
+          "keyValues": [],
+          "concept": {
+            "name": "Pre added Options",
+            "uuid": "69e82c11-77ad-45f3-9c3b-afef8e872228",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "5589b111-5ccb-4bf3-a961-6d308731d072",
+      "name": "Place of Referal",
+      "displayOrder": 11,
+      "formElements": [
+        {
+          "name": "Text",
+          "uuid": "61ac3096-48a1-49e4-82a7-28201101416d",
+          "keyValues": [],
+          "concept": {
+            "name": "Text",
+            "uuid": "3f422ce1-3d21-4354-bceb-2b6456f033ae",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "7f55c3e3-9e7a-4f86-b266-c9a7a98a64b4",
+      "name": "Required Follow Up",
+      "displayOrder": 12,
+      "formElements": [
+        {
+          "name": "Pre added Options",
+          "uuid": "544ecb07-0f7b-42f8-b0ed-a02f8dc2c449",
+          "keyValues": [],
+          "concept": {
+            "name": "Pre added Options",
+            "uuid": "69e82c11-77ad-45f3-9c3b-afef8e872228",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "0c06b3b7-e949-400b-a840-9064ad53ea75",
+      "name": "Date of followup",
+      "displayOrder": 13,
+      "formElements": [
+        {
+          "name": "Date",
+          "uuid": "48dd894b-6de4-4870-8317-490381f9ad08",
+          "keyValues": [],
+          "concept": {
+            "name": "Date",
+            "uuid": "3f498260-9db1-4acf-80c6-a75f1e33190f",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}

@@ -1,0 +1,34 @@
+{
+  "name": "Saas Bahu Samelan",
+  "uuid": "78d450a9-eedd-45eb-bb1b-974baded008b",
+  "formType": "ProgramEncounter",
+  "formElementGroups": [
+    {
+      "uuid": "1e5b893d-2ab4-462c-93a4-f0d895c4a570",
+      "name": "Family Planning",
+      "displayOrder": 1,
+      "formElements": [
+        {
+          "name": "Family Planning session happening where",
+          "uuid": "24213192-f6d1-44f3-bf53-8e96eb2f9143",
+          "keyValues": [],
+          "concept": {
+            "name": "Family Planning session happening where",
+            "uuid": "65dc54dc-3576-4508-b095-469bd786ad54",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}

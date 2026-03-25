@@ -1,0 +1,37 @@
+{
+  "name": "Stakeholder Engagement",
+  "uuid": "0c3b4dc7-3a5c-dfae-8395-3b5f04f1ac7d",
+  "formType": "ProgramEncounter",
+  "formElementGroups": [
+    {
+      "uuid": "9b09971e-e062-f36a-203e-0d0aecb23fbb",
+      "name": "Family Planning",
+      "displayOrder": 1,
+      "formElements": [
+        {
+          "name": "Family Planning session happening where",
+          "uuid": "9f659ace-64da-5bee-40f3-95e320242a38",
+          "keyValues": [],
+          "concept": {
+            "name": "Family Planning session happening where",
+            "uuid": "aa9a9825-b178-d400-6314-39669e6f6ec6",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false,
+      "display": "Family Planning"
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}

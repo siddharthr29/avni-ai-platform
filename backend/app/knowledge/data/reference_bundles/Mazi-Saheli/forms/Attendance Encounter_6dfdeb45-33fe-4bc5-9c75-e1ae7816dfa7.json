@@ -1,0 +1,7 @@
+{
+  "name" : "Attendance Encounter",
+  "uuid" : "6dfdeb45-33fe-4bc5-9c75-e1ae7816dfa7",
+  "formType" : "Encounter",
+  "formElementGroups" : [ ],
+  "decisionConcepts" : [ ]
+}

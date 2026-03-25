@@ -1,0 +1,90 @@
+{
+  "name": "Resource centre",
+  "uuid": "465f6757-643c-47e9-b609-28be2c376233",
+  "formType": "ProgramEncounter",
+  "formElementGroups": [
+    {
+      "uuid": "1b77865b-5ec8-42ba-94df-515e2b1d3dd0",
+      "name": "Resource centre",
+      "displayOrder": 1,
+      "formElements": [
+        {
+          "name": "Date of visit",
+          "uuid": "5f49569a-31a1-4cd4-ad20-dae0946d2b36",
+          "keyValues": [],
+          "concept": {
+            "name": "Date of visit",
+            "uuid": "1a642842-ca27-4be3-b16e-7713f2474b0f",
+            "dataType": "Date",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Centre name",
+          "uuid": "445ba4e3-d00f-4b8c-a26d-4d753ea766e5",
+          "keyValues": [],
+          "concept": {
+            "name": "Centre name",
+            "uuid": "1bdd4b7e-15d8-4a0b-980e-53ac5bcb18fc",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 2,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Location",
+          "uuid": "6d5939c1-a717-480e-a5e0-ddf937103b14",
+          "keyValues": [],
+          "concept": {
+            "name": "Location",
+            "uuid": "669ae4a7-55c0-4173-819d-2fb91d178bfc",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 3,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "No. Of. visitors (monthly)",
+          "uuid": "4adb457c-33b3-447c-8e8e-b064a24b9923",
+          "keyValues": [],
+          "concept": {
+            "name": "No. Of. visitors (monthly)",
+            "uuid": "216a5657-89a7-45b3-9936-c8efcb66d1d1",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 4,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Facilites available",
+          "uuid": "5818619d-9abb-4a77-beed-3ce28e98969d",
+          "keyValues": [],
+          "concept": {
+            "name": "Facilites available",
+            "uuid": "1f7742c5-604a-4bfa-a612-f502f4cc13d4",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 5,
+          "type": "MultiSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}

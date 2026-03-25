@@ -1,18 +1,164 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   Avni AI Platform — Design System
+
+   A cohesive, accessible design system built on:
+     - Teal primary (trust, clarity, professionalism)
+     - Amber accent (energy, action, CTAs)
+     - True gray neutrals (clean, modern)
+     - WCAG AA/AAA contrast compliance throughout
+
+   Structure:
+     1. Font imports
+     2. Token import (CSS custom properties)
+     3. Tailwind directives + theme overrides
+     4. Base resets and defaults
+     5. Component-level styles
+     6. Animation keyframes
+     7. Print styles
+     8. Reduced motion support
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+
+/* ─── 1. Font Imports ─────────────────────────────────────────────────────── */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+
+/* ─── 2. Design Tokens ───────────────────────────────────────────────────── */
+
+@import './tokens.css';
+
+
+/* ─── 3. Tailwind + Theme ─────────────────────────────────────────────────── */
+
 @import "tailwindcss";
 
 @theme {
-  --color-primary-50: #EEF2FF;
-  --color-primary-100: #E0E7FF;
-  --color-primary-200: #C7D2FE;
-  --color-primary-300: #A5B4FC;
-  --color-primary-400: #818CF8;
-  --color-primary-500: #6366F1;
-  --color-primary-600: #4F46E5;
-  --color-primary-700: #4338CA;
-  --color-primary-800: #3730A3;
-  --color-primary-900: #312E81;
+  /* ── Primary: Teal ──────────────────────────────────────────────────────── */
+  --color-primary:        #0f766e;
+  --color-primary-hover:  #0d9488;
+  --color-primary-light:  #f0fdfa;
+  --color-primary-dark:   #115e59;
 
-  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --color-primary-50:  #f0fdfa;
+  --color-primary-100: #ccfbf1;
+  --color-primary-200: #99f6e4;
+  --color-primary-300: #5eead4;
+  --color-primary-400: #2dd4bf;
+  --color-primary-500: #14b8a6;
+  --color-primary-600: #0d9488;
+  --color-primary-700: #0f766e;
+  --color-primary-800: #115e59;
+  --color-primary-900: #134e4a;
+
+  /* ── Secondary/Accent: Amber ────────────────────────────────────────────── */
+  --color-accent-50:  #fffbeb;
+  --color-accent-100: #fef3c7;
+  --color-accent-200: #fde68a;
+  --color-accent-300: #fcd34d;
+  --color-accent-400: #fbbf24;
+  --color-accent-500: #f59e0b;
+  --color-accent-600: #d97706;
+  --color-accent-700: #b45309;
+
+  /* ── Success: Emerald (distinct from teal primary) ──────────────────────── */
+  --color-success:     #059669;
+  --color-success-50:  #d1fae5;
+  --color-success-500: #059669;
+  --color-success-600: #047857;
+  --color-success-700: #065f46;
+
+  /* ── Danger/Error: Soft red ─────────────────────────────────────────────── */
+  --color-danger:     #dc2626;
+  --color-danger-50:  #fee2e2;
+  --color-danger-500: #dc2626;
+  --color-danger-600: #b91c1c;
+  --color-danger-700: #991b1b;
+
+  /* ── Warning: Amber ─────────────────────────────────────────────────────── */
+  --color-warning:     #d97706;
+  --color-warning-50:  #fef3c7;
+  --color-warning-500: #d97706;
+  --color-warning-600: #b45309;
+
+  /* ── Info: Soft blue ────────────────────────────────────────────────────── */
+  --color-info:     #2563eb;
+  --color-info-50:  #dbeafe;
+  --color-info-500: #2563eb;
+  --color-info-600: #1d4ed8;
+
+  /* ── True Gray Neutrals ─────────────────────────────────────────────────── */
+  --color-gray-50:  #f9fafb;
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-400: #9ca3af;
+  --color-gray-500: #6b7280;
+  --color-gray-600: #4b5563;
+  --color-gray-700: #374151;
+  --color-gray-800: #1f2937;
+  --color-gray-900: #111827;
+  --color-gray-950: #030712;
+
+  /* ── Semantic Colors ────────────────────────────────────────────────────── */
+  --color-background: #ffffff;
+  --color-foreground: #111827;
+  --color-ring:       #0d9488;
+  --color-input:      #e5e7eb;
+  --color-border:     #e5e7eb;
+  --color-muted:      #4b5563;
+  --color-body:       #111827;
+  --color-body-bg:    #ffffff;
+  --color-dark:       #111827;
+  --color-light:      #f9fafb;
+
+  /* ── Surfaces ───────────────────────────────────────────────────────────── */
+  --color-surface:        #ffffff;
+  --color-surface-hover:  #f9fafb;
+  --color-surface-active: #f3f4f6;
+
+  /* ── Sidebar ────────────────────────────────────────────────────────────── */
+  --color-sidebar-bg:     #111827;
+  --color-sidebar-text:   #d1d5db;
+  --color-sidebar-active: #0d9488;
+
+  /* ── Chat Bubbles ───────────────────────────────────────────────────────── */
+  --color-user-bubble: #0f766e;
+  --color-user-text:   #ffffff;
+  --color-ai-bubble:   #f8fafc;
+  --color-ai-text:     #111827;
+
+  /* ── Typography ─────────────────────────────────────────────────────────── */
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  /* ── Border Radius ──────────────────────────────────────────────────────── */
+  --radius-sm:   6px;
+  --radius:      8px;
+  --radius-md:   8px;
+  --radius-lg:   12px;
+  --radius-xl:   16px;
+  --radius-2xl:  20px;
+  --radius-full: 9999px;
+
+  /* ── Shadows ────────────────────────────────────────────────────────────── */
+  --shadow-sm:  0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md:  0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+  --shadow-lg:  0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+  --shadow-xl:  0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+}
+
+
+/* ─── 4. Base Resets & Defaults ───────────────────────────────────────────── */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 html, body, #root {
@@ -23,13 +169,68 @@ html, body, #root {
 
 body {
   font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--color-text-primary, #111827);
+  background-color: var(--color-bg-primary, #ffffff);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
 }
 
-/* Custom scrollbar */
+/* Remove default margin from common elements */
+h1, h2, h3, h4, h5, h6, p {
+  margin: 0;
+}
+
+/* Ensure form inputs always have dark text on light backgrounds */
+input, textarea, select {
+  color: #111827;
+  background-color: #ffffff;
+}
+
+input::placeholder, textarea::placeholder {
+  color: #9ca3af;
+}
+
+/* Sensible link defaults */
+a {
+  color: var(--color-text-link, #0d9488);
+  text-decoration: none;
+  transition: color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+a:hover {
+  color: var(--color-text-link-hover, #0f766e);
+}
+
+/* Accessible focus ring — teal, consistent across all interactive elements */
+*:focus-visible {
+  outline: 2px solid var(--color-border-focus, #0d9488);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* Remove focus ring on mouse click for non-keyboard users */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* ── Selection ────────────────────────────────────────────────────────────── */
+
+::selection {
+  background-color: #ccfbf1;
+  color: #134e4a;
+}
+
+
+/* ─── 5. Component Styles ─────────────────────────────────────────────────── */
+
+/* ── Scrollbars ───────────────────────────────────────────────────────────── */
+
 ::-webkit-scrollbar {
   width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -37,31 +238,354 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #D1D5DB;
-  border-radius: 3px;
+  background: var(--color-border-strong, #d1d5db);
+  border-radius: 9999px;
+  transition: background 150ms ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #9CA3AF;
+  background: var(--color-text-muted, #6b7280);
 }
 
-/* Pulse animation for mic recording */
-@keyframes pulse-ring {
-  0% {
-    transform: scale(0.8);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(1.4);
-    opacity: 0;
-  }
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border-strong, #d1d5db) transparent;
+}
+
+/* ── Code Blocks ──────────────────────────────────────────────────────────── */
+
+code, kbd, samp, pre {
+  font-family: var(--font-mono);
+}
+
+code {
+  font-size: 0.875em;
+  padding: 0.125em 0.375em;
+  background-color: var(--color-bg-tertiary, #f3f4f6);
+  border: 1px solid var(--color-border-default, #e5e7eb);
+  border-radius: 6px;
+  color: var(--color-text-primary, #111827);
+}
+
+pre {
+  overflow-x: auto;
+  padding: 1rem;
+  background-color: var(--color-bg-tertiary, #f3f4f6);
+  border: 1px solid var(--color-border-default, #e5e7eb);
+  border-radius: 8px;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+pre code {
+  padding: 0;
+  background: none;
+  border: none;
+  border-radius: 0;
+}
+
+/* ── Markdown Content ─────────────────────────────────────────────────────── */
+
+.prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
+  color: var(--color-text-primary, #111827);
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.prose h1 { font-size: 1.5rem; margin-bottom: 1rem; }
+.prose h2 { font-size: 1.25rem; margin-bottom: 0.75rem; }
+.prose h3 { font-size: 1.125rem; margin-bottom: 0.5rem; }
+.prose h4 { font-size: 1rem; margin-bottom: 0.5rem; }
+
+.prose p {
+  margin-bottom: 1rem;
+  color: var(--color-text-secondary, #4b5563);
+}
+
+.prose ul, .prose ol {
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+}
+
+.prose li {
+  margin-bottom: 0.25rem;
+}
+
+.prose blockquote {
+  border-left: 3px solid var(--color-border-ai, #0d9488);
+  padding-left: 1rem;
+  margin: 1rem 0;
+  color: var(--color-text-secondary, #4b5563);
+  font-style: italic;
+}
+
+.prose hr {
+  border: none;
+  border-top: 1px solid var(--color-border-default, #e5e7eb);
+  margin: 1.5rem 0;
+}
+
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+}
+
+.prose th {
+  text-align: left;
+  font-weight: 600;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 2px solid var(--color-border-default, #e5e7eb);
+  color: var(--color-text-primary, #111827);
+}
+
+.prose td {
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid var(--color-border-subtle, #f3f4f6);
+}
+
+.prose a {
+  color: var(--color-text-link, #0d9488);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.prose a:hover {
+  color: var(--color-text-link-hover, #0f766e);
+}
+
+/* ── AI Message Styling ───────────────────────────────────────────────────── */
+
+.ai-message {
+  background-color: var(--color-bg-ai-msg, #f8fafc);
+  border-left: 3px solid var(--color-border-ai, #0d9488);
+  border-radius: 8px;
+}
+
+.user-message {
+  background-color: var(--color-bg-user-msg, #0f766e);
+  color: var(--color-text-on-primary, #ffffff);
+  border-radius: 8px;
+}
+
+.system-message {
+  background-color: var(--color-bg-system-msg, #fef3c7);
+  border-left: 3px solid var(--color-border-system, #d97706);
+  border-radius: 8px;
+}
+
+/* ── Streaming Cursor ─────────────────────────────────────────────────────── */
+
+.streaming-cursor::after {
+  content: "\2588";
+  display: inline-block;
+  margin-left: 2px;
+  color: var(--color-text-link, #0d9488);
+  animation: blink-cursor 0.8s step-end infinite;
+  font-size: 0.9em;
+  line-height: 1;
+  vertical-align: baseline;
+}
+
+/* ── Thinking Dots ────────────────────────────────────────────────────────── */
+
+.thinking-dots {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 0;
+}
+
+.thinking-dots span {
+  width: 6px;
+  height: 6px;
+  background-color: var(--color-text-muted, #6b7280);
+  border-radius: 9999px;
+  display: inline-block;
+  animation: thinking-bounce 1.4s ease-in-out infinite;
+}
+
+.thinking-dots span:nth-child(1) { animation-delay: 0s; }
+.thinking-dots span:nth-child(2) { animation-delay: 0.16s; }
+.thinking-dots span:nth-child(3) { animation-delay: 0.32s; }
+
+/* ── Typing Indicator ─────────────────────────────────────────────────────── */
+
+.typing-dot:nth-child(1) { animation: typing-dot 1.4s ease-in-out infinite 0s; }
+.typing-dot:nth-child(2) { animation: typing-dot 1.4s ease-in-out infinite 0.2s; }
+.typing-dot:nth-child(3) { animation: typing-dot 1.4s ease-in-out infinite 0.4s; }
+
+/* ── Shimmer Loading ──────────────────────────────────────────────────────── */
+
+.shimmer {
+  background: linear-gradient(90deg,
+    var(--color-bg-tertiary, #f3f4f6) 25%,
+    var(--color-bg-secondary, #f9fafb) 50%,
+    var(--color-bg-tertiary, #f3f4f6) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+/* ── Spinner ──────────────────────────────────────────────────────────────── */
+
+.spinner {
+  animation: spin 0.6s linear infinite;
+}
+
+/* ── Progress Bar ─────────────────────────────────────────────────────────── */
+
+.progress-bar {
+  animation: progress-indeterminate 1.5s ease-in-out infinite;
+}
+
+/* ── Toast / Notification ─────────────────────────────────────────────────── */
+
+.toast-enter {
+  animation: slideIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ── Landing Page ─────────────────────────────────────────────────────────── */
+
+.landing-fade-in {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.landing-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger children: feature cards, stats, steps */
+.landing-stagger > * {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.landing-stagger > *:nth-child(1) { transition-delay: 0ms; }
+.landing-stagger > *:nth-child(2) { transition-delay: 80ms; }
+.landing-stagger > *:nth-child(3) { transition-delay: 160ms; }
+.landing-stagger > *:nth-child(4) { transition-delay: 240ms; }
+.landing-stagger > *:nth-child(5) { transition-delay: 320ms; }
+.landing-stagger > *:nth-child(6) { transition-delay: 400ms; }
+
+.landing-stagger.landing-visible > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Grid background */
+.landing-grid-bg {
+  background-image:
+    linear-gradient(to right, #e5e7eb 1px, transparent 1px),
+    linear-gradient(to bottom, #e5e7eb 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* Gradient text — teal spectrum instead of blue/purple */
+.landing-gradient-text {
+  background: linear-gradient(135deg, #0f766e 0%, #0d9488 40%, #14b8a6 70%, #0f766e 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: landing-gradient-shift 6s ease-in-out infinite;
+}
+
+/* Stat value reveal */
+.landing-stat-value {
+  transition:
+    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.6s ease-out;
+  opacity: 0;
+  transform: translateY(16px) scale(0.9);
+}
+
+.landing-visible .landing-stat-value {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Animated orbs — hero background */
+.landing-orb-1 {
+  animation: landing-float 8s ease-in-out infinite;
+}
+
+.landing-orb-2 {
+  animation: landing-float-delayed 10s ease-in-out infinite;
+}
+
+/* Back to top */
+.landing-back-to-top {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* ── Empty State Animations ───────────────────────────────────────────────── */
+
+.empty-state-stagger {
+  opacity: 0;
+  animation: emptyStateIn 0.4s ease-out forwards;
+  animation-delay: calc(var(--stagger-index, 0) * 80ms);
+}
+
+.empty-state-card {
+  opacity: 0;
+  animation: cardFadeIn 0.35s ease-out forwards;
+  animation-delay: calc(240ms + var(--card-index, 0) * 60ms);
+}
+
+/* ── Connection Status ────────────────────────────────────────────────────── */
+
+.connection-pulse {
+  animation: connectionPulse 1.5s ease-in-out infinite;
+}
+
+/* ── Micro-interactions ───────────────────────────────────────────────────── */
+
+.fade-in {
+  animation: fadeIn 0.2s ease-out;
+}
+
+.scale-in {
+  animation: scaleIn 150ms ease-out;
 }
 
 .pulse-ring {
   animation: pulse-ring 1.2s ease-out infinite;
 }
 
-/* Typing indicator */
+
+/* ─── 6. Animation Keyframes ──────────────────────────────────────────────── */
+
+@keyframes blink-cursor {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes thinking-bounce {
+  0%, 80%, 100% {
+    opacity: 0.3;
+    transform: scale(0.8);
+  }
+  40% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 @keyframes typing-dot {
   0%, 60%, 100% {
     opacity: 0.3;
@@ -73,6 +597,202 @@ body {
   }
 }
 
-.typing-dot:nth-child(1) { animation: typing-dot 1.4s ease-in-out infinite 0s; }
-.typing-dot:nth-child(2) { animation: typing-dot 1.4s ease-in-out infinite 0.2s; }
-.typing-dot:nth-child(3) { animation: typing-dot 1.4s ease-in-out infinite 0.4s; }
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slideIn {
+  from { transform: translateX(100%); opacity: 0; }
+  to   { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes pulse-ring {
+  0%   { transform: scale(0.8); opacity: 1; }
+  100% { transform: scale(1.4); opacity: 0; }
+}
+
+@keyframes progress-indeterminate {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(400%); }
+}
+
+@keyframes emptyStateIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes cardFadeIn {
+  from { opacity: 0; transform: translateY(8px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes connectionPulse {
+  0%, 100% { opacity: 0.4; }
+  50%      { opacity: 1; }
+}
+
+@keyframes landing-float {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); }
+  50%      { transform: translate(-50%, -50%) scale(1.15); }
+}
+
+@keyframes landing-float-delayed {
+  0%, 100% { transform: translate(-50%, -50%) scale(1.1); }
+  50%      { transform: translate(-50%, -50%) scale(0.95); }
+}
+
+@keyframes landing-gradient-shift {
+  0%, 100% { background-position: 0% center; }
+  50%      { background-position: 100% center; }
+}
+
+
+/* ─── 7. Print Styles ─────────────────────────────────────────────────────── */
+
+@media print {
+  body {
+    background: white;
+    color: black;
+    font-size: 12pt;
+    line-height: 1.5;
+  }
+
+  /* Hide non-content elements */
+  .sidebar,
+  .header,
+  .toast-enter,
+  .streaming-cursor::after,
+  .thinking-dots,
+  .spinner,
+  .shimmer,
+  button,
+  nav {
+    display: none !important;
+  }
+
+  /* Remove backgrounds and borders for ink saving */
+  .ai-message,
+  .user-message,
+  .system-message {
+    background: none !important;
+    border: 1px solid #ccc !important;
+    color: black !important;
+    page-break-inside: avoid;
+  }
+
+  /* Ensure links show their URL */
+  a[href]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+    color: #666;
+  }
+
+  /* Avoid page breaks inside code blocks */
+  pre, code, blockquote {
+    page-break-inside: avoid;
+  }
+
+  /* Remove shadows */
+  * {
+    box-shadow: none !important;
+  }
+}
+
+
+/* ─── 8. Reduced Motion Support ───────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .landing-fade-in,
+  .landing-stagger > *,
+  .empty-state-stagger,
+  .empty-state-card {
+    opacity: 1;
+    transform: none;
+  }
+
+  .shimmer {
+    animation: none;
+    background: var(--color-bg-tertiary, #f3f4f6);
+  }
+}
+
+
+/* ─── 9. Feedback System Animations ────────────────────────────────────── */
+
+@keyframes confetti-fall {
+  0% {
+    transform: translateY(0) rotate(0deg) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(720deg) scale(0);
+    opacity: 0;
+  }
+}
+
+@keyframes bounce-in {
+  0% {
+    transform: scale(0.3);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes nudge-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+  50% { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+}
+
+.animate-confetti {
+  animation: confetti-fall ease-in forwards;
+}
+
+.animate-bounce-in {
+  animation: bounce-in 0.5s ease-out forwards;
+}
+
+.animate-spin-slow {
+  animation: spin-slow 3s linear infinite;
+}
+
+.animate-nudge-pulse {
+  animation: nudge-pulse 2s ease-in-out infinite;
+}

@@ -1,0 +1,419 @@
+{
+  "name": "Pregnancy Enrolment Form",
+  "uuid": "22f0cd47-a25b-4099-c711-e8d235614cbb",
+  "formType": "ProgramEnrolment",
+  "formElementGroups": [
+    {
+      "uuid": "ac7cebac-158b-4c23-046c-a7348e5e18a5",
+      "name": "Basic Details",
+      "displayOrder": 1,
+      "formElements": [
+        {
+          "name": "Registration Enrollment happening where",
+          "uuid": "4c487337-632b-effb-235f-cd9449474765",
+          "keyValues": [],
+          "concept": {
+            "name": "Registration Enrollment happening where",
+            "uuid": "ea692290-78e2-7ae5-1d84-bf82813bc465",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false,
+      "display": "Basic Details"
+    },
+    {
+      "uuid": "8c1e452e-0eec-49a1-3033-4db58d530d6a",
+      "name": "General",
+      "displayOrder": 2,
+      "formElements": [
+        {
+          "name": "Last Menstrual Period (LMP)",
+          "uuid": "edaabf24-47a2-4232-58a5-042ae5222a8d",
+          "keyValues": [],
+          "concept": {
+            "name": "Last Menstrual Period (LMP)",
+            "uuid": "1ed18d7b-47a3-9127-c57d-d67cd78d0ecd",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Expected Date of Delivery (EDD)",
+          "uuid": "1ad6e0b7-1a17-27a9-123f-d386e2ab200e",
+          "keyValues": [],
+          "concept": {
+            "name": "Expected Date of Delivery (EDD)",
+            "uuid": "cc25a51d-f743-4ddb-459f-5f7d700b07ca",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 2,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Weight at the time of Pregnancy confirmation (in kg)",
+          "uuid": "6da8b2ec-c3ae-cb4e-7288-a289680e095a",
+          "keyValues": [],
+          "concept": {
+            "name": "Weight at the time of Pregnancy confirmation (in kg)",
+            "uuid": "29811064-ca1e-a49e-168c-42d22fa3a5c1",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 3,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Height at the time of Pregnancy confirmation (in cms)",
+          "uuid": "a401ae26-566a-448e-7d62-ae09c5f0cb26",
+          "keyValues": [],
+          "concept": {
+            "name": "Height at the time of Pregnancy confirmation (in cms)",
+            "uuid": "5b1e7ab7-9fce-bd88-82b6-182480c5bb26",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 4,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "BMI (autocalculate)",
+          "uuid": "166f053e-8f46-7c3f-16eb-06186e06f216",
+          "keyValues": [],
+          "concept": {
+            "name": "BMI (autocalculate)",
+            "uuid": "78d59345-a4c1-9032-7007-d037376373d4",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 5,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "BMI (autocalculate)",
+          "uuid": "f1a9f943-0347-e92a-621d-3d138b4ddf3f",
+          "keyValues": [],
+          "concept": {
+            "name": "BMI (autocalculate)",
+            "uuid": "78d59345-a4c1-9032-7007-d037376373d4",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 6,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "High Risk at Registration",
+          "uuid": "121fe43c-3ae6-898b-83a6-ca70813e9278",
+          "keyValues": [],
+          "concept": {
+            "name": "High Risk at Registration",
+            "uuid": "f6484a4a-0b3a-d96a-1084-3b73d9c69ba2",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 7,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "If others, please mention",
+          "uuid": "fd8b9125-a3ef-70fa-2c28-4046f1a5a77f",
+          "keyValues": [],
+          "concept": {
+            "name": "If others, please mention",
+            "uuid": "13deeb6c-6a62-f496-8902-45885f38c3ce",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 8,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Do you have Adhar Card",
+          "uuid": "e5a08141-32ec-02ba-eb7a-d1cf443e8392",
+          "keyValues": [],
+          "concept": {
+            "name": "Do you have Adhar Card",
+            "uuid": "6c72f723-f76a-8f71-ae3a-a887dac2ee4d",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 9,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Do you have Bank account",
+          "uuid": "e55919c7-6956-dc72-9daa-534a5d261b8d",
+          "keyValues": [],
+          "concept": {
+            "name": "Do you have Bank account",
+            "uuid": "fb7c89c1-55b7-e8c8-edb9-7450477b0789",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 10,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Primi (Pregnancy for the first time)",
+          "uuid": "1fd244d9-d975-61bf-78ba-641a6e19efc5",
+          "keyValues": [],
+          "concept": {
+            "name": "Primi (Pregnancy for the first time)",
+            "uuid": "26067a14-145c-7fce-5bec-e8e7f2fa6e50",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 11,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false,
+      "display": "General"
+    },
+    {
+      "uuid": "43701011-9771-b96a-b6c9-541f1af2aa2a",
+      "name": "Previous Pregnancy History",
+      "displayOrder": 3,
+      "formElements": [
+        {
+          "name": "Gravida (No. of pregnancies earlier)",
+          "uuid": "cc915525-671c-8191-efdc-52f97c6d6f0b",
+          "keyValues": [],
+          "concept": {
+            "name": "Gravida (No. of pregnancies earlier)",
+            "uuid": "8d13e90d-2a68-3a60-16e9-b25a55db2aee",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true,
+          "declarativeRule": [
+            {
+              "actions": [
+                {
+                  "actionType": "showFormElement"
+                }
+              ],
+              "conditions": [
+                {
+                  "compoundRule": {
+                    "rules": [
+                      {
+                        "lhs": {
+                          "type": "concept",
+                          "scope": "encounter",
+                          "conceptName": "Primi (Pregnancy for the first time)",
+                          "conceptUuid": "26067a14-145c-7fce-5bec-e8e7f2fa6e50",
+                          "conceptDataType": "Coded"
+                        },
+                        "rhs": {
+                          "type": "answerConcept",
+                          "answerConceptNames": [
+                            "No"
+                          ]
+                        },
+                        "operator": "containsAnswerConceptName"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "timed": false,
+      "display": "Previous Pregnancy History"
+    },
+    {
+      "uuid": "3352e310-1569-9a12-1fcc-7892a26a69aa",
+      "name": "General",
+      "displayOrder": 4,
+      "formElements": [
+        {
+          "name": "Live (No. of children alive at present)",
+          "uuid": "3d4b5e7c-2415-cb36-3b13-f40399a2e304",
+          "keyValues": [],
+          "concept": {
+            "name": "Live (No. of children alive at present)",
+            "uuid": "d1dc50b8-9369-f973-fe6c-d9af08f101ff",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true,
+          "declarativeRule": [
+            {
+              "actions": [
+                {
+                  "actionType": "showFormElement"
+                }
+              ],
+              "conditions": [
+                {
+                  "compoundRule": {
+                    "rules": [
+                      {
+                        "lhs": {
+                          "type": "concept",
+                          "scope": "encounter",
+                          "conceptName": "Primi (Pregnancy for the first time)",
+                          "conceptUuid": "26067a14-145c-7fce-5bec-e8e7f2fa6e50",
+                          "conceptDataType": "Coded"
+                        },
+                        "rhs": {
+                          "type": "answerConcept",
+                          "answerConceptNames": [
+                            "No"
+                          ]
+                        },
+                        "operator": "containsAnswerConceptName"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Aborta (No. of abortions)",
+          "uuid": "3c6775e6-bc4f-b4ea-f49f-d602b8f239e8",
+          "keyValues": [],
+          "concept": {
+            "name": "Aborta (No. of abortions)",
+            "uuid": "1f57350c-eec4-c7dc-f37c-27e48d9649b9",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 2,
+          "type": "SingleSelect",
+          "mandatory": true,
+          "declarativeRule": [
+            {
+              "actions": [
+                {
+                  "actionType": "showFormElement"
+                }
+              ],
+              "conditions": [
+                {
+                  "compoundRule": {
+                    "rules": [
+                      {
+                        "lhs": {
+                          "type": "concept",
+                          "scope": "encounter",
+                          "conceptName": "Primi (Pregnancy for the first time)",
+                          "conceptUuid": "26067a14-145c-7fce-5bec-e8e7f2fa6e50",
+                          "conceptDataType": "Coded"
+                        },
+                        "rhs": {
+                          "type": "answerConcept",
+                          "answerConceptNames": [
+                            "No"
+                          ]
+                        },
+                        "operator": "containsAnswerConceptName"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Still Birth",
+          "uuid": "165dce4b-ee48-ffa7-7252-34181df9c1d2",
+          "keyValues": [],
+          "concept": {
+            "name": "Still Birth",
+            "uuid": "bc55fdd5-6138-3cd0-83c8-3e0639c3ffa6",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 3,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Para (No. of deliveries)",
+          "uuid": "1e8c7804-8c28-89cd-b439-db057bd748a1",
+          "keyValues": [],
+          "concept": {
+            "name": "Para (No. of deliveries)",
+            "uuid": "37ea5818-23cb-0157-f4de-ce74030fce56",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 4,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false,
+      "display": "General"
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}

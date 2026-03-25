@@ -29,3 +29,17 @@ Thumbs.db
 
 # Logs
 *.log
+
+# Claude worktrees
+.claude/worktrees/
+
+# K8s secrets
+k8s/secrets.yaml
+
+# GitHub workflows (PAT lacks workflow scope)
+.github/workflows/
+
+# All markdown except README
+*.md
+!README.md
+docs/

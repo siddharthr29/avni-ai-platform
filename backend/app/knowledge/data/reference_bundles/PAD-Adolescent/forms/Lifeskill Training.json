@@ -1,0 +1,118 @@
+{
+  "name": "Lifeskill Training",
+  "uuid": "7bc53585-ae08-4ba6-85bb-91a1a8f0195c",
+  "formType": "ProgramEncounter",
+  "formElementGroups": [
+    {
+      "uuid": "7fc6e565-7f9f-4315-be98-0a2c9caa4150",
+      "name": "Lifeskill",
+      "displayOrder": 1,
+      "formElements": [
+        {
+          "name": "Training date",
+          "uuid": "76ebcd14-13c0-44de-a74a-7b5684536f63",
+          "keyValues": [],
+          "concept": {
+            "name": "Training date",
+            "uuid": "22bb5182-9066-413d-a9fa-c251c74e4b28",
+            "dataType": "Date",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Training Location",
+          "uuid": "68181b14-799f-4f5d-80b4-62bafa4080a4",
+          "keyValues": [],
+          "concept": {
+            "name": "Training Location",
+            "uuid": "2bb6a457-d488-4c3e-8bf0-1fe4d81078c8",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 2,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Name of the participants",
+          "uuid": "78787fcd-7ca2-4872-be8b-6a5b4dae4a39",
+          "keyValues": [],
+          "concept": {
+            "name": "Name of the participants",
+            "uuid": "45d50a0b-e936-4c4d-8a63-ed33ed3d7cbb",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 3,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "No. Of. participants",
+          "uuid": "580bda53-9a1b-4190-a296-34244b58a59f",
+          "keyValues": [],
+          "concept": {
+            "name": "No. Of. participants",
+            "uuid": "17e91b2e-2429-42aa-a39f-449feaaf85b2",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 4,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Duration",
+          "uuid": "60da6686-fc1a-4c40-afdf-d16c359315aa",
+          "keyValues": [],
+          "concept": {
+            "name": "Duration",
+            "uuid": "7e8f9286-13f7-457a-a105-37205310cf52",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 5,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Modules covered",
+          "uuid": "1b3dfb9e-1e61-4702-8540-46e172c015a6",
+          "keyValues": [],
+          "concept": {
+            "name": "Modules covered",
+            "uuid": "758c41cb-8551-4af9-b25a-d052a292f28f",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 6,
+          "type": "MultiSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Other Module covered, please specify",
+          "uuid": "616f42e5-817b-44f3-89ec-943efb08c653",
+          "keyValues": [],
+          "concept": {
+            "name": "Other Module covered, please specify",
+            "uuid": "4245545d-22d7-45d3-9ada-7f1e186ebca2",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 7,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}

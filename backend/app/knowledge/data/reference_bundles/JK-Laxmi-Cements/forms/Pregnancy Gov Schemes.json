@@ -1,0 +1,136 @@
+{
+  "name": "Pregnancy Gov Schemes",
+  "uuid": "2eac492d-6f21-4162-a505-35dac3916ba4",
+  "formType": "ProgramEncounter",
+  "formElementGroups": [
+    {
+      "uuid": "625bb28d-24cb-4ae3-a73f-61f6abd86496",
+      "name": "Scheme Details",
+      "displayOrder": 1,
+      "formElements": [
+        {
+          "name": "Scheme Name",
+          "uuid": "0a578a68-7d41-4309-843a-a3b3fff99405",
+          "keyValues": [],
+          "concept": {
+            "name": "Scheme Name",
+            "uuid": "16c459ec-c025-47f6-8861-b063cfa667e2",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Other Scheme, Specify",
+          "uuid": "2b378b2b-fa8f-475d-946f-d35800563427",
+          "keyValues": [],
+          "concept": {
+            "name": "Other Scheme, Specify",
+            "uuid": "1ee87b9a-e537-4739-ad10-39573fb78d3d",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 2,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "20a9db74-be21-44b0-9a48-ece99ea51226",
+      "name": "Prime Minister's Matru Vandana Yojana(PMMVY) Details",
+      "displayOrder": 2,
+      "formElements": [
+        {
+          "name": "Scheme Amount Recievied",
+          "uuid": "5c96efa5-4633-45c8-a834-51193b748ed8",
+          "keyValues": [],
+          "concept": {
+            "name": "Scheme Amount Recievied",
+            "uuid": "1a216da1-fea9-46bb-a409-dbd4617d9981",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "58a55c75-8a0e-47ed-8482-ac62ba5a8e33",
+      "name": "Janani Shishu Suraksha Yojana Details",
+      "displayOrder": 3,
+      "formElements": [
+        {
+          "name": "Scheme Amount Recievied",
+          "uuid": "5c96efa6-e3ba-401b-8100-03d2246cdf56",
+          "keyValues": [],
+          "concept": {
+            "name": "Scheme Amount Recievied",
+            "uuid": "1a216da1-fea9-46bb-a409-dbd4617d9981",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "5dfba364-0f1c-469f-a28d-bebbae9f2c8b",
+      "name": "Pradhan Mantri Surakshit Matritva Abhiyan – PMSMA Details",
+      "displayOrder": 4,
+      "formElements": [
+        {
+          "name": "Scheme Amount Recievied",
+          "uuid": "5c96efa7-5147-415a-afe3-844ee5a875fa",
+          "keyValues": [],
+          "concept": {
+            "name": "Scheme Amount Recievied",
+            "uuid": "1a216da1-fea9-46bb-a409-dbd4617d9981",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "5c754c85-8af3-4abe-98d9-d52ed8fc7e47",
+      "name": "Indira Gandhi Matritva Poshan Yojana",
+      "displayOrder": 5,
+      "formElements": [
+        {
+          "name": "Scheme Amount Recievied",
+          "uuid": "5c96efa8-3043-419b-90bb-cd093d0b027e",
+          "keyValues": [],
+          "concept": {
+            "name": "Scheme Amount Recievied",
+            "uuid": "1a216da1-fea9-46bb-a409-dbd4617d9981",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}

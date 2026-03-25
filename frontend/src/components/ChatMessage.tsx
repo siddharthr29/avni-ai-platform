@@ -1,393 +1,170 @@
-import { useState, type ReactNode } from 'react';
-import { Copy, Check, AlertCircle } from 'lucide-react';
-import clsx from 'clsx';
+import { memo, useState } from 'react';
+import { AlertCircle, RefreshCw, ClipboardCheck } from 'lucide-react';
 import type { Message } from '../types';
 import { FieldMapping } from './FieldMapping';
 import { BundlePreview } from './BundlePreview';
+import { BundleReviewWizard } from './BundleReviewWizard';
+import { RuleDisplay } from './RuleDisplay';
+import { WorkflowProgress } from './WorkflowProgress';
+import { CheckpointCard } from './CheckpointCard';
+import { AmbiguityResolver } from './AmbiguityResolver';
+import { MessageBubble, LoadingBubble } from './chat/MessageBubble';
+import { MessageContent } from './chat/MessageContent';
+import { MessageMetadata } from './chat/MessageMetadata';
+import { MessageFeedback } from './chat/MessageFeedback';
+import { MessageAttachments } from './chat/MessageAttachments';
+import { ProgressIndicator, ExtractedDataTable } from './chat/MetadataWidgets';
 
 interface ChatMessageProps {
   message: Message;
+  onToast: (type: 'success' | 'error' | 'info', message: string) => void;
+  isLoading?: boolean;
+  isLastMessage?: boolean;
+  onRetry?: () => void;
+  onOpenArtifact?: (messageId: string, attachment: { name: string; data: string; mimeType: string }) => void;
+  sessionId?: string;
+  onCheckpointApprove?: (workflowId: string, stepId: string, feedback?: string) => void;
+  onCheckpointReject?: (workflowId: string, stepId: string, feedback: string) => void;
+  onClarificationSubmit?: (answers: Record<string, string>) => void;
 }
 
-function renderMarkdown(text: string): ReactNode[] {
-  const lines = text.split('\n');
-  const elements: ReactNode[] = [];
-  let inCodeBlock = false;
-  let codeContent = '';
-  let codeLanguage = '';
-  let listItems: string[] = [];
-  let listType: 'ul' | 'ol' | null = null;
+export const ChatMessage = memo(function ChatMessage({ message, onToast, isLoading, isLastMessage, onRetry, onOpenArtifact, sessionId, onCheckpointApprove, onCheckpointReject, onClarificationSubmit }: ChatMessageProps) {
+  const isUser = message.role === 'user';
+  const isAssistant = message.role === 'assistant';
+  const isStreaming = isAssistant && isLastMessage && isLoading;
+  const metaType = message.metadata?.type;
+  const [showReviewWizard, setShowReviewWizard] = useState(false);
 
-  const flushList = () => {
-    if (listItems.length > 0 && listType) {
-      const ListTag = listType === 'ol' ? 'ol' : 'ul';
-      elements.push(
-        <ListTag
-          key={`list-${elements.length}`}
-          className={clsx(
-            'my-1 pl-5',
-            listType === 'ol' ? 'list-decimal' : 'list-disc'
-          )}
-        >
-          {listItems.map((item, i) => (
-            <li key={i} className="text-sm text-gray-700 py-0.5">
-              {renderInlineMarkdown(item)}
-            </li>
-          ))}
-        </ListTag>
-      );
-      listItems = [];
-      listType = null;
-    }
-  };
-
-  for (let i = 0; i < lines.length; i++) {
-    const line = lines[i];
-
-    // Code blocks
-    if (line.trim().startsWith('```')) {
-      if (inCodeBlock) {
-        flushList();
-        elements.push(
-          <CodeBlock key={`code-${i}`} code={codeContent.trimEnd()} language={codeLanguage} />
-        );
-        codeContent = '';
-        codeLanguage = '';
-        inCodeBlock = false;
-      } else {
-        flushList();
-        inCodeBlock = true;
-        codeLanguage = line.trim().slice(3).trim();
-      }
-      continue;
-    }
-
-    if (inCodeBlock) {
-      codeContent += (codeContent ? '\n' : '') + line;
-      continue;
-    }
-
-    // Headers
-    const headerMatch = line.match(/^(#{1,4})\s+(.+)/);
-    if (headerMatch) {
-      flushList();
-      const level = headerMatch[1].length;
-      const headerText = headerMatch[2];
-      const className = clsx(
-        'font-semibold text-gray-900',
-        level === 1 && 'text-lg mt-3 mb-1',
-        level === 2 && 'text-base mt-2 mb-1',
-        level === 3 && 'text-sm mt-2 mb-0.5',
-        level === 4 && 'text-sm mt-1'
-      );
-      elements.push(
-        <p key={`h-${i}`} className={className}>{renderInlineMarkdown(headerText)}</p>
-      );
-      continue;
-    }
-
-    // Unordered list
-    const ulMatch = line.match(/^[\s]*[-*]\s+(.+)/);
-    if (ulMatch) {
-      if (listType === 'ol') flushList();
-      listType = 'ul';
-      listItems.push(ulMatch[1]);
-      continue;
-    }
-
-    // Ordered list
-    const olMatch = line.match(/^[\s]*\d+\.\s+(.+)/);
-    if (olMatch) {
-      if (listType === 'ul') flushList();
-      listType = 'ol';
-      listItems.push(olMatch[1]);
-      continue;
-    }
-
-    flushList();
-
-    // Empty line
-    if (line.trim() === '') {
-      continue;
-    }
-
-    // Regular paragraph
-    elements.push(
-      <p key={`p-${i}`} className="text-sm text-gray-700 my-0.5">
-        {renderInlineMarkdown(line)}
-      </p>
-    );
+  // Loading state: empty assistant message
+  if (!isUser && !message.content && !metaType) {
+    return <LoadingBubble />;
   }
-
-  flushList();
-
-  // If still in code block (unclosed), render what we have
-  if (inCodeBlock && codeContent) {
-    elements.push(
-      <CodeBlock key="code-final" code={codeContent.trimEnd()} language={codeLanguage} />
-    );
-  }
-
-  return elements;
-}
-
-function renderInlineMarkdown(text: string): ReactNode[] {
-  const parts: ReactNode[] = [];
-  const regex = /(\*\*(.+?)\*\*)|(\*(.+?)\*)|(`(.+?)`)/g;
-  let lastIndex = 0;
-  let match: RegExpExecArray | null;
-  let keyCounter = 0;
-
-  while ((match = regex.exec(text)) !== null) {
-    if (match.index > lastIndex) {
-      parts.push(text.slice(lastIndex, match.index));
-    }
-
-    if (match[1]) {
-      parts.push(<strong key={`b-${keyCounter++}`} className="font-semibold">{match[2]}</strong>);
-    } else if (match[3]) {
-      parts.push(<em key={`i-${keyCounter++}`}>{match[4]}</em>);
-    } else if (match[5]) {
-      parts.push(
-        <code key={`c-${keyCounter++}`} className="bg-gray-100 text-primary-700 px-1 py-0.5 rounded text-xs font-mono">
-          {match[6]}
-        </code>
-      );
-    }
-
-    lastIndex = regex.lastIndex;
-  }
-
-  if (lastIndex < text.length) {
-    parts.push(text.slice(lastIndex));
-  }
-
-  return parts.length > 0 ? parts : [text];
-}
-
-function CodeBlock({ code, language }: { code: string; language: string }) {
-  const [copied, setCopied] = useState(false);
-
-  const handleCopy = async () => {
-    await navigator.clipboard.writeText(code);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
 
   return (
-    <div className="my-2 rounded-lg overflow-hidden border border-gray-200">
-      <div className="bg-gray-800 px-3 py-1.5 flex items-center justify-between">
-        <span className="text-xs text-gray-400">{language || 'code'}</span>
-        <button
-          onClick={handleCopy}
-          className="flex items-center gap-1 text-xs text-gray-400 hover:text-gray-200 transition-colors"
-        >
-          {copied ? (
-            <>
-              <Check className="w-3.5 h-3.5" />
-              Copied
-            </>
-          ) : (
-            <>
-              <Copy className="w-3.5 h-3.5" />
-              Copy
-            </>
-          )}
-        </button>
-      </div>
-      <pre className="bg-gray-900 p-3 overflow-x-auto">
-        <code className="text-xs text-gray-200 font-mono whitespace-pre">{code}</code>
-      </pre>
-    </div>
-  );
-}
+    <MessageBubble role={message.role} isStreaming={isStreaming}>
+      {/* Attachments */}
+      <MessageAttachments
+        attachments={message.attachments ?? []}
+        messageId={message.id}
+        isUser={isUser}
+        onOpenArtifact={onOpenArtifact}
+      />
 
-function ProgressIndicator({ progress }: { progress: { step: string; current: number; total: number } }) {
-  const percentage = Math.round((progress.current / progress.total) * 100);
-  return (
-    <div className="my-2">
-      <div className="flex items-center justify-between mb-1">
-        <span className="text-sm text-gray-700">{progress.step}</span>
-        <span className="text-xs text-gray-500">{percentage}%</span>
+      {/* Content with streaming cursor */}
+      <div className="relative">
+        <MessageContent content={message.content} isUser={isUser} />
+        {isStreaming && message.content && (
+          <span className="streaming-cursor">&#9613;</span>
+        )}
       </div>
-      <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
-        <div
-          className="h-full bg-primary-600 rounded-full transition-all duration-300 ease-out"
-          style={{ width: `${percentage}%` }}
+
+      {/* Metadata-based widgets */}
+      {metaType === 'progress' && message.metadata?.progress && (
+        <ProgressIndicator progress={message.metadata.progress} />
+      )}
+      {metaType === 'voice_mapped' && message.metadata?.fields && message.metadata?.confidence && (
+        <FieldMapping fields={message.metadata.fields} confidence={message.metadata.confidence} onToast={onToast} />
+      )}
+      {metaType === 'image_extracted' && (
+        <ExtractedDataTable
+          records={message.metadata?.records ?? []}
+          warnings={message.metadata?.warnings ?? []}
+          onOpenAsArtifact={onOpenArtifact ? (records) => {
+            const headers = Object.keys(records[0] || {});
+            const rows = records.map(r => headers.map(h => String(r[h] ?? '')));
+            const csv = [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
+            onOpenArtifact(message.id, { name: 'extracted-data.csv', data: btoa(csv), mimeType: 'text/csv' });
+          } : undefined}
         />
-      </div>
-      <p className="text-xs text-gray-400 mt-1">
-        {progress.current} of {progress.total}
-      </p>
-    </div>
-  );
-}
-
-function ExtractedDataTable({ records, warnings }: { records: Record<string, unknown>[]; warnings: string[] }) {
-  if (records.length === 0) {
-    return <p className="text-sm text-gray-500 italic">No data extracted.</p>;
-  }
-
-  const columns = Object.keys(records[0]);
-
-  return (
-    <div className="mt-2">
-      {warnings.length > 0 && (
-        <div className="mb-2 space-y-1">
-          {warnings.map((warning, i) => (
-            <div key={i} className="flex items-start gap-1.5 text-xs text-yellow-700 bg-yellow-50 rounded px-2 py-1">
-              <AlertCircle className="w-3.5 h-3.5 shrink-0 mt-0.5" />
-              {warning}
+      )}
+      {metaType === 'bundle_ready' && (
+        <>
+          <BundlePreview files={message.metadata?.bundleFiles} downloadUrl={message.metadata?.downloadUrl} bundleId={message.metadata?.bundleId} onToast={onToast} />
+          {message.metadata?.bundleId && !showReviewWizard && (
+            <button
+              onClick={() => setShowReviewWizard(true)}
+              className="mt-2 flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-teal-700 bg-teal-50 hover:bg-teal-100 border border-teal-200 rounded-lg transition-colors"
+            >
+              <ClipboardCheck className="w-4 h-4" />
+              Review Before Download
+            </button>
+          )}
+          {showReviewWizard && message.metadata?.bundleId && (
+            <div className="mt-3">
+              <BundleReviewWizard
+                bundleId={message.metadata.bundleId}
+                onClose={() => setShowReviewWizard(false)}
+                onToast={onToast}
+              />
             </div>
-          ))}
+          )}
+        </>
+      )}
+      {metaType === 'rule' && message.metadata?.code && (
+        <div className="mt-2">
+          <RuleDisplay code={message.metadata.code} ruleType={message.metadata.ruleType} />
         </div>
       )}
-      <div className="overflow-x-auto rounded-lg border border-gray-200">
-        <table className="w-full text-sm">
-          <thead>
-            <tr className="bg-gray-50 border-b border-gray-200">
-              {columns.map(col => (
-                <th key={col} className="text-left px-3 py-2 font-medium text-gray-600 whitespace-nowrap">
-                  {col}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {records.map((record, rowIndex) => (
-              <tr key={rowIndex} className="border-b border-gray-100 last:border-b-0">
-                {columns.map(col => (
-                  <td key={col} className="px-3 py-2 text-gray-700 whitespace-nowrap">
-                    {String(record[col] ?? '')}
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  );
-}
-
-export function ChatMessage({ message }: ChatMessageProps) {
-  const isUser = message.role === 'user';
-  const isSystem = message.role === 'system';
-  const metaType = message.metadata?.type;
-
-  // Loading state (empty assistant message)
-  if (!isUser && !message.content && !metaType) {
-    return (
-      <div className="flex justify-start mb-4 px-4">
-        <div className="max-w-[80%] bg-gray-50 rounded-2xl rounded-tl-sm px-4 py-3">
-          <div className="flex items-center gap-1.5">
-            <span className="typing-dot w-2 h-2 bg-gray-400 rounded-full inline-block" />
-            <span className="typing-dot w-2 h-2 bg-gray-400 rounded-full inline-block" />
-            <span className="typing-dot w-2 h-2 bg-gray-400 rounded-full inline-block" />
-          </div>
+      {/* Workflow progress, checkpoint, clarification */}
+      {metaType === 'workflow_progress' && message.metadata && (
+        <div className="mt-2">
+          <WorkflowProgress
+            workflowId={message.metadata.workflowId ?? ''}
+            name={(message.metadata as any).workflowName ?? 'Workflow'}
+            steps={(message.metadata as any).steps ?? []}
+            currentStepIndex={(message.metadata as any).currentStepIndex ?? 0}
+            status={(message.metadata as any).workflowStatus ?? 'running'}
+            currentDetail={(message.metadata as any).currentDetail}
+            provider={(message.metadata as any).provider}
+            tokensUsed={(message.metadata as any).tokensUsed}
+            tokensBudget={(message.metadata as any).tokensBudget}
+          />
         </div>
-      </div>
-    );
-  }
-
-  if (isSystem) {
-    return (
-      <div className="flex justify-center mb-4 px-4">
-        <div className="bg-gray-100 text-gray-500 text-xs px-3 py-1.5 rounded-full">
-          {message.content}
+      )}
+      {metaType === 'checkpoint' && message.metadata?.step && onCheckpointApprove && onCheckpointReject && (
+        <div className="mt-2">
+          <CheckpointCard
+            workflowId={message.metadata.workflowId ?? ''}
+            stepId={message.metadata.step.id}
+            stepName={message.metadata.step.name}
+            checkpointLevel={message.metadata.needs === 'approval' ? 'approve' : message.metadata.needs === 'input' ? 'block' : 'review'}
+            summary={message.metadata.resultSummary ?? ''}
+            details={(message.metadata as any).details}
+            onApprove={onCheckpointApprove}
+            onReject={onCheckpointReject}
+          />
         </div>
-      </div>
-    );
-  }
-
-  return (
-    <div className={clsx('flex mb-4 px-4', isUser ? 'justify-end' : 'justify-start')}>
-      <div
-        className={clsx(
-          'max-w-[80%] rounded-2xl px-4 py-3 transition-all',
-          isUser
-            ? 'bg-primary-50 text-gray-900 rounded-tr-sm'
-            : 'bg-gray-50 text-gray-900 rounded-tl-sm'
-        )}
-      >
-        {/* User attachments */}
-        {isUser && message.attachments && message.attachments.length > 0 && (
-          <div className="flex flex-wrap gap-2 mb-2">
-            {message.attachments.map((att, i) => (
-              <div key={i} className="flex items-center gap-1.5 bg-white/60 rounded-lg px-2 py-1 text-xs text-gray-600">
-                {att.type === 'image' ? (
-                  <img
-                    src={`data:${att.mimeType};base64,${att.data}`}
-                    alt={att.name}
-                    className="w-16 h-16 object-cover rounded"
-                  />
-                ) : (
-                  <span className="truncate max-w-[120px]">{att.name}</span>
-                )}
-              </div>
-            ))}
-          </div>
-        )}
-
-        {/* Message content */}
-        {message.content && (
-          <div>{isUser ? (
-            <p className="text-sm whitespace-pre-wrap">{message.content}</p>
-          ) : (
-            renderMarkdown(message.content)
-          )}</div>
-        )}
-
-        {/* Metadata-based rendering */}
-        {metaType === 'progress' && message.metadata?.progress && (
-          <ProgressIndicator progress={message.metadata.progress} />
-        )}
-
-        {metaType === 'voice_mapped' && message.metadata?.fields && message.metadata?.confidence && (
-          <FieldMapping
-            fields={message.metadata.fields}
-            confidence={message.metadata.confidence}
+      )}
+      {metaType === 'clarification' && message.metadata?.questions && onClarificationSubmit && (
+        <div className="mt-2">
+          <AmbiguityResolver
+            questions={message.metadata.questions}
+            onSubmit={onClarificationSubmit}
+            similarOrgs={(message.metadata as any).similarOrgs}
           />
-        )}
-
-        {metaType === 'image_extracted' && (
-          <ExtractedDataTable
-            records={message.metadata?.records ?? []}
-            warnings={message.metadata?.warnings ?? []}
-          />
-        )}
-
-        {metaType === 'bundle_ready' && (
-          <BundlePreview
-            files={message.metadata?.bundleFiles}
-            downloadUrl={message.metadata?.downloadUrl}
-          />
-        )}
-
-        {metaType === 'rule' && message.metadata?.code && (
-          <div className="mt-2">
-            <CodeBlock code={message.metadata.code} language="javascript" />
-          </div>
-        )}
-
-        {metaType === 'error' && (
+        </div>
+      )}
+      {metaType === 'error' && (
+        <>
           <div className="mt-2 flex items-start gap-2 bg-red-50 text-red-700 rounded-lg px-3 py-2 text-sm">
             <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
             <span>{message.content}</span>
           </div>
-        )}
+          {onRetry && (
+            <button onClick={onRetry} className="mt-2 flex items-center gap-1.5 text-xs text-red-600 hover:text-red-800 hover:bg-red-50 rounded-md px-2 py-1 transition-colors">
+              <RefreshCw className="w-3.5 h-3.5" /> Retry
+            </button>
+          )}
+        </>
+      )}
 
-        {/* Timestamp */}
-        <div className={clsx(
-          'text-xs mt-1.5',
-          isUser ? 'text-primary-400' : 'text-gray-400'
-        )}>
-          {new Date(message.timestamp).toLocaleTimeString('en-IN', {
-            hour: '2-digit',
-            minute: '2-digit',
-          })}
-        </div>
-      </div>
-    </div>
+      {/* Feedback + copy (assistant only, not streaming) */}
+      {isAssistant && message.content && !isStreaming && (
+        <MessageFeedback messageId={message.id} sessionId={sessionId} content={message.content} onToast={onToast} />
+      )}
+
+      {/* Timestamp */}
+      <MessageMetadata timestamp={message.timestamp} isUser={isUser} />
+    </MessageBubble>
   );
-}
+});

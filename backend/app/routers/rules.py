@@ -12,6 +12,7 @@ from app.models.schemas import (
     RuleTemplateSummary,
     RuleTestRequest,
     RuleTestResponse,
+    RuleValidateRequest,
 )
 from app.services.rule_generator import (
     RULE_TEMPLATES,
@@ -98,6 +99,22 @@ async def test_rule_endpoint(request: RuleTestRequest) -> RuleTestResponse:
         warnings=result["warnings"],
         errors=result["errors"],
     )
+
+
+@router.post("/rules/validate")
+async def validate_rule(request: RuleValidateRequest) -> dict:
+    """Validate a JavaScript rule against Avni patterns.
+
+    Checks syntax (balanced delimiters), forbidden patterns (eval, require,
+    fetch, etc.), Avni import usage, rule-type consistency, UUID format,
+    and common authoring mistakes — all without executing the code.
+    """
+    from app.services.rule_validator import validate_rule_js
+
+    if not request.code or not request.code.strip():
+        raise HTTPException(status_code=400, detail="code must not be empty")
+
+    return validate_rule_js(request.code, request.rule_type)
 
 
 @router.get("/rules/templates", response_model=list[RuleTemplateSummary])

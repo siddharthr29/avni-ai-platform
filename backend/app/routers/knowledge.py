@@ -3,7 +3,7 @@ import logging
 from fastapi import APIRouter, HTTPException
 
 from app.models.schemas import KnowledgeSearchRequest, KnowledgeSearchResponse
-from app.services.knowledge_base import knowledge_base
+from app.services.rag.fallback import rag_service
 
 logger = logging.getLogger(__name__)
 
@@ -14,8 +14,9 @@ router = APIRouter()
 async def knowledge_search(request: KnowledgeSearchRequest) -> KnowledgeSearchResponse:
     """Search the Avni knowledge base.
 
-    Searches across concepts, rules, and support patterns using keyword
-    and fuzzy matching. Optionally filter by category.
+    Uses hybrid vector + keyword search (RAG) when pgvector is available,
+    or falls back to in-memory keyword + fuzzy matching. Optionally filter
+    by category.
     """
     if not request.query.strip():
         raise HTTPException(status_code=400, detail="Query cannot be empty")
@@ -24,18 +25,22 @@ async def knowledge_search(request: KnowledgeSearchRequest) -> KnowledgeSearchRe
     limit = request.limit
 
     if category == "concepts":
-        results = knowledge_base.search_concepts(request.query, limit=limit)
+        results = await rag_service.search_concepts(request.query, limit=limit)
+    elif category == "forms":
+        results = await rag_service.search_forms(request.query, limit=limit)
     elif category == "rules":
-        results = knowledge_base.search_rules(request.query, limit=limit)
+        results = await rag_service.search_rules(request.query, limit=limit)
     elif category == "tickets":
-        results = knowledge_base.search_tickets(request.query, limit=limit)
+        results = await rag_service.search_tickets(request.query, limit=limit)
+    elif category == "knowledge":
+        results = await rag_service.search_knowledge(request.query, limit=limit)
     elif category is None:
-        results = knowledge_base.search_all(request.query, limit=limit)
+        results = await rag_service.search_all(request.query, limit=limit)
     else:
         raise HTTPException(
             status_code=400,
             detail=f"Unknown category: {category}. "
-                   f"Valid categories: concepts, rules, tickets, or omit for all.",
+                   f"Valid categories: concepts, forms, rules, tickets, knowledge, or omit for all.",
         )
 
     return KnowledgeSearchResponse(
@@ -43,3 +48,19 @@ async def knowledge_search(request: KnowledgeSearchRequest) -> KnowledgeSearchRe
         total=len(results),
         query=request.query,
     )
+
+
+@router.get("/knowledge/status")
+async def knowledge_status() -> dict:
+    """Return the status and statistics of the knowledge/RAG pipeline."""
+    stats = await rag_service.get_stats()
+
+    # Include PageIndex stats
+    try:
+        from app.services.pageindex_service import pageindex_service
+        pi_stats = await pageindex_service.get_stats()
+        stats["pageindex"] = pi_stats
+    except Exception:
+        stats["pageindex"] = {"total_documents": 0, "collections": {}}
+
+    return stats

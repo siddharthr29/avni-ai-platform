@@ -1,0 +1,140 @@
+[
+  {
+    "name": "Baseline Assessment",
+    "uuid": "004c2e90-a229-489c-b6cd-7ee88ecde703",
+    "active": true,
+    "programEncounter": true
+  },
+  {
+    "name": "Bio Intensive Garden",
+    "uuid": "10be765d-36bd-46b5-a120-719ab5daec91",
+    "active": true,
+    "programEncounter": true
+  },
+  {
+    "name": "Couselling",
+    "uuid": "7cadb24c-6b0c-4d2a-a163-8b2ec2d7cf96",
+    "active": true,
+    "programEncounter": true
+  },
+  {
+    "name": "Support Needs",
+    "uuid": "441e8ae1-d13b-4fc9-bbb4-14d2bb601096",
+    "active": true,
+    "programEncounter": true
+  },
+  {
+    "name": "Dropout Tracking",
+    "uuid": "6e7ce33b-7b5a-4f0c-a539-e66a82e95475",
+    "active": true,
+    "programEncounter": true
+  },
+  {
+    "name": "Anaemic Followup",
+    "uuid": "6da7ac1d-4c01-4fb7-94ab-ec151f81578a",
+    "active": true,
+    "programEncounter": true
+  },
+  {
+    "name": "SRHR",
+    "uuid": "4982700a-72c5-4a1d-b584-d1a7702ee971",
+    "active": true,
+    "programEncounter": true
+  },
+  {
+    "name": "Lifeskill Training",
+    "uuid": "01c79d92-5ed8-4c5a-a461-073575c118d7",
+    "active": true,
+    "programEncounter": true
+  },
+  {
+    "name": "Leadership Training",
+    "uuid": "173bec18-c0f9-4359-bde7-8c62de76353a",
+    "active": true,
+    "programEncounter": true
+  },
+  {
+    "name": "CFAM",
+    "uuid": "4989e3e4-f10d-494d-a1c2-286e01c6d6ec",
+    "active": true,
+    "programEncounter": true
+  },
+  {
+    "name": "Resource centre",
+    "uuid": "02f78f5a-0945-47c9-ad20-dddee86e8868",
+    "active": true,
+    "programEncounter": true
+  },
+  {
+    "name": "Adolescent Girls Meeting",
+    "uuid": "3dac69eb-a0a5-4586-af6f-7fad68ac719b",
+    "active": true,
+    "programEncounter": true
+  },
+  {
+    "name": "Anaemic Camp",
+    "uuid": "34e70ec8-a790-490b-988f-bfb6d09ddd83",
+    "active": true,
+    "programEncounter": true
+  },
+  {
+    "name": "Community support group",
+    "uuid": "0f623a96-2eee-4b31-a203-c4a381f7970c",
+    "active": true,
+    "programEncounter": true
+  },
+  {
+    "name": "Community support group Meeting",
+    "uuid": "571cc69b-9d23-49e8-80f4-cb970bb09abc",
+    "active": true,
+    "programEncounter": true
+  },
+  {
+    "name": "Meetings Registration",
+    "uuid": "4baea194-f77a-47c0-aeee-99195f995491",
+    "active": true,
+    "programEncounter": true
+  },
+  {
+    "name": "Parents meeting",
+    "uuid": "4628b797-4d40-4276-aa84-568853f60813",
+    "active": true,
+    "programEncounter": true
+  },
+  {
+    "name": "Important day",
+    "uuid": "5f77f4d1-a5de-461a-b2dc-c125633474e8",
+    "active": true,
+    "programEncounter": true
+  },
+  {
+    "name": "Child Protection Training",
+    "uuid": "5fa7c4d0-97bb-42b7-90ba-f651a993df0c",
+    "active": true,
+    "programEncounter": true
+  },
+  {
+    "name": "Interface meeting",
+    "uuid": "680f89f9-b8b3-4c5e-87f1-4a55b86aed94",
+    "active": true,
+    "programEncounter": true
+  },
+  {
+    "name": "Demands Recognition",
+    "uuid": "096ced0e-1b37-449f-9b2d-b5ee796115c4",
+    "active": true,
+    "programEncounter": true
+  },
+  {
+    "name": "Staff training",
+    "uuid": "74a675b9-e8a4-4618-960b-c31b2e7fb7b3",
+    "active": true,
+    "programEncounter": true
+  },
+  {
+    "name": "Review checklist",
+    "uuid": "0cc19035-ce0a-41a1-934e-5a0c2b033334",
+    "active": true,
+    "programEncounter": true
+  }
+]

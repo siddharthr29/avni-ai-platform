@@ -1,0 +1,133 @@
+{
+  "name": "Fortline Workers Capacity build",
+  "uuid": "3740bc04-b7f7-f4ed-516b-bb7916f0b32a",
+  "formType": "ProgramEncounter",
+  "formElementGroups": [
+    {
+      "uuid": "f5f907ff-5657-729c-8031-a2f03da1ea6f",
+      "name": "Meeting Details",
+      "displayOrder": 1,
+      "formElements": [
+        {
+          "name": "Meeting Date",
+          "uuid": "3627c0c9-3882-5859-e3ed-1337aff9eabd",
+          "keyValues": [],
+          "concept": {
+            "name": "Meeting Date",
+            "uuid": "89c8de6b-b21c-9623-ad32-dde3ab414f73",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Meeting Type",
+          "uuid": "9f39e286-2550-03c7-2b71-c66e520f8250",
+          "keyValues": [],
+          "concept": {
+            "name": "Meeting Type",
+            "uuid": "bd4a884b-ed7b-b653-cb11-b9496302617f",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 2,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Location",
+          "uuid": "80d3e497-bf35-19c3-ca57-113c07c7ba31",
+          "keyValues": [],
+          "concept": {
+            "name": "Location",
+            "uuid": "f413d841-2505-c17d-9ed0-701de8d01005",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 3,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Participants (count)",
+          "uuid": "efc4763e-543d-631b-74f1-f881e7ff5cbb",
+          "keyValues": [],
+          "concept": {
+            "name": "Participants (count)",
+            "uuid": "260511fd-6fae-f85a-fd24-cb3009130fb0",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 4,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Activities",
+          "uuid": "dd4d5459-3e1c-a4e6-24d5-73e30dd35b73",
+          "keyValues": [],
+          "concept": {
+            "name": "Activities",
+            "uuid": "6dd0de04-ddb8-99db-5f7a-3b94a4041767",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 5,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Topics Covered",
+          "uuid": "38c257bb-f0cd-5f02-a672-ee5d12ecb3d9",
+          "keyValues": [],
+          "concept": {
+            "name": "Topics Covered",
+            "uuid": "4489801a-d7c3-96ab-c1b2-3db01c907c02",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 6,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Action Items",
+          "uuid": "3a8ec239-2823-6485-2ef8-edce5303c682",
+          "keyValues": [],
+          "concept": {
+            "name": "Action Items",
+            "uuid": "57900202-a42a-34d8-9fbf-9bc3e58ca6b3",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 7,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false,
+      "display": "Meeting Details"
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}

@@ -1,0 +1,117 @@
+{
+  "name": "Health Check up encounter",
+  "uuid": "4a42aed1-a42a-e931-07bd-ea94dd933d0f",
+  "formType": "ProgramEncounter",
+  "formElementGroups": [
+    {
+      "uuid": "7f52d1bc-e0a2-96fe-1f85-0439cb48a4f0",
+      "name": "General",
+      "displayOrder": 1,
+      "formElements": [
+        {
+          "name": "Health Check up Type",
+          "uuid": "e75f0219-3dea-ff41-1705-b66694b0b82b",
+          "keyValues": [],
+          "concept": {
+            "name": "Health Check up Type",
+            "uuid": "5a2d30ec-e027-789d-909d-14491bbf775f",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Dignosed With",
+          "uuid": "7a4cfe01-4937-065e-efd8-ed5a775028b4",
+          "keyValues": [],
+          "concept": {
+            "name": "Dignosed With",
+            "uuid": "226bb125-8128-05da-205e-9bedc82fe8dd",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 2,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Upload Prescription Image",
+          "uuid": "5bbcbbf0-29ef-7e2e-613b-c38f3c31b1de",
+          "keyValues": [],
+          "concept": {
+            "name": "Upload Prescription Image",
+            "uuid": "ec944ebd-024b-f0ed-2b69-8db337bec2f0",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 3,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Is Reffral Required",
+          "uuid": "c76fa4ad-ee1b-27ae-e0af-96f5e4b1a515",
+          "keyValues": [],
+          "concept": {
+            "name": "Is Reffral Required",
+            "uuid": "81a5eb22-009a-7edc-8e8e-65ac5da89545",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 4,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Refered to",
+          "uuid": "8671807b-e0a1-dbd1-ff53-f151fa8ccbde",
+          "keyValues": [],
+          "concept": {
+            "name": "Refered to",
+            "uuid": "4d4bd0b8-8b3c-76e7-ee1d-d26e9a3e9c0b",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 5,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Follow up Required",
+          "uuid": "46f893d9-956b-976f-da1c-22f2ccf54df6",
+          "keyValues": [],
+          "concept": {
+            "name": "Follow up Required",
+            "uuid": "5691bbeb-6cf6-9d55-a8a1-eac71b375146",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 6,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false,
+      "display": "General"
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}

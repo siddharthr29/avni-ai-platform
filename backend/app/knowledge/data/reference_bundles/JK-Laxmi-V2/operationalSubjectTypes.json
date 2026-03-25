@@ -1,0 +1,20 @@
+[
+  {
+    "subjectType": {
+      "uuid": "c43228f4-05ae-defb-0f97-e7513ee4c838",
+      "name": "Individual"
+    },
+    "uuid": "5e3e494c-e899-4c48-dd3a-2bd6d6006d60",
+    "name": "Individual",
+    "voided": false
+  },
+  {
+    "subjectType": {
+      "uuid": "ad0d84cb-a232-b775-42b9-2dea9412d137",
+      "name": "Household"
+    },
+    "uuid": "94335039-2b9d-40ed-6bd5-74f66211c5ee",
+    "name": "Household",
+    "voided": false
+  }
+]

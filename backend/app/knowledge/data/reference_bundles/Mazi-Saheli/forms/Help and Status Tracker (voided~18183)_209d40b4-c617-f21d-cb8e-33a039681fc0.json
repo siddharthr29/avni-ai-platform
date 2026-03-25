@@ -1,0 +1,235 @@
+{
+  "name" : "Help and Status Tracker (voided~18183)",
+  "uuid" : "209d40b4-c617-f21d-cb8e-33a039681fc0",
+  "formType" : "Encounter",
+  "formElementGroups" : [ {
+    "uuid" : "3ea510dc-79e0-78aa-b061-06faf88b8d7a",
+    "name" : "Tab",
+    "displayOrder" : 1.0,
+    "formElements" : [ {
+      "name" : "Column",
+      "uuid" : "d52293c7-c78f-d1cb-3311-247dabbccbdc",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Column",
+        "uuid" : "965a529b-4b49-cf3b-45dc-22bff5626dc2",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    } ],
+    "timed" : false,
+    "display" : "Tab"
+  }, {
+    "uuid" : "84ef5cc8-412b-4b50-75fc-42a8adb0bdab",
+    "name" : "User persona",
+    "displayOrder" : 2.0,
+    "formElements" : [ {
+      "name" : "User Type",
+      "uuid" : "f6885bb1-4171-bd23-f6bf-596349af73c0",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "User Type",
+        "uuid" : "3168605e-8eb7-b4a1-e618-7990c586698c",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Description",
+      "uuid" : "d8739289-f92b-0b32-2351-0aceb485c63b",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Description",
+        "uuid" : "2b234727-9546-fef8-e3b7-7d9b39e21f5e",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Number",
+      "uuid" : "6b0fe414-77bd-cd90-b9ae-f91b5c19166f",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Number",
+        "uuid" : "a3a357de-9266-c51a-af76-18a4c223cd81",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Catchment",
+      "uuid" : "6c1188b1-d5f3-10db-76ba-8ea3a2ef255f",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Catchment",
+        "uuid" : "232e9856-7962-50fc-943b-9c106ced27b8",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    } ],
+    "timed" : false,
+    "display" : "User persona"
+  }, {
+    "uuid" : "ad82b9a0-9cd4-f66d-8b4d-53413c2f3f73",
+    "name" : "W3H",
+    "displayOrder" : 3.0,
+    "formElements" : [ {
+      "name" : "What",
+      "uuid" : "45d5c1c5-d323-a75d-b48d-18e2c241160a",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "What",
+        "uuid" : "d8343a37-ce41-9afb-d333-8ff35e196a00",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "When",
+      "uuid" : "b567501f-7e13-8212-2ea8-0e8e41573afa",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "When",
+        "uuid" : "8e2a1852-060b-c09e-3478-93cb1ef69c09",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Who",
+      "uuid" : "ba15495e-831e-15ee-243e-1ca7542e05f6",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Who",
+        "uuid" : "27116b78-6362-e02d-9f73-3f84b8126b12",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "How",
+      "uuid" : "414a9beb-fd20-b35b-95af-20f39110eb22",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "How",
+        "uuid" : "16d570ba-2597-4f13-cbba-7063ff978811",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    } ],
+    "timed" : false,
+    "display" : "W3H"
+  }, {
+    "uuid" : "a7c12700-a087-d174-bbe9-59345cd32c13",
+    "name" : "Form",
+    "displayOrder" : 4.0,
+    "formElements" : [ {
+      "name" : "Datatype",
+      "uuid" : "e14d188a-2c01-6c8a-748c-9ae86c956d75",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Datatype",
+        "uuid" : "d5f04f7e-8391-9997-6565-3f4214d03fa0",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Mandatory",
+      "uuid" : "0000d927-8d16-b27f-ebc6-3aa2678ac409",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Mandatory",
+        "uuid" : "48450efc-e28d-6a11-98b3-9c3aa169932b",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "User entered / System generated",
+      "uuid" : "0afcbdcf-94b2-1ee7-77d9-916f13035732",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "User entered / System generated",
+        "uuid" : "c2d4944b-6907-2018-fc45-580dfd625d15",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Option condition/Validation",
+      "uuid" : "0ac48cf7-31fc-19c9-e137-efcce4a7b36a",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Option condition/Validation",
+        "uuid" : "00e8f60b-1fea-edfa-49ae-6483e05d58ae",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    } ],
+    "timed" : false,
+    "display" : "Form"
+  } ],
+  "decisionRule" : "",
+  "visitScheduleRule" : "",
+  "validationRule" : "",
+  "checklistsRule" : "",
+  "decisionConcepts" : [ ],
+  "voided" : true
+}

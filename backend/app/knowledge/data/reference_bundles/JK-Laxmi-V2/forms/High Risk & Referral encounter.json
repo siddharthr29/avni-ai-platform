@@ -1,0 +1,133 @@
+{
+  "name": "High Risk & Referral encounter",
+  "uuid": "ab0f2a60-d54b-8071-df03-6be66ea812fa",
+  "formType": "ProgramEncounter",
+  "formElementGroups": [
+    {
+      "uuid": "3a9000fc-f267-6177-b6a1-c24c0d33dfd0",
+      "name": "High Risk & Referral",
+      "displayOrder": 1,
+      "formElements": [
+        {
+          "name": "High Risk & Referral happening where",
+          "uuid": "9306da0c-76de-5d14-48bc-81caf4ecbefe",
+          "keyValues": [],
+          "concept": {
+            "name": "High Risk & Referral happening where",
+            "uuid": "fcd6f964-bb87-1b19-fb55-f1c5811bac87",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Assessment Date",
+          "uuid": "6809ec8c-2746-8614-fdfc-11d9a66e80cf",
+          "keyValues": [],
+          "concept": {
+            "name": "Assessment Date",
+            "uuid": "f45bad0f-bfe5-89a0-fa98-6463847278d1",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 2,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Reason for Referral",
+          "uuid": "b4b26085-3e8b-1364-8293-e37e71ece7c2",
+          "keyValues": [],
+          "concept": {
+            "name": "Reason for Referral",
+            "uuid": "f5c51103-53c4-581a-2993-c1d931324b36",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 3,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Specify Other Reason",
+          "uuid": "e71b0160-a5cc-03bc-e223-d43b8f3692d1",
+          "keyValues": [],
+          "concept": {
+            "name": "Specify Other Reason",
+            "uuid": "c80e1ab5-ab27-9f6b-1834-9e1a3c254a95",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 4,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Referred To",
+          "uuid": "e210a84b-99fa-f60a-2e94-9166c09c1e7e",
+          "keyValues": [],
+          "concept": {
+            "name": "Referred To",
+            "uuid": "e2038a6a-930a-8664-47fa-924d1cc8b9c9",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 5,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Transport Arranged",
+          "uuid": "2ff91f5c-b5b0-9da1-47ea-4c87c8507734",
+          "keyValues": [],
+          "concept": {
+            "name": "Transport Arranged",
+            "uuid": "5bba09ad-b184-ea63-77f9-103bc424ab55",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 6,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Follow-up Date",
+          "uuid": "3a4e6b9e-35d0-2605-3424-02f27e83b61f",
+          "keyValues": [],
+          "concept": {
+            "name": "Follow-up Date",
+            "uuid": "d8bd60d9-6976-e9e0-ba23-536af77ca0d6",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "media": []
+          },
+          "displayOrder": 7,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false,
+      "display": "High Risk & Referral"
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}

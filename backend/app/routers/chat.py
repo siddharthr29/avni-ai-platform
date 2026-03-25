@@ -1,200 +1,249 @@
-import json
+"""Chat router — slim FastAPI endpoints delegating to service modules.
+
+Endpoints:
+- POST /api/chat — main chat with SSE streaming
+- POST /api/org/context — set org context
+- GET /api/org/context/{session_id} — get org context
+- POST /api/chat/confirm — confirm/deny pending action
+"""
 import logging
 from typing import Any
 
-from fastapi import APIRouter, Request
+from fastapi import APIRouter, HTTPException, Request
+from pydantic import BaseModel
 from sse_starlette.sse import EventSourceResponse
 
-from app.models.schemas import (
-    Attachment,
-    ChatMessage,
-    ChatRequest,
-    IntentType,
-    SSEEventType,
+from app import db
+from app.middleware.content_filter import ContentFilterResult, filter_input, mask_pii
+from app.models.schemas import ChatRequest
+from app.services.action_detector import detect_action, execute_confirmed_action
+from app.services.chat_handler import handle_chat_message
+from app.services.context_manager import (
+    _pending_actions,
+    _sessions_fallback,
+    get_org_context,
+    set_org_context,
+    get_history,
+    save_message,
 )
-from app.services.claude_client import claude_client
 from app.services.intent_router import classify_intent
-from app.services.knowledge_base import knowledge_base
+
+# Backward-compatible re-exports for tests and external consumers
+_save_message = save_message
+_get_history = get_history
+_get_org_context = get_org_context
+_set_org_context = set_org_context
 
 logger = logging.getLogger(__name__)
 
 router = APIRouter()
 
-# In-memory session store (keyed by session_id)
-_sessions: dict[str, dict[str, Any]] = {}
 
-MAX_HISTORY = 50
+# ── Request/Response models ──────────────────────────────────────────────
 
-
-def _get_session(session_id: str) -> dict[str, Any]:
-    if session_id not in _sessions:
-        _sessions[session_id] = {
-            "messages": [],
-            "intent_history": [],
-        }
-    return _sessions[session_id]
+class OrgContextRequest(BaseModel):
+    session_id: str
+    org_name: str | None = None
+    sector: str | None = None
+    org_context: str | None = None
+    avni_auth_token: str | None = None
 
 
-def _add_message(session_id: str, role: str, content: str) -> None:
-    session = _get_session(session_id)
-    session["messages"].append({"role": role, "content": content})
-    # Trim old messages to prevent unbounded growth
-    if len(session["messages"]) > MAX_HISTORY:
-        session["messages"] = session["messages"][-MAX_HISTORY:]
+class OrgContextResponse(BaseModel):
+    session_id: str
+    org_context: dict[str, Any]
 
 
-def _build_knowledge_context(intent: IntentType, message: str) -> str:
-    """Build additional context from the knowledge base based on intent."""
-    results = []
+class ConfirmActionRequest(BaseModel):
+    session_id: str
+    action_id: str
+    approved: bool
+    message: str = ""
 
-    if intent == IntentType.KNOWLEDGE:
-        results = knowledge_base.search_all(message, limit=5)
-    elif intent == IntentType.SUPPORT:
-        results = knowledge_base.search_tickets(message, limit=3)
-    elif intent == IntentType.RULE:
-        results = knowledge_base.search_rules(message, limit=3)
-    elif intent in (IntentType.BUNDLE, IntentType.CONFIG):
-        results = knowledge_base.search_concepts(message, limit=3)
 
-    if not results:
-        return ""
+class ConfirmActionResponse(BaseModel):
+    action_id: str
+    status: str  # "approved" | "denied"
 
-    context_parts = ["\n\n--- Relevant Avni Knowledge ---"]
-    for r in results:
-        context_parts.append(f"[{r.category}] {r.text}")
-    return "\n".join(context_parts)
+
+# ── Endpoints ────────────────────────────────────────────────────────────
+
+@router.post("/org/context")
+async def set_org_context_endpoint(request: OrgContextRequest) -> OrgContextResponse:
+    """Set organisation context for a session (persists across messages)."""
+    ctx = set_org_context(
+        request.session_id,
+        org_name=request.org_name,
+        sector=request.sector,
+        org_context=request.org_context,
+        avni_auth_token=request.avni_auth_token,
+    )
+    return OrgContextResponse(session_id=request.session_id, org_context=ctx)
+
+
+@router.get("/org/context/{session_id}")
+async def get_org_context_endpoint(session_id: str) -> OrgContextResponse:
+    """Get the current organisation context for a session."""
+    ctx = get_org_context(session_id)
+    return OrgContextResponse(session_id=session_id, org_context=ctx)
+
+
+@router.post("/chat/confirm")
+async def confirm_action(request: ConfirmActionRequest) -> ConfirmActionResponse:
+    """Confirm or deny a pending action from the AI agent."""
+    action = _pending_actions.pop(request.action_id, None)
+    if not action:
+        raise HTTPException(
+            status_code=404,
+            detail=f"Action {request.action_id} not found or already resolved",
+        )
+
+    if not request.approved:
+        await save_message(
+            request.session_id,
+            "assistant",
+            f"Action '{action.get('action_type', '')}' was denied by user.",
+        )
+        return ConfirmActionResponse(action_id=request.action_id, status="denied")
+
+    result = await execute_confirmed_action(action)
+
+    await save_message(
+        request.session_id,
+        "assistant",
+        f"Action '{action.get('action_type', '')}' completed: {result}",
+    )
+
+    return ConfirmActionResponse(action_id=request.action_id, status="approved")
 
 
 @router.post("/chat")
-async def chat(request: ChatRequest) -> EventSourceResponse:
-    """Main chat endpoint with SSE streaming.
+async def chat(request: ChatRequest, http_request: Request) -> EventSourceResponse:
+    """Main chat endpoint with SSE streaming."""
+    # Use authenticated user_id from JWT middleware
+    authenticated_user_id = getattr(http_request.state, "user_id", None)
+    if not authenticated_user_id:
+        raise HTTPException(status_code=401, detail="Authentication required")
 
-    Classifies the user's intent, enriches with knowledge context, and streams
-    the response back via Server-Sent Events.
-    """
     session_id = request.session_id
     message = request.message
     attachments = request.attachments
+
+    # ── Input Guardrails ──
+    filter_result: ContentFilterResult = filter_input(message)
+    guardrail_warnings: list[str] = list(filter_result.warnings)
+
+    effective_message = message
+    if filter_result.pii_detected and filter_result.safe_text:
+        effective_message = filter_result.safe_text
+        await db.log_guardrail_event(
+            event_type="pii_redacted",
+            details={
+                "pii_types": filter_result.pii_detected,
+                "pii_counts": filter_result.pii_counts,
+                "action": "fix",
+                "message_preview": mask_pii(message[:200]),
+            },
+            session_id=session_id,
+            user_id=authenticated_user_id,
+        )
+
+    if not filter_result.passed:
+        await db.log_guardrail_event(
+            event_type="injection_attempt" if filter_result.injection_detected else "content_filtered",
+            details=filter_result.to_dict(),
+            session_id=session_id,
+            user_id=authenticated_user_id,
+        )
+        raise HTTPException(status_code=400, detail=filter_result.block_reason or "Message blocked by content filter")
+
+    if filter_result.unsupported_language:
+        await db.log_guardrail_event(
+            event_type="unsupported_language",
+            details={"message_preview": message[:100]},
+            session_id=session_id,
+            user_id=authenticated_user_id,
+        )
+
+    # Merge request org context with persisted org context
+    persisted_ctx = get_org_context(session_id)
+    org_name = request.org_name or persisted_ctx.get("org_name")
+    sector = request.sector or persisted_ctx.get("sector")
+    org_context_text = request.org_context or persisted_ctx.get("org_context")
+
+    if request.org_name or request.sector or request.org_context:
+        set_org_context(
+            session_id,
+            org_name=request.org_name,
+            sector=request.sector,
+            org_context=request.org_context,
+        )
+
+    # Resolve org_id for ban list scoping
+    user_org_id = getattr(http_request.state, "org_id", "") or ""
+    if not user_org_id and org_name:
+        from app.db import _slugify_org
+        user_org_id = _slugify_org(org_name)
+
+    # Ban list check on input
+    try:
+        from app.services.ban_list import check_ban_list
+        ban_result = await check_ban_list(effective_message, user_org_id)
+        if ban_result["has_banned"]:
+            banned_words = [b["word"] for b in ban_result["banned_words_found"]]
+            reasons = [b["reason"] for b in ban_result["banned_words_found"] if b.get("reason")]
+            reason_text = (" Reason: " + "; ".join(reasons)) if reasons else ""
+            rephrase_msg = (
+                f"Your message contains restricted terms: {', '.join(banned_words)}.{reason_text} "
+                "Please rephrase your message without these terms."
+            )
+            await db.log_guardrail_event(
+                event_type="ban_list_triggered",
+                details={
+                    "banned_words": banned_words,
+                    "stage": "input",
+                    "action": "rephrase",
+                    "org_id": user_org_id,
+                },
+                session_id=session_id,
+                user_id=authenticated_user_id,
+            )
+            raise HTTPException(status_code=400, detail=rephrase_msg)
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.debug("Ban list input check skipped: %s", e)
 
     # Classify intent
     intent_result = await classify_intent(message, attachments)
     intent = intent_result.intent
 
-    # Record in session
-    session = _get_session(session_id)
-    session["intent_history"].append(intent.value)
-    _add_message(session_id, "user", message)
+    # Detect action requests
+    action = detect_action(message)
 
+    # Persist user message
+    await save_message(session_id, "user", effective_message, user_id=authenticated_user_id)
+
+    # Delegate to chat handler
     async def event_generator():
-        try:
-            # Send intent classification as progress event
-            yield {
-                "event": "message",
-                "data": json.dumps({
-                    "type": SSEEventType.PROGRESS.value,
-                    "content": f"Intent: {intent.value} (confidence: {intent_result.confidence:.2f})",
-                }),
-            }
-
-            # For bundle intent with SRS data, redirect to bundle endpoint
-            if intent == IntentType.BUNDLE and any(
-                a.type == "file" for a in attachments
-            ):
-                yield {
-                    "event": "message",
-                    "data": json.dumps({
-                        "type": SSEEventType.TEXT.value,
-                        "content": "I see you've uploaded a file for bundle generation. "
-                                   "Please use the `/api/bundle/generate` endpoint to process SRS data, "
-                                   "or paste the SRS content directly in the chat and I'll help you structure it.",
-                    }),
-                }
-                yield {
-                    "event": "message",
-                    "data": json.dumps({
-                        "type": SSEEventType.DONE.value,
-                        "content": "",
-                    }),
-                }
-                return
-
-            # Build knowledge context
-            knowledge_context = _build_knowledge_context(intent, message)
-
-            # Build messages for Claude
-            history = session["messages"][-20:]  # Last 20 messages for context window
-            claude_messages = [
-                {"role": m["role"], "content": m["content"]} for m in history
-            ]
-
-            # Add knowledge context to the user's message
-            if knowledge_context:
-                augmented_content = message + knowledge_context
-                if claude_messages:
-                    claude_messages[-1] = {
-                        "role": "user",
-                        "content": augmented_content,
-                    }
-
-            # Add intent-specific system prompt additions
-            system_suffix = ""
-            if intent == IntentType.RULE:
-                system_suffix = (
-                    "\n\nThe user is asking about rules. Provide working JavaScript code "
-                    "that follows Avni's rule engine patterns. If you need the form JSON "
-                    "or concepts.json to write accurate rules, ask for them."
-                )
-            elif intent == IntentType.SUPPORT:
-                system_suffix = (
-                    "\n\nThe user is troubleshooting an issue. Ask clarifying questions "
-                    "to diagnose the problem. Check common causes: sync issues, UUID mismatches, "
-                    "missing form mappings, privilege gaps."
-                )
-            elif intent == IntentType.CONFIG:
-                system_suffix = (
-                    "\n\nThe user wants to configure Avni entities. Guide them through the "
-                    "process and explain the Avni API calls needed. The avni-ai-main MCP server "
-                    "can handle CRUD operations for subjects, programs, encounters, and forms."
-                )
-
-            from app.services.claude_client import AVNI_SYSTEM_PROMPT
-            full_system = AVNI_SYSTEM_PROMPT + system_suffix
-
-            # Stream the response
-            full_response = ""
-            async for chunk in claude_client.stream_chat(
-                messages=claude_messages,
-                system_prompt=full_system,
-            ):
-                full_response += chunk
-                yield {
-                    "event": "message",
-                    "data": json.dumps({
-                        "type": SSEEventType.TEXT.value,
-                        "content": chunk,
-                    }),
-                }
-
-            # Save assistant response to session
-            _add_message(session_id, "assistant", full_response)
-
-            # Send done event
-            yield {
-                "event": "message",
-                "data": json.dumps({
-                    "type": SSEEventType.DONE.value,
-                    "content": "",
-                }),
-            }
-
-        except Exception as e:
-            logger.exception("Chat streaming error for session %s", session_id)
-            yield {
-                "event": "message",
-                "data": json.dumps({
-                    "type": SSEEventType.ERROR.value,
-                    "content": f"An error occurred: {str(e)}",
-                }),
-            }
+        async for event in handle_chat_message(
+            message=message,
+            effective_message=effective_message,
+            session_id=session_id,
+            authenticated_user_id=authenticated_user_id,
+            attachments=attachments,
+            org_name=org_name,
+            sector=sector,
+            org_context_text=org_context_text,
+            user_org_id=user_org_id,
+            action=action,
+            intent=intent,
+            intent_result=intent_result,
+            guardrail_warnings=guardrail_warnings,
+            filter_result=filter_result,
+            byok_provider=request.byok_provider,
+            byok_api_key=request.byok_api_key,
+        ):
+            yield event
 
     return EventSourceResponse(event_generator())

@@ -1,0 +1,498 @@
+{
+  "name": "Adolescent Girls Meeting",
+  "uuid": "1a41b03e-7b0e-4d7b-86e7-c5a804513384",
+  "formType": "ProgramEncounter",
+  "formElementGroups": [
+    {
+      "uuid": "167ec864-9f8c-40bf-b52e-6112ee27e07c",
+      "name": "Adolescent club meeting",
+      "displayOrder": 1,
+      "formElements": [
+        {
+          "name": "Name",
+          "uuid": "4beac416-1e9a-4dc6-ba9d-5ab7041241d4",
+          "keyValues": [],
+          "concept": {
+            "name": "Name",
+            "uuid": "3f44f783-7934-4859-a76d-edf0e2a71b66",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "No. of. Participants",
+          "uuid": "6c427a88-21bb-4a55-a47d-55296d682162",
+          "keyValues": [],
+          "concept": {
+            "name": "No. of. Participants",
+            "uuid": "53f02b2e-3ce6-47ec-b17f-3608c16878bb",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 2,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Topic discussed",
+          "uuid": "432788f3-664f-49f8-87a2-cad55fcac701",
+          "keyValues": [],
+          "concept": {
+            "name": "Topic discussed",
+            "uuid": "2e63ee64-b13a-4f6f-89d6-858de5461d70",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 3,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Young women who start earning through a job or self-employment/ business",
+          "uuid": "76a7ac2c-cd1f-4cd1-831d-7af66ad4e9f8",
+          "keyValues": [],
+          "concept": {
+            "name": "Young women who start earning through a job or self-employment/ business",
+            "uuid": "7083ca50-2bc1-4f3b-9640-da2e8306a577",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 4,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "No. of young women who start earning through a job or self-employment/ business",
+          "uuid": "0ccf4ee5-d281-4a52-bd64-6c8cfafa50a4",
+          "keyValues": [],
+          "concept": {
+            "name": "No. of young women who start earning through a job or self-employment/ business",
+            "uuid": "767f04be-b7ed-4788-afef-205e3378cfed",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 5,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Girls who avail relevant public services/ entitlements/government schemes",
+          "uuid": "1ec9d1c7-cd48-4bc9-b397-cbcdc9b462d0",
+          "keyValues": [],
+          "concept": {
+            "name": "Girls who avail relevant public services/ entitlements/government schemes",
+            "uuid": "17554857-57af-4b3e-b85f-c7f39623cc48",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 6,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Number of girls who avail relevant public services/ entitlements/government schemes",
+          "uuid": "44b8d59a-e4de-4cd5-af17-9bee51b7d9b8",
+          "keyValues": [],
+          "concept": {
+            "name": "Number of girls who avail relevant public services/ entitlements/government schemes",
+            "uuid": "27cf8cbb-97ec-4b5e-904b-2465572b7a75",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 7,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Girls start safe usage and disposal of menstrual management products (Sanitary napkins/Cloth pads/Cups/any other)",
+          "uuid": "3be306a6-c941-42cd-a8e1-09ceb854e72c",
+          "keyValues": [],
+          "concept": {
+            "name": "Girls start safe usage and disposal of menstrual management products (Sanitary napkins/Cloth pads/Cups/any other)",
+            "uuid": "79fd49fe-53a3-4d46-9006-f5955c780155",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 8,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Number of Girls start safe usage and disposal of menstrual management products (Sanitary napkins/Cloth pads/Cups/any other)",
+          "uuid": "7fe28ad7-4965-4dac-9437-34b5c41712d9",
+          "keyValues": [],
+          "concept": {
+            "name": "Number of Girls start safe usage and disposal of menstrual management products (Sanitary napkins/Cloth pads/Cups/any other)",
+            "uuid": "6753d134-6095-4b01-a5b9-a78673219200",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 9,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Girls who access Public health centres/ adoloscent clinics/ reach out to ASHA for support",
+          "uuid": "40d9a9c5-c14e-44dc-b2e8-dc0b29c31fde",
+          "keyValues": [],
+          "concept": {
+            "name": "Girls who access Public health centres/ adoloscent clinics/ reach out to ASHA for support",
+            "uuid": "7ffafd9c-e944-44ac-9c17-26aacd77eb08",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 10,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Number of Girls who access Public health centres/ adoloscent clinics/ reach out to ASHA for support",
+          "uuid": "6b025f76-666d-4f0a-8e03-a9c1c12c0429",
+          "keyValues": [],
+          "concept": {
+            "name": "Number of Girls who access Public health centres/ adoloscent clinics/ reach out to ASHA for support",
+            "uuid": "19c00ece-07e9-4d2a-9391-5bede10e7226",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 11,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "0ae738f2-86f0-4652-8f24-a034143ec609",
+      "name": "- Child sexual abuse",
+      "displayOrder": 2,
+      "formElements": [
+        {
+          "name": "Name",
+          "uuid": "316dbedc-3402-4432-939f-e03952883fb1",
+          "keyValues": [],
+          "concept": {
+            "name": "Name",
+            "uuid": "3f44f783-7934-4859-a76d-edf0e2a71b66",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Number",
+          "uuid": "5811eda1-2918-4983-b831-dfaa7fbab09b",
+          "keyValues": [],
+          "concept": {
+            "name": "Number",
+            "uuid": "7f34b4bb-810a-4b26-82c3-d19e0a97f4e4",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 2,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "198a932a-d09b-4455-b79a-3fd7a83b03ab",
+      "name": "- Trafficking",
+      "displayOrder": 3,
+      "formElements": [
+        {
+          "name": "Name",
+          "uuid": "316dbede-ac22-4298-9d46-6238e160b104",
+          "keyValues": [],
+          "concept": {
+            "name": "Name",
+            "uuid": "3f44f783-7934-4859-a76d-edf0e2a71b66",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Number",
+          "uuid": "5811ed9f-c81d-4658-ba2a-17b2cfd07f91",
+          "keyValues": [],
+          "concept": {
+            "name": "Number",
+            "uuid": "7f34b4bb-810a-4b26-82c3-d19e0a97f4e4",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 2,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "42257af3-0710-44ce-8cb7-1a48f49f2be3",
+      "name": "- Domestic violence",
+      "displayOrder": 4,
+      "formElements": [
+        {
+          "name": "Name",
+          "uuid": "316dbee0-0fd8-433f-a911-1d7be12195fe",
+          "keyValues": [],
+          "concept": {
+            "name": "Name",
+            "uuid": "3f44f783-7934-4859-a76d-edf0e2a71b66",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Number",
+          "uuid": "5811ed9d-5fae-45d7-a43b-0aff7512b0da",
+          "keyValues": [],
+          "concept": {
+            "name": "Number",
+            "uuid": "7f34b4bb-810a-4b26-82c3-d19e0a97f4e4",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 2,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "5ae04c3d-7fe6-4dd4-a3e4-1ba762567c35",
+      "name": "- Child forced marriage",
+      "displayOrder": 5,
+      "formElements": [
+        {
+          "name": "Name",
+          "uuid": "316dbee2-7eae-478c-a886-79ca09a34212",
+          "keyValues": [],
+          "concept": {
+            "name": "Name",
+            "uuid": "3f44f783-7934-4859-a76d-edf0e2a71b66",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Number",
+          "uuid": "5811ed9b-dc47-421f-8628-821a35381b19",
+          "keyValues": [],
+          "concept": {
+            "name": "Number",
+            "uuid": "7f34b4bb-810a-4b26-82c3-d19e0a97f4e4",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 2,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "2408a260-af25-4fbc-bb01-b23f864a1382",
+      "name": "Education support",
+      "displayOrder": 6,
+      "formElements": [
+        {
+          "name": "Name",
+          "uuid": "316dbef9-a4b6-4db7-952c-576b921a8fcb",
+          "keyValues": [],
+          "concept": {
+            "name": "Name",
+            "uuid": "3f44f783-7934-4859-a76d-edf0e2a71b66",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Number",
+          "uuid": "5811ed84-c3f9-4813-9b48-0da44b748bf3",
+          "keyValues": [],
+          "concept": {
+            "name": "Number",
+            "uuid": "7f34b4bb-810a-4b26-82c3-d19e0a97f4e4",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 2,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "621497b7-aca4-4f47-a2ce-5323914b1a6c",
+      "name": "Received immediate medical care",
+      "displayOrder": 7,
+      "formElements": [
+        {
+          "name": "Name",
+          "uuid": "316dbefb-9e05-42f6-8c04-40e87c86ef02",
+          "keyValues": [],
+          "concept": {
+            "name": "Name",
+            "uuid": "3f44f783-7934-4859-a76d-edf0e2a71b66",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Number",
+          "uuid": "5811ed82-f6e6-4c97-888b-ceac89c7b588",
+          "keyValues": [],
+          "concept": {
+            "name": "Number",
+            "uuid": "7f34b4bb-810a-4b26-82c3-d19e0a97f4e4",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 2,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "26fa2240-b863-4611-80ff-130c4a867296",
+      "name": "Accessed shelter home",
+      "displayOrder": 8,
+      "formElements": [
+        {
+          "name": "Name",
+          "uuid": "316dbefd-5d48-434d-b402-94f18c3eed08",
+          "keyValues": [],
+          "concept": {
+            "name": "Name",
+            "uuid": "3f44f783-7934-4859-a76d-edf0e2a71b66",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Number",
+          "uuid": "5811ed80-834a-487f-ae96-996bb7737245",
+          "keyValues": [],
+          "concept": {
+            "name": "Number",
+            "uuid": "7f34b4bb-810a-4b26-82c3-d19e0a97f4e4",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 2,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "095548cd-8dd0-4458-b672-682a11528b21",
+      "name": "- Child labour",
+      "displayOrder": 9,
+      "formElements": [
+        {
+          "name": "Name",
+          "uuid": "316dbeff-81d1-4da1-82b7-cff6fca55af3",
+          "keyValues": [],
+          "concept": {
+            "name": "Name",
+            "uuid": "3f44f783-7934-4859-a76d-edf0e2a71b66",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Number",
+          "uuid": "5811ed7e-e7a0-4058-b9de-06e11099eb95",
+          "keyValues": [],
+          "concept": {
+            "name": "Number",
+            "uuid": "7f34b4bb-810a-4b26-82c3-d19e0a97f4e4",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 2,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "3965d400-7e6c-431e-a102-5e938724075b",
+      "name": "Received legal support",
+      "displayOrder": 10,
+      "formElements": [
+        {
+          "name": "Name",
+          "uuid": "316dbf01-9f52-4f7f-b80a-c896dcd624bb",
+          "keyValues": [],
+          "concept": {
+            "name": "Name",
+            "uuid": "3f44f783-7934-4859-a76d-edf0e2a71b66",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Number",
+          "uuid": "5811ed7c-7a7f-4848-af5b-d1846d71cbc3",
+          "keyValues": [],
+          "concept": {
+            "name": "Number",
+            "uuid": "7f34b4bb-810a-4b26-82c3-d19e0a97f4e4",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 2,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}

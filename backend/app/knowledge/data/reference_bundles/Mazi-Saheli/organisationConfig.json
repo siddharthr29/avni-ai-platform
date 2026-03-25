@@ -1,0 +1,25 @@
+{
+  "uuid" : "b768afce-b057-4976-8bc1-bb670ef09b4d",
+  "settings" : {
+    "extensions" : [ {
+      "label" : "Splash Screen",
+      "fileName" : "splash.html",
+      "extensionScope" : {
+        "name" : "Field App Home Screen",
+        "uuid" : "",
+        "scopeType" : "Field App Home Screen"
+      }
+    } ],
+    "languages" : [ "en", "mr_IN", "hi_IN" ],
+    "customRegistrationLocations" : [ {
+      "subjectTypeUUID" : "0ffc778c-94ba-4ba2-b57e-ed23e1e75e6a",
+      "locationTypeUUIDs" : [ "0e698a2e-20f1-3474-2aa3-8ea3a3fdcbb0" ]
+    } ],
+    "donotRequirePasswordChangeOnFirstLogin" : true,
+    "saveDrafts" : true,
+    "metabaseSetupEnabled" : true,
+    "searchFilters" : [ ],
+    "myDashboardFilters" : [ ]
+  },
+  "worklistUpdationRule" : "'use strict';\n({params, imports}) => {\n  const workLists = params.workLists;\n  const context = params.context;\n  const WorkItem = imports.models.WorkItem;\n  const _ = imports.lodash;\n\n  function generateUUID() {\n    const t = new Date().getTime();\n    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {\n      const r = (t + Math.random() * 16) % 16 | 0;\n      return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);\n    });\n  }\n\n  const currentWorkItem = workLists.getCurrentWorkItem();\n  if (!currentWorkItem || !context || !context.entity) return workLists;\n\n  const currentWorkList = workLists.currentWorkList;\n  const entity = context.entity;\n\n  if (currentWorkItem.type === WorkItem.type.REGISTRATION) {\n    const subjectTypeName = _.get(entity, 'subjectType.name');\n\n    // Flow 1: Activity Registration → Participant Registration\n    if (subjectTypeName === 'Activity') {\n      currentWorkList.workItems.splice(\n        0, currentWorkList.workItems.length,\n        new WorkItem(generateUUID(), WorkItem.type.REGISTRATION, { subjectTypeName: 'Participant' })\n      );\n    }\n\n    // Flow 2: Participant Registration → Assessment & Distribution\n    else if (subjectTypeName === 'Participant') {\n      const subjectUUID = _.get(entity, 'uuid');\n      if (subjectUUID) {\n        currentWorkList.workItems.splice(\n          0, currentWorkList.workItems.length,\n          new WorkItem(generateUUID(), WorkItem.type.ENCOUNTER, {\n            encounterType: 'Assessment & Distribution',\n            subjectUUID: subjectUUID\n          })\n        );\n      }\n    }\n  }\n\n  else if (currentWorkItem.type === WorkItem.type.ENCOUNTER) {\n    const encounterTypeName = _.get(entity, 'encounterType.name');\n\n    // Flow 3: Assessment & Distribution → Participant Registration (loop)\n    if (encounterTypeName === 'Assessment & Distribution') {\n      currentWorkList.workItems.splice(\n        0, currentWorkList.workItems.length,\n        new WorkItem(generateUUID(), WorkItem.type.REGISTRATION, { subjectTypeName: 'Participant' })\n      );\n    }\n  }\n\n  return workLists;\n};"
+}

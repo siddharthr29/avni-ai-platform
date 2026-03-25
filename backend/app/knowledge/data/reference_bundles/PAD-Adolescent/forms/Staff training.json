@@ -1,0 +1,34 @@
+{
+  "name": "Staff training",
+  "uuid": "353193b0-6f8c-4554-adf3-3a149121d4ed",
+  "formType": "ProgramEncounter",
+  "formElementGroups": [
+    {
+      "uuid": "029d8f4f-4af7-471d-be45-803c50da28b8",
+      "name": "General Information",
+      "displayOrder": 1,
+      "formElements": [
+        {
+          "name": "Topic of Training",
+          "uuid": "72c82647-4601-4c10-8cce-97b8fcfb767a",
+          "keyValues": [],
+          "concept": {
+            "name": "Topic of Training",
+            "uuid": "7d813700-fde2-408c-a1d1-3cec1e9ce235",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "MultiSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}

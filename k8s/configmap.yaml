@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: avni-ai-config
+  namespace: avni-ai
+data:
+  LLM_PROVIDER: "ollama"
+  OLLAMA_BASE_URL: "http://ollama:11434/v1"
+  OLLAMA_MODEL: "avni-coder"
+  EMBEDDING_MODEL: "all-MiniLM-L6-v2"
+  AVNI_BASE_URL: "https://app.avniproject.org"
+  CORS_ORIGINS: "https://ai.avniproject.org"
+  RATE_LIMIT_RPM: "30"
+  MCP_SERVER_URL: "http://mcp-server:8023"
+  BUNDLE_OUTPUT_DIR: "/tmp/avni_bundles"
+  MAX_TOKENS: "4096"
+  SENTRY_ENVIRONMENT: "production"

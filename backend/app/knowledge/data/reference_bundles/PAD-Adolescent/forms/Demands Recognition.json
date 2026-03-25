@@ -1,0 +1,76 @@
+{
+  "name": "Demands Recognition",
+  "uuid": "3d7a7cd7-523d-4d65-9025-bc67b3f1fce9",
+  "formType": "ProgramEncounter",
+  "formElementGroups": [
+    {
+      "uuid": "03ff40ae-cc9a-4623-800d-b05cd7a4bae6",
+      "name": "Demands",
+      "displayOrder": 1,
+      "formElements": [
+        {
+          "name": "Demand type",
+          "uuid": "39934313-83b7-4037-ab03-65133916225e",
+          "keyValues": [],
+          "concept": {
+            "name": "Demand type",
+            "uuid": "6e837643-4dc1-48ef-a044-f611808b1e66",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Date submitted",
+          "uuid": "4486b91a-c68b-4eb4-aadd-bad9ec46d63e",
+          "keyValues": [],
+          "concept": {
+            "name": "Date submitted",
+            "uuid": "2d64827b-1342-487b-a28f-cc22950ecaec",
+            "dataType": "Date",
+            "active": true
+          },
+          "displayOrder": 2,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Submitted to",
+          "uuid": "2477d652-efa6-411d-af56-a5a599eb2f7b",
+          "keyValues": [],
+          "concept": {
+            "name": "Submitted to",
+            "uuid": "56b34c4e-1e44-4cf1-a593-791cc1bc7c14",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 3,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "No. of. Signatories",
+          "uuid": "38c34bf7-52b5-451c-8f74-e8c81c4809e6",
+          "keyValues": [],
+          "concept": {
+            "name": "No. of. Signatories",
+            "uuid": "7f39fc16-5f28-4023-b631-dbafe3c40efd",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 4,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}

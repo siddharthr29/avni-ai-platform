@@ -1,0 +1,140 @@
+{
+  "name": "Mother PNC",
+  "uuid": "04993042-ae8f-46ba-8d5a-3db667e75ea9",
+  "formType": "ProgramEncounter",
+  "formElementGroups": [
+    {
+      "uuid": "528d4c47-bbf4-4446-ae45-5539eb96e4fa",
+      "name": "PNC Visit",
+      "displayOrder": 1,
+      "formElements": [
+        {
+          "name": "PNC happening where",
+          "uuid": "4a8ee2bd-b37d-474f-a0f2-ccd095f29015",
+          "keyValues": [],
+          "concept": {
+            "name": "PNC happening where",
+            "uuid": "7d2d6a1a-a5d4-4a4f-a1a9-58278be12259",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Mother Fever",
+          "uuid": "7ce58681-9fe3-4d24-82e1-39496d397fb8",
+          "keyValues": [],
+          "concept": {
+            "name": "Mother Fever",
+            "uuid": "54c0f547-fd41-4d99-a6cd-15342a83ac96",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 2,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Excessive Bleeding/Lochia",
+          "uuid": "1f1ad19d-f15b-4c45-afdb-a4611711db58",
+          "keyValues": [],
+          "concept": {
+            "name": "Excessive Bleeding/Lochia",
+            "uuid": "14ce57c8-3236-426f-bf90-d42fa66f9e05",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 3,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Seizures",
+          "uuid": "143c7288-7108-43c6-bcd5-05a2e6c290e3",
+          "keyValues": [],
+          "concept": {
+            "name": "Seizures",
+            "uuid": "3862c280-b75d-4895-9e11-3d9ca8ca5019",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 4,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Breast problems",
+          "uuid": "652bb79e-4b32-43ce-87e0-28a9e8859edc",
+          "keyValues": [],
+          "concept": {
+            "name": "Breast problems",
+            "uuid": "727d56f5-fc85-43d2-88c8-80e3c5e8a1c9",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 5,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Other Mother Problems",
+          "uuid": "6b887b1d-d398-4e55-ab16-8a6f1cd20d4a",
+          "keyValues": [],
+          "concept": {
+            "name": "Other Mother Problems",
+            "uuid": "4f302daf-6da7-4f81-babf-58f26925de69",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 6,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "63b78a4c-b2c6-4683-8f9c-caaae6bac511",
+      "name": "Counselling",
+      "displayOrder": 2,
+      "formElements": [
+        {
+          "name": "Counselling Provided",
+          "uuid": "3c4f3aab-edac-4efc-aa5b-82ab690889cf",
+          "keyValues": [],
+          "concept": {
+            "name": "Counselling Provided",
+            "uuid": "50ab44ca-6a5a-4bd2-85d6-3ee371df5b0e",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Counselling Points",
+          "uuid": "531e1596-32e1-44c5-9c1e-e81e938803a8",
+          "keyValues": [],
+          "concept": {
+            "name": "Counselling Points",
+            "uuid": "3c4bd676-db7b-4bf8-b90a-786fb3e9b3ed",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 2,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}

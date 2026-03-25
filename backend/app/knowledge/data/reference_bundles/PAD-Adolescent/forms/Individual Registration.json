@@ -1,0 +1,734 @@
+{
+  "name": "Individual Registration",
+  "uuid": "365a9dd6-ec7e-4fdc-b1ab-2fb2305bb1b5",
+  "formType": "IndividualProfile",
+  "formElementGroups": [
+    {
+      "uuid": "50ee9174-b6f2-4d52-b70a-d992e5dc4df2",
+      "name": "Default",
+      "displayOrder": 1,
+      "formElements": [
+        {
+          "name": "Name",
+          "uuid": "7c603ac6-9e7d-4052-8321-f8e3e9d1ef19",
+          "keyValues": [],
+          "concept": {
+            "name": "Name",
+            "uuid": "3f44f783-7934-4859-a76d-edf0e2a71b66",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Address",
+          "uuid": "2a66f0f4-9d58-42e6-a70b-3aae393318af",
+          "keyValues": [],
+          "concept": {
+            "name": "Address",
+            "uuid": "65c90f3e-3f90-45dd-a370-9ce31ddd96fb",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 2,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "DOB - calendor (those who know their DOB)",
+          "uuid": "74225cdb-0e40-4b47-b92d-13a9cb7b7719",
+          "keyValues": [],
+          "concept": {
+            "name": "DOB - calendor (those who know their DOB)",
+            "uuid": "3e09128e-9b52-4ae3-a928-037550910ee2",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 3,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Age (Those who not know the exact DOB)",
+          "uuid": "455aea60-1418-4252-9000-7c572e7204fe",
+          "keyValues": [],
+          "concept": {
+            "name": "Age (Those who not know the exact DOB)",
+            "uuid": "25fad420-43b2-4352-9ea5-f276060f059b",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 4,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Gender",
+          "uuid": "18ef59f4-8ea4-4057-9b66-7f8b24a926d1",
+          "keyValues": [],
+          "concept": {
+            "name": "Gender",
+            "uuid": "7261cc33-2e26-40de-8f05-2a9ff4c35dfb",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 5,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "35e627b2-a563-4e0e-b89d-526cfcde2e84",
+      "name": "Beneficiary Details",
+      "displayOrder": 2,
+      "formElements": [
+        {
+          "name": "Type of Beneficiary",
+          "uuid": "173e1eda-9e22-42ab-a3d2-3eb61a2ea8e1",
+          "keyValues": [],
+          "concept": {
+            "name": "Type of Beneficiary",
+            "uuid": "5e8dc490-edb3-466e-823f-a774f27bee08",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Age Group",
+          "uuid": "22a28083-ce85-4f5a-921b-4235b9d82027",
+          "keyValues": [],
+          "concept": {
+            "name": "Age Group",
+            "uuid": "38cd0eb4-4c34-4a02-a769-f4b0ae80270c",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 2,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Mobile number",
+          "uuid": "58f0a133-bbe2-4c08-ab01-2742aaaafc77",
+          "keyValues": [],
+          "concept": {
+            "name": "Mobile number",
+            "uuid": "45661ad5-256f-44c2-9e50-9005c895b11c",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 3,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "76aba3cb-155f-4502-ac81-5f2bab6592b8",
+      "name": "Education Details",
+      "displayOrder": 3,
+      "formElements": [
+        {
+          "name": "Education Level",
+          "uuid": "0f6777f3-93cf-475a-b640-065e282435aa",
+          "keyValues": [],
+          "concept": {
+            "name": "Education Level",
+            "uuid": "296f6fba-865e-4ba6-990b-9c04ba6c8d64",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Started higher education after class 12?",
+          "uuid": "3e66e2e7-a54b-4957-ba1c-0e2e61a9196b",
+          "keyValues": [],
+          "concept": {
+            "name": "Started higher education after class 12?",
+            "uuid": "69619b7a-72b7-4bf0-8162-5de9d24bd728",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 2,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "What higher education?",
+          "uuid": "0152af0a-56a3-4eff-8f79-9e1ab7442188",
+          "keyValues": [],
+          "concept": {
+            "name": "What higher education?",
+            "uuid": "04e41062-4afc-443a-ae1a-279aba722a89",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 3,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "1bc0891d-8091-4b7b-af23-63c74dc3d122",
+      "name": "Other Details",
+      "displayOrder": 4,
+      "formElements": [
+        {
+          "name": "Occupation Type",
+          "uuid": "27dc695c-4c51-46b3-8444-05b2a3a986e6",
+          "keyValues": [],
+          "concept": {
+            "name": "Occupation Type",
+            "uuid": "316bb823-33e8-4f39-a10f-a4bdf65e88ba",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "MultiSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Marital status",
+          "uuid": "16dba946-4695-4649-b0bc-af62e91780d2",
+          "keyValues": [],
+          "concept": {
+            "name": "Marital status",
+            "uuid": "21ccfbf0-82de-4dde-9190-804b34ea1baf",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 2,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Caste",
+          "uuid": "50c566b1-ddce-485c-b5fb-273c8a39ed2b",
+          "keyValues": [],
+          "concept": {
+            "name": "Caste",
+            "uuid": "560b1d54-6938-4232-8e14-85612a377ac6",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 3,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Religion",
+          "uuid": "57bc21d5-2294-4022-a28d-93420861f658",
+          "keyValues": [],
+          "concept": {
+            "name": "Religion",
+            "uuid": "2b55eddd-283a-48a5-9c0f-d938ee21285e",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 4,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Contact No",
+          "uuid": "0ed70ada-739c-45eb-9872-21af77042e9a",
+          "keyValues": [],
+          "concept": {
+            "name": "Contact No",
+            "uuid": "281cc5ad-ad7e-4a8e-b638-57c73ccc3dc4",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 5,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "SC/ST/BC",
+          "uuid": "1965a768-686f-40f4-961e-b1d0f135b28a",
+          "keyValues": [],
+          "concept": {
+            "name": "SC/ST/BC",
+            "uuid": "335fc4fe-bb0b-406d-927d-3de2fa86652e",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 6,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Mother Tongue",
+          "uuid": "47c2e158-5eea-4c97-b46f-bd2f9d018600",
+          "keyValues": [],
+          "concept": {
+            "name": "Mother Tongue",
+            "uuid": "2af08a91-2c55-419a-a0c8-16346900d2e5",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 7,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "SEC (Socio Economic Class)",
+          "uuid": "33a0483a-7e1f-4b33-9486-f1f83449363e",
+          "keyValues": [],
+          "concept": {
+            "name": "SEC (Socio Economic Class)",
+            "uuid": "7e098b1e-7cb9-4509-af4e-e0cefaf2fa96",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 8,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Religion",
+          "uuid": "57bc21ef-426f-4194-ba85-e8a46762623b",
+          "keyValues": [],
+          "concept": {
+            "name": "Religion",
+            "uuid": "2b55eddd-283a-48a5-9c0f-d938ee21285e",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 9,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Caste",
+          "uuid": "50c56695-749a-4152-96c2-b51d96983dfd",
+          "keyValues": [],
+          "concept": {
+            "name": "Caste",
+            "uuid": "560b1d54-6938-4232-8e14-85612a377ac6",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 10,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Occupation",
+          "uuid": "4fee3a69-3e29-4f65-b0d0-b62fcb5cdd4c",
+          "keyValues": [],
+          "concept": {
+            "name": "Occupation",
+            "uuid": "2fd639bd-b738-4ea0-9f54-9fadb9bb6350",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 11,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Education",
+          "uuid": "6fa15875-b42e-4e4e-bb06-3fc1cbf5e2a7",
+          "keyValues": [],
+          "concept": {
+            "name": "Education",
+            "uuid": "5d373f0a-b95e-424a-b0aa-640292236ca1",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 12,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "64b004e6-6d39-4c92-8b9f-756b0d89047f",
+      "name": "Mother Details",
+      "displayOrder": 5,
+      "formElements": [
+        {
+          "name": "Is the mother of the beneficiary Alive?",
+          "uuid": "607af7e7-0c4f-40ed-9bcb-aa643b3a9e97",
+          "keyValues": [],
+          "concept": {
+            "name": "Is the mother of the beneficiary Alive?",
+            "uuid": "3f90e805-82ad-4639-8e37-8ac24b042689",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Mother's Name",
+          "uuid": "341c59b9-08fb-4899-bbdf-d2b8ef475e7b",
+          "keyValues": [],
+          "concept": {
+            "name": "Mother's Name",
+            "uuid": "77d96b4a-1755-49e6-a772-802c5902a36d",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 2,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "63151cb3-0c1e-487c-8e3e-c8e783c47e30",
+      "name": "Father Details",
+      "displayOrder": 6,
+      "formElements": [
+        {
+          "name": "Is the father of the beneficiary alive?",
+          "uuid": "3ea11ff0-c3f2-47ab-9463-734674a96d5e",
+          "keyValues": [],
+          "concept": {
+            "name": "Is the father of the beneficiary alive?",
+            "uuid": "18fd7934-bd74-4aab-acdb-55690233f88c",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Father's Name",
+          "uuid": "1f1f7914-542d-4e21-b9c5-22fcf5a3d7d3",
+          "keyValues": [],
+          "concept": {
+            "name": "Father's Name",
+            "uuid": "7972cd6f-cbe5-48bb-8d14-5f1d7a1dff5f",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 2,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "27e199b3-7289-4204-a80e-397f9b39fab5",
+      "name": "Health Details",
+      "displayOrder": 7,
+      "formElements": [
+        {
+          "name": "Specially abled",
+          "uuid": "54cfd688-fa2b-4839-b1d9-c2fc25d0bff1",
+          "keyValues": [],
+          "concept": {
+            "name": "Specially abled",
+            "uuid": "138b387e-d798-447f-bd79-b4fa654c68e7",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Specially abled - Please specify",
+          "uuid": "61b80dfb-242a-44db-8893-81c62a4835fe",
+          "keyValues": [],
+          "concept": {
+            "name": "Specially abled - Please specify",
+            "uuid": "1d264f00-4264-4fb1-859e-2856e552e2d1",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 2,
+          "type": "MultiSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Any long-term illnesses",
+          "uuid": "75c2e438-dcc6-4174-a338-5d2c78514555",
+          "keyValues": [],
+          "concept": {
+            "name": "Any long-term illnesses",
+            "uuid": "0e27ac7b-9a9d-4326-b4c0-07674068646c",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 3,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Long-term illness",
+          "uuid": "6e4e164d-d27f-4c5a-93c8-34cdb20a268f",
+          "keyValues": [],
+          "concept": {
+            "name": "Long-term illness",
+            "uuid": "0f98cccb-ecfa-46e7-a98a-77aff70ae463",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 4,
+          "type": "MultiSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "7dfef96c-416d-45c0-84de-2f3821cc8ce1",
+      "name": "Household Details",
+      "displayOrder": 8,
+      "formElements": [
+        {
+          "name": "Do we need to collect household details",
+          "uuid": "0ee7a45e-d828-4492-88fd-266bdc3e37b4",
+          "keyValues": [],
+          "concept": {
+            "name": "Do we need to collect household details",
+            "uuid": "3d08a61f-8221-46b8-a94a-4c730700767d",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Toilet facility present",
+          "uuid": "60e3b93f-8cdf-477c-a484-ed3b6fafca26",
+          "keyValues": [],
+          "concept": {
+            "name": "Toilet facility present",
+            "uuid": "60809141-a53c-49dd-8f51-961a1d5378a3",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 2,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Using the toilet regularly",
+          "uuid": "39058182-0649-45ca-948b-e95f8c04aa2f",
+          "keyValues": [],
+          "concept": {
+            "name": "Using the toilet regularly",
+            "uuid": "181891cd-4699-4202-a3a7-f3ff508ef44c",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 3,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Source of drinking water",
+          "uuid": "2d76645f-c3c6-4a9d-b215-3af9ff228dec",
+          "keyValues": [],
+          "concept": {
+            "name": "Source of drinking water",
+            "uuid": "23e0e0a9-d3d3-47b0-b953-d28bbd3b360d",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 4,
+          "type": "MultiSelect",
+          "mandatory": true
+        },
+        {
+          "name": "PMJAY card",
+          "uuid": "770d3046-3302-4048-95c7-cdb661d3c205",
+          "keyValues": [],
+          "concept": {
+            "name": "PMJAY card",
+            "uuid": "57a16fbd-624a-4e83-923e-a69fe5ffa5a2",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 5,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Ration card available?",
+          "uuid": "4822b0fd-a11c-4029-bbd7-19f5f70204d1",
+          "keyValues": [],
+          "concept": {
+            "name": "Ration card available?",
+            "uuid": "7ef6a145-00e5-45bd-ab23-e9793efaa2aa",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 6,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Aadhar Card Available?",
+          "uuid": "1d24e254-4f12-4bab-89fa-2cdffd04518d",
+          "keyValues": [],
+          "concept": {
+            "name": "Aadhar Card Available?",
+            "uuid": "0871e0cd-3c67-43db-8781-61159f172319",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 7,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Any member with disability?",
+          "uuid": "24c6df5d-2498-468c-9594-be1db84c0fa2",
+          "keyValues": [],
+          "concept": {
+            "name": "Any member with disability?",
+            "uuid": "2a09e517-4f99-48a6-88bc-f0a474b94aab",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 8,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Type of Disability",
+          "uuid": "780b69e1-9782-4875-a6c0-cbe8eeb0db26",
+          "keyValues": [],
+          "concept": {
+            "name": "Type of Disability",
+            "uuid": "531152f1-a76b-4c3a-b150-f4767350232e",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 9,
+          "type": "MultiSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Monthly Household Income",
+          "uuid": "09f1cae2-8008-4180-91f3-74195c750bcc",
+          "keyValues": [],
+          "concept": {
+            "name": "Monthly Household Income",
+            "uuid": "51c46e11-eae3-47dc-9233-6fa7295dd534",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 10,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Family wealth",
+          "uuid": "34512819-78ba-4e33-a00c-009f13c4b21d",
+          "keyValues": [],
+          "concept": {
+            "name": "Family wealth",
+            "uuid": "1a0615c9-1af7-4ac2-ac25-a3f6f322d232",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 11,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Asset Ownership",
+          "uuid": "0425dff2-08d5-47f8-a5ca-dc50b0709c76",
+          "keyValues": [],
+          "concept": {
+            "name": "Asset Ownership",
+            "uuid": "42cfdb13-4f24-42f4-8634-5ce2f0cf7d8b",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 12,
+          "type": "MultiSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Type of Housing",
+          "uuid": "30858118-b95f-4066-92a4-a3f2e8d96938",
+          "keyValues": [],
+          "concept": {
+            "name": "Type of Housing",
+            "uuid": "54906218-819a-4870-99b5-4ba37c621133",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 13,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Number of family Members",
+          "uuid": "799329ec-814a-46c5-bd28-5f8645e374f8",
+          "keyValues": [],
+          "concept": {
+            "name": "Number of family Members",
+            "uuid": "4475fa7f-8a9a-4221-8ae6-921c34f708a8",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 14,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Home Ownership",
+          "uuid": "4f07bef6-add4-486d-bbbe-16cc2eb550a5",
+          "keyValues": [],
+          "concept": {
+            "name": "Home Ownership",
+            "uuid": "12108f40-0589-45a1-9c52-d655c40b9324",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 15,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Household Loan Status",
+          "uuid": "2f81458c-aa92-4814-89e4-60e3fe283b4e",
+          "keyValues": [],
+          "concept": {
+            "name": "Household Loan Status",
+            "uuid": "7c476eaf-f126-49c6-b351-dc7e8e11aa5b",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 16,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}

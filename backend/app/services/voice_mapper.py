@@ -124,28 +124,36 @@ async def map_transcript(
         f"Map the transcript values to these form fields."
     )
 
-    response_text = await claude_client.complete(
-        messages=[{"role": "user", "content": user_message}],
-        system_prompt=VOICE_MAP_SYSTEM_PROMPT,
-    )
-
-    # Parse the JSON response
     try:
-        cleaned = response_text.strip()
-        if cleaned.startswith("```"):
-            cleaned = cleaned.split("\n", 1)[1] if "\n" in cleaned else cleaned[3:]
-            if cleaned.endswith("```"):
-                cleaned = cleaned[:-3]
-            cleaned = cleaned.strip()
+        response_text = await claude_client.complete(
+            messages=[{"role": "user", "content": user_message}],
+            system_prompt=VOICE_MAP_SYSTEM_PROMPT,
+        )
 
-        result = json.loads(cleaned)
-        return {
-            "fields": result.get("fields", {}),
-            "confidence": result.get("confidence", {}),
-            "unmapped_text": result.get("unmapped_text", ""),
-        }
-    except json.JSONDecodeError:
-        logger.error("Failed to parse Claude response for voice mapping: %s", response_text[:500])
+        # Parse the JSON response
+        try:
+            cleaned = response_text.strip()
+            if cleaned.startswith("```"):
+                cleaned = cleaned.split("\n", 1)[1] if "\n" in cleaned else cleaned[3:]
+                if cleaned.endswith("```"):
+                    cleaned = cleaned[:-3]
+                cleaned = cleaned.strip()
+
+            result = json.loads(cleaned)
+            return {
+                "fields": result.get("fields", {}),
+                "confidence": result.get("confidence", {}),
+                "unmapped_text": result.get("unmapped_text", ""),
+            }
+        except json.JSONDecodeError:
+            logger.error("Failed to parse Claude response for voice mapping: %s", response_text[:500])
+            return {
+                "fields": {},
+                "confidence": {},
+                "unmapped_text": transcript,
+            }
+    except Exception as e:
+        logger.error("LLM call failed during voice mapping: %s", str(e))
         return {
             "fields": {},
             "confidence": {},

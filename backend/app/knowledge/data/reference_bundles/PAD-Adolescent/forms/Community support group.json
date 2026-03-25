@@ -1,0 +1,48 @@
+{
+  "name": "Community support group",
+  "uuid": "5f20bddf-d319-4520-8e93-8c021bddc872",
+  "formType": "ProgramEncounter",
+  "formElementGroups": [
+    {
+      "uuid": "17fc987d-e371-48cb-a8f6-439123dce801",
+      "name": "Default",
+      "displayOrder": 1,
+      "formElements": [
+        {
+          "name": "Name",
+          "uuid": "2a9f5163-0505-4537-8432-6d30b4cc74b4",
+          "keyValues": [],
+          "concept": {
+            "name": "Name",
+            "uuid": "3f44f783-7934-4859-a76d-edf0e2a71b66",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Address",
+          "uuid": "114177d5-3a33-40a2-8b38-92a141003d17",
+          "keyValues": [],
+          "concept": {
+            "name": "Address",
+            "uuid": "65c90f3e-3f90-45dd-a370-9ce31ddd96fb",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 2,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}

@@ -1,0 +1,118 @@
+{
+  "name": "Fortline Workers Capacity build",
+  "uuid": "485e8242-49de-4651-9aef-9b34ba4eef7b",
+  "formType": "ProgramEncounter",
+  "formElementGroups": [
+    {
+      "uuid": "3350ab1c-b488-4626-8124-c2030986e560",
+      "name": "Meeting Details",
+      "displayOrder": 1,
+      "formElements": [
+        {
+          "name": "Meeting Date",
+          "uuid": "3bcc692e-9d92-40de-8ae1-85b059db034a",
+          "keyValues": [],
+          "concept": {
+            "name": "Meeting Date",
+            "uuid": "3fdb4d7b-8eb7-4235-8ff4-6711e74e64d1",
+            "dataType": "Date",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Meeting Type",
+          "uuid": "586a55bb-689c-452a-a712-9061eef76b82",
+          "keyValues": [],
+          "concept": {
+            "name": "Meeting Type",
+            "uuid": "3fd3adef-71f4-4417-8fb6-e413ff5d5ffd",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 2,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Location",
+          "uuid": "3f933c2e-49c1-4c62-ad5b-7f36a3b61ec0",
+          "keyValues": [],
+          "concept": {
+            "name": "Location",
+            "uuid": "669ae4a7-f070-4215-a0e4-e0eb33fcde5c",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 3,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Participants (count)",
+          "uuid": "5a54f280-4e34-44d4-b6c3-c934b54e9239",
+          "keyValues": [],
+          "concept": {
+            "name": "Participants (count)",
+            "uuid": "5ea17094-79f2-459e-9e5a-8cbc8ee83557",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 4,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Activities",
+          "uuid": "43f2c6f4-bec5-4cf5-86f5-38b2aea38294",
+          "keyValues": [],
+          "concept": {
+            "name": "Activities",
+            "uuid": "49a90c5f-8d96-4543-9f9e-f1722814310e",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 5,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Topics Covered",
+          "uuid": "7300eca6-19cf-48bc-aaa4-b9bb0e51ec1c",
+          "keyValues": [],
+          "concept": {
+            "name": "Topics Covered",
+            "uuid": "671ac114-2cc1-4c75-a234-315bd03f5271",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 6,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Action Items",
+          "uuid": "74c760e9-69d7-4714-9b4c-7b6df92d7c26",
+          "keyValues": [],
+          "concept": {
+            "name": "Action Items",
+            "uuid": "23db0528-8cad-4659-b0f5-c5048251f7c2",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 7,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}

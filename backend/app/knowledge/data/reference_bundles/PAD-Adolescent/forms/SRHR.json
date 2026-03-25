@@ -1,0 +1,106 @@
+{
+  "name": "SRHR",
+  "uuid": "69c5989f-79b1-4f9c-9c2c-a7a3019b3874",
+  "formType": "ProgramEncounter",
+  "formElementGroups": [
+    {
+      "uuid": "2ef9365b-bd0f-4ebc-a3e6-bd39a6e3bc20",
+      "name": "SRHR Training",
+      "displayOrder": 1,
+      "formElements": [
+        {
+          "name": "Training Type",
+          "uuid": "01aa561c-df82-42d6-824e-6f5592eae012",
+          "keyValues": [],
+          "concept": {
+            "name": "Training Type",
+            "uuid": "22b4652e-dc32-40f5-87c9-e56df59d8d4b",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "MultiSelect",
+          "mandatory": true
+        },
+        {
+          "name": "Name of the participant",
+          "uuid": "7923a035-ceda-431b-bc61-dd7d07664c2a",
+          "keyValues": [],
+          "concept": {
+            "name": "Name of the participant",
+            "uuid": "0240adc2-86ca-47ca-af66-5d6326d98d62",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 2,
+          "type": "SingleSelect",
+          "mandatory": true
+        },
+        {
+          "name": "No. of participant",
+          "uuid": "193e0b57-c95e-43a8-b7de-d2831b75536e",
+          "keyValues": [],
+          "concept": {
+            "name": "No. of participant",
+            "uuid": "1d7d9131-1b7b-4072-84a9-149ffa4421d0",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 3,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "3d58a7d7-296d-45d9-b8b2-0afaf6f60278",
+      "name": "RQG Start: SRHR Training",
+      "displayOrder": 2,
+      "formElements": [
+        {
+          "name": "Materials distributed type",
+          "uuid": "594481d8-0646-4062-9cc3-47a6567e41d4",
+          "keyValues": [],
+          "concept": {
+            "name": "Materials distributed type",
+            "uuid": "3eb2a07d-cd9e-4d05-ac41-561fe1c2a533",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "MultiSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "4e7f7dbe-086e-49f3-8d59-435243a5760a",
+      "name": "RQG End: SRHR Training",
+      "displayOrder": 3,
+      "formElements": [
+        {
+          "name": "Count of distributed materials",
+          "uuid": "2773075b-5d7b-4f3c-a7db-bd572c6bd5fe",
+          "keyValues": [],
+          "concept": {
+            "name": "Count of distributed materials",
+            "uuid": "4bbded37-da04-40be-9adb-c821693d080e",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 1,
+          "type": "SingleSelect",
+          "mandatory": true
+        }
+      ],
+      "timed": false
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}

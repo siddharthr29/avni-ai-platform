@@ -1,0 +1,7 @@
+{
+  "name" : "Attendance Encounter Cancellation",
+  "uuid" : "3d0ffc87-c29e-4efc-8029-7fe7acca2404",
+  "formType" : "IndividualEncounterCancellation",
+  "formElementGroups" : [ ],
+  "decisionConcepts" : [ ]
+}

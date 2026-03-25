@@ -1,42 +1,91 @@
 version: "3.9"
 
 services:
+  # PostgreSQL with pgvector extension
+  db:
+    image: pgvector/pgvector:pg16
+    container_name: avni-ai-db
+    environment:
+      POSTGRES_USER: avni
+      POSTGRES_PASSWORD: avni_ai_2026
+      POSTGRES_DB: avni_ai
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U avni -d avni_ai"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  # Ollama LLM server
+  ollama:
+    image: ollama/ollama:latest
+    container_name: avni-ai-ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:11434/api/tags || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+    # Uncomment for GPU support:
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: all
+    #           capabilities: [gpu]
+
+  # FastAPI backend
   backend:
     build:
       context: ./backend
       dockerfile: Dockerfile
     container_name: avni-ai-backend
+    environment:
+      DATABASE_URL: postgresql://avni:avni_ai_2026@db:5432/avni_ai
+      LLM_PROVIDER: ollama
+      OLLAMA_BASE_URL: http://ollama:11434
+      OLLAMA_MODEL: avni-coder
+      EMBEDDING_MODEL: all-MiniLM-L6-v2
+      AVNI_BASE_URL: https://app.avniproject.org
+      CORS_ORIGINS: http://localhost:5173,http://localhost:3000
+      API_KEYS: ""
+      RATE_LIMIT_RPM: "60"
     ports:
       - "8080:8080"
-    environment:
-      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
-      - AVNI_BASE_URL=${AVNI_BASE_URL:-https://staging.avniproject.org}
-      - AVNI_AUTH_TOKEN=${AVNI_AUTH_TOKEN}
-      - CLAUDE_MODEL=${CLAUDE_MODEL:-claude-sonnet-4-20250514}
-      - BUNDLE_OUTPUT_DIR=/tmp/avni_bundles
-      - MAX_TOKENS=${MAX_TOKENS:-4096}
-    volumes:
-      - ./backend:/app
-      - bundle_output:/tmp/avni_bundles
+    depends_on:
+      db:
+        condition: service_healthy
+      ollama:
+        condition: service_healthy
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
-      interval: 30s
-      timeout: 10s
+      test: ["CMD-SHELL", "curl -f http://localhost:8080/health || exit 1"]
+      interval: 15s
+      timeout: 5s
       retries: 3
-      start_period: 10s
     restart: unless-stopped
 
+  # Vite frontend (production nginx build)
   frontend:
     build:
       context: ./frontend
       dockerfile: Dockerfile
     container_name: avni-ai-frontend
     ports:
-      - "80:80"
+      - "5173:80"
     depends_on:
       backend:
         condition: service_healthy
     restart: unless-stopped
 
 volumes:
-  bundle_output:
+  pgdata:
+  ollama_data:
