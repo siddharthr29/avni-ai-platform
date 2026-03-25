@@ -16,9 +16,11 @@ COPY frontend/nginx.conf /etc/nginx/nginx.conf.template
 ENV PORT=80
 ENV BACKEND_URL=http://backend:8080
 
-# Startup: read system DNS resolver, substitute all env vars, start nginx
+# Startup: read system DNS (handle IPv6), substitute env vars, start nginx
 CMD sh -c "\
-  export NAMESERVER=\$(grep nameserver /etc/resolv.conf | head -1 | awk '{print \$2}') && \
-  [ -z \"\$NAMESERVER\" ] && export NAMESERVER='8.8.8.8' ; \
+  NAMESERVER=\$(awk '/^nameserver/ {print \$2}' /etc/resolv.conf | head -1) && \
+  case \"\$NAMESERVER\" in *:*) NAMESERVER=\"[\$NAMESERVER]\";; esac && \
+  [ -z \"\$NAMESERVER\" ] && NAMESERVER='8.8.8.8' ; \
+  export NAMESERVER && \
   envsubst '\$PORT \$BACKEND_URL \$NAMESERVER' < /etc/nginx/nginx.conf.template > /etc/nginx/conf.d/default.conf && \
   nginx -g 'daemon off;'"
