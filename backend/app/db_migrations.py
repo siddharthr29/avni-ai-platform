@@ -102,14 +102,21 @@ MIGRATIONS: list[tuple[int, str, str]] = [
             user_id         TEXT,
             org_id          TEXT,
             action          TEXT NOT NULL,
-            resource_type   TEXT NOT NULL,
+            resource_type   TEXT NOT NULL DEFAULT '',
             resource_id     TEXT,
             details         JSONB DEFAULT '{}'::jsonb,
             ip_address      TEXT,
             created_at      TIMESTAMPTZ DEFAULT now()
         );
-        CREATE INDEX IF NOT EXISTS idx_audit_log_user ON audit_log(user_id);
-        CREATE INDEX IF NOT EXISTS idx_audit_log_org ON audit_log(org_id);
+        -- Add user_id column if table was created by legacy MIGRATION_SQL with actor_id
+        DO $$ BEGIN
+            ALTER TABLE audit_log ADD COLUMN IF NOT EXISTS user_id TEXT;
+            ALTER TABLE audit_log ADD COLUMN IF NOT EXISTS org_id TEXT;
+            ALTER TABLE audit_log ADD COLUMN IF NOT EXISTS resource_type TEXT DEFAULT '';
+            ALTER TABLE audit_log ADD COLUMN IF NOT EXISTS resource_id TEXT;
+            ALTER TABLE audit_log ADD COLUMN IF NOT EXISTS ip_address TEXT;
+        EXCEPTION WHEN others THEN NULL;
+        END $$;
         CREATE INDEX IF NOT EXISTS idx_audit_log_action ON audit_log(action);
         CREATE INDEX IF NOT EXISTS idx_audit_log_created ON audit_log(created_at);
         """,
