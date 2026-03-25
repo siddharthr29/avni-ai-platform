@@ -26,3 +26,5 @@ sentry-sdk[fastapi]>=2.0.0
 prometheus_client>=0.20.0
 # Redis for rate limiting
 redis>=5.0.0
+# Encryption
+cryptography>=42.0.0
