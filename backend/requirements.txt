@@ -18,7 +18,7 @@ pgvector>=0.3.0
 # PageIndex (vectorless tree-based RAG)
 pymupdf>=1.26.0
 PyPDF2>=3.0.0
-tiktoken>=0.11.0
+tiktoken>=0.12.0
 pyyaml>=6.0.0
 # Error tracking
 sentry-sdk[fastapi]>=2.0.0
